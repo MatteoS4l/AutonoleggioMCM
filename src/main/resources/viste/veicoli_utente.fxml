@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerVeicoliUtente">
+   <children>
+      <ImageView fitHeight="100.0" fitWidth="650.0" opacity="0.16" pickOnBounds="true">
+         <image>
+            <Image url="@../immagini/logo-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Pane prefHeight="100.0" prefWidth="650.0">
+         <children>
+            <DatePicker fx:id="dataInizio" layoutX="173.0" layoutY="14.0" prefHeight="25.0" prefWidth="152.0" promptText="Data inizio noleggio" />
+            <DatePicker fx:id="dataFine" layoutX="173.0" layoutY="67.0" prefHeight="25.0" prefWidth="152.0" promptText="Data fine noleggio" />
+            <TextField fx:id="txt_tariffaKMmin" alignment="CENTER" layoutX="373.0" layoutY="67.0" prefHeight="25.0" prefWidth="54.0" promptText="Min" />
+            <TextField fx:id="txt_modello" layoutX="373.0" layoutY="14.0" prefHeight="25.0" prefWidth="108.0" promptText="Modello" />
+            <TextField fx:id="txt_tariffaGiornomin" alignment="CENTER" layoutX="528.0" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" promptText="Min" />
+            <ComboBox fx:id="box_alimentazione" layoutX="27.0" layoutY="67.0" prefHeight="25.0" prefWidth="124.0" promptText="Alimentazione" />
+            <ComboBox fx:id="box_tipologia" layoutX="27.0" layoutY="14.0" prefHeight="25.0" prefWidth="124.0" promptText="Tipologia" />
+            <Button layoutX="528.0" layoutY="67.0" mnemonicParsing="false" onAction="#applica_filtri" prefHeight="25.0" prefWidth="108.0" text="Applica">
+               <textFill>
+                  <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </RadialGradient>
+               </textFill>
+            </Button>
+            <Label layoutX="380.0" layoutY="50.0" prefHeight="17.0" prefWidth="94.0" text="Tariffa €/1000 km" />
+            <TextField fx:id="txt_tariffaKMmax" alignment="CENTER" layoutX="427.0" layoutY="67.0" prefHeight="25.0" prefWidth="54.0" promptText="Max" />
+            <Label layoutX="541.0" layoutY="-1.0" text="Tariffa €/giorno" />
+            <TextField fx:id="txt_tariffaGiornomax" alignment="CENTER" layoutX="582.0" layoutY="14.0" prefHeight="25.0" prefWidth="54.0" promptText="Max" />
+         </children>
+      </Pane>
+      <TableView fx:id="lista_filtrata" layoutY="110.0" prefHeight="340.0" prefWidth="650.0">
+        <columns>
+          <TableColumn fx:id="col_veicolo" prefWidth="139.0" text="Veicolo" />
+          <TableColumn fx:id="col_alimentazione" minWidth="0.0" prefWidth="119.0" text="Alimentazione" />
+            <TableColumn fx:id="col_tipologia" prefWidth="112.0" text="Tipologia" />
+            <TableColumn editable="false" prefWidth="134.0" text="Tariffe">
+               <columns>
+                  <TableColumn fx:id="col_km" prefWidth="75.0" text="€/1000 Km" />
+                  <TableColumn fx:id="col_giorno" prefWidth="75.0" text="€/giorno" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="col_azioni" editable="false" maxWidth="274.0" minWidth="0.0" prefWidth="127.0" text="Azioni" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

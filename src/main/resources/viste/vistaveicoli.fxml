@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerVistaVeicoli">
+   <children>
+      <TableView fx:id="tabella_veicoli" layoutX="14.0" layoutY="78.0" prefHeight="360.0" prefWidth="625.0">
+        <columns>
+          <TableColumn fx:id="modello_veicolo" prefWidth="110.0" text="Modello" />
+            <TableColumn fx:id="tipologia_veicolo" prefWidth="110.0" text="Tipologia" />
+            <TableColumn fx:id="prezzo_km_veicolo" prefWidth="95.0" text="€/1000km" />
+            <TableColumn fx:id="prezzo_giorno_veicolo" prefWidth="95.0" text="€/giorno" />
+            <TableColumn fx:id="stato_veicolo" prefWidth="119.0" text="Stato" />
+            <TableColumn fx:id="azioni_veicolo" minWidth="0.0" prefWidth="94.0" text="Azioni" />
+        </columns>
+      </TableView>
+      <Button fx:id="aggiungi_veicolo_button" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#AggiungiVeicolo" prefHeight="31.0" prefWidth="139.0" text="Aggiungi veicolo" />
+      <ComboBox fx:id="filtro_stato_veicolo" layoutX="219.0" layoutY="24.0" onAction="#FiltraVeicoli" prefHeight="31.0" prefWidth="139.0" promptText="Stato veicolo" />
+   </children>
+</AnchorPane>

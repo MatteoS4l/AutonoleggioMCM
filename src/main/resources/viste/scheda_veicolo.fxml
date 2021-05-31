@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerSchedaVeicolo">
+   <children>
+      <ImageView fitHeight="450.0" fitWidth="650.0" opacity="0.29" pickOnBounds="true">
+         <image>
+            <Image url="@../immagini/sfondo%20aggiungi.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="234.0" layoutY="25.0" text="Specifiche Veicolo">
+         <font>
+            <Font name="Britannic Bold" size="27.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Label layoutX="59.0" layoutY="81.0" text="Tipologia">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Label layoutX="66.0" layoutY="200.0" text="Modello">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Label layoutX="37.0" layoutY="317.0" text="Alimentazione">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <TextField fx:id="tf_modello" alignment="CENTER" layoutX="27.0" layoutY="246.0">
+         <font>
+            <Font name="Dubai Medium" size="13.0" />
+         </font>
+         <effect>
+            <Glow level="0.0" />
+         </effect>
+      </TextField>
+      <TextField fx:id="tf_alimentazione" alignment="CENTER" editable="false" layoutX="27.0" layoutY="364.0">
+         <font>
+            <Font name="Dubai Medium" size="13.0" />
+         </font>
+         <effect>
+            <Glow level="0.0" />
+         </effect>
+      </TextField>
+      <Label alignment="CENTER" layoutX="318.0" layoutY="81.0" text="Stato">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <TextField fx:id="tf_targa" alignment="CENTER" layoutX="268.0" layoutY="246.0">
+         <font>
+            <Font name="Dubai Medium" size="13.0" />
+         </font>
+         <effect>
+            <Glow level="0.0" />
+         </effect>
+      </TextField>
+      <Label alignment="CENTER" layoutX="315.0" layoutY="200.0" text="Targa">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Label layoutX="277.0" layoutY="317.0" text="Kilometraggio">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <TextField fx:id="tf_kilometraggio" alignment="CENTER" layoutX="268.0" layoutY="364.0">
+         <font>
+            <Font name="Dubai Medium" size="13.0" />
+         </font>
+         <effect>
+            <Glow level="0.0" />
+         </effect>
+      </TextField>
+      <TextField fx:id="tf_tariffaKM" alignment="CENTER" layoutX="470.0" layoutY="122.0" prefHeight="30.0" prefWidth="62.0">
+         <font>
+            <Font name="Dubai Medium" size="13.0" />
+         </font>
+         <effect>
+            <Glow level="0.0" />
+         </effect>
+      </TextField>
+      <Label alignment="CENTER" layoutX="520.0" layoutY="81.0" text="Tariffa">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <TextField fx:id="tf_tariffaGiorno" alignment="CENTER" layoutX="574.0" layoutY="122.0" prefHeight="30.0" prefWidth="62.0">
+         <font>
+            <Font name="Dubai Medium" size="13.0" />
+         </font>
+         <effect>
+            <Glow level="0.0" />
+         </effect>
+      </TextField>
+      <Label alignment="CENTER" layoutX="569.0" layoutY="152.0" prefHeight="22.0" prefWidth="72.0" text="€/giorno">
+         <font>
+            <Font name="Copperplate Gothic Bold" size="12.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Label alignment="CENTER" layoutX="465.0" layoutY="152.0" prefHeight="22.0" prefWidth="72.0" text="€/1000Km">
+         <font>
+            <Font name="Copperplate Gothic Bold" size="12.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Label alignment="CENTER" layoutX="470.0" layoutY="200.0" text="Feedback utenti">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Separator layoutY="65.0" prefHeight="3.0" prefWidth="650.0" />
+      <ChoiceBox fx:id="tf_stato" layoutX="268.0" layoutY="122.0" prefHeight="30.0" prefWidth="147.0" />
+      <Button fx:id="modifica_button" layoutX="532.0" layoutY="328.0" mnemonicParsing="false" onAction="#ModificaVeicolo" prefHeight="44.0" prefWidth="85.0" style="-fx-background-color: #77e169;" text="Modifica">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="elimina_button" layoutX="532.0" layoutY="379.0" mnemonicParsing="false" onAction="#EliminaVeicolo" prefHeight="44.0" prefWidth="85.0" style="-fx-background-color: #da4a4a;" text="Elimina">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="506.0" layoutY="246.0" mnemonicParsing="false" onAction="#VisualizzaFeedback" prefHeight="35.0" prefWidth="91.0" text="Visualizza">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <ChoiceBox fx:id="tf_tipologia" layoutX="37.0" layoutY="122.0" prefHeight="30.0" prefWidth="147.0" />
+   </children>
+</AnchorPane>

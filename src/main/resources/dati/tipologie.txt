@@ -1,0 +1,6 @@
+9
+1,berlina
+2,utilitaria
+3,sportiva
+4,lusso
+8,4x4

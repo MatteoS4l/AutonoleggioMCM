@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerFeedback">
+   <children>
+      <TableView fx:id="tabella_feedback" layoutX="21.0" layoutY="73.0" prefHeight="361.0" prefWidth="610.0">
+        <columns>
+          <TableColumn fx:id="utente_tabella" prefWidth="110.0" text="Utente" />
+          <TableColumn fx:id="feedback_tabella" prefWidth="498.0" text="Feedback" />
+        </columns>
+      </TableView>
+      <Label fx:id="label_veicolo" layoutX="21.0" layoutY="21.0" prefHeight="22.0" prefWidth="543.0" text="Feedback di: ">
+         <font>
+            <Font name="Britannic Bold" size="21.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.47619047619047616" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3676975945017182">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.40789473056793213" green="0.0415448360145092" blue="0.0415448360145092" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <ImageView fitHeight="33.0" fitWidth="34.0" layoutX="597.0" layoutY="12.0" onMouseClicked="#TornaIndietro" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/indietro.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

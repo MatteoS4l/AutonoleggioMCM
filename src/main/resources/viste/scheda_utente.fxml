@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerSchedaUtente">
+   <children>
+      <TextField fx:id="nome" layoutX="119.0" layoutY="48.0" prefHeight="35.0" prefWidth="155.0" promptText="Nome" />
+      <TextField fx:id="username" layoutX="119.0" layoutY="196.0" prefHeight="35.0" prefWidth="155.0" promptText="Username" />
+      <TextField fx:id="cognome" layoutX="119.0" layoutY="122.0" prefHeight="35.0" prefWidth="155.0" promptText="Cognome" />
+      <Button fx:id="elimina_button" layoutX="204.0" layoutY="370.0" mnemonicParsing="false" onAction="#Elimina" prefHeight="47.0" prefWidth="96.0" style="-fx-background-color: #F74949;" text="ELIMINA">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="modifica_button" layoutX="350.0" layoutY="370.0" mnemonicParsing="false" onAction="#ConfermaModifica" prefHeight="47.0" prefWidth="96.0" style="-fx-background-color: #AFFA64;" text="MODIFICA">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Button>
+      <TextField fx:id="password" layoutX="119.0" layoutY="267.0" prefHeight="35.0" prefWidth="155.0" promptText="Password" />
+      <Label layoutX="37.0" layoutY="56.0" prefHeight="19.0" prefWidth="56.0" text="Nome">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="130.0" prefHeight="19.0" prefWidth="74.0" text="Cognome">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="204.0" prefHeight="19.0" prefWidth="74.0" text="Username">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="275.0" prefHeight="19.0" prefWidth="74.0" text="Password">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="data_nascita" layoutX="407.0" layoutY="48.0" prefHeight="35.0" prefWidth="155.0" />
+      <ChoiceBox fx:id="sesso" layoutX="407.0" layoutY="122.0" prefHeight="35.0" prefWidth="155.0" />
+      <ChoiceBox fx:id="tipologia" layoutX="407.0" layoutY="196.0" prefHeight="35.0" prefWidth="155.0" />
+      <Label fx:id="label_errore" alignment="CENTER" layoutX="180.0" layoutY="324.0" prefHeight="19.0" prefWidth="290.0" textFill="#b50808">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="312.0" layoutY="56.0" prefHeight="19.0" prefWidth="96.0" text="Data di nascita">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="342.0" layoutY="130.0" prefHeight="19.0" prefWidth="56.0" text="Sesso">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="332.0" layoutY="204.0" prefHeight="19.0" prefWidth="56.0" text="Tipologia">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
