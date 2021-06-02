@@ -2,6 +2,7 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -52,7 +53,10 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     @FXML
     void calcolaPreventivo(ActionEvent event) 
     {
-    	
+    	LocalDate a = data_inizio_nol.getValue();
+    	LocalDate b = data_fine_nol.getValue();
+    	//long daysBetween = ChronoUnit.DAYS.b
+    	System.out.println("ciao");
 
     }
 
