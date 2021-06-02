@@ -6,6 +6,9 @@ import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
+import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
+import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
@@ -24,10 +27,11 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class ControllerVistaVeicoli implements Initializable, DataInitializable<Object,Object>
+public class ControllerVistaVeicoli implements Initializable, DataInitializable<Utente,Object>
 {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
+	private Utente utente;
 
     @FXML
     private TableView<Veicolo> tabella_veicoli;
@@ -59,7 +63,7 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
     
     @FXML	// AGGIUNGI
     void AggiungiVeicolo(ActionEvent event)
-    {	dispatcher.renderView("agg_mod_veicolo", null, null);    }
+    {	dispatcher.renderView("agg_mod_veicolo", utente, null);    }
     
     
     @FXML	// FILTRA VEICOLI
@@ -101,7 +105,11 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 						veicoliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								dispatcher.renderView("scheda_veicolo", param.getValue(), null);
+								if(utente instanceof Amministratore)
+								{	dispatcher.renderView("scheda_veicolo", param.getValue(), utente);	}
+								if(utente instanceof Operatore)
+								{	dispatcher.renderView("feedback", param.getValue(), utente);	}		
+								
 							}
 						});
 						return new SimpleObjectProperty<Button>(veicoliButton);
@@ -109,6 +117,16 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 				});	
 		filtro_stato_veicolo.getItems().addAll(veicoloservice.GetListStatoVeicolo());
 		filtro_stato_veicolo.getItems().add("Tutte");
+	}
+
+
+	@Override
+	public void initializeData(Utente utente)
+	{
+		this.utente = utente;	
+		if(utente instanceof Operatore)
+		{	aggiungi_veicolo_button.setVisible(false);	}
+		
 	}
 
 

@@ -19,7 +19,6 @@ import javafx.scene.control.TextField;
 
 public class ControllerLogin implements Initializable, DataInitializable<Utente,Object>
 {
-	
 	private ViewDispatcher dispatcher;
 	private Utente utente;
 	private UtenteService utenteservice;

@@ -9,5 +9,5 @@ public interface FeedbackService
 	
 	void createFeedback(Feedback feedback) throws BusinessException;
 	
-	List<Feedback> getListFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException;
+	List<Feedback> getListFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException;
 }

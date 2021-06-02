@@ -14,8 +14,12 @@ public class RAMAssistenzaService implements AssistenzaService
 
 	
 	@Override	// CREA
-	public void createAssistenza(Assistenza assistenza) throws BusinessException
-	{	listassistenza.add(assistenza);		}
+	public void createAssistenza(String dettagli) throws BusinessException
+	{	
+		Assistenza a = new Assistenza();
+		a.setDettagli(dettagli);
+		listassistenza.add(a);
+	}
 
 	
 	@Override	// GET ASSISTENZA ID

@@ -3,18 +3,12 @@ package it.univaq.disim.oop.MCMprogetto.domain;
 public class Assistenza
 {
 	private int ID;
-	private int cellulare; 
 	private boolean servita;
 	private String dettagli;
+	private String risposta;
 	
 	
 	//	GET E SET
-	public int getCellulare() {
-		return cellulare;
-	}
-	public void setCellulare(int cellulare) {
-		this.cellulare = cellulare;
-	}
 	public String getDettagli() {
 		return dettagli;
 	}
@@ -32,6 +26,12 @@ public class Assistenza
 	}
 	public void setServita(boolean servita) {
 		this.servita = servita;
+	}
+	public String getRisposta() {
+		return risposta;
+	}
+	public void setRisposta(String risposta) {
+		this.risposta = risposta;
 	}
 	
 	

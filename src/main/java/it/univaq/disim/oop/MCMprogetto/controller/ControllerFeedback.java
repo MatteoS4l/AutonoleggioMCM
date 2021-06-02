@@ -3,11 +3,13 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import it.univaq.disim.oop.MCMprogetto.business.FeedbackNonTrovatoException;
+import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
+import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
 import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
+import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
+import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleStringProperty;
@@ -24,11 +26,12 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
-public class ControllerFeedback implements Initializable, DataInitializable<Veicolo,Object>
+public class ControllerFeedback implements Initializable, DataInitializable<Veicolo,Utente>
 {
 	private ViewDispatcher dispatcher;
 	private FeedbackService feedbackservice;
 	private Veicolo veicolo;
+	private Utente utente;
 	
     @FXML
     private TableView<Feedback> tabella_feedback;
@@ -51,14 +54,15 @@ public class ControllerFeedback implements Initializable, DataInitializable<Veic
     
     
     
-    
-    
-    
-    
-    
     @FXML	// TORNA INDIETRO
     void TornaIndietro(MouseEvent event)
-    {	dispatcher.renderView("scheda_veicolo", veicolo ,null);	}
+    {	
+    	if(utente instanceof Amministratore)
+    	{	dispatcher.renderView("scheda_veicolo", veicolo ,null);	 }
+    	
+    	if(utente instanceof Operatore)
+    	{	dispatcher.renderView("vistaveicoli", utente ,null);	}
+    }
 
 
 
@@ -68,9 +72,12 @@ public class ControllerFeedback implements Initializable, DataInitializable<Veic
     
 
 	@Override
-	public void initializeData(Veicolo veicolo)
+	public void initializeData(Veicolo veicolo, Utente utente)
 	{
 		this.veicolo = veicolo;
+		this.utente = utente;
+		
+		label_veicolo.setText("Feedback Di: " + veicolo.getModello());
 		
 		feedback_tabella.setCellValueFactory(new PropertyValueFactory<Feedback,String>("feedback"));
 		utente_tabella.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Feedback, String>, ObservableValue<String>>()
@@ -83,7 +90,7 @@ public class ControllerFeedback implements Initializable, DataInitializable<Veic
 		List<Feedback> listafeedback = null;
     	try
     	{	listafeedback = feedbackservice.getListFeedback(veicolo);	} 
-    	catch (FeedbackNonTrovatoException e)
+    	catch (BusinessException e)
     	{	/* nessun feedback per questo veicolo */	}
     	ObservableList<Feedback> listaFeed = FXCollections.observableList(listafeedback);
     	tabella_feedback.setItems(listaFeed);

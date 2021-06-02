@@ -14,6 +14,7 @@ public class Noleggio
 	private LocalDateTime data_inizio_noleggio;
 	private LocalDateTime data_fine_noleggio;
 	private int km_fatti;
+	private boolean servita;
 	
 	
 	
@@ -77,6 +78,12 @@ public class Noleggio
 	}
 	public void setKm_fatti(int km_fatti) {
 		this.km_fatti = km_fatti;
+	}
+	public boolean isServita() {
+		return servita;
+	}
+	public void setServita(boolean servita) {
+		this.servita = servita;
 	}
 	
 

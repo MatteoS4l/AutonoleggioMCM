@@ -4,7 +4,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 
 public interface AssistenzaService
 {
-	void createAssistenza(Assistenza assistenza) throws BusinessException;
+	void createAssistenza(String dettagli) throws BusinessException;
 	
 	Assistenza getAssistenzaByID(int id) throws BusinessException;
 	

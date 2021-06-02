@@ -93,6 +93,7 @@ public class ViewDispatcher
 		{
 			View<T,E> view = loadView(viewName);
 			DataInitializable<T,E> controller = view.getController();
+			controller.initializeData(data, data2);
 			controller.initializeData(data);
 			layout.setCenter(view.getView());
 		}

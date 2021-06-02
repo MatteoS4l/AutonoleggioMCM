@@ -4,9 +4,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
+import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
@@ -190,8 +190,8 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 	
 	
 	
-	//	INTERSEZIONE FRA LE LISTE
-	private List<Veicolo> Intersezione(List<Veicolo> list1, List<Veicolo> list2)
+//	INTERSEZIONE FRA LE LISTE
+	public List<Veicolo> Intersezione(List<Veicolo> list1, List<Veicolo> list2)
 	{
         List<Veicolo> list = new ArrayList<Veicolo>();
         for(int i=0; i<list1.size(); i++)

@@ -6,16 +6,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
-import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
-import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
-import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 
 public class FileVeicoloService implements VeicoloService
-{// id, targa, tipologia, modello, alimentazione, manutenzione, disponibilita, stato, chilometri, tarifKM, tarifperiodoalgiorno, ID del noleggio
+{// id, targa, tipologia, modello, alimentazione, manutenzione, disponibilita, stato, chilometri, tarifKM, tarifperiodoalgiorno
 
 	@Override	// GET LISTA VEICOLI STATO
 	public List<Veicolo> GetListaVeicoliByStato(String stato) throws BusinessException
@@ -41,7 +38,6 @@ public class FileVeicoloService implements VeicoloService
 					veicolo.setChilometri(Integer.parseInt(colonne[8]));
 					veicolo.setTariffa_chilometraggio(Double.parseDouble(colonne[9]));
 					veicolo.setTariffa_periodo(Double.parseDouble(colonne[10]));
-					veicolo.addNoleggio(TrovaNoleggio(Integer.parseInt(colonne[11])));
 					
 					listacompleta.add(veicolo);
 				}
@@ -78,7 +74,6 @@ public class FileVeicoloService implements VeicoloService
 					veicolo.setChilometri(Integer.parseInt(colonne[8]));
 					veicolo.setTariffa_chilometraggio(Double.parseDouble(colonne[9]));
 					veicolo.setTariffa_periodo(Double.parseDouble(colonne[10]));
-					veicolo.addNoleggio(TrovaNoleggio(Integer.parseInt(colonne[11])));
 					
 					listacompleta.add(veicolo);
 				}
@@ -114,7 +109,6 @@ public class FileVeicoloService implements VeicoloService
 					veicolo.setChilometri(Integer.parseInt(colonne[8]));
 					veicolo.setTariffa_chilometraggio(Double.parseDouble(colonne[9]));
 					veicolo.setTariffa_periodo(Double.parseDouble(colonne[10]));
-					veicolo.addNoleggio(TrovaNoleggio(Integer.parseInt(colonne[11])));
 					
 					listacompleta.add(veicolo);
 				}
@@ -151,7 +145,6 @@ public class FileVeicoloService implements VeicoloService
 					veicolo.setChilometri(Integer.parseInt(colonne[8]));
 					veicolo.setTariffa_chilometraggio(Double.parseDouble(colonne[9]));
 					veicolo.setTariffa_periodo(Double.parseDouble(colonne[10]));
-					veicolo.addNoleggio(TrovaNoleggio(Integer.parseInt(colonne[11])));
 					
 					listacompleta.add(veicolo);
 				}
@@ -188,7 +181,6 @@ public class FileVeicoloService implements VeicoloService
 					veicolo.setChilometri(Integer.parseInt(colonne[8]));
 					veicolo.setTariffa_chilometraggio(Double.parseDouble(colonne[9]));
 					veicolo.setTariffa_periodo(Double.parseDouble(colonne[10]));
-					veicolo.addNoleggio(TrovaNoleggio(Integer.parseInt(colonne[11])));
 					
 					listacompleta.add(veicolo);
 				}
@@ -225,7 +217,6 @@ public class FileVeicoloService implements VeicoloService
 					veicolo.setChilometri(Integer.parseInt(colonne[8]));
 					veicolo.setTariffa_chilometraggio(Double.parseDouble(colonne[9]));
 					veicolo.setTariffa_periodo(Double.parseDouble(colonne[10]));
-					veicolo.addNoleggio(TrovaNoleggio(Integer.parseInt(colonne[11])));
 					
 					listacompleta.add(veicolo);
 				}
@@ -391,7 +382,7 @@ public class FileVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET VEICOLO
-	public Veicolo getVeicoloById(int id) throws VeicoloNonTrovatoException  
+	public Veicolo getVeicoloById(int id) throws NumberFormatException, BusinessException  
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("veicoli");	
@@ -400,18 +391,17 @@ public class FileVeicoloService implements VeicoloService
 				if(Integer.parseInt(righe[0]) == id)
 				{	Veicolo veicolo = new Veicolo();
 				
-					veicolo.setID(Integer.parseInt(righe[0]));
-					veicolo.setTarga(righe[1]);
-					veicolo.setTipologia(righe[2]);
-					veicolo.setModello(righe[3]);
-					veicolo.setAlimentazione(righe[4]);
-					veicolo.setManutenzione(Boolean.parseBoolean(righe[5]));
-					veicolo.setDisponibilita(Boolean.parseBoolean(righe[6]));
-					veicolo.setStato(righe[7]);
-					veicolo.setChilometri(Integer.parseInt(righe[8]));
-					veicolo.setTariffa_chilometraggio(Double.parseDouble(righe[9]));
-					veicolo.setTariffa_periodo(Double.parseDouble(righe[10]));
-					veicolo.addNoleggio(TrovaNoleggio(Integer.parseInt(righe[11])));
+				veicolo.setID(Integer.parseInt(righe[0]));
+				veicolo.setTarga(righe[1]);
+				veicolo.setTipologia(righe[2]);
+				veicolo.setModello(righe[3]);
+				veicolo.setAlimentazione(righe[4]);
+				veicolo.setManutenzione(Boolean.parseBoolean(righe[5]));
+				veicolo.setDisponibilita(Boolean.parseBoolean(righe[6]));
+				veicolo.setStato(righe[7]);
+				veicolo.setChilometri(Integer.parseInt(righe[8]));
+				veicolo.setTariffa_chilometraggio(Double.parseDouble(righe[9]));
+				veicolo.setTariffa_periodo(Double.parseDouble(righe[10]));
 					
 					return veicolo;
 				}
@@ -424,15 +414,6 @@ public class FileVeicoloService implements VeicoloService
 	}
 	
 	
-	// TROVA NOLEGGIO
-	private Noleggio TrovaNoleggio(int ID)
-	{
-		NoleggioService noleggioservice = new FileNoleggioService();
-		try
-		{	return noleggioservice.FindNoleggio(ID);	}
-		catch (NoleggioNonTrovatoException e)
-		{	return null;	}
-	}
 	
 	//	GIA ESISTENTE
 	private Boolean giaEsistente(String targa) throws BusinessException
@@ -445,10 +426,6 @@ public class FileVeicoloService implements VeicoloService
 		}
 		return false;
 	}
-
-
-	
-
 
 	
 

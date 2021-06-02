@@ -39,6 +39,7 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     
     
     
+    
     public ControllerSchedaNoleggio ()
     {
     	dispatcher = ViewDispatcher.getInstance();
@@ -63,6 +64,13 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     	
 
     }
+    
+    
+    @FXML
+    void SelezionaPagamento(ActionEvent event) {
+
+    }
+    
 
     @FXML
     void visualizzaFeed(ActionEvent event) 

@@ -27,16 +27,22 @@ public class ControllerLayout implements Initializable, DataInitializable<Utente
 	
 	private static final MenuElement[] MENU_ADMIN =
 	{ 	
-			new MenuElement("Lista utenti", "vistautenti"),
-			new MenuElement("Lista veicoli", "vistaveicoli"),
-			new MenuElement("Noleggi", "vistanoleggi"),
-			new MenuElement("Tipologie veicoli", "vistatipologie")
-			
+		new MenuElement("Lista utenti", "vistautenti"),
+		new MenuElement("Lista veicoli", "vistaveicoli"),
+		new MenuElement("Noleggi", "vistanoleggi"),
+		new MenuElement("Tipologie veicoli", "vistatipologie")		
 	};
 	
 	private static final MenuElement[] MENU_CLIENTE =
 	{
-			new MenuElement("Noleggi", "veicoli_utente")
+		new MenuElement("Noleggia veicolo", "veicoli_utente"),
+		new MenuElement("I miei noleggi", "noleggi_utente"),
+		new MenuElement("Notifiche", "notifiche")
+	};
+	
+	private static final MenuElement[] MENU_OPERATORE =
+	{
+		new MenuElement("Lista Veicoli", "vistaveicoli"),
 	};
 	
 	
@@ -68,30 +74,27 @@ public class ControllerLayout implements Initializable, DataInitializable<Utente
 	@Override
 	public void initializeData(Utente utente)
 	{
-		System.out.println("layout");
+		System.out.println(utente.getNome());
 		this.utente = utente;
 		barra_menu.getChildren().add(createButton(MENU_HOME));
 		barra_menu.getChildren().add(new Separator());
 		
 		if(utente instanceof Amministratore)
 		{
-			System.out.println("amministratore");
-			
 			for (MenuElement menuElement : MENU_ADMIN)
 			{	barra_menu.getChildren().add(createButton(menuElement));	}
-			
 		}
 		
 		if(utente instanceof Operatore)
 		{
-			System.out.println("operatore");
+			for (MenuElement menuElement : MENU_OPERATORE)
+			{	barra_menu.getChildren().add(createButton(menuElement));	}
 		}
 		
 		if(utente instanceof Cliente)
 		{
 			for (MenuElement m: MENU_CLIENTE)
 			{	barra_menu.getChildren().add(createButton(m));	}	
-			//System.out.println("ciente");
 		}
 	}
 	

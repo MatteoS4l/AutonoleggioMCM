@@ -12,16 +12,18 @@ import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.fxml.Initializable;
 
-public class ControllerSchedaVeicolo implements Initializable, DataInitializable<Veicolo,Object>
+public class ControllerSchedaVeicolo implements Initializable, DataInitializable<Veicolo,Utente>
 {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
 	private TipologiaService tipologiaservice;
 	private Veicolo veicolo;
+	private Utente utente;
 	
     @FXML
     private TextField tf_modello;
@@ -76,7 +78,7 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
     	}
     	
     	veicoloservice.updateVeicolo(veicolo_modificato);
-    	dispatcher.renderView("vistaveicoli", null, null);
+    	dispatcher.renderView("vistaveicoli", utente, null);
     }
     
     
@@ -85,12 +87,12 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
     void EliminaVeicolo(ActionEvent event) throws VeicoloNonTrovatoException
     {
     	veicoloservice.deleteVeicolo(veicolo);
-    	dispatcher.renderView("vistaveicoli", null, null);
+    	dispatcher.renderView("vistaveicoli", utente, null);
     }
     
     @FXML	// VEDI FEEDBACK
     void VisualizzaFeedback(ActionEvent event) 
-    {	dispatcher.renderView("feedback", veicolo, null);    }
+    {	dispatcher.renderView("feedback", veicolo, utente);    }
 
     
 	
@@ -117,9 +119,10 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
 	
 	
 	@Override
-	public void initializeData(Veicolo veicolo)
+	public void initializeData(Veicolo veicolo, Utente utente)
 	{
 		this.veicolo = veicolo;
+		this.utente = utente;
 		
 		tf_modello.setText(veicolo.getModello());
 		tf_tipologia.setValue(veicolo.getTipologia());

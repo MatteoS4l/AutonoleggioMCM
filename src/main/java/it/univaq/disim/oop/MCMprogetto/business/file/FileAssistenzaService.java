@@ -9,11 +9,10 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 
 public class FileAssistenzaService implements AssistenzaService
-{// id, dettagli
-	
+{// id, dettagli, servita(ture,false)
 	
 	@Override	// CREA
-	public void createAssistenza(Assistenza assistenza) throws BusinessException
+	public void createAssistenza(String dettagli) throws BusinessException
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("assistenza");
@@ -28,9 +27,7 @@ public class FileAssistenzaService implements AssistenzaService
 				StringBuilder row = new StringBuilder();
 				row.append(fileData.getCont());
 				row.append(Utility.SEPARATORE);
-				row.append(assistenza.getDettagli());
-				row.append(Utility.SEPARATORE);
-				row.append(assistenza.isServita());
+				row.append(dettagli);
 
 				writer.println(row.toString());
 			}
@@ -58,7 +55,6 @@ public class FileAssistenzaService implements AssistenzaService
 				
 					assistenza.setID(Integer.parseInt(righe[0]));
 					assistenza.setDettagli(righe[1]);
-					assistenza.setServita(Boolean.parseBoolean(righe[2]));
 
 					return assistenza;
 				}

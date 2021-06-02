@@ -1,11 +1,10 @@
-13
-1,EY532CD,lusso,Ferrari,benzina,false,false,disponibile,100,500.0,250.0,0
-2,CD595HD,sportiva,Mercedes classe A,benzina,false,false,in noleggio,544,55.0,0.1,0
-3,GF536DE,utilitaria,Fiat Panda,benzina,false,false,disponibile,0,86.0,41.0,0
-4,TD465SG,utilitaria,Toyota RAV 4,diesel,false,false,disponibile,12365,225.0,96.0,0
-5,ER643HH,sportiva,Audi A3,benzina,false,false,non disponibile,11546,189.0,110.0,0
-6,IK511VZ,berlina,Fiat 500,gpl,false,false,non disponibile,0,130.0,75.0,0
-7,DD432KO,berlina,Jeep Renegade,diesel,false,false,disponibile,45771,200.0,156.0,0
-8,AY432FH,berlina,Fiorino,gpl,false,false,in noleggio,8845,69.0,55.0,0
-9,EH647NB,4x4,Fiat Panda,benzina,false,false,non disponibile,66455,50.0,50.0,0
-12,1,berlina,a,benzina,false,false,disponibile,1,1.0,1.0,0
+10
+1,EY532CD,lusso,Ferrari,benzina,false,false,disponibile,100,500.0,250.0,
+2,CD595HD,sportiva,Mercedes classe A,benzina,false,false,in noleggio,544,55.0,0.1,
+3,GF536DE,utilitaria,Fiat Panda,benzina,false,false,disponibile,0,86.0,41.0,
+4,TD465SG,utilitaria,Toyota RAV 4,diesel,false,false,disponibile,12365,225.0,96.0,
+5,ER643HH,sportiva,Audi A3,benzina,false,false,non disponibile,11546,189.0,110.0,
+6,IK511VZ,berlina,Fiat 500,gpl,false,false,disponibile,0,130.0,75.0,
+7,DD432KO,berlina,Jeep Renegade,diesel,false,false,disponibile,45771,200.0,156.0,
+8,AY432FH,berlina,Fiorino,gpl,false,false,in noleggio,8845,69.0,55.0,
+9,EH647NB,4x4,Fiat Panda,benzina,false,false,non disponibile,66455,50.0,50.0,

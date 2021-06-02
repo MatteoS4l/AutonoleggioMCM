@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerNotifiche">
+   <children>
+      <TableView fx:id="tabella_notifiche_prenotazioni" layoutX="87.0" layoutY="49.0" prefHeight="134.0" prefWidth="476.0">
+        <columns>
+          <TableColumn fx:id="dettagli_prenotazioni" prefWidth="475.0" text="Dettagli" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tabella_notifiche_assistenza" layoutX="87.0" layoutY="251.0" prefHeight="134.0" prefWidth="476.0">
+        <columns>
+          <TableColumn fx:id="dettagli_assistenza" prefWidth="475.0" text="Dettagli" />
+        </columns>
+      </TableView>
+      <Label layoutX="266.0" layoutY="25.0" text="Notifiche prenotazioni" />
+      <Label layoutX="273.0" layoutY="225.0" text="Notifiche assistenza" />
+   </children>
+</AnchorPane>

@@ -1,7 +1,6 @@
 package it.univaq.disim.oop.MCMprogetto.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Veicolo
 {
@@ -17,8 +16,6 @@ public class Veicolo
 	private int chilometri;
 	private double tariffa_chilometraggio;
 	private double tariffa_periodo;
-	private ArrayList<Noleggio> noleggio;
-	
 	
 	
 	// GET E SET
@@ -94,15 +91,8 @@ public class Veicolo
 	public void setTariffa_periodo(double tariffa_periodo) {
 		this.tariffa_periodo = tariffa_periodo;
 	}
-	public List<Noleggio> getNoleggio() {
-		return noleggio;
-	}
-	public void addNoleggio(Noleggio noleggio) {
-		if(noleggio != null)
-		{	this.noleggio.add(noleggio);	}
 		
-	}
-	
+
 	
 	
 	@Override

@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class ControllerAggModVeicolo implements Initializable, DataInitializable<Object,Object>
+public class ControllerAggModVeicolo implements Initializable, DataInitializable<Utente,Object>
 {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
@@ -89,7 +89,6 @@ public class ControllerAggModVeicolo implements Initializable, DataInitializable
         	veicolo.setChilometri(Integer.parseInt(textfield_KmTot.getText()));
         	veicolo.setTariffa_chilometraggio(Double.parseDouble(textfield_km.getText()));
         	veicolo.setTariffa_periodo(Double.parseDouble(textfield_giorno.getText()));
-        	veicolo.addNoleggio(null);
         	
         	veicoloservice.createVeicolo(veicolo);
         	dispatcher.renderView("vistaveicoli", null, null);
@@ -128,6 +127,18 @@ public class ControllerAggModVeicolo implements Initializable, DataInitializable
 		choicebox_Stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
 		choicebox_Stato.setValue("disponibile");
 	}
+
+
+
+
+
+	@Override
+	public void initializeData(Utente utente)
+	{
+		this.utente = utente;
+	}
+	
+	
 	
 	
 

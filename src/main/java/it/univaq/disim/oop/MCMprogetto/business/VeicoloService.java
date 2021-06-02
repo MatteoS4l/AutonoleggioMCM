@@ -27,7 +27,7 @@ public interface VeicoloService
 	
 	String[] GetListAlimentazioneVeicolo();
 	
-	Veicolo getVeicoloById(int id) throws VeicoloNonTrovatoException;
+	Veicolo getVeicoloById(int id) throws VeicoloNonTrovatoException, NumberFormatException, BusinessException;
 	
 
 	
