@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
-import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
@@ -30,12 +30,14 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class ControllerVeicoliUtente implements Initializable, DataInitializable<Veicolo,Object>
+public class ControllerVeicoliUtente implements Initializable, DataInitializable<Utente,Object>
 {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
 	private TipologiaService tipologiaservice;
+	private Utente utente;
 
+	
     @FXML
     private DatePicker dataInizio;
     @FXML
@@ -171,7 +173,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 						noleggiaButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								dispatcher.renderView("scheda_noleggio", param.getValue(), null);
+								dispatcher.renderView("scheda_noleggio", param.getValue(), utente);
 							}
 						});
 						return new SimpleObjectProperty<Button>(noleggiaButton);
@@ -190,7 +192,22 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 	
 	
 	
-//	INTERSEZIONE FRA LE LISTE
+	
+	
+	
+	
+	@Override
+	public void initializeData(Utente utente)
+	{
+		this.utente = utente;
+	}
+
+
+
+
+
+
+	//	INTERSEZIONE FRA LE LISTE
 	public List<Veicolo> Intersezione(List<Veicolo> list1, List<Veicolo> list2)
 	{
         List<Veicolo> list = new ArrayList<Veicolo>();

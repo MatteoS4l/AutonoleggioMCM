@@ -7,6 +7,7 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
+import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
 import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
@@ -62,6 +63,9 @@ public class ControllerFeedback implements Initializable, DataInitializable<Veic
     	
     	if(utente instanceof Operatore)
     	{	dispatcher.renderView("vistaveicoli", utente ,null);	}
+    	
+    	if(utente instanceof Cliente)
+    	{	dispatcher.renderView("scheda_noleggio", veicolo, utente);	}
     }
 
 
@@ -71,6 +75,7 @@ public class ControllerFeedback implements Initializable, DataInitializable<Veic
     {  	utente_tabella.setStyle("-fx-alignment: CENTER;");	}
     
 
+    
 	@Override
 	public void initializeData(Veicolo veicolo, Utente utente)
 	{

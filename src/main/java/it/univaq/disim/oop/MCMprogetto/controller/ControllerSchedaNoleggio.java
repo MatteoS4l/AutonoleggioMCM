@@ -55,8 +55,8 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     {
     	LocalDate a = data_inizio_nol.getValue();
     	LocalDate b = data_fine_nol.getValue();
-    	//long daysBetween = ChronoUnit.DAYS.b
-    	System.out.println("ciao");
+    	long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(), data_fine_nol.getValue());
+    	System.out.println(daysBetween);
 
     }
 
@@ -75,12 +75,15 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
 
     }
     
+    
+    
 
-    @FXML
+    @FXML	//	FEEDBACK	
     void visualizzaFeed(ActionEvent event) 
-    {
-
-    }
+    {	dispatcher.renderView("feedback", veicolo, utente);    }
+    
+    
+    
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
