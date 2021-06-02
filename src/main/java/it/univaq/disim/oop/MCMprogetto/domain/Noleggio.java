@@ -15,6 +15,7 @@ public class Noleggio
 	private LocalDateTime data_fine_noleggio;
 	private int km_fatti;
 	private boolean servita;
+	private String dettagli;
 	
 	
 	
@@ -84,6 +85,12 @@ public class Noleggio
 	}
 	public void setServita(boolean servita) {
 		this.servita = servita;
+	}
+	public String getDettagli() {
+		return dettagli;
+	}
+	public void setDettagli(String dettagli) {
+		this.dettagli = dettagli;
 	}
 	
 
