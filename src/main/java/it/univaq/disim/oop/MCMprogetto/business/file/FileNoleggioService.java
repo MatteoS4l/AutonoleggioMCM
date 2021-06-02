@@ -57,6 +57,8 @@ public class FileNoleggioService implements NoleggioService
 				row.append(noleggio.getKm_fatti());
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.isServita());
+				row.append(Utility.SEPARATORE);
+				row.append("");
 				
 				writer.println(row.toString());
 			}
@@ -91,6 +93,8 @@ public class FileNoleggioService implements NoleggioService
 					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
 					noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
 					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
+					noleggio.setDettagli(colonne[9]);	
+					
 					
 					return noleggio;
 				}
@@ -123,7 +127,7 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
 				noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
 				noleggio.setServita(Boolean.parseBoolean(colonne[8]));
-				
+				noleggio.setDettagli(colonne[9]);	
 				listanoleggi.add(noleggio);
 			}
 			return listanoleggi;
@@ -157,7 +161,7 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
 				noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
 				noleggio.setServita(Boolean.parseBoolean(colonne[8]));
-				
+				noleggio.setDettagli(colonne[9]);
 				if(assistenza.equalsIgnoreCase("si"))
 				{
 					if(noleggio.getAssistenza() != null)
@@ -199,7 +203,7 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
 				noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
 				noleggio.setServita(Boolean.parseBoolean(colonne[8]));
-				
+				noleggio.setDettagli(colonne[9]);
 				if(noleggio.getData_inizio_noleggio().isBefore(LocalDateTime.now())
 				&& noleggio.getData_fine_noleggio().isAfter(LocalDateTime.now()))
 				{	listanoleggi.add(noleggio); 	}
@@ -238,7 +242,7 @@ public class FileNoleggioService implements NoleggioService
 					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
 					noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
 					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
-					
+					noleggio.setDettagli(colonne[9]);
 					listanoleggi.add(noleggio);
 				}
 			}
@@ -274,7 +278,7 @@ public class FileNoleggioService implements NoleggioService
 					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
 					noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
 					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
-					
+					noleggio.setDettagli(colonne[9]);
 					listaveicolo.add(noleggio.getVeicolo());
 				}
 			}

@@ -14,7 +14,7 @@
       <Button fx:id="bottone_preventivo" layoutX="298.0" layoutY="279.0" mnemonicParsing="false" onAction="#calcolaPreventivo" text="Calcola preventivo" />
       <DatePicker fx:id="data_inizio_nol" layoutX="102.0" layoutY="165.0" />
       <DatePicker fx:id="data_fine_nol" layoutX="314.0" layoutY="165.0" />
-      <Label layoutX="327.0" layoutY="320.0" text="Preventivo" />
+      <Label fx:id="label_preventivo" layoutX="327.0" layoutY="320.0" text="Preventivo" />
       <CheckBox layoutX="102.0" layoutY="89.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Alla consegna" />
       <CheckBox layoutX="221.0" layoutY="89.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Subito" />
    </children>
