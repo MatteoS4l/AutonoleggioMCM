@@ -58,7 +58,7 @@ public class FileNoleggioService implements NoleggioService
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.isServita());
 				row.append(Utility.SEPARATORE);
-				row.append("");
+				row.append("null");
 				
 				writer.println(row.toString());
 			}

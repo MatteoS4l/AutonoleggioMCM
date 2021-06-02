@@ -1,10 +1,8 @@
 package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
-
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -20,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import java.time.temporal.ChronoUnit;
 
 public class ControllerSchedaNoleggio implements Initializable, DataInitializable<Veicolo,Utente>
 {
@@ -62,17 +59,10 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     @FXML
     double calcolaPreventivo(ActionEvent event) 
     {
-<<<<<<< HEAD
     	long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(),  data_fine_nol.getValue());
     	label_preventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
     	return Double.parseDouble(label_preventivo.getText());
-=======
-    	LocalDate a = data_inizio_nol.getValue();
-    	LocalDate b = data_fine_nol.getValue();
-    	long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(), data_fine_nol.getValue());
-    	System.out.println(daysBetween);
 
->>>>>>> ce8633c762df3d185922d3fdc91d3f146ed3cddc
     }
 
     @FXML
@@ -90,7 +80,6 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     	noleggio.setData_fine_noleggio(data_fine_nol.getValue().atStartOfDay());
     	noleggio.setKm_fatti(0);
     	noleggio.setServita(false);
-    	noleggio.setDettagli(null);
     	
     	noleggioservice.createNoleggio(noleggio);
 
