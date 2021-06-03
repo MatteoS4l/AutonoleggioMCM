@@ -9,10 +9,10 @@ public interface TipologiaService
 	
 	void createTipologia(Tipologia tipologia) throws BusinessException;	
 	
-	void deleteTipologia(Tipologia tipologia) throws NumberFormatException, TipologiaNonTrovataException, BusinessException;
+	void deleteTipologia(Tipologia tipologia) throws TipologiaNonTrovataException, BusinessException;
 	
-	List<String> getAllTipologia() throws TipologiaNonTrovataException;
+	List<String> getAllTipologia() throws TipologiaNonTrovataException, BusinessException;
 	
-	List<Tipologia> getAllTipologiaT() throws TipologiaNonTrovataException;
+	List<Tipologia> getAllTipologiaT() throws TipologiaNonTrovataException, BusinessException;
  
 }

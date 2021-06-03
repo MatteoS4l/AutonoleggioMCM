@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
-import it.univaq.disim.oop.MCMprogetto.business.UtenteNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
@@ -82,7 +81,7 @@ public class ControllerSchedaUtente implements Initializable, DataInitializable<
     }
 
     @FXML	// ELIMINA
-    void Elimina(ActionEvent event) throws UtenteNonTrovatoException
+    void Elimina(ActionEvent event) throws BusinessException
     {
     	utenteservice.deleteUtente(utente);	
     	dispatcher.renderView("vistautenti", null, null);

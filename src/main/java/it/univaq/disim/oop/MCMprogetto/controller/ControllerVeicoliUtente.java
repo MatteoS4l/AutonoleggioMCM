@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
-import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
@@ -30,12 +30,14 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class ControllerVeicoliUtente implements Initializable, DataInitializable<Veicolo,Object>
+public class ControllerVeicoliUtente implements Initializable, DataInitializable<Utente,Object>
 {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
 	private TipologiaService tipologiaservice;
+	private Utente utente;
 
+	
     @FXML
     private DatePicker dataInizio;
     @FXML
@@ -142,47 +144,48 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
-	{
-		box_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
-		box_alimentazione.getItems().add("Tutte");
-		try
-		{	box_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());	}
-		catch (TipologiaNonTrovataException e1)
-		{	/* errore */	}
-		box_tipologia.getItems().add("Tutte");
-		
-		col_veicolo.setStyle("-fx-alignment: CENTER;");
-		col_alimentazione.setStyle("-fx-alignment: CENTER;");
-		col_tipologia.setStyle("-fx-alignment: CENTER;");
-		col_km.setStyle("-fx-alignment: CENTER;");
-		col_giorno.setStyle("-fx-alignment: CENTER;");
-		col_azioni.setStyle("-fx-alignment: CENTER;");
-		
-		col_veicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
-		col_alimentazione.setCellValueFactory(new PropertyValueFactory<>("alimentazione"));
-		col_tipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-		col_km.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
-		col_giorno.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
-		col_azioni.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>()
-				{
-					@Override
-					public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
-						final Button noleggiaButton = new Button("noleggia");
-						noleggiaButton.setOnAction(new EventHandler<ActionEvent>() {
-							@Override
-							public void handle(ActionEvent event) {
-								dispatcher.renderView("scheda_noleggio", param.getValue(), null);
-							}
-						});
-						return new SimpleObjectProperty<Button>(noleggiaButton);
-					}
-				});
-		try
-		{	
+	{	try
+		{
+			box_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
+			box_alimentazione.getItems().add("Tutte");
+			try
+			{	box_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());	}
+			catch (TipologiaNonTrovataException e1)
+			{	/* errore */	}
+			box_tipologia.getItems().add("Tutte");
+			
+			col_veicolo.setStyle("-fx-alignment: CENTER;");
+			col_alimentazione.setStyle("-fx-alignment: CENTER;");
+			col_tipologia.setStyle("-fx-alignment: CENTER;");
+			col_km.setStyle("-fx-alignment: CENTER;");
+			col_giorno.setStyle("-fx-alignment: CENTER;");
+			col_azioni.setStyle("-fx-alignment: CENTER;");
+			
+			col_veicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
+			col_alimentazione.setCellValueFactory(new PropertyValueFactory<>("alimentazione"));
+			col_tipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+			col_km.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
+			col_giorno.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
+			col_azioni.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>()
+					{
+						@Override
+						public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
+							final Button noleggiaButton = new Button("noleggia");
+							noleggiaButton.setOnAction(new EventHandler<ActionEvent>() {
+								@Override
+								public void handle(ActionEvent event) {
+									dispatcher.renderView("scheda_noleggio", param.getValue(), utente);
+								}
+							});
+							return new SimpleObjectProperty<Button>(noleggiaButton);
+						}
+					});
 			applica_filtri(null);
-		}
+		} 
+		
 		catch (BusinessException e)
-		{	/* errore */	}
+		{	e.printStackTrace();	}
+		
     	
 		
 	}
@@ -190,7 +193,22 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 	
 	
 	
-//	INTERSEZIONE FRA LE LISTE
+	
+	
+	
+	
+	@Override
+	public void initializeData(Utente utente)
+	{
+		this.utente = utente;
+	}
+
+
+
+
+
+
+	//	INTERSEZIONE FRA LE LISTE
 	public List<Veicolo> Intersezione(List<Veicolo> list1, List<Veicolo> list2)
 	{
         List<Veicolo> list = new ArrayList<Veicolo>();

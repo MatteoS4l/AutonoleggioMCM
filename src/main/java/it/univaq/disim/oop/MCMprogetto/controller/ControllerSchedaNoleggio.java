@@ -1,10 +1,8 @@
 package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
-
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -20,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import java.time.temporal.ChronoUnit;
 
 public class ControllerSchedaNoleggio implements Initializable, DataInitializable<Veicolo,Utente>
 {
@@ -83,7 +80,6 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     	noleggio.setData_fine_noleggio(data_fine_nol.getValue().atStartOfDay());
     	noleggio.setKm_fatti(0);
     	noleggio.setServita(false);
-    	noleggio.setDettagli(null);
     	
     	noleggioservice.createNoleggio(noleggio);
 
@@ -95,12 +91,15 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
 
     }
     
+    
+    
 
-    @FXML
+    @FXML	//	FEEDBACK	
     void visualizzaFeed(ActionEvent event) 
-    {
-
-    }
+    {	dispatcher.renderView("feedback", veicolo, utente);    }
+    
+    
+    
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 

@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
+import it.univaq.disim.oop.MCMprogetto.business.FeedbackNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
@@ -46,7 +47,7 @@ public class FileFeedbackService implements FeedbackService
 				writer.println(row.toString());
 			}
 		} 
-		catch (IOException e) {
+		catch (IOException e) {	
 			e.printStackTrace();
 			throw new BusinessException(e);
 		}
@@ -54,7 +55,7 @@ public class FileFeedbackService implements FeedbackService
 
 	
 	@Override // GET LISTA FEEDBACK
-	public List<Feedback> getListFeedback(Veicolo veicolo) throws BusinessException
+	public List<Feedback> getListFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException
 	{	try 
 		{
 			FileData filedata = Utility.readAllRows("feedback");
@@ -87,10 +88,11 @@ public class FileFeedbackService implements FeedbackService
 				}
 			}
 			return listacompleta;
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {	
 			e.printStackTrace();
-			}
-		return null;
+			throw new BusinessException(e);
+		}
 	}
 
 }

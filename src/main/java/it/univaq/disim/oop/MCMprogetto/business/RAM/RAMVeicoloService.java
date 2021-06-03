@@ -13,7 +13,7 @@ public class RAMVeicoloService implements VeicoloService
 
 
 	@Override	// GET LISTA VEICOLI
-	public List<Veicolo> GetListaVeicoliByStato(String stato) throws BusinessException
+	public List<Veicolo> GetListaVeicoliByStato(String stato) throws VeicoloNonTrovatoException
 	{	
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -21,13 +21,12 @@ public class RAMVeicoloService implements VeicoloService
 			if(tmp.getStato().equalsIgnoreCase(stato) || stato.equalsIgnoreCase("tutte"))
 			{	listafiltrata.add(tmp); 	}
 		}
-		
 		return listafiltrata;
 	}
 	
 	
 	@Override	//	GET LISTA VEICOLI TIPOLOGIA
-	public List<Veicolo> GetListaVeicoliByTipologia(String tipologia) throws BusinessException
+	public List<Veicolo> GetListaVeicoliByTipologia(String tipologia) throws VeicoloNonTrovatoException
 	{
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -39,7 +38,7 @@ public class RAMVeicoloService implements VeicoloService
 	}
 	
 	@Override //  GET LISTA VEICOLI ALIMENTAZIONE
-	public List<Veicolo> GetListaVeicoliByAlimentazione(String alimentazione) throws BusinessException 
+	public List<Veicolo> GetListaVeicoliByAlimentazione(String alimentazione) throws VeicoloNonTrovatoException 
 	{
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -52,7 +51,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET LISTA BY TARIFFA_KM
-	public List<Veicolo> GetListaVeicoliByTariffaKM(double min, double max) throws BusinessException
+	public List<Veicolo> GetListaVeicoliByTariffaKM(double min, double max) throws VeicoloNonTrovatoException
 	{
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -65,7 +64,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET LISTA BY TARIFFA_PERIODO
-	public List<Veicolo> GetListaVeicoliByTariffaPeriodo(double min, double max) throws BusinessException
+	public List<Veicolo> GetListaVeicoliByTariffaPeriodo(double min, double max) throws VeicoloNonTrovatoException
 	{
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -78,7 +77,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET LISTA BY MODELLO
-	public List<Veicolo> GetListaVeicoliByModello(String modello) throws BusinessException 
+	public List<Veicolo> GetListaVeicoliByModello(String modello) throws VeicoloNonTrovatoException 
 	{
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -151,7 +150,7 @@ public class RAMVeicoloService implements VeicoloService
 			if (v.getID() == id)
 			{ return v;	}	
 		}
-		return null;
+		throw new VeicoloNonTrovatoException();
 	}
 
 

@@ -9,7 +9,6 @@ import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
-import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class RAMNoleggioService implements NoleggioService
 {

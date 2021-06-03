@@ -1,4 +1,4 @@
-10
+13
 1,cliente,Matteo,Salvatore,matteo,cliente,M,20
 2,cliente,Carmine,Pittella,carmine,cliente,M,21
 3,cliente,Matteo,Bovino,bovino,cliente,M,23
@@ -8,3 +8,6 @@
 7,cliente,matteo,matteo,matteo,matteo,M,51
 8,cliente,a,a,a,a,M,33
 9,operatore,o,o,o,o,F,0
+10,cliente,carmine,pittella,carmine,cliente,M,21
+11,cliente,a,a,a,a,M,20
+12,cliente,a,a,a,a,M,0

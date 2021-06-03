@@ -8,6 +8,7 @@ import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
+import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 
@@ -17,7 +18,7 @@ public class FileTipologiaService implements TipologiaService
 	
 	
 	@Override	// GET LISTA TIPOLOGIA
-	public List<String> getAllTipologia() throws TipologiaNonTrovataException
+	public List<String> getAllTipologia() throws TipologiaNonTrovataException, BusinessException
 	{	try
 		{	List<String> listatipo = new ArrayList<String>();
 			FileData filedata = Utility.readAllRows("tipologie");
@@ -32,13 +33,15 @@ public class FileTipologiaService implements TipologiaService
 			}	
 			return listatipo;	
 		}		
-		catch (IOException e)
-		{	throw new TipologiaNonTrovataException();		}
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
 	}
 	
 	
 	@Override	// GET LISTA TIPOLOGIA T
-	public List<Tipologia> getAllTipologiaT() throws TipologiaNonTrovataException
+	public List<Tipologia> getAllTipologiaT() throws TipologiaNonTrovataException, BusinessException
 	{
 		try
 		{	List<Tipologia> listatipo = new ArrayList<Tipologia>();
@@ -54,8 +57,10 @@ public class FileTipologiaService implements TipologiaService
 			}	
 			return listatipo;	
 		}		
-		catch (IOException e)
-		{	throw new TipologiaNonTrovataException();		}
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
 	}
 	
 	
@@ -95,7 +100,7 @@ public class FileTipologiaService implements TipologiaService
 
 	
 	@Override	// ELIMINA
-	public void deleteTipologia(Tipologia tipologia) throws NumberFormatException, TipologiaNonTrovataException, BusinessException
+	public void deleteTipologia(Tipologia tipologia) throws VeicoloNonTrovatoException, BusinessException
 	{	
 		if(veicoloservice.GetListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
 		{	try
@@ -113,13 +118,13 @@ public class FileTipologiaService implements TipologiaService
 					}
 				}
 			}
-			catch (IOException e) {
+			catch (IOException e) {	
 				e.printStackTrace();
-				throw new TipologiaNonTrovataException();
+				throw new BusinessException(e);
 			}
 		}
 		else
-		{	throw new BusinessException();	}
+		{	throw new TipologiaNonTrovataException();	}
 		
 	}
 

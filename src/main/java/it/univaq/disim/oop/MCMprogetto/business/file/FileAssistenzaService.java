@@ -40,10 +40,10 @@ public class FileAssistenzaService implements AssistenzaService
 	
 
 	@Override	// GET ASSISTENZA ID
-	public Assistenza getAssistenzaByID(int id) throws BusinessException
+	public Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException
 	{	
 		if(id == 0)
-		{	return null;	}
+		{	throw new AssistenzaNonTrovataException();	}
 		
 		try
 		{
@@ -59,11 +59,12 @@ public class FileAssistenzaService implements AssistenzaService
 					return assistenza;
 				}
 			}
+			throw new AssistenzaNonTrovataException();
 		}
-		catch (IOException e) {
+		catch (IOException e) {	
 			e.printStackTrace();
+			throw new BusinessException(e);
 		}
-		throw new AssistenzaNonTrovataException();
 	}
 	
 	

@@ -104,8 +104,8 @@ public class ControllerVistaTipologie implements Initializable, DataInitializabl
 		List<Tipologia> listatipologie = null;
 		try
 		{	listatipologie = tipologiaservice.getAllTipologiaT();	  } 
-		catch (TipologiaNonTrovataException e)
-		{	/* errore */	}
+		catch (BusinessException e)
+		{	e.printStackTrace();	}
 		ObservableList<Tipologia> listaT = FXCollections.observableList(listatipologie);
 		tabella_tipologie.setItems(listaT);
 		

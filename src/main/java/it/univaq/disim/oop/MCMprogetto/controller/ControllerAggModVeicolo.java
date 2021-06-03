@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
-import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
@@ -91,7 +90,7 @@ public class ControllerAggModVeicolo implements Initializable, DataInitializable
         	veicolo.setTariffa_periodo(Double.parseDouble(textfield_giorno.getText()));
         	
         	veicoloservice.createVeicolo(veicolo);
-        	dispatcher.renderView("vistaveicoli", null, null);
+        	dispatcher.renderView("vistaveicoli", utente, null);
     	}
     	catch(NumberFormatException e)	// praticamente se metto delle lettere dove ci vogliono solo dei numeri fa questo
     	{	label_errore.setText("ERRORE: Compila correttamente i campi !");	} // anzichè lanciare 56416541 eccezioni
@@ -117,15 +116,18 @@ public class ControllerAggModVeicolo implements Initializable, DataInitializable
 						.or(textfield_giorno.textProperty().isEmpty()));
 		
 		try
-		{	choicebox_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());		}
-		catch (TipologiaNonTrovataException e)
+		{	
+			choicebox_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());
+			choicebox_tipologia.setValue("berlina");
+			choicebox_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
+			choicebox_alimentazione.setValue("benzina");
+			choicebox_Stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
+			choicebox_Stato.setValue("disponibile");
+		}
+		catch (BusinessException e)
 		{	e.printStackTrace();	}
 		
-		choicebox_tipologia.setValue("berlina");
-		choicebox_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
-		choicebox_alimentazione.setValue("benzina");
-		choicebox_Stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
-		choicebox_Stato.setValue("disponibile");
+		
 	}
 
 
