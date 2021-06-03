@@ -6,7 +6,7 @@ public interface AssistenzaService
 {
 	void createAssistenza(String dettagli) throws BusinessException;
 	
-	Assistenza getAssistenzaByID(int id) throws BusinessException;
+	Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException;
 	
 
 }

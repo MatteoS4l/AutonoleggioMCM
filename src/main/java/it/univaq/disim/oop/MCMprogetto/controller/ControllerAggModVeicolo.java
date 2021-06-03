@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
-import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
@@ -117,15 +116,18 @@ public class ControllerAggModVeicolo implements Initializable, DataInitializable
 						.or(textfield_giorno.textProperty().isEmpty()));
 		
 		try
-		{	choicebox_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());		}
-		catch (TipologiaNonTrovataException e)
+		{	
+			choicebox_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());
+			choicebox_tipologia.setValue("berlina");
+			choicebox_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
+			choicebox_alimentazione.setValue("benzina");
+			choicebox_Stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
+			choicebox_Stato.setValue("disponibile");
+		}
+		catch (BusinessException e)
 		{	e.printStackTrace();	}
 		
-		choicebox_tipologia.setValue("berlina");
-		choicebox_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
-		choicebox_alimentazione.setValue("benzina");
-		choicebox_Stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
-		choicebox_Stato.setValue("disponibile");
+		
 	}
 
 

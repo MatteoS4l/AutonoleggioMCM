@@ -65,8 +65,10 @@ public class FileUtenteService implements UtenteService
 			throw new UtenteNonTrovatoException();
 		}
 		
-		catch (IOException e)
-		{	throw new BusinessException(e);		}
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
 	}
 	
 	
@@ -109,8 +111,10 @@ public class FileUtenteService implements UtenteService
 			throw new UtenteNonTrovatoException();
 		}
 		
-		catch (IOException e)
-		{	throw new BusinessException(e);		}
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
 	}
 
 	
@@ -160,7 +164,7 @@ public class FileUtenteService implements UtenteService
 
 
 	@Override	// MODIFICA
-	public void updateUtente(Utente utente) throws UtenteNonTrovatoException
+	public void updateUtente(Utente utente) throws UtenteNonTrovatoException, BusinessException
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("utenti");
@@ -201,17 +205,16 @@ public class FileUtenteService implements UtenteService
 				}
 			}
 		}
-		catch (IOException e) {
+		catch (IOException e) {	
 			e.printStackTrace();
-			throw new UtenteNonTrovatoException(e);
+			throw new BusinessException(e);
 		}
-	System.out.println("In teoria è modificato");
 	}
 	
 	
 	
 	@Override	// ELIMINA
-	public void deleteUtente (Utente utente) throws UtenteNonTrovatoException
+	public void deleteUtente (Utente utente) throws UtenteNonTrovatoException, BusinessException
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("utenti");
@@ -227,22 +230,22 @@ public class FileUtenteService implements UtenteService
 				}
 			}
 		}
-		catch (IOException e) {
+		catch (IOException e) {	
 			e.printStackTrace();
-			throw new UtenteNonTrovatoException(e);
+			throw new BusinessException(e);
 		}
 	}
 
 
 
 	@Override	// CALCOLA ETA
-	public int CalcolaEta(LocalDate data) throws BusinessException
+	public int CalcolaEta(LocalDate data) throws BusinessException, NullPointerException
 	{
 		int eta=0;
 		try
 		{	eta = LocalDate.now().getYear() - data.getYear();	}
 		catch(NullPointerException e)
-		{	/* label di errore "inserire data" */	}
+		{	throw new NullPointerException();	}
 		
 		if(data.getMonthValue() > LocalDate.now().getMonthValue())
 		{	return --eta;	}
@@ -257,7 +260,7 @@ public class FileUtenteService implements UtenteService
 
 
 	@Override	// GET UTENTE
-	public Utente getUtenteById(int id) throws UtenteNonTrovatoException 
+	public Utente getUtenteById(int id) throws UtenteNonTrovatoException, BusinessException
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("utenti");	
@@ -278,13 +281,11 @@ public class FileUtenteService implements UtenteService
 				}
 			}
 			return null;
-			
 		}
-		catch (IOException e) {
+		catch (IOException e) {	
 			e.printStackTrace();
-			throw new UtenteNonTrovatoException(e);
+			throw new BusinessException(e);
 		}
-		
 	}
 
 	

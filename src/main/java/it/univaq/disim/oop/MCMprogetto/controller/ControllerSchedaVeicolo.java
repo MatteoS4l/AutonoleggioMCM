@@ -7,10 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import java.util.ResourceBundle;
+import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
-import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
-import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -57,7 +56,7 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
     
     
     @FXML	// MODIFICA
-    void ModificaVeicolo(ActionEvent event) throws VeicoloNonTrovatoException
+    void ModificaVeicolo(ActionEvent event) throws BusinessException
     {
     	Veicolo veicolo_modificato = new Veicolo();
     	
@@ -84,7 +83,7 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
     
     
     @FXML	// ELIMINA
-    void EliminaVeicolo(ActionEvent event) throws VeicoloNonTrovatoException
+    void EliminaVeicolo(ActionEvent event) throws BusinessException
     {
     	veicoloservice.deleteVeicolo(veicolo);
     	dispatcher.renderView("vistaveicoli", utente, null);
@@ -99,20 +98,20 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
-	{
-		tf_stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
-		try
-		{	tf_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());		}
-		catch (TipologiaNonTrovataException e)
+	{	try 
+		{
+			tf_stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
+			tf_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());
+			
+			modifica_button.disableProperty().bind(tf_modello.textProperty().isEmpty()
+					.or(tf_alimentazione.textProperty().isEmpty())
+					.or(tf_targa.textProperty().isEmpty())
+					.or(tf_kilometraggio.textProperty().isEmpty())
+					.or(tf_tariffaKM.textProperty().isEmpty())
+					.or(tf_tariffaGiorno.textProperty().isEmpty()));
+		}
+		catch (BusinessException e)
 		{	e.printStackTrace();	}
-		
-		modifica_button.disableProperty().bind(tf_modello.textProperty().isEmpty()
-				.or(tf_alimentazione.textProperty().isEmpty())
-				.or(tf_targa.textProperty().isEmpty())
-				.or(tf_kilometraggio.textProperty().isEmpty())
-				.or(tf_tariffaKM.textProperty().isEmpty())
-				.or(tf_tariffaGiorno.textProperty().isEmpty()));
-		
 	}
 
 	

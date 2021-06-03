@@ -142,7 +142,7 @@ public class ControllerVistaNoleggi implements Initializable, DataInitializable<
 		try
 		{	listacompleta = noleggioservice.FindAllNoleggi();	}
 		catch (BusinessException e)
-		{	/* lista vuota */	}
+		{	e.printStackTrace();	}
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listacompleta);
 		tabella_noleggi.setItems(listaNol);
 		

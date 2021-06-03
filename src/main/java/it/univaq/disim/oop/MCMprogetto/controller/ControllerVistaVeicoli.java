@@ -115,8 +115,15 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 						return new SimpleObjectProperty<Button>(veicoliButton);
 					}
 				});	
-		filtro_stato_veicolo.getItems().addAll(veicoloservice.GetListStatoVeicolo());
-		filtro_stato_veicolo.getItems().add("Tutte");
+		try
+		{	
+			filtro_stato_veicolo.getItems().addAll(veicoloservice.GetListStatoVeicolo());	
+			filtro_stato_veicolo.getItems().add("Tutte");
+		}
+		catch (BusinessException e)
+		{	e.printStackTrace();	}
+		
+		
 	}
 
 
