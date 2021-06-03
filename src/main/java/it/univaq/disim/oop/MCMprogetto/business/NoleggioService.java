@@ -18,6 +18,8 @@ public interface NoleggioService
 	
 	List<Noleggio> FindNoleggiByUtente(Utente utente) throws NoleggioNonTrovatoException, BusinessException;
 	
+	void CheckStatoVeicoli() throws BusinessException;
+	
 	
 	
 

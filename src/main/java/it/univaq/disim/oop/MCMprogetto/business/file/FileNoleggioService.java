@@ -15,6 +15,7 @@ import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
+import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 
 public class FileNoleggioService implements NoleggioService
@@ -260,6 +261,44 @@ public class FileNoleggioService implements NoleggioService
 			e.printStackTrace();
 			throw new BusinessException(e);
 		}
+	}
+
+	@Override
+	public void CheckStatoVeicoli() throws BusinessException
+	{
+		List<Noleggio> listanoleggi = FindAllNoleggi();
+		for(Noleggio tmp : listanoleggi)
+		{
+			Veicolo veicolo = new Veicolo();
+			
+			veicolo.setID(tmp.getVeicolo().getID());
+			veicolo.setTarga(tmp.getVeicolo().getTarga());
+			veicolo.setTipologia(tmp.getVeicolo().getTipologia());
+			veicolo.setModello(tmp.getVeicolo().getModello());
+			veicolo.setAlimentazione(tmp.getVeicolo().getAlimentazione());
+			veicolo.setChilometri(tmp.getVeicolo().getChilometri());
+			veicolo.setTariffa_chilometraggio(tmp.getVeicolo().getTariffa_chilometraggio());
+			veicolo.setTariffa_periodo(tmp.getVeicolo().getTariffa_periodo());
+			
+			if(tmp.getData_inizio_noleggio().isBefore(LocalDateTime.now())
+			&& tmp.getData_fine_noleggio().isAfter(LocalDateTime.now()))
+			{	
+				veicolo.setManutenzione(false);
+				veicolo.setDisponibilita(false);
+				veicolo.setStato("in noleggio");
+			}
+			else
+			{
+				veicolo.setManutenzione(false);
+				veicolo.setDisponibilita(true);
+				veicolo.setStato("disponibile");
+			}
+			veicoloservice.updateVeicolo(veicolo);
+		}
+		
+		
+		
+		
 	}
 
 

@@ -2,7 +2,12 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
+import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
+import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
+import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -10,14 +15,32 @@ import javafx.scene.control.Label;
 
 public class ControllerHome implements Initializable, DataInitializable<Utente,Object>
 {
+	ViewDispatcher dispatcher;
+	NoleggioService noleggioservice;
+	
+	
 	@FXML
 	private Label benvenutoLabel;
+	
 
+	public ControllerHome()
+    {
+    	dispatcher = ViewDispatcher.getInstance();
+    	MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
+    	noleggioservice = factory.getNoleggioService();
+    }
+	
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		
+		try {
+			noleggioservice.CheckStatoVeicoli();
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}

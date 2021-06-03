@@ -43,7 +43,7 @@ public class FileAssistenzaService implements AssistenzaService
 	public Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException
 	{	
 		if(id == 0)
-		{	throw new AssistenzaNonTrovataException();	}
+		{	return null;	}
 		
 		try
 		{
