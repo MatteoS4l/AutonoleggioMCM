@@ -1,5 +1,6 @@
 package it.univaq.disim.oop.MCMprogetto.business;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
@@ -19,6 +20,8 @@ public interface NoleggioService
 	List<Noleggio> FindNoleggiInCorso() throws BusinessException;
 	
 	List<Noleggio> FindNoleggiByUtente(Utente utente) throws BusinessException;
+	
+	List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException;
 	
 	
 	

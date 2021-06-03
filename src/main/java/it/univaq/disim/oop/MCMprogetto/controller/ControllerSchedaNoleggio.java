@@ -62,17 +62,10 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     @FXML
     double calcolaPreventivo(ActionEvent event) 
     {
-<<<<<<< HEAD
     	long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(),  data_fine_nol.getValue());
     	label_preventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
     	return Double.parseDouble(label_preventivo.getText());
-=======
-    	LocalDate a = data_inizio_nol.getValue();
-    	LocalDate b = data_fine_nol.getValue();
-    	//long daysBetween = ChronoUnit.DAYS.b
-    	System.out.println("ciao");
 
->>>>>>> ce8633c762df3d185922d3fdc91d3f146ed3cddc
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package it.univaq.disim.oop.MCMprogetto.business.RAM;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,9 @@ public class RAMNoleggioService implements NoleggioService
 		return lista;
 		
 	}
+
+
+	
 
 
 	/*@Override	// LISTA NOLEGGI DATE
