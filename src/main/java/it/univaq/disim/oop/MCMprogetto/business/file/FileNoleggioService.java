@@ -3,6 +3,7 @@ package it.univaq.disim.oop.MCMprogetto.business.file;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -264,6 +265,7 @@ public class FileNoleggioService implements NoleggioService
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void CheckStatoVeicoli() throws BusinessException
 	{
 		List<Noleggio> listanoleggi = FindAllNoleggi();
@@ -300,6 +302,46 @@ public class FileNoleggioService implements NoleggioService
 		
 		
 	}
+=======
+	public List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
+	{
+		try
+		{
+			FileData filedata = Utility.readAllRows("noleggi");
+			List<Noleggio> listanoleggi = new ArrayList<Noleggio>();
+			
+			for (String[] colonne : filedata.getRighe()) 
+			{
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+				
+				if (data_fine.isEqual(LocalDate.parse(colonne[6], formatter)))
+				{
+					Noleggio noleggio = new Noleggio();
+					
+					noleggio.setID(Integer.parseInt(colonne[0]));
+					noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
+					noleggio.setAssistenza(assistenzaservice.getAssistenzaByID(Integer.parseInt(colonne[2])));
+					noleggio.setCliente(utenteservice.getUtenteById(Integer.parseInt(colonne[3])));
+					noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
+					noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
+					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
+					noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
+					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
+					noleggio.setDettagli(colonne[9]);
+					listanoleggi.add(noleggio);
+				}
+			}
+			return listanoleggi;
+		}
+		catch(IOException e)
+		{	throw new NoleggioNonTrovatoException();	}
+					
+	}
+					
+				
+			
+	
+>>>>>>> 819c04ad16a8b248968e5776f4fab0bcb183e65b
 
 
 
@@ -338,6 +380,7 @@ public class FileNoleggioService implements NoleggioService
 	}*/
 	
 	
+}	
 	
 	
 	
@@ -347,7 +390,15 @@ public class FileNoleggioService implements NoleggioService
 	
 	
 	
+<<<<<<< HEAD
+	
+	
+	
+	
+
+=======
 }
+>>>>>>> 43b28e8baa8f066f4b276c94f47d8f9feccb036f
 		
 	
 
