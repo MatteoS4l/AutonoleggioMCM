@@ -98,7 +98,8 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
-	{	try 
+	{	
+		System.out.println("ciao");try 
 		{
 			tf_stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
 			tf_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());

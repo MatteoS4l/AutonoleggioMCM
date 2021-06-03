@@ -34,7 +34,7 @@ public class FileVeicoloService implements VeicoloService
 			return listacompleta;
 		}
 		
-		catch (IOException e) {	
+		catch (IOException e) {
 			e.printStackTrace();
 			throw new BusinessException(e);
 		}

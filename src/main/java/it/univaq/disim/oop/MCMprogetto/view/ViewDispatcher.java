@@ -108,7 +108,7 @@ public class ViewDispatcher
 		{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTE + viewName + FXML));
 			Parent parent = (Parent) loader.load();
-			return new View<>(parent, loader.getController());
+			return new View<T,E>(parent, loader.getController());
 		}
 		catch (IOException ex)
 		{	throw new ViewException(ex);	}

@@ -90,7 +90,7 @@ public class ControllerAggModVeicolo implements Initializable, DataInitializable
         	veicolo.setTariffa_periodo(Double.parseDouble(textfield_giorno.getText()));
         	
         	veicoloservice.createVeicolo(veicolo);
-        	dispatcher.renderView("vistaveicoli", null, null);
+        	dispatcher.renderView("vistaveicoli", utente, null);
     	}
     	catch(NumberFormatException e)	// praticamente se metto delle lettere dove ci vogliono solo dei numeri fa questo
     	{	label_errore.setText("ERRORE: Compila correttamente i campi !");	} // anzichè lanciare 56416541 eccezioni

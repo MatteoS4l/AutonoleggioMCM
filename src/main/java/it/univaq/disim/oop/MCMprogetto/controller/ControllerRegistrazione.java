@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
-import it.univaq.disim.oop.MCMprogetto.business.file.FileUtenteService;
 import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
 import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
@@ -79,14 +78,12 @@ public class ControllerRegistrazione implements Initializable, DataInitializable
 	    	utente.setEta(utenteservice.CalcolaEta(data_di_nascita_registrazione.getValue()));
 	    	utente.setSesso(sesso_registrazione.getValue());
 	    	
-	    	UtenteService utenteservices = new FileUtenteService();
-	    	
 	    	if (!password_registrazione.getText().equals(conferma_pass_registrazione.getText())) 
 	    	{ label_errore.setText("Le password non corrispondono!"); }
 	    	else 
 	    	{
 	    		try
-	    		{	utenteservices.createUtente(utente);	}
+	    		{	utenteservice.createUtente(utente);	}
 	    		catch (BusinessException e)
 	    		{	e.printStackTrace();		}
 		    	

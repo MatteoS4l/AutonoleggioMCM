@@ -109,7 +109,7 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 								{	dispatcher.renderView("scheda_veicolo", param.getValue(), utente);	}
 								if(utente instanceof Operatore)
 								{	dispatcher.renderView("feedback", param.getValue(), utente);	}		
-								
+								System.out.println("b");
 							}
 						});
 						return new SimpleObjectProperty<Button>(veicoliButton);
@@ -131,6 +131,7 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 	public void initializeData(Utente utente)
 	{
 		this.utente = utente;	
+		System.out.println(utente.getNome() + " " + utente.getCognome());
 		if(utente instanceof Operatore)
 		{	aggiungi_veicolo_button.setVisible(false);	}
 		

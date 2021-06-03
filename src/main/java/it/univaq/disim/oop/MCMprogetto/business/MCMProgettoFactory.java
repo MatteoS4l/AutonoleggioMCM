@@ -8,7 +8,6 @@ public abstract class MCMProgettoFactory
 //	private static MCMProgettoFactory factory = new RAMMCMProgettoFactory();
 	private static MCMProgettoFactory factory = new FileMCMProgettoFactory();
 	
-	
 	public static MCMProgettoFactory getInstance()
 	{	return factory; 	}
 	
