@@ -265,7 +265,6 @@ public class FileNoleggioService implements NoleggioService
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void CheckStatoVeicoli() throws BusinessException
 	{
 		List<Noleggio> listanoleggi = FindAllNoleggi();
@@ -302,7 +301,6 @@ public class FileNoleggioService implements NoleggioService
 		
 		
 	}
-=======
 	public List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
 	{
 		try
@@ -341,7 +339,6 @@ public class FileNoleggioService implements NoleggioService
 				
 			
 	
->>>>>>> 819c04ad16a8b248968e5776f4fab0bcb183e65b
 
 
 
@@ -390,15 +387,12 @@ public class FileNoleggioService implements NoleggioService
 	
 	
 	
-<<<<<<< HEAD
 	
 	
 	
 	
 
-=======
-}
->>>>>>> 43b28e8baa8f066f4b276c94f47d8f9feccb036f
+
 		
 	
 

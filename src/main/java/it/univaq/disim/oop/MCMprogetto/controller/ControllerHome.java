@@ -35,12 +35,10 @@ public class ControllerHome implements Initializable, DataInitializable<Utente,O
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		try {
-			noleggioservice.CheckStatoVeicoli();
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		try
+		{	noleggioservice.CheckStatoVeicoli();	}
+		catch (BusinessException e)
+		{	System.out.println("errore");	}
 		
 		
 	}

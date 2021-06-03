@@ -29,7 +29,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class ControllerNoleggiOp implements Initializable,DataInitializable<Noleggio, Object>
+public class ControllerNoleggi_Operatore implements Initializable, DataInitializable<Noleggio, Object>
 {
 	
 	private ViewDispatcher dispatcher;
@@ -56,13 +56,17 @@ public class ControllerNoleggiOp implements Initializable,DataInitializable<Nole
     @FXML
     private Button bottone_applica;
     
-    public ControllerNoleggiOp ()
+    
+    
+    public ControllerNoleggi_Operatore ()
     {
     	dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		noleggioservice = factory.getNoleggioService();
     }
 
+    
+    
     @FXML
     void ApplicaFiltri(ActionEvent event) throws BusinessException 
     {
@@ -80,6 +84,10 @@ public class ControllerNoleggiOp implements Initializable,DataInitializable<Nole
 
     }
 
+    
+    
+    
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
