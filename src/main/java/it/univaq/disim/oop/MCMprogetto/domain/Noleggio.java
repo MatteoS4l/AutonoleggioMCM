@@ -10,10 +10,8 @@ public class Noleggio
 	private Assistenza assistenza;
 	private Utente cliente;
 	private Veicolo veicolo;
-	private LocalDateTime data_checkin_auto;
 	private LocalDateTime data_inizio_noleggio;
 	private LocalDateTime data_fine_noleggio;
-	private int km_fatti;
 	private boolean servita;
 	private String dettagli;
 	
@@ -67,18 +65,6 @@ public class Noleggio
 	}
 	public void setKM_percorsi(int kM_percorsi) {
 		KM_percorsi = kM_percorsi;
-	}
-	public LocalDateTime getData_checkin_auto() {
-		return data_checkin_auto;
-	}
-	public void setData_checkin_auto(LocalDateTime data_checkin_auto) {
-		this.data_checkin_auto = data_checkin_auto;
-	}
-	public int getKm_fatti() {
-		return km_fatti;
-	}
-	public void setKm_fatti(int km_fatti) {
-		this.km_fatti = km_fatti;
 	}
 	public boolean isServita() {
 		return servita;

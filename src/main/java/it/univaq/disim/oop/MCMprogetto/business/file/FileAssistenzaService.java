@@ -6,13 +6,18 @@ import java.io.PrintWriter;
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
+import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
+import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class FileAssistenzaService implements AssistenzaService
-{// id, dettagli, servita(ture,false)
+{// id, dettagli, servita(ture,false), risposta, id veicolo, id cliente
+	private VeicoloService veicoloservice = new FileVeicoloService();
+	private UtenteService utenteservice = new FileUtenteService();
 	
 	@Override	// CREA
-	public void createAssistenza(String dettagli) throws BusinessException
+	public int createAssistenza(Assistenza assistenza) throws BusinessException
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("assistenza");
@@ -27,9 +32,19 @@ public class FileAssistenzaService implements AssistenzaService
 				StringBuilder row = new StringBuilder();
 				row.append(fileData.getCont());
 				row.append(Utility.SEPARATORE);
-				row.append(dettagli);
+				row.append(assistenza.getDettagli().toString().replace(",", " "));
+				row.append(Utility.SEPARATORE);
+				row.append("false");
+				row.append(Utility.SEPARATORE);
+				row.append("null");
+				row.append(Utility.SEPARATORE);
+				row.append(assistenza.getVeicolo().getID());
+				row.append(Utility.SEPARATORE);
+				row.append(assistenza.getCliente().getID());
 
 				writer.println(row.toString());
+				
+				return fileData.getCont();
 			}
 		} 
 		catch (IOException e) {
@@ -55,6 +70,10 @@ public class FileAssistenzaService implements AssistenzaService
 				
 					assistenza.setID(Integer.parseInt(righe[0]));
 					assistenza.setDettagli(righe[1]);
+					assistenza.setServita(Boolean.parseBoolean(righe[2]));
+					assistenza.setRisposta(righe[3]);
+					assistenza.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(righe[4])));
+					assistenza.setCliente(utenteservice.getUtenteById(Integer.parseInt(righe[5])));
 
 					return assistenza;
 				}

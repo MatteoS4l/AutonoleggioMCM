@@ -78,7 +78,7 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     	noleggio.setVeicolo(veicolo);
     	noleggio.setData_inizio_noleggio(data_inizio_nol.getValue().atStartOfDay());
     	noleggio.setData_fine_noleggio(data_fine_nol.getValue().atStartOfDay());
-    	noleggio.setKm_fatti(0);
+    	noleggio.setKM_percorsi(0);
     	noleggio.setServita(false);
     	
     	noleggioservice.createNoleggio(noleggio);

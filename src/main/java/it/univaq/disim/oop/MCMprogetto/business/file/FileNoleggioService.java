@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
@@ -28,7 +29,7 @@ public class FileNoleggioService implements NoleggioService
 	
 	@Override	// CREA
 	public void createNoleggio(Noleggio noleggio) throws BusinessException 
-	{//id, prezzo, id assistenza, id cliente, id veicolo, data inizio, data fine, km fatti
+	{//id, prezzo, id assistenza, id cliente, id veicolo, data inizio, data fine, km fatti, 
 		try
 		{
 			FileData fileData = Utility.readAllRows("noleggi");
@@ -47,16 +48,18 @@ public class FileNoleggioService implements NoleggioService
 				row.append(Utility.SEPARATORE);
 				if(noleggio.getAssistenza() == null)
 				{	row.append(0);	}
+				else
+				{	row.append(noleggio.getAssistenza().getID());	}
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getCliente().getID());
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getVeicolo().getID());
 				row.append(Utility.SEPARATORE);
-				row.append(noleggio.getData_inizio_noleggio());
+				row.append(noleggio.getData_inizio_noleggio().toString().replace("T", " "));
 				row.append(Utility.SEPARATORE);
-				row.append(noleggio.getData_fine_noleggio());
+				row.append(noleggio.getData_fine_noleggio().toString().replace("T", " "));
 				row.append(Utility.SEPARATORE);
-				row.append(noleggio.getKm_fatti());
+				row.append(noleggio.getKM_percorsi());
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.isServita());
 				row.append(Utility.SEPARATORE);
@@ -71,7 +74,58 @@ public class FileNoleggioService implements NoleggioService
 		}
 	}
 
-	// serve un update noleggio*************************
+
+	@Override	// MODIFICA
+	public void updateNoleggio(Noleggio noleggio) throws BusinessException
+	{	try
+		{
+			FileData fileData = Utility.readAllRows("noleggi");
+			try(PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "noleggi" + Utility.FORMATO)))
+			{
+				writer.println(fileData.getCont());
+				for(String[] righe : fileData.getRighe())
+				{
+					if(Integer.parseInt(righe[0]) == noleggio.getID())
+					{
+						StringBuilder row = new StringBuilder();
+						
+						row.append(noleggio.getID());
+						row.append(Utility.SEPARATORE);
+						row.append(noleggio.getPrezzo_noleggio());
+						row.append(Utility.SEPARATORE);
+						if(noleggio.getAssistenza() == null)
+						{	row.append(0);	}
+						else
+						{	row.append(noleggio.getAssistenza().getID());	}
+						row.append(Utility.SEPARATORE);
+						row.append(noleggio.getCliente().getID());
+						row.append(Utility.SEPARATORE);
+						row.append(noleggio.getVeicolo().getID());
+						row.append(Utility.SEPARATORE);
+						row.append(noleggio.getData_inizio_noleggio().toString().replace("T", " "));
+						row.append(Utility.SEPARATORE);
+						row.append(noleggio.getData_fine_noleggio().toString().replace("T", " "));
+						row.append(Utility.SEPARATORE);
+						row.append(noleggio.getKM_percorsi());
+						row.append(Utility.SEPARATORE);
+						row.append(noleggio.isServita());
+						row.append(Utility.SEPARATORE);
+						row.append("null");
+						writer.println(row.toString());
+					}
+					else
+					{	writer.println(String.join(Utility.SEPARATORE, righe));	}
+				}
+			}
+		}
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
+		
+	}
+	
+	
 	
 	@Override	// TROVA NOLEGGIO BY ID
 	public Noleggio FindNoleggioByID(int ID) throws NoleggioNonTrovatoException, BusinessException
@@ -84,7 +138,7 @@ public class FileNoleggioService implements NoleggioService
 				if(ID == Integer.parseInt(colonne[0]))
 				{
 					Noleggio noleggio = new Noleggio();
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
 					
 					noleggio.setID(Integer.parseInt(colonne[0]));
 					noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
@@ -93,7 +147,7 @@ public class FileNoleggioService implements NoleggioService
 					noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
 					noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
 					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
-					noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
+					noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
 					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
 					noleggio.setDettagli(colonne[9]);
 					
@@ -119,7 +173,7 @@ public class FileNoleggioService implements NoleggioService
 			for (String[] colonne : filedata.getRighe()) 
 			{
 				Noleggio noleggio = new Noleggio();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
 				
 				noleggio.setID(Integer.parseInt(colonne[0]));
 				noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
@@ -128,7 +182,7 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
 				noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
 				noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
-				noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
+				noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
 				noleggio.setServita(Boolean.parseBoolean(colonne[8]));
 				noleggio.setDettagli(colonne[9]);
 
@@ -156,7 +210,7 @@ public class FileNoleggioService implements NoleggioService
 			for (String[] colonne : filedata.getRighe()) 
 			{
 				Noleggio noleggio = new Noleggio();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
 				
 				noleggio.setID(Integer.parseInt(colonne[0]));
 				noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
@@ -165,7 +219,7 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
 				noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
 				noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
-				noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
+				noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
 				noleggio.setServita(Boolean.parseBoolean(colonne[8]));
 				noleggio.setDettagli(colonne[9]);
 				
@@ -201,7 +255,7 @@ public class FileNoleggioService implements NoleggioService
 			for (String[] colonne : filedata.getRighe()) 
 			{
 				Noleggio noleggio = new Noleggio();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
 				
 				noleggio.setID(Integer.parseInt(colonne[0]));
 				noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
@@ -210,7 +264,7 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
 				noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
 				noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
-				noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
+				noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
 				noleggio.setServita(Boolean.parseBoolean(colonne[8]));
 				noleggio.setDettagli(colonne[9]);
 				
@@ -240,7 +294,7 @@ public class FileNoleggioService implements NoleggioService
 				if(utente.getID() == Integer.parseInt(colonne[3]))
 				{
 					Noleggio noleggio = new Noleggio();
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
 					
 					noleggio.setID(Integer.parseInt(colonne[0]));
 					noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
@@ -249,7 +303,7 @@ public class FileNoleggioService implements NoleggioService
 					noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
 					noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
 					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
-					noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
+					noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
 					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
 					noleggio.setDettagli(colonne[9]);
 					
@@ -263,8 +317,50 @@ public class FileNoleggioService implements NoleggioService
 			throw new BusinessException(e);
 		}
 	}
+	
+	
+	@Override	// LISTA NOLEGGI DATA FINE
+	public List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
+	{
+		try
+		{
+			FileData filedata = Utility.readAllRows("noleggi");
+			List<Noleggio> listanoleggi = new ArrayList<Noleggio>();
+			
+			for (String[] colonne : filedata.getRighe()) 
+			{
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+				
+				if (data_fine.isEqual(LocalDate.parse(colonne[6], formatter)))
+				{
+					Noleggio noleggio = new Noleggio();
+					
+					noleggio.setID(Integer.parseInt(colonne[0]));
+					noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
+					noleggio.setAssistenza(assistenzaservice.getAssistenzaByID(Integer.parseInt(colonne[2])));
+					noleggio.setCliente(utenteservice.getUtenteById(Integer.parseInt(colonne[3])));
+					noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
+					noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
+					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
+					noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
+					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
+					noleggio.setDettagli(colonne[9]);
+					listanoleggi.add(noleggio);
+				}
+			}
+			return listanoleggi;
+		}
+		catch(IOException e)
+		{	throw new NoleggioNonTrovatoException();	}
+					
+	}
+	
+	
+	
+	
+	
 
-	@Override
+	@Override	// CHECK STATO VEICOLI
 	public void CheckStatoVeicoli() throws BusinessException
 	{
 		List<Noleggio> listanoleggi = FindAllNoleggi();
@@ -296,45 +392,34 @@ public class FileNoleggioService implements NoleggioService
 			}
 			veicoloservice.updateVeicolo(veicolo);
 		}
-		
-		
-		
-		
 	}
-	public List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
+
+
+	@Override	// VEICOLI DISPONIBILI PER DATA
+	public List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException
 	{
-		try
+		List<Veicolo> listaveicoli = veicoloservice.GetListaVeicoliByStato("disponibile");
+		List<Noleggio> listanoleggi = FindAllNoleggi();
+		List<Veicolo> veicolidaeliminare = new ArrayList<Veicolo>();
+		
+		for(Noleggio tmp : listanoleggi)
 		{
-			FileData filedata = Utility.readAllRows("noleggi");
-			List<Noleggio> listanoleggi = new ArrayList<Noleggio>();
+			if(datainizio.isAfter(tmp.getData_inizio_noleggio()) && datainizio.isBefore(tmp.getData_fine_noleggio()))
+			{	veicolidaeliminare.add(tmp.getVeicolo());	}
 			
-			for (String[] colonne : filedata.getRighe()) 
-			{
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-				
-				if (data_fine.isEqual(LocalDate.parse(colonne[6], formatter)))
-				{
-					Noleggio noleggio = new Noleggio();
-					
-					noleggio.setID(Integer.parseInt(colonne[0]));
-					noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
-					noleggio.setAssistenza(assistenzaservice.getAssistenzaByID(Integer.parseInt(colonne[2])));
-					noleggio.setCliente(utenteservice.getUtenteById(Integer.parseInt(colonne[3])));
-					noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
-					noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
-					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
-					noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
-					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
-					noleggio.setDettagli(colonne[9]);
-					listanoleggi.add(noleggio);
-				}
-			}
-			return listanoleggi;
+			
 		}
-		catch(IOException e)
-		{	throw new NoleggioNonTrovatoException();	}
-					
+		
+		
+		
+		
+		return null;
 	}
+	
+	
+	
+
+	
 					
 				
 			
@@ -351,7 +436,7 @@ public class FileNoleggioService implements NoleggioService
 			
 			for (String[] colonne : filedata.getRighe()) 
 			{
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); 
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
 				if( !(datainizio.isAfter(LocalDateTime.parse(colonne[5], formatter)) && datainizio.isBefore(LocalDateTime.parse(colonne[6], formatter)))
 				&&  !(datafine.isAfter(LocalDateTime.parse(colonne[5], formatter)) && datafine.isBefore(LocalDateTime.parse(colonne[6], formatter))))
 				{
@@ -364,7 +449,7 @@ public class FileNoleggioService implements NoleggioService
 					noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
 					noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
 					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
-					noleggio.setKm_fatti(Integer.parseInt(colonne[7]));
+					noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
 					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
 					noleggio.setDettagli(colonne[9]);
 					listaveicolo.add(noleggio.getVeicolo());

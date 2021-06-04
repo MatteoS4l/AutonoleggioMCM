@@ -6,6 +6,8 @@ public class Assistenza
 	private boolean servita;
 	private String dettagli;
 	private String risposta;
+	private Veicolo veicolo;
+	private Utente cliente;
 	
 	
 	//	GET E SET
@@ -32,6 +34,18 @@ public class Assistenza
 	}
 	public void setRisposta(String risposta) {
 		this.risposta = risposta;
+	}
+	public Veicolo getVeicolo() {
+		return veicolo;
+	}
+	public void setVeicolo(Veicolo veicolo) {
+		this.veicolo = veicolo;
+	}
+	public Utente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Utente cliente) {
+		this.cliente = cliente;
 	}
 	
 	

@@ -8,8 +8,10 @@ import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
+import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
+import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,7 +31,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class ControllerNoleggi_Utenti implements Initializable, DataInitializable<Utente, Object>
+public class ControllerNoleggi_Utenti implements Initializable, DataInitializable<Utente, Veicolo>
 {
 	private ViewDispatcher dispatcher;
 	private Utente utente;
@@ -73,14 +75,29 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
     
     @FXML	// INVIA RICHIESTA
     void InviaRichiesta(ActionEvent event)
-    {	try
-    	{	
-    		noleggio.getAssistenza().setDettagli(text_dettagli_richiesta.getText());
-    		assistenzaservice.createAssistenza(text_dettagli_richiesta.getText());
-    		label_avviso.setVisible(true);
-    	} 
-    	catch (BusinessException e)
-    	{	/* errore */	}
+    {	
+    	if(noleggio.getAssistenza() == null)
+    	{	try
+        	{	
+        		Assistenza assistenza = new Assistenza();
+        		
+        		assistenza.setDettagli(text_dettagli_richiesta.getText());
+        		assistenza.setCliente(noleggio.getCliente());
+        		assistenza.setVeicolo(noleggio.getVeicolo());
+        		int id_assistenza = assistenzaservice.createAssistenza(assistenza);
+        		assistenza.setID(id_assistenza);
+        		
+        		noleggio.setAssistenza(assistenza);
+        		noleggioservice.updateNoleggio(noleggio);
+        		
+        		label_avviso.setVisible(true);
+        	} 
+        	catch (BusinessException e)
+        	{	/* errore */	}
+    	}
+    	else
+    	{	System.out.println("assistenza gia richiesta, serve la label");	}
+    	
     	text_dettagli_richiesta.clear();
     }
     
@@ -149,7 +166,7 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
 
 
 	@Override
-	public void initializeData(Utente utente)
+	public void initializeData(Utente utente, Veicolo veicolo)
 	{
 		this.utente = utente;
 		
