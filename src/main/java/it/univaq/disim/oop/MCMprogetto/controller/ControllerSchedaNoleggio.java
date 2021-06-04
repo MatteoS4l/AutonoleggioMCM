@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
 public class ControllerSchedaNoleggio implements Initializable, DataInitializable<Veicolo,Utente>
 {
@@ -58,7 +59,11 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
 
     @FXML
     double calcolaPreventivo(ActionEvent event) 
-    {
+    {	if(data_inizio_nol.getValue()==null || data_fine_nol.getValue()==null)
+    	{
+    		label_preventivo.setTextFill(Color.RED);
+    		label_preventivo.setText("Inserisci una data valida");
+    	}
     	long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(),  data_fine_nol.getValue());
     	label_preventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
     	return Double.parseDouble(label_preventivo.getText());
