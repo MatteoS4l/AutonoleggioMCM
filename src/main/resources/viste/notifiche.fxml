@@ -4,22 +4,68 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerNotifiche">
+=======
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerNotifiche">
+>>>>>>> 7467a6198832c9c34e256c8ad776e706285bfe6b
    <children>
-      <TableView fx:id="tabella_notifiche_prenotazioni" layoutX="87.0" layoutY="49.0" prefHeight="134.0" prefWidth="476.0">
+      <TableView fx:id="tabella_notifiche_prenotazioni" layoutX="88.0" layoutY="56.0" prefHeight="134.0" prefWidth="476.0">
         <columns>
           <TableColumn fx:id="dettagli_prenotazioni" prefWidth="110.0" text="Veicolo" />
             <TableColumn prefWidth="364.0" text="Dettagli" />
         </columns>
       </TableView>
-      <TableView fx:id="tabella_notifiche_assistenza" layoutX="87.0" layoutY="251.0" prefHeight="134.0" prefWidth="476.0">
+      <TableView fx:id="tabella_notifiche_assistenza" layoutX="88.0" layoutY="279.0" prefHeight="134.0" prefWidth="476.0">
         <columns>
           <TableColumn fx:id="dettagli_assistenza" prefWidth="110.0" text="Veicolo" />
             <TableColumn prefWidth="364.0" text="Dettagli" />
         </columns>
       </TableView>
-      <Label layoutX="266.0" layoutY="25.0" text="Notifiche prenotazioni" />
-      <Label layoutX="273.0" layoutY="225.0" text="Notifiche assistenza" />
+      <Label layoutX="242.0" layoutY="27.0" text="Notifiche prenotazioni">
+         <font>
+            <Font name="Lucida Fax Demibold" size="14.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill></Label>
+      <Label layoutX="250.0" layoutY="249.0" text="Notifiche assistenza">
+         <font>
+            <Font name="Lucida Fax Demibold" size="14.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill></Label>
    </children>
 </AnchorPane>
