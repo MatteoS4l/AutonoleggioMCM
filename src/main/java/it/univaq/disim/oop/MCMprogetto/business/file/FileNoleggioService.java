@@ -110,7 +110,10 @@ public class FileNoleggioService implements NoleggioService
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.isServita());
 						row.append(Utility.SEPARATORE);
-						row.append("null");
+						if (noleggio.getDettagli()!="null")
+						{ row.append(noleggio.getDettagli()); }
+						else
+						{  row.append("null");  }
 						writer.println(row.toString());
 					}
 					else
@@ -424,6 +427,28 @@ public class FileNoleggioService implements NoleggioService
 		
 		return listaveicoli;
 	}
+
+
+	@Override
+	public List<Noleggio> FindNoleggiByDettagli() throws BusinessException 
+	{
+		List<Noleggio> listanol=FindAllNoleggi();
+		List<Noleggio> listacompleta=new ArrayList<Noleggio>();
+		
+		for(Noleggio n: listanol)
+		{
+			if(n.getDettagli().equalsIgnoreCase("null"))
+			{ listacompleta.add(n);   }
+			
+		}
+		
+		return listacompleta;
+		
+		
+	}
+
+
+	
 	
 	
 	
