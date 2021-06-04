@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerPrenotazioniOperatore">
+   <children>
+      <TableView fx:id="tabella_prenotazioni" layoutX="5.0" layoutY="69.0" prefHeight="250.0" prefWidth="641.0">
+        <columns>
+          <TableColumn fx:id="cliente_pren" prefWidth="100.0" text="Cliente" />
+          <TableColumn fx:id="veicolo_pren" prefWidth="110.0" text="Veicolo" />
+            <TableColumn fx:id="data_inizio_pren" prefWidth="181.0" text="Data inizio" />
+            <TableColumn fx:id="data_fine_pren" prefWidth="179.0" text="Data fine" />
+            <TableColumn fx:id="azioni_pren" prefWidth="70.0" text="Azioni" />
+        </columns>
+      </TableView>
+      <TextField fx:id="text_riposta" layoutX="105.0" layoutY="364.0" prefHeight="32.0" prefWidth="379.0" />
+      <Button fx:id="bottone_risposta" layoutX="484.0" layoutY="364.0" mnemonicParsing="false" onAction="#InviaRisposta" prefHeight="32.0" prefWidth="52.0" text="Invia" />
+      <Label fx:id="label_risposta" layoutX="204.0" layoutY="406.0" text="Notifica inviata con successo!" textFill="#00b93a">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

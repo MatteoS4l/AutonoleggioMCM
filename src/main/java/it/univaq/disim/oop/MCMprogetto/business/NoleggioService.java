@@ -29,6 +29,8 @@ public interface NoleggioService
 	
 	List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException;
 	
+	List<Noleggio> FindNoleggiByDettagli () throws BusinessException;
+	
 	
 	
 
