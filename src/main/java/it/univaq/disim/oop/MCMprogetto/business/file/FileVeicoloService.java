@@ -176,6 +176,28 @@ public class FileVeicoloService implements VeicoloService
 	}
 	
 	
+	@Override	// GET VEICOLO BY ID
+	public Veicolo getVeicoloById(int id) throws VeicoloNonTrovatoException , BusinessException
+	{	try
+		{
+			FileData fileData = Utility.readAllRows("veicoli");	
+			for(String[] righe : fileData.getRighe())
+			{
+				if(Integer.parseInt(righe[0]) == id)
+				{	
+					Veicolo veicolo = new Veicolo();
+					veicolo = Settaggi(righe);
+					return veicolo;
+				}
+			}
+		}
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
+		throw new VeicoloNonTrovatoException();
+	}
+	
 	
 	
 	
@@ -327,30 +349,7 @@ public class FileVeicoloService implements VeicoloService
 	}
 	
 	
-	@Override	// GET VEICOLO
-	public Veicolo getVeicoloById(int id) throws VeicoloNonTrovatoException , BusinessException
-	{	try
-		{
-			FileData fileData = Utility.readAllRows("veicoli");	
-			for(String[] righe : fileData.getRighe())
-			{
-				if(Integer.parseInt(righe[0]) == id)
-				{	
-					Veicolo veicolo = new Veicolo();
-					veicolo = Settaggi(righe);
-					return veicolo;
-				}
-			}
-		}
-		catch (IOException e) {	
-			e.printStackTrace();
-			throw new BusinessException(e);
-		}
-		throw new VeicoloNonTrovatoException();
-	}
-	
-	
-	
+
 	//	GIA ESISTENTE
 	private Boolean giaEsistente(String targa) throws BusinessException
 	{

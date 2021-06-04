@@ -31,7 +31,6 @@ import javafx.util.Callback;
 
 public class ControllerNoleggi_Operatore implements Initializable, DataInitializable<Noleggio, Object>
 {
-	
 	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
 	
