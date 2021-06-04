@@ -55,6 +55,7 @@ public class ControllerVistaNoleggi implements Initializable, DataInitializable<
     private CheckBox check_noleggi_incorso;
     @FXML
     private Text text_dettagli;
+   
     
     
     public ControllerVistaNoleggi()

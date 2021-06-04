@@ -59,6 +59,7 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
     private Label label_avviso;
     @FXML
     private Button invia_button;
+    
 
     
     public ControllerNoleggi_Utenti()
