@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
+import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
@@ -35,6 +36,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
 	private TipologiaService tipologiaservice;
+	private NoleggioService noleggioservice;
 	private Utente utente;
 
 	
@@ -78,6 +80,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     	MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
     	veicoloservice = factory.getVeicoloService();
     	tipologiaservice = factory.getTipologiaService();
+    	noleggioservice = factory.getNoleggioService();
     }
     
     
@@ -100,8 +103,8 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     	if (!txt_modello.getText().isEmpty())
     	{ listafiltrata = Intersezione(listafiltrata, veicoloservice.GetListaVeicoliByModello(txt_modello.getText()));   }
     	
-//    	if(dataInizio.getValue() != null && dataFine.getValue() != null)
-//    	{	listafiltrata = 	}
+    	if(dataInizio.getValue() != null && dataFine.getValue() != null)
+    	{	listafiltrata = noleggioservice.FindVeicoliDisponibiliForDate(dataInizio.getValue().atStartOfDay(), dataFine.getValue().atStartOfDay());	}
     	
     	if (!(txt_tariffaGiornomin.getText().isEmpty() && txt_tariffaGiornomax.getText().isEmpty()))
     	{

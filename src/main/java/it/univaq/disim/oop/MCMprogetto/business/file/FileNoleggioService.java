@@ -398,7 +398,7 @@ public class FileNoleggioService implements NoleggioService
 	@Override	// VEICOLI DISPONIBILI PER DATA
 	public List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException
 	{
-		List<Veicolo> listaveicoli = veicoloservice.GetListaVeicoliByStato("disponibile");
+		List<Veicolo> listaveicoli = veicoloservice.GetListaVeicoliByStato("tutte");
 		List<Noleggio> listanoleggi = FindAllNoleggi();
 		List<Veicolo> veicolidaeliminare = new ArrayList<Veicolo>();
 		
@@ -407,13 +407,22 @@ public class FileNoleggioService implements NoleggioService
 			if(datainizio.isAfter(tmp.getData_inizio_noleggio()) && datainizio.isBefore(tmp.getData_fine_noleggio()))
 			{	veicolidaeliminare.add(tmp.getVeicolo());	}
 			
-			
+			if(datafine.isAfter(tmp.getData_inizio_noleggio()) && datafine.isBefore(tmp.getData_fine_noleggio()))
+			{	veicolidaeliminare.add(tmp.getVeicolo());	}
 		}
 		
+		for(int i=0; i<listaveicoli.size(); i++)
+		{	
+			for(int j=0; j<veicolidaeliminare.size(); j++)
+			{
+				if(veicolidaeliminare.get(j).getID() == listaveicoli.get(i).getID())
+				{
+					listaveicoli.remove(i);
+				}
+			}
+		}
 		
-		
-		
-		return null;
+		return listaveicoli;
 	}
 	
 	
