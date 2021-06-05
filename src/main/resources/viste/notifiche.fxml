@@ -9,33 +9,19 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerNotifiche">
    <children>
       <TableView fx:id="tabella_notifiche_prenotazioni" layoutX="88.0" layoutY="56.0" prefHeight="134.0" prefWidth="476.0">
         <columns>
           <TableColumn fx:id="dettagli_prenotazioni" prefWidth="475.0" text="Dettagli" />
-=======
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerNotifiche">
-   <children>
-      <TableView fx:id="tabella_notifiche_prenotazioni" layoutX="88.0" layoutY="56.0" prefHeight="134.0" prefWidth="476.0">
-        <columns>
-          <TableColumn fx:id="veicolo_prenotazioni" prefWidth="100.0" text="Veicolo" />
-            <TableColumn fx:id="dettagli_prenotazioni" prefWidth="374.0" text="Dettagli" />
->>>>>>> 04171619bc0e3548104c18bed1bbab4fd9fa0d3a
         </columns>
       </TableView>
       <TableView fx:id="tabella_notifiche_assistenza" layoutX="88.0" layoutY="279.0" prefHeight="134.0" prefWidth="476.0">
         <columns>
-<<<<<<< HEAD
           <TableColumn fx:id="dettagli_assistenza" prefWidth="475.0" text="Dettagli" />
-=======
-          <TableColumn fx:id="veicolo_assistenza" prefWidth="100.0" text="Veicolo" />
-            <TableColumn fx:id="dettagli_assistenza" prefWidth="374.0" text="Dettagli" />
->>>>>>> 04171619bc0e3548104c18bed1bbab4fd9fa0d3a
         </columns>
       </TableView>
-      <Label layoutX="257.0" layoutY="28.0" text="Notifiche prenotazioni">
+      <Label layoutX="242.0" layoutY="27.0" text="Notifiche prenotazioni">
          <font>
             <Font name="Lucida Fax Demibold" size="14.0" />
          </font>
@@ -55,7 +41,7 @@
                </stops>
             </RadialGradient>
          </textFill></Label>
-      <Label layoutX="264.0" layoutY="252.0" text="Notifiche assistenza">
+      <Label layoutX="250.0" layoutY="249.0" text="Notifiche assistenza">
          <font>
             <Font name="Lucida Fax Demibold" size="14.0" />
          </font>
