@@ -157,8 +157,8 @@ public class FileAssistenzaService implements AssistenzaService
 						row.append(Utility.SEPARATORE);
 						row.append(assistenza.getCliente().getID());
 						
-						
-					}writer.println(String.join(Utility.SEPARATORE, righe));
+						writer.println(String.join(Utility.SEPARATORE, righe));
+					}
 				}
 			}
 		}

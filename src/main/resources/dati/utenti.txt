@@ -1,11 +1,3 @@
-14
-1,cliente,Matteo,Salvatore,matteo,cliente,M,20
-2,cliente,Carmine,Pittella,carmine,cliente,M,21
-3,cliente,Matteo,Bovino,bovino,cliente,M,23
-4,cliente,Sofia,Marietti,sofia,cliente,F,21
-5,operatore,Mario,Rossi,mario,operatore,M,35
-6,operatore,marco,bononi,marco,operatore,M,20
-7,cliente,matteo,matteo,matteo,matteo,M,51
-8,cliente,a,a,a,a,M,33
-9,operatore,o,o,o,o,F,0
-13,cliente,c,c,c,c,M,6
+3
+1,cliente,a,a,a,a,M,0
+2,operatore,o,o,o,o,M,0
