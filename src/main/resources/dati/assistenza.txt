@@ -1,2 +1,2 @@
 2
-1,ho bucato,false,matteo salvatore
+1,ho spaccato tutto,false,null,1,8

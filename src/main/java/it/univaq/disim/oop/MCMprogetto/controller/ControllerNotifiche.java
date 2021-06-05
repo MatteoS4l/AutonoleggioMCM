@@ -2,6 +2,7 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -60,7 +61,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{	
-		 
+		
 		
 		
 	}
@@ -75,8 +76,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		dettagli_prenotazioni.setCellValueFactory(new PropertyValueFactory<>("dettagli"));
+		dettagli_prenotazioni.setCellValueFactory(new PropertyValueFactory<Noleggio, String>("dettagli"));
 		veicolo_prenotazioni.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
 	    {
 			@Override
@@ -84,8 +84,20 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 			{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
 		});
 		
+		
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listanoleggi);
+		
+//		for (Noleggio n: listaNol1)
+//		{
+//			if ((n.getDettagli().equalsIgnoreCase("null")))
+//			{	listaNol1.remove(n);	}
+//		}
+		
 		tabella_notifiche_prenotazioni.setItems(listaNol1);
+		
+		
+		
+		
 		
 		List<Noleggio> lista_nol= null ;
 		try {
@@ -108,8 +120,10 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 			{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
 		});
 		
+		
 		ObservableList<Noleggio> listaNol2 = FXCollections.observableList(lista_nol);
-		tabella_notifiche_prenotazioni.setItems(listaNol2);
+		tabella_notifiche_assistenza.setItems(listaNol2);
+		
 		
 		 
 	}
