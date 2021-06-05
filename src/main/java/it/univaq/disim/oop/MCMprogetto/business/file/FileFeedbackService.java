@@ -1,3 +1,4 @@
+
 package it.univaq.disim.oop.MCMprogetto.business.file;
 
 import java.io.File;
@@ -17,7 +18,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 
 public class FileFeedbackService implements FeedbackService
-{// ID, feedback, utente, veicolo
+{// ID, feedback, utente, veicolo, (n° stelle feedback)
 	private UtenteService utenteservice = new FileUtenteService();
 	private VeicoloService veicoloservice = new FileVeicoloService();
 
