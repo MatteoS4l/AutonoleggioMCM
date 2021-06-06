@@ -1,4 +1,3 @@
-4
-1,AA000AA,berlina,ferrari,benzina,false,true,disponibile,0,100.0,200.0,0
-2,AA001AA,berlina,panda,benzina,false,false,disponibile,0,10.0,20.0,0
-3,AA002AA,utilitaria,stelvio,benzina,false,false,disponibile,0,22.0,33.0,0
+5
+2,AA001AA,berlina,panda,benzina,false,false,in noleggio,0,10.0,20.0,0
+4,TF277HC,berlina,Ferrari,benzina,false,true,disponibile,0,200.0,150.0,0

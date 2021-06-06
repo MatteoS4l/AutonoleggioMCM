@@ -52,15 +52,19 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     
 
     @FXML	// CALCOLA PREVENTIVO 
-    double calcolaPreventivo(ActionEvent event) 
-    {	if(data_inizio_nol.getValue()==null || data_fine_nol.getValue()==null)
-    	{
-    		label_preventivo.setTextFill(Color.RED);
-    		label_preventivo.setText("Inserisci correttamente le date !");
+    double calcolaPreventivo(ActionEvent event) throws BusinessException 
+    {  	try
+    	{	
+    		long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(),  data_fine_nol.getValue());
+    		label_preventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
+        	return Double.parseDouble(label_preventivo.getText());
     	}
-    	long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(),  data_fine_nol.getValue());
-    	label_preventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
-    	return Double.parseDouble(label_preventivo.getText());
+    	catch(NullPointerException e)
+    	{	label_preventivo.setTextFill(Color.RED);
+			label_preventivo.setText("Inserisci correttamente le date !");
+		}
+    	
+    	throw new BusinessException();
 
     }
 
@@ -81,6 +85,8 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
         	noleggio.setKM_percorsi(0);
         	noleggio.setServita(false);
 			noleggioservice.createNoleggio(noleggio);
+			
+			dispatcher.renderView("home", utente, null);
 		} 
     	catch (BusinessException e)
     	{	label_preventivo.setTextFill(Color.RED);

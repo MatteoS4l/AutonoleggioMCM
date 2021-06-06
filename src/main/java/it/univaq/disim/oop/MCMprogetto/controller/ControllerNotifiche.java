@@ -67,6 +67,13 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 		{	 
 			List<Noleggio> listanoleggi=null;
 			listanoleggi= noleggioservice.FindNoleggiByUtente(utente);
+			
+			for(Noleggio tmp : listanoleggi)
+			{
+				if(tmp.getDettagli().equalsIgnoreCase("null"))
+				{	listanoleggi.remove(tmp);	}
+			}
+			
 			dettagli_prenotazioni.setCellValueFactory(new PropertyValueFactory<Noleggio, String>("dettagli"));
 			veicolo_prenotazioni.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
 		    {
@@ -74,26 +81,24 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 				public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
 				{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
 			});
-			if(listanoleggi != null)
-			{
-				for(Noleggio tmp : listanoleggi)
-				{
-					if(tmp.getDettagli().equalsIgnoreCase("null"))
-					{	listanoleggi.remove(tmp);	}	
-				}
-				ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listanoleggi);
-				tabella_notifiche_prenotazioni.setItems(listaNol1);
-			}
-			
+			ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listanoleggi);
+			tabella_notifiche_prenotazioni.setItems(listaNol1);
 		}
 		catch (BusinessException e)
-	{	System.out.println("ciao");	}
+		{	System.out.println("ciao");	}
 		
 		
 		try
 		{	 
 			List<Noleggio> lista_nol = new ArrayList<Noleggio>();
 			lista_nol = noleggioservice.FindNoleggiByAssistenza("si");
+			
+			for(Noleggio tmp : lista_nol)
+			{
+				if(tmp.getAssistenza().getRisposta().equalsIgnoreCase("null"))
+				{	lista_nol.remove(tmp);	}
+			}
+			
 			dettagli_assistenza.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
 		    {
 				@Override
@@ -106,16 +111,8 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 				public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
 				{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
 			});
-			if(lista_nol != null)
-			{
-				for(Noleggio tmp : lista_nol)
-				{
-					if(tmp.getAssistenza().getRisposta().equalsIgnoreCase("null"))
-					{	lista_nol.remove(tmp);	}
-				}
-				ObservableList<Noleggio> listaNol2 = FXCollections.observableList(lista_nol);
-				tabella_notifiche_assistenza.setItems(listaNol2);
-			}
+			ObservableList<Noleggio> listaNol2 = FXCollections.observableList(lista_nol);
+			tabella_notifiche_assistenza.setItems(listaNol2);
 		}
 		catch (BusinessException e)
 		{	System.out.println("ciao");	}

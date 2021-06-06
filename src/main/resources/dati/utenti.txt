@@ -1,3 +1,4 @@
-3
+4
 1,cliente,a,a,a,a,M,0
 2,operatore,o,o,o,o,M,0
+3,cliente,matteo,bovino,matteo,matteo,M,0

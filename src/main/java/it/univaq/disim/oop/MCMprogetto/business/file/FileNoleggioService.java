@@ -112,7 +112,7 @@ public class FileNoleggioService implements NoleggioService
 						else
 						{  row.append("null");  }
 						
-						
+						writer.println(row.toString());
 					}
 					else
 					{	writer.println(String.join(Utility.SEPARATORE, righe));	}
@@ -417,9 +417,7 @@ public class FileNoleggioService implements NoleggioService
 			for(int j=0; j<veicolidaeliminare.size(); j++)
 			{
 				if(veicolidaeliminare.get(j).getID() == listaveicoli.get(i).getID())
-				{
-					listaveicoli.remove(i);
-				}
+				{	listaveicoli.remove(i);		}
 			}
 		}
 		
