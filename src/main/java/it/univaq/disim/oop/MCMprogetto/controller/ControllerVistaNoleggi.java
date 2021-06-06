@@ -128,7 +128,7 @@ public class ControllerVistaNoleggi implements Initializable, DataInitializable<
 				{
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Noleggio, Button> param) {
-						final Button dettagliButton = new Button("Vedi");
+						final Button dettagliButton = new Button("Dettagli");
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {

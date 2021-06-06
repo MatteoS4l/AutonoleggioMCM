@@ -14,10 +14,10 @@
         <columns>
           <TableColumn fx:id="id_noleggio" prefWidth="54.0" text="ID" />
             <TableColumn fx:id="veicolo_noleggio" prefWidth="105.0" text="Veicolo" />
-          <TableColumn fx:id="data_inizio_noleggio" prefWidth="150.0" text="data inizio" />
-            <TableColumn fx:id="data_fine_noleggio" prefWidth="150.0" text="data fine" />
+          <TableColumn fx:id="data_inizio_noleggio" prefWidth="150.0" text="Data inizio" />
+            <TableColumn fx:id="data_fine_noleggio" prefWidth="150.0" text="Data fine" />
             <TableColumn fx:id="cliente_noleggio" prefWidth="91.0" text="Cliente" />
-            <TableColumn fx:id="azioni_noleggio" prefWidth="91.0" text="Azioni" />
+            <TableColumn fx:id="azioni_noleggio" prefWidth="91.0" text="Assistenza" />
         </columns>
       </TableView>
       <ComboBox fx:id="box_assistenza" layoutX="31.0" layoutY="22.0" onAction="#ApplicaFiltri" prefHeight="37.0" prefWidth="109.0" promptText="Assistenza" />

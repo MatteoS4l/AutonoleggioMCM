@@ -116,7 +116,7 @@ public class ControllerPrenotazioniOperatore implements Initializable,DataInitia
 				{
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Noleggio, Button> param) {
-						final Button dettagliButton = new Button("Sium");
+						final Button dettagliButton = new Button("Invia");
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) 

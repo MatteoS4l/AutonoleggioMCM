@@ -9,16 +9,16 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerVistaVeicoli">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerVistaVeicoli">
    <children>
-      <TableView fx:id="tabella_veicoli" prefHeight="384.0" prefWidth="650.0">
+      <TableView fx:id="tabella_veicoli" layoutY="9.0" prefHeight="375.0" prefWidth="650.0">
         <columns>
-          <TableColumn fx:id="modello_veicolo" prefWidth="110.0" text="Modello" />
+          <TableColumn fx:id="modello_veicolo" prefWidth="109.0" text="Modello" />
             <TableColumn fx:id="tipologia_veicolo" prefWidth="110.0" text="Tipologia" />
             <TableColumn fx:id="prezzo_km_veicolo" prefWidth="95.0" text="€/1000km" />
             <TableColumn fx:id="prezzo_giorno_veicolo" prefWidth="95.0" text="€/giorno" />
             <TableColumn fx:id="stato_veicolo" prefWidth="119.0" text="Stato" />
-            <TableColumn fx:id="azioni_veicolo" minWidth="0.0" prefWidth="120.0" text="Azioni" />
+            <TableColumn fx:id="azioni_veicolo" minWidth="0.0" prefWidth="119.0" text="Azioni" />
         </columns>
       </TableView>
       <Button fx:id="aggiungi_veicolo_button" layoutX="497.0" layoutY="400.0" mnemonicParsing="false" onAction="#AggiungiVeicolo" prefHeight="31.0" prefWidth="139.0" text="Aggiungi veicolo">

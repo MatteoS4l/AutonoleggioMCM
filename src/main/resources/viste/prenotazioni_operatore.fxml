@@ -10,13 +10,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerPrenotazioniOperatore">
    <children>
-      <TableView fx:id="tabella_prenotazioni" layoutX="5.0" layoutY="69.0" prefHeight="250.0" prefWidth="641.0">
+      <TableView fx:id="tabella_prenotazioni" layoutX="10.0" layoutY="68.0" prefHeight="250.0" prefWidth="630.0">
         <columns>
-          <TableColumn fx:id="cliente_pren" prefWidth="100.0" text="Cliente" />
-          <TableColumn fx:id="veicolo_pren" prefWidth="110.0" text="Veicolo" />
-            <TableColumn fx:id="data_inizio_pren" prefWidth="181.0" text="Data inizio" />
-            <TableColumn fx:id="data_fine_pren" prefWidth="179.0" text="Data fine" />
-            <TableColumn fx:id="azioni_pren" prefWidth="70.0" text="Azioni" />
+          <TableColumn fx:id="cliente_pren" prefWidth="102.0" text="Cliente" />
+          <TableColumn fx:id="veicolo_pren" prefWidth="103.0" text="Veicolo" />
+            <TableColumn fx:id="data_inizio_pren" prefWidth="178.0" text="Data inizio" />
+            <TableColumn fx:id="data_fine_pren" prefWidth="178.0" text="Data fine" />
+            <TableColumn fx:id="azioni_pren" prefWidth="67.0" text="Notifiche" />
         </columns>
       </TableView>
       <TextField fx:id="text_riposta" layoutX="105.0" layoutY="364.0" prefHeight="32.0" prefWidth="379.0" />

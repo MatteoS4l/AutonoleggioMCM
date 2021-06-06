@@ -123,6 +123,16 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 		catch (BusinessException e)
 		{	e.printStackTrace();	}
 		
+		List<Veicolo> listaV=null;
+		try {
+			listaV = veicoloservice.GetListaVeicoliByStato("Tutte");
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+		ObservableList<Veicolo> listaV1 = FXCollections.observableList(listaV);
+		tabella_veicoli.setItems(listaV1);
+		
+		
 		
 	}
 
