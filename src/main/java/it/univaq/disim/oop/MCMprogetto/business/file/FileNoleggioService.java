@@ -29,7 +29,7 @@ public class FileNoleggioService implements NoleggioService
 	
 	@Override	// CREA
 	public void createNoleggio(Noleggio noleggio) throws BusinessException 
-	{//id, prezzo, id assistenza, id cliente, id veicolo, data inizio, data fine, km fatti, 
+	{//id, prezzo, id assistenza, id cliente, id veicolo, data inizio, data fine, km fatti, servita(true false), risposta
 		try
 		{
 			FileData fileData = Utility.readAllRows("noleggi");
@@ -46,10 +46,7 @@ public class FileNoleggioService implements NoleggioService
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getPrezzo_noleggio());
 				row.append(Utility.SEPARATORE);
-				if(noleggio.getAssistenza() == null)
-				{	row.append(0);	}
-				else
-				{	row.append(noleggio.getAssistenza().getID());	}
+				row.append(0);
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getCliente().getID());
 				row.append(Utility.SEPARATORE);
@@ -59,7 +56,7 @@ public class FileNoleggioService implements NoleggioService
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getData_fine_noleggio().toString().replace("T", " "));
 				row.append(Utility.SEPARATORE);
-				row.append(noleggio.getKM_percorsi());
+				row.append(0);
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.isServita());
 				row.append(Utility.SEPARATORE);
@@ -114,7 +111,8 @@ public class FileNoleggioService implements NoleggioService
 						{ row.append(noleggio.getDettagli()); }
 						else
 						{  row.append("null");  }
-						writer.println(row.toString());
+						
+						
 					}
 					else
 					{	writer.println(String.join(Utility.SEPARATORE, righe));	}
@@ -429,16 +427,16 @@ public class FileNoleggioService implements NoleggioService
 	}
 
 
-	@Override
+	@Override	// ASSISTENZA BY DETTAGLI
 	public List<Noleggio> FindNoleggiByDettagli() throws BusinessException 
 	{
 		List<Noleggio> listanol=FindAllNoleggi();
 		List<Noleggio> listacompleta=new ArrayList<Noleggio>();
 		
-		for(Noleggio n: listanol)
+		for(Noleggio tmp: listanol)
 		{
-			if(n.getDettagli().equalsIgnoreCase("null"))
-			{ listacompleta.add(n);   }
+			if(tmp.getDettagli().equalsIgnoreCase("null"))
+			{ listacompleta.add(tmp);   }
 			
 		}
 		

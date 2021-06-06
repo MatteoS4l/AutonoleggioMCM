@@ -1,6 +1,7 @@
 package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class ControllerAssistenzaOperatore implements Initializable,DataInitializable<Utente, Assistenza>
@@ -62,19 +64,23 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
 		assistenzaservice = factory.getAssistenzaService();
     }
     
-    @FXML
+    @FXML	// INVIA RISPOSTA
     void inviaRispostaAssistenza(ActionEvent event) throws BusinessException 
     {
     	assistenza.setRisposta(text_risposta_assistenza.getText());
+    	assistenza.setServita(true);
     	assistenzaservice.updateAssistenza(assistenza);
-    	label_risposta_assistenza.setVisible(true);
     	
-    	
-
+    	text_risposta_assistenza.clear();
+    	text_risposta_assistenza.setVisible(false);
+		label_risposta_assistenza.setVisible(true);
+		bottone_invio.setVisible(false);
+		
+		initialize(null, null);
     }
     
     
-
+    // Mostra cose
 	void mostraCose(Assistenza assistenza)
     {
 		this.assistenza = assistenza;
@@ -120,17 +126,19 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
 						return new SimpleObjectProperty<Button>(dettagliButton);
 					}
 				});	
-		
-		List<Assistenza> lista_ass=null;
-		try {
-			 lista_ass=assistenzaservice.getListaAssistenzaByServita(false);
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		try
+		{
+			List<Assistenza> lista_ass = new ArrayList<Assistenza>();
+			lista_ass = assistenzaservice.getListaAssistenzaByServita(false);
+			ObservableList<Assistenza> lista_a = FXCollections.observableList(lista_ass);
+			tabella_assistenza_op.setItems(lista_a);
+		}
+		catch (BusinessException e)
+		{	label_risposta_assistenza.setTextFill(Color.RED);
+			label_risposta_assistenza.setText("Errore generico");
 		}
 		
-		ObservableList<Assistenza> lista_a = FXCollections.observableList(lista_ass);
-		tabella_assistenza_op.setItems(lista_a);
+		
 	}
 
 }

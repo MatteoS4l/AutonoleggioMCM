@@ -56,6 +56,47 @@ public class FileAssistenzaService implements AssistenzaService
 		}
 	}
 	
+	
+	@Override	// UPDATE
+	public void updateAssistenza(Assistenza assistenza) throws BusinessException 
+	{	try
+		{
+			FileData fileData = Utility.readAllRows("assistenza");
+			
+			try(PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "assistenza" + Utility.FORMATO)))
+			{
+				writer.println(fileData.getCont());
+				for(String[] righe : fileData.getRighe())
+				{
+					if(Integer.parseInt(righe[0]) == assistenza.getID())
+					{
+						StringBuilder row = new StringBuilder();
+						
+						row.append(assistenza.getID());
+						row.append(Utility.SEPARATORE);
+						row.append(assistenza.getDettagli());
+						row.append(Utility.SEPARATORE);
+						row.append(assistenza.isServita());
+						row.append(Utility.SEPARATORE);
+						row.append(assistenza.getRisposta());
+						row.append(Utility.SEPARATORE);
+						row.append(assistenza.getVeicolo().getID());
+						row.append(Utility.SEPARATORE);
+						row.append(assistenza.getCliente().getID());
+						
+						writer.println(row.toString());
+					}
+					else
+					{	writer.println(String.join(Utility.SEPARATORE, righe));	}
+				}
+			}
+		}
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
+	}
+	
 
 	@Override	// GET ASSISTENZA ID
 	public Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException
@@ -90,7 +131,7 @@ public class FileAssistenzaService implements AssistenzaService
 	}
 
 
-	@Override
+	@Override	// FIND ASSISTENZA SERVITA
 	public List<Assistenza> getListaAssistenzaByServita(boolean servita) throws BusinessException 
 	{
 		try
@@ -129,44 +170,7 @@ public class FileAssistenzaService implements AssistenzaService
 	
 
 
-	@Override
-	public void updateAssistenza(Assistenza assistenza) throws BusinessException 
-	{
-		try
-		{
-			FileData fileData = Utility.readAllRows("assistenza");
-			
-			try(PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "assistenza" + Utility.FORMATO)))
-			{
-				writer.println(fileData.getCont());
-				for(String[] righe : fileData.getRighe())
-				{
-					if(Integer.parseInt(righe[0]) == assistenza.getID())
-					{
-						StringBuilder row = new StringBuilder();
-						
-						row.append(assistenza.getID());
-						row.append(Utility.SEPARATORE);
-						row.append(assistenza.getDettagli());
-						row.append(Utility.SEPARATORE);
-						row.append(assistenza.isServita());
-						row.append(Utility.SEPARATORE);
-						row.append(assistenza.getRisposta());
-						row.append(Utility.SEPARATORE);
-						row.append(assistenza.getVeicolo().getID());
-						row.append(Utility.SEPARATORE);
-						row.append(assistenza.getCliente().getID());
-						
-						writer.println(String.join(Utility.SEPARATORE, righe));
-					}
-				}
-			}
-		}
-		catch (IOException e) {	
-			e.printStackTrace();
-			throw new BusinessException(e);
-		}
-	}
+	
 
 	
 	

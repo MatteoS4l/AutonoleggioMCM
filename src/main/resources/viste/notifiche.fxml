@@ -9,16 +9,18 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerNotifiche">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerNotifiche">
    <children>
       <TableView fx:id="tabella_notifiche_prenotazioni" layoutX="88.0" layoutY="56.0" prefHeight="134.0" prefWidth="476.0">
         <columns>
-          <TableColumn fx:id="dettagli_prenotazioni" prefWidth="475.0" text="Dettagli" />
+            <TableColumn fx:id="veicolo_prenotazioni" prefWidth="75.0" text="Veicolo" />
+          <TableColumn fx:id="dettagli_prenotazioni" prefWidth="399.0" text="Dettagli" />
         </columns>
       </TableView>
       <TableView fx:id="tabella_notifiche_assistenza" layoutX="88.0" layoutY="279.0" prefHeight="134.0" prefWidth="476.0">
         <columns>
-          <TableColumn fx:id="dettagli_assistenza" prefWidth="475.0" text="Dettagli" />
+            <TableColumn fx:id="veicolo_assistenza" prefWidth="75.0" text="Veicolo" />
+          <TableColumn fx:id="dettagli_assistenza" prefWidth="399.0" text="Dettagli" />
         </columns>
       </TableView>
       <Label layoutX="242.0" layoutY="27.0" text="Notifiche prenotazioni">
