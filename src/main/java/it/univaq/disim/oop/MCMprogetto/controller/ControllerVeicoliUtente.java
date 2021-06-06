@@ -104,7 +104,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     	{ listafiltrata = Intersezione(listafiltrata, veicoloservice.GetListaVeicoliByModello(txt_modello.getText()));   }
     	
     	if(dataInizio.getValue() != null && dataFine.getValue() != null)
-    	{	listafiltrata = noleggioservice.FindVeicoliDisponibiliForDate(dataInizio.getValue().atStartOfDay(), dataFine.getValue().atStartOfDay());	}
+    	{	listafiltrata = Intersezione(listafiltrata, noleggioservice.FindVeicoliDisponibiliForDate(dataInizio.getValue().atStartOfDay(), dataFine.getValue().atStartOfDay()));	}
     	
     	if (!(txt_tariffaGiornomin.getText().isEmpty() && txt_tariffaGiornomax.getText().isEmpty()))
     	{

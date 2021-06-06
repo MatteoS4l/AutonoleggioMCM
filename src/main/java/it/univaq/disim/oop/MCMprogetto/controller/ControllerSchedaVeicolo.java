@@ -5,11 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
+import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -44,6 +46,8 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
     private Button modifica_button;
     @FXML
     private Button elimina_button;
+    @FXML
+    private Label label_errore;
 
     
     public ControllerSchedaVeicolo()
@@ -84,10 +88,16 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
     
     @FXML	// ELIMINA
     void EliminaVeicolo(ActionEvent event) throws BusinessException
-    {
-    	veicoloservice.deleteVeicolo(veicolo);
-    	dispatcher.renderView("vistaveicoli", utente, null);
+    {	try
+	    {
+	    	veicoloservice.deleteVeicolo(veicolo);
+	    	dispatcher.renderView("vistaveicoli", utente, null);
+	    }
+    	catch(VeicoloNonTrovatoException e)
+	    {	label_errore.setVisible(true);	    }
     }
+    
+    
     
     @FXML	// VEDI FEEDBACK
     void VisualizzaFeedback(ActionEvent event) 
@@ -99,7 +109,8 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{	
-		System.out.println("ciao");try 
+		label_errore.setVisible(false);
+		try 
 		{
 			tf_stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
 			tf_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());

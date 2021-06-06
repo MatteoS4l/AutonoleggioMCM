@@ -373,5 +373,10 @@
          </font>
       </Button>
       <ChoiceBox fx:id="tf_tipologia" layoutX="37.0" layoutY="122.0" prefHeight="30.0" prefWidth="147.0" />
+      <Label fx:id="label_errore" alignment="CENTER" layoutX="147.0" layoutY="415.0" prefHeight="19.0" prefWidth="368.0" text="Errore: veicolo in noleggio, non può essere eliminato !" textFill="#8d0000">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

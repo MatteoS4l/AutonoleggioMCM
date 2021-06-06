@@ -320,10 +320,11 @@ public class FileVeicoloService implements VeicoloService
 				for(String[] righe : fileData.getRighe())
 				{
 					if(Integer.parseInt(righe[0]) == veicolo.getID() && veicolo.getStato().equalsIgnoreCase("disponibile"))
-					{	System.out.println("eliminato");	}
+					{	return;	}
 					else
 					{	writer.println(String.join(Utility.SEPARATORE, righe));	}
 				}
+				throw new VeicoloNonTrovatoException();
 			}
 		}
 		catch (IOException e) {	

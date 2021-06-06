@@ -101,6 +101,7 @@ public class FileUtenteService implements UtenteService
 				utente.setPassword(colonne[5]);
 				utente.setSesso(colonne[6].charAt(0));
 				utente.setEta(Integer.parseInt(colonne[7]));
+				utente.setData_nascita(LocalDate.parse(colonne[8]));
 				
 				listacompleta.add(utente);
 			}
@@ -152,6 +153,8 @@ public class FileUtenteService implements UtenteService
 				row.append(utente.getSesso());
 				row.append(Utility.SEPARATORE);
 				row.append(utente.getEta());
+				row.append(Utility.SEPARATORE);
+				row.append(utente.getData_nascita().toString().replace("T", " "));
 				writer.println(row.toString());
 			}
 		}
@@ -198,6 +201,8 @@ public class FileUtenteService implements UtenteService
 						row.append(utente.getSesso());
 						row.append(Utility.SEPARATORE);
 						row.append(utente.getEta());
+						row.append(Utility.SEPARATORE);
+						row.append(utente.getData_nascita().toString().replace("T", " "));
 						writer.println(row.toString());
 					}
 					else
@@ -276,6 +281,7 @@ public class FileUtenteService implements UtenteService
 					utente.setPassword(righe[5]);
 					utente.setSesso(righe[6].charAt(0));
 					utente.setEta(Integer.parseInt(righe[7]));
+					utente.setData_nascita(LocalDate.parse(righe[8]));
 				
 					return utente;
 				}
