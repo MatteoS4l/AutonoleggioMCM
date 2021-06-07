@@ -7,13 +7,14 @@ public class Feedback
 	private Veicolo veicolo;
 	private Utente utente;
 	private int ID;
+	private int stelle;
 	
 	
 	//	GET E SET
 	public String getFeedback() {
 		return feedback;
 	}
-	public void addFeedback(String feedback) {
+	public void setFeedback(String feedback) {
 		this.feedback = feedback;
 	}
 	public Veicolo getVeicolo() {
@@ -36,5 +37,11 @@ public class Feedback
 	}
 	public String getUtenteId(Utente utente) 
 	{ return utente.getUsername(); }
+	public int getStelle() {
+		return stelle;
+	}
+	public void setStelle(int stelle) {
+		this.stelle = stelle;
+	}
 
 }

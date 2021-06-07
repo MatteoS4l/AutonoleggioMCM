@@ -44,6 +44,8 @@ public class FileFeedbackService implements FeedbackService
 				row.append(feedback.getUtente().getID());
 				row.append(Utility.SEPARATORE);
 				row.append(feedback.getVeicolo().getID());
+				row.append(Utility.SEPARATORE);
+				row.append(feedback.getStelle());
 
 				writer.println(row.toString());
 			}
@@ -69,7 +71,8 @@ public class FileFeedbackService implements FeedbackService
 					Feedback feedback = new Feedback();
 
 					feedback.setID(Integer.parseInt(colonne[0]));
-					feedback.addFeedback(colonne[1]);
+					feedback.setFeedback(colonne[1]);
+					
 
 					try 
 					{	feedback.setUtente(utenteservice.getUtenteById(Integer.parseInt(colonne[2])));	}
@@ -84,6 +87,8 @@ public class FileFeedbackService implements FeedbackService
 					{	e.printStackTrace();	} 
 					catch (VeicoloNonTrovatoException e)	
 					{	e.printStackTrace();	}
+					
+					feedback.setStelle(Integer.parseInt(colonne[4]));
 
 					listacompleta.add(feedback);
 				}
