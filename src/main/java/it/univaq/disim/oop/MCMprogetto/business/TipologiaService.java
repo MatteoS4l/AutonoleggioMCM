@@ -11,8 +11,8 @@ public interface TipologiaService
 	
 	void deleteTipologia(Tipologia tipologia) throws TipologiaNonTrovataException, BusinessException;
 	
-	List<String> getAllTipologia() throws TipologiaNonTrovataException, BusinessException;
+	List<String> FindAllTipologia() throws TipologiaNonTrovataException, BusinessException;
 	
-	List<Tipologia> getAllTipologiaT() throws TipologiaNonTrovataException, BusinessException;
+	List<Tipologia> FindAllTipologiaT() throws TipologiaNonTrovataException, BusinessException;
  
 }

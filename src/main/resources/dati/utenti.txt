@@ -1,4 +1,4 @@
 4
 1,cliente,carmine,a,a,a,M,21,2000-05-11
-2,cliente,Federica,Possaghi,o,o,F,21,1999-10-19
+2,operatore,Federica,Possaghi,o,o,F,21,1999-10-19
 3,cliente,e,e,e,e,M,0,2021-05-31

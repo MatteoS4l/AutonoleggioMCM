@@ -15,21 +15,23 @@ public interface NoleggioService
 	
 	Noleggio FindNoleggioByID(int ID) throws NoleggioNonTrovatoException, BusinessException;
 	
-	List<Noleggio> FindAllNoleggi() throws NoleggioNonTrovatoException, BusinessException;
+	List<Noleggio> FindAllNoleggi() throws BusinessException;
 	
-	List<Noleggio> FindNoleggiByAssistenza(String assistenza) throws NoleggioNonTrovatoException, BusinessException;
+	List<Noleggio> FindNoleggiByAssistenza(String assistenza) throws BusinessException;
 	
-	List<Noleggio> FindNoleggiInCorso() throws NoleggioNonTrovatoException, BusinessException;
+	List<Noleggio> FindNoleggiInCorso() throws BusinessException;
 	
-	List<Noleggio> FindNoleggiByUtente(Utente utente) throws NoleggioNonTrovatoException, BusinessException;
+	List<Noleggio> FindNoleggiByUtente(Utente utente) throws BusinessException;
 	
-	void CheckStatoVeicoli() throws BusinessException;
+	List<Noleggio> FindNoleggiByPagamento() throws BusinessException;
 	
 	List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException;
 	
 	List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException;
 	
 	List<Noleggio> FindNoleggiByDettagli () throws BusinessException;
+	
+	void CheckStatoVeicoli() throws BusinessException;
 	
 	
 	

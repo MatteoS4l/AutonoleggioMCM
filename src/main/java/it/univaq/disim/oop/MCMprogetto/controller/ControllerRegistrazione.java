@@ -92,8 +92,8 @@ public class ControllerRegistrazione implements Initializable, DataInitializable
 	    	}
 	    	
     	}
-	    	catch(NullPointerException e)
-	    	{	label_errore.setText("Inserire la data");	}
+	    catch(NullPointerException e)
+	    {	label_errore.setText("Inserire la data");	}
     }
 
     

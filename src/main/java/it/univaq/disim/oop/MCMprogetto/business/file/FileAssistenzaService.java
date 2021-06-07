@@ -5,14 +5,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
-import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
+
 
 public class FileAssistenzaService implements AssistenzaService
 {// id, dettagli, servita(ture,false), risposta, id veicolo, id cliente
@@ -97,32 +96,28 @@ public class FileAssistenzaService implements AssistenzaService
 		}
 	}
 	
-
-	@Override	// GET ASSISTENZA ID
-	public Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException
-	{	
-		if(id == 0)
-		{	return null;	}
-		
-		try
+	
+	@Override	// FIND ALL ASSISTENZA
+	public List<Assistenza> FindAllAssistenza() throws BusinessException
+	{	try
 		{
 			FileData fileData = Utility.readAllRows("assistenza");	
+			List<Assistenza> lista = new ArrayList<Assistenza>();
+			
 			for(String[] righe : fileData.getRighe())
 			{
-				if(Integer.parseInt(righe[0]) == id)
-				{	Assistenza assistenza = new Assistenza();
-				
-					assistenza.setID(Integer.parseInt(righe[0]));
-					assistenza.setDettagli(righe[1]);
-					assistenza.setServita(Boolean.parseBoolean(righe[2]));
-					assistenza.setRisposta(righe[3]);
-					assistenza.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(righe[4])));
-					assistenza.setCliente(utenteservice.getUtenteById(Integer.parseInt(righe[5])));
+				Assistenza assistenza = new Assistenza();
+									
+				assistenza.setID(Integer.parseInt(righe[0]));
+				assistenza.setDettagli(righe[1]);
+				assistenza.setServita(Boolean.parseBoolean(righe[2]));
+				assistenza.setRisposta(righe[3]);
+				assistenza.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(righe[4])));
+				assistenza.setCliente(utenteservice.getUtenteById(Integer.parseInt(righe[5])));
 
-					return assistenza;
-				}
+				lista.add(assistenza);
 			}
-			throw new AssistenzaNonTrovataException();
+			return lista;
 		}
 		catch (IOException e) {	
 			e.printStackTrace();
@@ -130,41 +125,38 @@ public class FileAssistenzaService implements AssistenzaService
 		}
 	}
 
+	
+
+	@Override	// GET ASSISTENZA ID
+	public Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException
+	{	
+		if(id == 0)
+		{	return null;	}
+		
+		List<Assistenza> lista = FindAllAssistenza();
+		
+		for(Assistenza tmp : lista)
+		{
+			if(tmp.getID() == id)
+			{	return tmp;	}
+		}
+		throw new AssistenzaNonTrovataException();
+	}
+
 
 	@Override	// FIND ASSISTENZA SERVITA
 	public List<Assistenza> getListaAssistenzaByServita(boolean servita) throws BusinessException 
 	{
-		try
+		List<Assistenza> lista = FindAllAssistenza();
+		
+		for(Assistenza tmp : lista)
 		{
-			FileData filedata = Utility.readAllRows("assistenza");
-			List<Assistenza> lista_assistenza = new ArrayList<Assistenza>();
-			
-			for (String[] righe : filedata.getRighe()) 
-			{
-				if (servita==Boolean.parseBoolean(righe[2]))
-				{
-					Assistenza assistenza = new Assistenza();
-					
-					assistenza.setID(Integer.parseInt(righe[0]));
-					assistenza.setDettagli(righe[1]);
-					assistenza.setServita(Boolean.parseBoolean(righe[2]));
-					assistenza.setRisposta(righe[3]);
-					assistenza.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(righe[4])));
-					assistenza.setCliente(utenteservice.getUtenteById(Integer.parseInt(righe[5])));
-					
-					lista_assistenza.add(assistenza);
-					
-				}
-			}
-			
-				return lista_assistenza;
+			if(tmp.isServita() != servita)
+			{	lista.remove(tmp);	}
 		}
-			catch (Exception e) 
-			{ 
-				e.printStackTrace();
-				throw new BusinessException(e);
-			}
+		return lista;
 	}
+
 
 
 	

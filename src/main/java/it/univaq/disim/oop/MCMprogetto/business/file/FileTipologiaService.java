@@ -17,59 +17,11 @@ public class FileTipologiaService implements TipologiaService
 	private VeicoloService veicoloservice = new FileVeicoloService();
 	
 	
-	@Override	// GET LISTA TIPOLOGIA
-	public List<String> getAllTipologia() throws TipologiaNonTrovataException, BusinessException
-	{	try
-		{	List<String> listatipo = new ArrayList<String>();
-			FileData filedata = Utility.readAllRows("tipologie");
-			
-			for (String[] colonne : filedata.getRighe())
-			{
-				Tipologia tipologia = new Tipologia();
-				
-				tipologia.setID(Integer.parseInt(colonne[0]));
-				tipologia.setTipologia(colonne[1]);
-				listatipo.add(tipologia.getTipologia());
-			}	
-			return listatipo;	
-		}		
-		catch (IOException e) {	
-			e.printStackTrace();
-			throw new BusinessException(e);
-		}
-	}
-	
-	
-	@Override	// GET LISTA TIPOLOGIA T
-	public List<Tipologia> getAllTipologiaT() throws TipologiaNonTrovataException, BusinessException
-	{
-		try
-		{	List<Tipologia> listatipo = new ArrayList<Tipologia>();
-			FileData filedata = Utility.readAllRows("tipologie");
-			
-			for (String[] colonne : filedata.getRighe())
-			{
-				Tipologia tipologia = new Tipologia();
-				
-				tipologia.setID(Integer.parseInt(colonne[0]));
-				tipologia.setTipologia(colonne[1]);
-				listatipo.add(tipologia);
-			}	
-			return listatipo;	
-		}		
-		catch (IOException e) {	
-			e.printStackTrace();
-			throw new BusinessException(e);
-		}
-	}
-	
-	
-	
 	
 	@Override	// CREA
 	public void createTipologia(Tipologia tipologia) throws BusinessException 
 	{	
-		if(!getAllTipologia().contains(tipologia.getTipologia()))
+		if(!FindAllTipologia().contains(tipologia.getTipologia()))
 		{	try
 			{
 				FileData fileData = Utility.readAllRows("tipologie");
@@ -127,6 +79,59 @@ public class FileTipologiaService implements TipologiaService
 		{	throw new TipologiaNonTrovataException();	}
 		
 	}
+	
+	
+	
+	@Override	// GET LISTA TIPOLOGIA
+	public List<String> FindAllTipologia() throws TipologiaNonTrovataException, BusinessException
+	{	try
+		{	List<String> listatipo = new ArrayList<String>();
+			FileData filedata = Utility.readAllRows("tipologie");
+			
+			for (String[] colonne : filedata.getRighe())
+			{
+				Tipologia tipologia = new Tipologia();
+				
+				tipologia.setID(Integer.parseInt(colonne[0]));
+				tipologia.setTipologia(colonne[1]);
+				listatipo.add(tipologia.getTipologia());
+			}	
+			return listatipo;	
+		}		
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
+	}
+	
+	
+	@Override	// GET LISTA TIPOLOGIA T
+	public List<Tipologia> FindAllTipologiaT() throws TipologiaNonTrovataException, BusinessException
+	{
+		try
+		{	List<Tipologia> listatipo = new ArrayList<Tipologia>();
+			FileData filedata = Utility.readAllRows("tipologie");
+			
+			for (String[] colonne : filedata.getRighe())
+			{
+				Tipologia tipologia = new Tipologia();
+				
+				tipologia.setID(Integer.parseInt(colonne[0]));
+				tipologia.setTipologia(colonne[1]);
+				listatipo.add(tipologia);
+			}	
+			return listatipo;	
+		}		
+		catch (IOException e) {	
+			e.printStackTrace();
+			throw new BusinessException(e);
+		}
+	}
+	
+	
+	
+	
+	
 
 
 
