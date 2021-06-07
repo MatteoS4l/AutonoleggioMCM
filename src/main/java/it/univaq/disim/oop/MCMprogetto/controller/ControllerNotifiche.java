@@ -65,13 +65,13 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 	public void initializeData(Utente utente) 
 	{	try
 		{	 
-			List<Noleggio> listanoleggi=null;
-			listanoleggi= noleggioservice.FindNoleggiByUtente(utente);
+			List<Noleggio> listanoleggi = noleggioservice.FindNoleggiByUtente(utente);
+			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 			
 			for(Noleggio tmp : listanoleggi)
 			{
-				if(tmp.getDettagli().equalsIgnoreCase("null"))
-				{	listanoleggi.remove(tmp);	}
+				if(!tmp.getDettagli().equalsIgnoreCase("null"))
+				{	listacompleta.add(tmp);	}
 			}
 			
 			dettagli_prenotazioni.setCellValueFactory(new PropertyValueFactory<Noleggio, String>("dettagli"));
@@ -81,7 +81,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 				public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
 				{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
 			});
-			ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listanoleggi);
+			ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta);
 			tabella_notifiche_prenotazioni.setItems(listaNol1);
 		}
 		catch (BusinessException e)
@@ -90,13 +90,13 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 		
 		try
 		{	 
-			List<Noleggio> lista_nol = new ArrayList<Noleggio>();
-			lista_nol = noleggioservice.FindNoleggiByAssistenza("si");
+			List<Noleggio> lista_nol = noleggioservice.FindNoleggiByAssistenza("si");
+			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 			
 			for(Noleggio tmp : lista_nol)
 			{
-				if(tmp.getAssistenza().getRisposta().equalsIgnoreCase("null"))
-				{	lista_nol.remove(tmp);	}
+				if(!tmp.getAssistenza().getRisposta().equalsIgnoreCase("null"))
+				{	listacompleta.add(tmp);	}
 			}
 			
 			dettagli_assistenza.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
@@ -111,7 +111,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 				public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
 				{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
 			});
-			ObservableList<Noleggio> listaNol2 = FXCollections.observableList(lista_nol);
+			ObservableList<Noleggio> listaNol2 = FXCollections.observableList(listacompleta);
 			tabella_notifiche_assistenza.setItems(listaNol2);
 		}
 		catch (BusinessException e)

@@ -148,13 +148,14 @@ public class FileAssistenzaService implements AssistenzaService
 	public List<Assistenza> getListaAssistenzaByServita(boolean servita) throws BusinessException 
 	{
 		List<Assistenza> lista = FindAllAssistenza();
+		List<Assistenza> listacompleta = new ArrayList<Assistenza>();
 		
 		for(Assistenza tmp : lista)
 		{
-			if(tmp.isServita() != servita)
-			{	lista.remove(tmp);	}
+			if(tmp.isServita() == servita)
+			{	listacompleta.add(tmp);	}
 		}
-		return lista;
+		return listacompleta;
 	}
 
 

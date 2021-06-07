@@ -1,4 +1,4 @@
-9
+4
 1,berlina
 2,utilitaria
-7,lusso
+3,lusso
