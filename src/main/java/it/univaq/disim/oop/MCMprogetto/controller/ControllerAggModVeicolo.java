@@ -117,7 +117,7 @@ public class ControllerAggModVeicolo implements Initializable, DataInitializable
 		
 		try
 		{	
-			choicebox_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());
+			choicebox_tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
 			choicebox_tipologia.setValue("berlina");
 			choicebox_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
 			choicebox_alimentazione.setValue("benzina");

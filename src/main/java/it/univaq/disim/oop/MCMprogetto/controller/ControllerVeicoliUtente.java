@@ -155,7 +155,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 			box_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
 			box_alimentazione.getItems().add("Tutte");
 			try
-			{	box_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());	}
+			{	box_tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());	}
 			catch (TipologiaNonTrovataException e1)
 			{	/* errore */	}
 			box_tipologia.getItems().add("Tutte");

@@ -113,7 +113,7 @@ public class ControllerSchedaVeicolo implements Initializable, DataInitializable
 		try 
 		{
 			tf_stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
-			tf_tipologia.getItems().addAll(tipologiaservice.getAllTipologia());
+			tf_tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
 			
 			modifica_button.disableProperty().bind(tf_modello.textProperty().isEmpty()
 					.or(tf_alimentazione.textProperty().isEmpty())

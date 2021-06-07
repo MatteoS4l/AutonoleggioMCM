@@ -3,10 +3,8 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
-import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
@@ -103,7 +101,7 @@ public class ControllerVistaTipologie implements Initializable, DataInitializabl
 				});	
 		List<Tipologia> listatipologie = null;
 		try
-		{	listatipologie = tipologiaservice.getAllTipologiaT();	  } 
+		{	listatipologie = tipologiaservice.FindAllTipologiaT();	  } 
 		catch (BusinessException e)
 		{	e.printStackTrace();	}
 		ObservableList<Tipologia> listaT = FXCollections.observableList(listatipologie);
