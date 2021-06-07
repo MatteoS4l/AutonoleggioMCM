@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class ControllerVistaFeedback implements Initializable, DataInitializable<Veicolo, Utente> {
+public class ControllerCreazioneFeedback implements Initializable, DataInitializable<Veicolo, Utente> {
 
     @FXML
     private Label label_nome;

@@ -37,7 +37,8 @@ public class ControllerLayout implements Initializable, DataInitializable<Utente
 	{
 		new MenuElement("Noleggia veicolo", "veicoli_utente"),
 		new MenuElement("I miei noleggi", "noleggi_utente"),
-		new MenuElement("Notifiche", "notifiche")
+		new MenuElement("Notifiche", "notifiche"),
+		new MenuElement("Lascia un feedback", "rilascio_feedback")
 	};
 	
 	private static final MenuElement[] MENU_OPERATORE =

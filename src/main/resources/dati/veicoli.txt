@@ -1,4 +1,4 @@
 4
-1,KS411CV,lusso,Ferrari,benzina,false,false,disponibile,0,200.0,150.0,0
+1,KS411CV,lusso,Ferrari,benzina,false,true,disponibile,0,200.0,150.0,0
 2,EN634BB,berlina,Fiat Panda,benzina,false,true,disponibile,42122,122.0,74.0,0
 3,EY644TB,utilitaria,Toyota Rav 4,diesel,false,false,disponibile,74628,185.0,100.0,0
