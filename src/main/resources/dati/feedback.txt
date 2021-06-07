@@ -1,1 +1,2 @@
-1
+2
+1,macchina molto comoda,1,1,0

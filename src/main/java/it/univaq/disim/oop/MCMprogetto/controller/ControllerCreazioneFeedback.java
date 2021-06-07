@@ -3,8 +3,13 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
+import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
+import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
+import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
+import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,7 +19,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class ControllerCreazioneFeedback implements Initializable, DataInitializable<Veicolo, Utente> {
-
+	
+	private ViewDispatcher dispatcher;
+	private Utente utente;
+	private Veicolo veicolo;
+	private FeedbackService feedbackservice;
+	
     @FXML
     private Label label_nome;
     @FXML
@@ -43,6 +53,15 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
     private Button invia_bottone;
     
     
+    
+    public ControllerCreazioneFeedback ()
+    {
+    	dispatcher = ViewDispatcher.getInstance();
+		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
+		feedbackservice = factory.getFeedbackService();
+    }
+    
+    
     private int tmp_star = 0;        //variabile temporanea che poi si assegna ai feedback in inviafeedback(), serve in caso di modifica delle stelle nel mentre (poi vi spiego)
     
     
@@ -53,7 +72,19 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 //            						INVIA FEEDBACK
     
     @FXML
-    void inviafeedback(MouseEvent event) {
+    void inviafeedback(MouseEvent event) throws BusinessException 
+    {
+    	Feedback feedback = new Feedback();
+    	
+    	feedback.setUtente(utente);
+    	feedback.setVeicolo(veicolo);
+    	feedback.setUtente(utente);
+    	feedback.setStelle(tmp_star);
+    	feedback.setFeedback(recensione_txtfield.getText());
+    	
+    	feedbackservice.createFeedback(feedback);
+    	
+    	dispatcher.renderView("rilascio_feedback", utente, null);
     	
     }
     
@@ -151,7 +182,7 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		piena_1.setVisible(false);
+		piena_1.setVisible(true);
 		piena_2.setVisible(false);
 		piena_3.setVisible(false);
 		piena_4.setVisible(false);
@@ -161,7 +192,13 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 	}
     
 	@Override
-	public void initializeData(Veicolo veicolo, Utente utente) {
+	public void initializeData(Veicolo veicolo, Utente utente) 
+	{
+		this.veicolo = veicolo;
+		this.utente = utente;
+		
+		
+		
 		
 		
 		
