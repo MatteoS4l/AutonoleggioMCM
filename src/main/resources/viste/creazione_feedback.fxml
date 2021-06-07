@@ -6,7 +6,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.RadialGradient?>
@@ -88,63 +87,31 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <HBox layoutX="291.0" layoutY="215.0" prefHeight="60.0" prefWidth="300.0">
-         <children>
-            <ImageView fx:id="vuota_1" fitHeight="72.0" fitWidth="60.0" onMouseDragged="#show1" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/stella%20vuota.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="vuota_2" fitHeight="60.0" fitWidth="60.0" onMouseDragged="#show2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/stella%20vuota.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="vuota_3" fitHeight="60.0" fitWidth="60.0" onMouseDragged="#show3" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/stella%20vuota.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="vuota_4" fitHeight="60.0" fitWidth="67.0" onMouseDragged="#show4" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/stella%20vuota.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="vuota_5" fitHeight="60.0" fitWidth="60.0" onMouseDragged="#show5" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/stella%20vuota.png" />
-               </image>
-            </ImageView>
-         </children>
-      </HBox>
-      <HBox layoutX="291.0" layoutY="215.0" prefHeight="60.0" prefWidth="300.0">
-         <children>
-            <ImageView fx:id="piena_1" fitHeight="72.0" fitWidth="60.0" onMouseClicked="#valuta1" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/Stella%20piena.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="piena_2" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#valuta2" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/Stella%20piena.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="piena_3" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#valuta3" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/Stella%20piena.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="piena_4" fitHeight="57.0" fitWidth="63.0" onMouseClicked="#valuta4" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/Stella%20piena.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="piena_5" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#valuta5" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../immagini/Stella%20piena.png" />
-               </image>
-            </ImageView>
-         </children></HBox>
+      <ImageView fx:id="vuota_1" fitHeight="72.0" fitWidth="60.0" layoutX="321.0" layoutY="224.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/stella%20vuota.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vuota_2" fitHeight="60.0" fitWidth="60.0" layoutX="381.0" layoutY="224.0" onMouseClicked="#show2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/stella%20vuota.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vuota_3" fitHeight="60.0" fitWidth="60.0" layoutX="441.0" layoutY="224.0" onMouseClicked="#show3" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/stella%20vuota.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vuota_4" fitHeight="60.0" fitWidth="67.0" layoutX="501.0" layoutY="224.0" onMouseClicked="#show4" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/stella%20vuota.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vuota_5" fitHeight="60.0" fitWidth="60.0" layoutX="561.0" layoutY="224.0" onMouseClicked="#show5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/stella%20vuota.png" />
+         </image>
+      </ImageView>
       <Button fx:id="invia_bottone" layoutX="513.0" layoutY="386.0" mnemonicParsing="false" onMouseClicked="#inviafeedback" prefHeight="31.0" prefWidth="95.0" text="Invia">
          <font>
             <Font name="Lucida Fax Regular" size="12.0" />
@@ -166,5 +133,30 @@
             </RadialGradient>
          </textFill>
       </Button>
+      <ImageView fx:id="piena_1" fitHeight="72.0" fitWidth="60.0" layoutX="321.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/Stella.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="piena_2" fitHeight="72.0" fitWidth="60.0" layoutX="381.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/Stella.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="piena_3" fitHeight="72.0" fitWidth="60.0" layoutX="441.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/Stella.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="piena_4" fitHeight="72.0" fitWidth="60.0" layoutX="501.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/Stella.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="piena_5" fitHeight="72.0" fitWidth="60.0" layoutX="561.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../immagini/Stella.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
