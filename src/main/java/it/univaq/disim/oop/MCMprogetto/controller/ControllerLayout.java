@@ -46,7 +46,8 @@ public class ControllerLayout implements Initializable, DataInitializable<Utente
 		new MenuElement("Lista Veicoli", "vistaveicoli"),
 		new MenuElement("Gestione Noleggi","noleggi_operatore"),
 		new MenuElement("Prenotazioni","prenotazioni_operatore"),
-		new MenuElement("Centro assistenza", "assistenza_operatore")
+		new MenuElement("Centro assistenza", "assistenza_operatore"),
+		new MenuElement("Gestione pagamenti", "pagamenti")
 		
 	};
 	
