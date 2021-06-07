@@ -105,7 +105,7 @@ public class ControllerVistaUtenti implements Initializable, DataInitializable<U
 		
 		try
 		{
-			List<Utente> listautenti = utenteservice.GetListaAllUtenti((Amministratore)utente);
+			List<Utente> listautenti = utenteservice.FindAllUtenti((Amministratore)utente);
 			ObservableList<Utente> listaU = FXCollections.observableList(listautenti);
 			tabella_utenti.setItems(listaU);
 		}

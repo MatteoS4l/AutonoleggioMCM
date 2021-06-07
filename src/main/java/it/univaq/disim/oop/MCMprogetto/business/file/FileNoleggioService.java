@@ -144,8 +144,8 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setID(Integer.parseInt(colonne[0]));
 				noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
 				noleggio.setAssistenza(assistenzaservice.getAssistenzaByID(Integer.parseInt(colonne[2])));
-				noleggio.setCliente(utenteservice.getUtenteById(Integer.parseInt(colonne[3])));
-				noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
+				noleggio.setCliente(utenteservice.FindUtenteById(Integer.parseInt(colonne[3])));
+				noleggio.setVeicolo(veicoloservice.FindVeicoloById(Integer.parseInt(colonne[4])));
 				noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
 				noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
 				noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
@@ -187,22 +187,23 @@ public class FileNoleggioService implements NoleggioService
 		{	return FindAllNoleggi();	}
 		
 		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
 		{
 			if(assistenza.equalsIgnoreCase("si"))
 			{
-				if(tmp.getAssistenza() == null)
-				{	lista.remove(tmp); 	}
+				if(tmp.getAssistenza() != null)
+				{	listacompleta.add(tmp); 	}
 			}
 			
 			if(assistenza.equalsIgnoreCase("no"))
 			{
-				if(tmp.getAssistenza() != null)
-				{	lista.remove(tmp);  	}
+				if(tmp.getAssistenza() == null)
+				{	listacompleta.add(tmp);  	}
 			}
 		}
-		return lista;
+		return listacompleta;
 	}
 		
 		
@@ -211,7 +212,7 @@ public class FileNoleggioService implements NoleggioService
 	public List<Noleggio> FindNoleggiInCorso() throws BusinessException
 	{	
 		List<Noleggio> lista = FindAllNoleggi();
-		List<Noleggio> listacompleta = null;
+		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
 		{
@@ -228,13 +229,14 @@ public class FileNoleggioService implements NoleggioService
 	public List<Noleggio> FindNoleggiByUtente(Utente utente) throws BusinessException
 	{	
 		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
 		{
-			if(utente.getID() != tmp.getCliente().getID())
-			{	lista.remove(tmp);	}
+			if(utente.getID() == tmp.getCliente().getID())
+			{	listacompleta.add(tmp);	}
 		}
-		return lista;
+		return listacompleta;
 	}
 	
 	
@@ -242,14 +244,14 @@ public class FileNoleggioService implements NoleggioService
 	public List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
 	{
 		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		for(Noleggio tmp : lista)
 		{
-			if(!tmp.getData_fine_noleggio().isEqual(data_fine.atStartOfDay()))
-			{	lista.remove(tmp);	}
+			if(tmp.getData_fine_noleggio().isEqual(data_fine.atStartOfDay()))
+			{	listacompleta.add(tmp);	}
 		}
-		return lista;
+		return listacompleta;
 	}
 	
 	
@@ -258,13 +260,14 @@ public class FileNoleggioService implements NoleggioService
 	public List<Noleggio> FindNoleggiByPagamento() throws BusinessException
 	{
 		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
 		{
-			if(tmp.getPrezzo_noleggio() != 0)
-			{	lista.remove(tmp);	}
+			if(tmp.getPrezzo_noleggio() == 0)
+			{	listacompleta.add(tmp);	}
 		}
-		return lista;
+		return listacompleta;
 	}
 	
 	
@@ -323,7 +326,7 @@ public class FileNoleggioService implements NoleggioService
 	@Override	// VEICOLI DISPONIBILI PER DATA
 	public List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException
 	{
-		List<Veicolo> listaveicoli = veicoloservice.GetListaVeicoliByStato("tutte");
+		List<Veicolo> listaveicoli = veicoloservice.FindListaVeicoliByStato("tutte");
 		List<Noleggio> listanoleggi = FindAllNoleggi();
 		List<Veicolo> veicolidaeliminare = new ArrayList<Veicolo>();
 		

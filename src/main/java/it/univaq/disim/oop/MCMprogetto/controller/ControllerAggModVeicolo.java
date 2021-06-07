@@ -119,9 +119,9 @@ public class ControllerAggModVeicolo implements Initializable, DataInitializable
 		{	
 			choicebox_tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
 			choicebox_tipologia.setValue("berlina");
-			choicebox_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
+			choicebox_alimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
 			choicebox_alimentazione.setValue("benzina");
-			choicebox_Stato.getItems().addAll(veicoloservice.GetListStatoVeicolo());
+			choicebox_Stato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
 			choicebox_Stato.setValue("disponibile");
 		}
 		catch (BusinessException e)

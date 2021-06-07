@@ -54,7 +54,7 @@ public class FileTipologiaService implements TipologiaService
 	@Override	// ELIMINA
 	public void deleteTipologia(Tipologia tipologia) throws VeicoloNonTrovatoException, BusinessException
 	{	
-		if(veicoloservice.GetListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
+		if(veicoloservice.FindListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
 		{	try
 			{
 				FileData fileData = Utility.readAllRows("tipologie");

@@ -70,8 +70,7 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
     void FiltraVeicoli(ActionEvent event)
     {	try
 		{
-			List<Veicolo> listaveicoli;
-			listaveicoli = veicoloservice.GetListaVeicoliByStato(filtro_stato_veicolo.getValue());
+			List<Veicolo> listaveicoli = veicoloservice.FindListaVeicoliByStato(filtro_stato_veicolo.getValue());
 			ObservableList<Veicolo> listaV = FXCollections.observableList(listaveicoli);
 			tabella_veicoli.setItems(listaV);
 		} 
@@ -117,7 +116,7 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 				});	
 		try
 		{	
-			filtro_stato_veicolo.getItems().addAll(veicoloservice.GetListStatoVeicolo());	
+			filtro_stato_veicolo.getItems().addAll(veicoloservice.FindListStatoVeicolo());	
 			filtro_stato_veicolo.getItems().add("Tutte");
 		}
 		catch (BusinessException e)
@@ -125,7 +124,7 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 		
 		List<Veicolo> listaV=null;
 		try {
-			listaV = veicoloservice.GetListaVeicoliByStato("Tutte");
+			listaV = veicoloservice.FindListaVeicoliByStato("Tutte");
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

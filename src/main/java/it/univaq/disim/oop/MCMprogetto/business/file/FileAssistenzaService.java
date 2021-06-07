@@ -112,8 +112,8 @@ public class FileAssistenzaService implements AssistenzaService
 				assistenza.setDettagli(righe[1]);
 				assistenza.setServita(Boolean.parseBoolean(righe[2]));
 				assistenza.setRisposta(righe[3]);
-				assistenza.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(righe[4])));
-				assistenza.setCliente(utenteservice.getUtenteById(Integer.parseInt(righe[5])));
+				assistenza.setVeicolo(veicoloservice.FindVeicoloById(Integer.parseInt(righe[4])));
+				assistenza.setCliente(utenteservice.FindUtenteById(Integer.parseInt(righe[5])));
 
 				lista.add(assistenza);
 			}

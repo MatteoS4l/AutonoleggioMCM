@@ -92,16 +92,16 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     void applica_filtri(ActionEvent event) throws BusinessException
     {
     	List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-    	listafiltrata = veicoloservice.GetListaVeicoliByStato("disponibile");
+    	listafiltrata = veicoloservice.FindListaVeicoliByStato("disponibile");
     	
     	if (box_tipologia.getValue() != null)
-    	{	listafiltrata = Intersezione(listafiltrata, veicoloservice.GetListaVeicoliByTipologia(box_tipologia.getValue())); }
+    	{	listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTipologia(box_tipologia.getValue())); }
     	
     	if (box_alimentazione.getValue() != null)
-    	{ listafiltrata = Intersezione(listafiltrata, veicoloservice.GetListaVeicoliByAlimentazione(box_alimentazione.getValue()));	}
+    	{ listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByAlimentazione(box_alimentazione.getValue()));	}
     	
     	if (!txt_modello.getText().isEmpty())
-    	{ listafiltrata = Intersezione(listafiltrata, veicoloservice.GetListaVeicoliByModello(txt_modello.getText()));   }
+    	{ listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByModello(txt_modello.getText()));   }
     	
     	if(dataInizio.getValue() != null && dataFine.getValue() != null)
     	{	listafiltrata = Intersezione(listafiltrata, noleggioservice.FindVeicoliDisponibiliForDate(dataInizio.getValue().atStartOfDay(), dataFine.getValue().atStartOfDay()));	}
@@ -118,7 +118,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     		else
     		{	max = Double.parseDouble(txt_tariffaGiornomax.getText());	}
     		
-    		listafiltrata = Intersezione(listafiltrata, veicoloservice.GetListaVeicoliByTariffaPeriodo(min, max));
+    		listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTariffaPeriodo(min, max));
     	}
     	
     	if (!(txt_tariffaKMmin.getText().isEmpty() && txt_tariffaKMmax.getText().isEmpty()))
@@ -133,7 +133,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     		else
     		{	max = Double.parseDouble(txt_tariffaKMmax.getText());	}
     		
-    		listafiltrata = Intersezione(listafiltrata, veicoloservice.GetListaVeicoliByTariffaKM(min, max));
+    		listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTariffaKM(min, max));
     	}
     	
     	
@@ -152,7 +152,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 	public void initialize(URL location, ResourceBundle resources)
 	{	try
 		{
-			box_alimentazione.getItems().addAll(veicoloservice.GetListAlimentazioneVeicolo());
+			box_alimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
 			box_alimentazione.getItems().add("Tutte");
 			try
 			{	box_tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());	}

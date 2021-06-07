@@ -75,14 +75,14 @@ public class FileFeedbackService implements FeedbackService
 					
 
 					try 
-					{	feedback.setUtente(utenteservice.getUtenteById(Integer.parseInt(colonne[2])));	}
+					{	feedback.setUtente(utenteservice.FindUtenteById(Integer.parseInt(colonne[2])));	}
 					catch (NumberFormatException e)
 					{	e.printStackTrace();	} 
 					catch (UtenteNonTrovatoException e)
 					{	e.printStackTrace();	}
 
 					try 
-					{	feedback.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[3])));	}
+					{	feedback.setVeicolo(veicoloservice.FindVeicoloById(Integer.parseInt(colonne[3])));	}
 					catch (NumberFormatException e) 
 					{	e.printStackTrace();	} 
 					catch (VeicoloNonTrovatoException e)	
