@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -38,6 +39,10 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     private DatePicker data_fine_nol;
     @FXML
     private Label label_preventivo;
+    @FXML
+    private CheckBox selezione_tariffa_periodo;
+    @FXML
+    private CheckBox selezione_tariffa_km;
     
     
     
@@ -57,6 +62,7 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     	{	
     		long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(),  data_fine_nol.getValue());
     		label_preventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
+    		label_preventivo.setVisible(true);
         	return Double.parseDouble(label_preventivo.getText());
     	}
     	catch(NullPointerException e)
@@ -97,7 +103,9 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     
     
     @FXML	// SELEZIONA PAGAMENTO
-    void SelezionaPagamento(ActionEvent event) {
+    void SelezionaPagamento(ActionEvent event) 
+    {
+    	
 
     }
     
@@ -114,6 +122,7 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
+		
 
 	}
 
@@ -122,6 +131,8 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
 	{
 		this.veicolo = veicolo;
 		this.utente = utente;
+		label_modello_macchina.setText(veicolo.getModello());
+		label_preventivo.setVisible(false);
 	}
 
 	

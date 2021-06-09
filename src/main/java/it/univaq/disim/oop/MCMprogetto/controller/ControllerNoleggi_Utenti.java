@@ -4,6 +4,9 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import com.sun.prism.paint.Color;
+
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
@@ -29,6 +32,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Paint;
 import javafx.util.Callback;
 
 public class ControllerNoleggi_Utenti implements Initializable, DataInitializable<Utente, Veicolo>
@@ -59,6 +63,8 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
     private Label label_avviso;
     @FXML
     private Button invia_button;
+    @FXML
+    private Label label_errore;
     
 
     
@@ -108,8 +114,12 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
     private void RichiediAssistenza(Noleggio nol)
     {
     	this.noleggio = nol;
+    	if (!noleggio.getVeicolo().getStato().equalsIgnoreCase("in noleggio"))
+    	{	label_errore.setVisible(true);   }
+    	else {
     	text_dettagli_richiesta.setVisible(true);
 		invia_button.setVisible(true);
+    	}
     }
 
 
@@ -120,6 +130,7 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		label_avviso.setVisible(false);
+		label_errore.setVisible(false);
 		text_dettagli_richiesta.setVisible(false);
 		invia_button.setVisible(false);
 		

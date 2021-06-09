@@ -17,7 +17,7 @@
             <TableColumn fx:id="data_in_nol" prefWidth="140.0" text="Data inizio" />
             <TableColumn fx:id="data_fi_nol" prefWidth="140.0" text="Data fine" />
             <TableColumn fx:id="cliente_nol" prefWidth="107.0" text="Cliente" />
-            <TableColumn fx:id="azioni_nol" prefWidth="74.0" text="Azioni" />
+            <TableColumn fx:id="azioni_nol" prefWidth="74.0" text="Feedback" />
         </columns>
       </TableView>
       <CheckBox fx:id="spunta_noleggi" layoutX="376.0" layoutY="40.0" mnemonicParsing="false" text="In corso" />

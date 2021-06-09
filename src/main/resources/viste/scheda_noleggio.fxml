@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerSchedaNoleggio">
    <children>
-      <ImageView fitHeight="450.0" fitWidth="650.0" layoutY="-6.0" opacity="0.2" pickOnBounds="true">
+      <ImageView fitHeight="450.0" fitWidth="650.0" opacity="0.2" pickOnBounds="true">
          <image>
             <Image url="@../immagini/sfondo_noleggio.jpg" />
          </image>
@@ -102,7 +102,7 @@
          <font>
             <Font name="Agency FB Bold" size="18.0" />
          </font></Label>
-      <CheckBox layoutX="353.0" layoutY="170.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Alla consegna">
+      <CheckBox fx:id="selezione_tariffa_periodo" layoutX="509.0" layoutY="167.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Tariffa periodo">
          <font>
             <Font size="13.0" />
          </font>
@@ -122,7 +122,7 @@
                </stops>
             </RadialGradient>
          </textFill></CheckBox>
-      <CheckBox layoutX="354.0" layoutY="209.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Subito">
+      <CheckBox fx:id="selezione_tariffa_km" layoutX="468.0" layoutY="209.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Tariffa km">
          <font>
             <Font size="13.0" />
          </font>

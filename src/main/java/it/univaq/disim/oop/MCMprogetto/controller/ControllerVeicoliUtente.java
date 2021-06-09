@@ -94,6 +94,8 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     	List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
     	listafiltrata = veicoloservice.FindListaVeicoliByStato("disponibile");
     	
+    	
+    	
     	if (box_tipologia.getValue() != null)
     	{	listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTipologia(box_tipologia.getValue())); }
     	
@@ -139,6 +141,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     	
     	
     	ObservableList<Veicolo> listavn1 = FXCollections.observableArrayList(listafiltrata);
+    	
     	lista_filtrata.setItems(listavn1);
     	
     }
@@ -177,9 +180,15 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 						@Override
 						public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
 							final Button noleggiaButton = new Button("noleggia");
+							if(param.getValue().getTipologia().equalsIgnoreCase("sostitutivo"))
+							{
+										// POTREMMO METTERLO TRASPARENTE IL BOTTONE
+								noleggiaButton.setVisible(false);
+							}
 							noleggiaButton.setOnAction(new EventHandler<ActionEvent>() {
 								@Override
 								public void handle(ActionEvent event) {
+									
 									dispatcher.renderView("scheda_noleggio", param.getValue(), utente);
 								}
 							});

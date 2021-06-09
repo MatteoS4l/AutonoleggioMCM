@@ -9,6 +9,7 @@ import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -22,12 +23,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
@@ -36,6 +39,7 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
 	private ViewDispatcher dispatcher;
 	private AssistenzaService assistenzaservice;
 	private Assistenza assistenza;
+	private Utente utente;
 
     @FXML
     private TableView<Assistenza> tabella_assistenza_op;
@@ -53,7 +57,10 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
     private Button bottone_invio;
     @FXML
     private Label label_risposta_assistenza;
-
+    @FXML
+    private ChoiceBox<String> scelta_assistenza;
+    @FXML
+    private Button bottone_conferma;
     
     
     
@@ -79,22 +86,54 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
 		initialize(null, null);
     }
     
-    
     // Mostra cose
 	void mostraCose(Assistenza assistenza)
     {
 		this.assistenza = assistenza;
-    	text_risposta_assistenza.setVisible(true);
-		bottone_invio.setVisible(true);
-    	
+		scelta_assistenza.setVisible(true);
+		utente =  assistenza.getCliente();
+		
     }
+    
+    
+    
+    @FXML
+    void confermaSelezione(ActionEvent event) 
+    {
+    	if (scelta_assistenza.getValue().equalsIgnoreCase("Manutenzione"))
+    	{
+			text_risposta_assistenza.setVisible(true);
+			bottone_invio.setVisible(true);
+    	}
+	    	else {
+	    			if (scelta_assistenza.getValue().equalsIgnoreCase("Sostituzione"))
+	    			{ 
+	    				dispatcher.renderView("sostituzione", utente, assistenza);
+	    				
+	    			}
+	    	}
+
+    }
+    
+    
+    
+    
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
+		scelta_assistenza.getItems().add("Manutenzione");
+		scelta_assistenza.getItems().add("Sostituzione");
+		scelta_assistenza.setVisible(true);
+			
 		text_risposta_assistenza.setVisible(false);
 		label_risposta_assistenza.setVisible(false);
 		bottone_invio.setVisible(false);
+		
+		cliente_assistenza_op.setStyle("-fx-alignment: CENTER;");
+		veicolo_assistenza_op.setStyle("-fx-alignment: CENTER;");
+		dettagli_assistenza_op.setStyle("-fx-alignment: CENTER;");
+		azioni_assistenza_op.setStyle("-fx-alignment: CENTER;");
 		
 		cliente_assistenza_op.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>()
 	    {

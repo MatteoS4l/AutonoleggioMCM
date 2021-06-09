@@ -1,2 +1,1 @@
-2
-1,ho bucato una gomma,true,le verrà applicato il rimborso sulle spese effettuate,2,1
+1

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -62,6 +63,9 @@ public class ControllerRilascioFeedback implements Initializable,DataInitializab
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
+		
+		
+		
 	}
 
 
@@ -104,26 +108,29 @@ public class ControllerRilascioFeedback implements Initializable,DataInitializab
 					}
 				});	
 		
-		
 		try {
-			 List<Noleggio> listaNol2 = null;
+			 List<Noleggio> listaNol2 = new ArrayList<Noleggio>();
 			 listaNol2 = noleggioservice.FindNoleggiByUtente(utente);
-			 
-				
-				for (Noleggio n: listaNol2)
-				{
-					if (n.getData_fine_noleggio().isAfter(LocalDateTime.now()))
-					{
-						listaNol2.remove(n);
-					}
-				}
-				ObservableList<Noleggio> listaNol3 = FXCollections.observableList(listaNol2);
-				tabella_feedback_utente.setItems(listaNol3);
+			
+			 for (Noleggio n: listaNol2)
+			 {
+				 if (n.getData_fine_noleggio().isAfter(LocalDateTime.now()))
+				 {
+					 listaNol2.remove(n);
+				 }
+			 }
+			 ObservableList<Noleggio> listaNol3 = FXCollections.observableList(listaNol2);
+			 tabella_feedback_utente.setItems(listaNol3);
 
-		} catch (BusinessException a) {
-			System.out.println("matteo sal");
-		
+		} catch (BusinessException |NullPointerException a) {
+			a.printStackTrace();
 		}
+		
+		
+		
+		
+		
+		
 		
 		
 		

@@ -15,6 +15,7 @@ public class Utente
 	
 	
 	
+	
 	public int getID()		// Get e Set
 	{	return ID;	}
 	

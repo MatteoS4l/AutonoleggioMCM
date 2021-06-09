@@ -41,6 +41,8 @@ public class ControllerFeedback implements Initializable, DataInitializable<Veic
     @FXML
     private TableColumn<Feedback, String> feedback_tabella;
     @FXML
+    private TableColumn<Feedback, Integer> rating_tabella;
+    @FXML
     private Label label_veicolo;
     
     
@@ -84,6 +86,9 @@ public class ControllerFeedback implements Initializable, DataInitializable<Veic
 		
 		label_veicolo.setText("Feedback Di: " + veicolo.getModello());
 		
+		feedback_tabella.setStyle("-fx-alignment: CENTER;");
+		utente_tabella.setStyle("-fx-alignment: CENTER;");
+		rating_tabella.setStyle("-fx-alignment: CENTER;");
 		feedback_tabella.setCellValueFactory(new PropertyValueFactory<Feedback,String>("feedback"));
 		utente_tabella.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Feedback, String>, ObservableValue<String>>()
 	    {
@@ -91,6 +96,7 @@ public class ControllerFeedback implements Initializable, DataInitializable<Veic
 			public ObservableValue<String> call (CellDataFeatures<Feedback, String> tmp)
 			{	return new SimpleStringProperty (tmp.getValue().getUtente().getUsername());	}
 		});
+		rating_tabella.setCellValueFactory(new PropertyValueFactory<Feedback,Integer>("stelle"));
 		
 		List<Feedback> listafeedback = null;
     	try

@@ -264,8 +264,8 @@ public class FileNoleggioService implements NoleggioService
 		
 		for(Noleggio tmp : lista)
 		{
-			if(tmp.getPrezzo_noleggio() == 0)
-			{	listacompleta.add(tmp);	}
+			if(tmp.getPrezzo_noleggio() == 0 && tmp.getData_fine_noleggio().isBefore(LocalDateTime.now()))			
+					{	listacompleta.add(tmp);	}
 		}
 		return listacompleta;
 	}
@@ -348,6 +348,21 @@ public class FileNoleggioService implements NoleggioService
 			}
 		}
 		return listaveicoli;
+	}
+
+
+	@Override
+	public Noleggio FindNoleggioByIdAssistenza(int ID) throws BusinessException 
+	{
+		List<Noleggio> lista = FindAllNoleggi();
+		
+		for(Noleggio tmp : lista)
+		{
+			if(tmp.getAssistenza().getID() == ID)
+			{	return tmp; 	}
+		}
+		throw new NoleggioNonTrovatoException();
+		
 	}
 
 

@@ -15,6 +15,8 @@ public interface NoleggioService
 	
 	Noleggio FindNoleggioByID(int ID) throws NoleggioNonTrovatoException, BusinessException;
 	
+	Noleggio FindNoleggioByIdAssistenza (int ID) throws BusinessException;
+	
 	List<Noleggio> FindAllNoleggi() throws BusinessException;
 	
 	List<Noleggio> FindNoleggiByAssistenza(String assistenza) throws BusinessException;
