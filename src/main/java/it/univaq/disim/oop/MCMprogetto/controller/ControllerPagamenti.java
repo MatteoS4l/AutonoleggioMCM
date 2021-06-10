@@ -99,7 +99,8 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
     	noleggio.setPrezzo_noleggio(i);
     	noleggioservice.updateNoleggio(noleggio);
     	label_successo.setVisible(true);
-    	TimeUnit.SECONDS.sleep(2);
+
+    	Thread.sleep(2000);
     	
     	dispatcher.renderView("pagamenti", utente, null);
     	

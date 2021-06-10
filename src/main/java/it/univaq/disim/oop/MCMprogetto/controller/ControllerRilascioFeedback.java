@@ -101,7 +101,7 @@ public class ControllerRilascioFeedback implements Initializable,DataInitializab
 							public void handle(ActionEvent event) 
 							{
 								System.out.println("ciao");
-								dispatcher.renderView("creazione_feedback", param.getValue().getVeicolo(), utente );
+								dispatcher.renderView("creazione_feedback",utente, param.getValue().getVeicolo() );
 							}
 						});
 						return new SimpleObjectProperty<Button>(dettagliButton);

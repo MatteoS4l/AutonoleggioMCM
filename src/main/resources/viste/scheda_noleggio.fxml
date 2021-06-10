@@ -102,7 +102,7 @@
          <font>
             <Font name="Agency FB Bold" size="18.0" />
          </font></Label>
-      <CheckBox fx:id="selezione_tariffa_periodo" layoutX="509.0" layoutY="167.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Tariffa periodo">
+      <CheckBox fx:id="selezione_tariffa_periodo" layoutX="317.0" layoutY="167.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Tariffa periodo">
          <font>
             <Font size="13.0" />
          </font>
@@ -122,7 +122,7 @@
                </stops>
             </RadialGradient>
          </textFill></CheckBox>
-      <CheckBox fx:id="selezione_tariffa_km" layoutX="468.0" layoutY="209.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Tariffa km">
+      <CheckBox fx:id="selezione_tariffa_km" layoutX="317.0" layoutY="205.0" mnemonicParsing="false" onAction="#SelezionaPagamento" text="Tariffa km">
          <font>
             <Font size="13.0" />
          </font>

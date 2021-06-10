@@ -25,7 +25,7 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
 	private NoleggioService noleggioservice;
 	private Veicolo veicolo;
 	private Utente utente;
-
+	private Noleggio noleggio;
 	
 	@FXML
     private Button bottone_noleggio;
@@ -60,10 +60,15 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     double calcolaPreventivo(ActionEvent event) throws BusinessException 
     {  	try
     	{	
+    		if (selezione_tariffa_km.isSelected())
+    		{ return 0;	}
+    		else
+    		{
     		long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(),  data_fine_nol.getValue());
     		label_preventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
     		label_preventivo.setVisible(true);
         	return Double.parseDouble(label_preventivo.getText());
+    		}
     	}
     	catch(NullPointerException e)
     	{	label_preventivo.setTextFill(Color.RED);
@@ -75,7 +80,7 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     }
 
     @FXML	// NOLEGGIA AUTO
-    void noleggiaAuto(ActionEvent event)
+    Noleggio noleggiaAuto(ActionEvent event)
     {	try
     	{
     		// ci va il metodo che vede se si può prenotare attraverso le date
@@ -91,13 +96,13 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
         	noleggio.setKM_percorsi(0);
         	noleggio.setServita(false);
 			noleggioservice.createNoleggio(noleggio);
-			
 			dispatcher.renderView("home", utente, null);
 		} 
     	catch (BusinessException e)
     	{	label_preventivo.setTextFill(Color.RED);
 			label_preventivo.setText("Inserisci correttamente le date !");	
 		}
+	return noleggio;
 
     }
     
@@ -105,6 +110,18 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     @FXML	// SELEZIONA PAGAMENTO
     void SelezionaPagamento(ActionEvent event) 
     {
+    	if (selezione_tariffa_km.isSelected())
+    	{
+    		selezione_tariffa_periodo.disableProperty();
+    		bottone_preventivo.setVisible(false);
+    		label_preventivo.setVisible(false);
+    	}
+    	
+    	if (selezione_tariffa_periodo.isSelected())
+    	{
+    		selezione_tariffa_km.disableProperty();
+    		bottone_preventivo.setVisible(true);
+    	}
     	
 
     }

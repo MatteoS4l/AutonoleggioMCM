@@ -1,6 +1,7 @@
 package it.univaq.disim.oop.MCMprogetto.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Veicolo
 {
@@ -46,8 +47,8 @@ public class Veicolo
 	public ArrayList<Feedback> getFeedback() {
 		return feedback;
 	}
-	public void addFeedback(Feedback feedback) {
-		this.feedback.add(feedback);
+	public void addFeedback(List<Feedback> feedback) {
+		this.feedback = (ArrayList<Feedback>) feedback;
 	}
 	public String getStato() {
 		return stato;

@@ -3,7 +3,11 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
+import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
+import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -15,7 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
-public class ControllerCreazioneFeedback implements Initializable, DataInitializable <Veicolo, Utente>
+public class ControllerCreazioneFeedback implements Initializable, DataInitializable <Utente, Veicolo>
 {
 	private ViewDispatcher dispatcher;
 
@@ -48,6 +52,8 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 	   
 	Veicolo veicolo;
 	Utente utente;
+	VeicoloService veicoloservice;
+	FeedbackService feedbackservice;
 	  
 	private int tmp=0;
 	  
@@ -56,6 +62,9 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 	{
 		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
+		veicoloservice = factory.getVeicoloService();
+		feedbackservice = factory.getFeedbackService();
+		
 	}
 	   
 	    
@@ -63,6 +72,18 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 	@FXML	// INVIA FEEDBACK
 	void inviafeedback(MouseEvent event)
 	{
+		try 
+		{
+		Feedback feedback = new Feedback();
+		feedback.setFeedback(recensione_txtfield.getText());
+		feedback.setStelle(tmp);
+		feedback.setUtente(utente);
+		feedback.setVeicolo(veicolo);
+		feedbackservice.createFeedback(feedback);
+		dispatcher.renderView("rilascio_feedback", utente, null);
+		}
+		catch (Exception e)
+		{ e.printStackTrace();  }
 		
 	}
 
@@ -172,6 +193,17 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 			piena_3.setVisible(false);
 			piena_4.setVisible(false);
 			piena_5.setVisible(false);
+
+		}
+
+
+
+		@Override
+		public void initializeData(Utente utente,Veicolo veicolo) 
+		{
+			this.veicolo = veicolo;
+			this.utente = utente;
+			label_nome.setText(veicolo.getModello());
 		}
 	    
 	    
