@@ -96,13 +96,6 @@ public class Veicolo
 
 	
 	
-	@Override
-	public String toString()
-	{
-		return (this.ID + " " + this.tipologia + " " +  this.modello + " " + this.targa + " " + this.alimentazione + " " + this.stato + " " + this.targa + " " + this.manutenzione + " " + this.disponibilita + " " + this.chilometri + " " + 
-	this.tariffa_chilometraggio + " " + this.tariffa_periodo + " " );
-	}
-	
 	
 	
 	

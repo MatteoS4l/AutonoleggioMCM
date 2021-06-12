@@ -34,10 +34,7 @@ public class Feedback
 	}
 	public void setID(int iD) {
 		ID = iD;
-	}
-	public String getUtenteId(Utente utente) 
-	{ return utente.getUsername(); }
-	
+	}	
 	public int getStelle() {
 		return stelle;
 	}
