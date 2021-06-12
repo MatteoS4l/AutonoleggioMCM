@@ -4,14 +4,12 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
-import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -75,7 +73,7 @@ public class ControllerSostituzione implements Initializable,DataInitializable<U
     @FXML
     private Label label_fine;
     
-    public ControllerSostituzione ()
+    public ControllerSostituzione()
     {
     	dispatcher = ViewDispatcher.getInstance();
     	MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -85,37 +83,37 @@ public class ControllerSostituzione implements Initializable,DataInitializable<U
     }
     
 
-    @FXML
+    @FXML	// INVIA NOTIFICA
     void inviaNotificaSostituzione(ActionEvent event) 
-    {
-    	try
+    {	try
     	{
-    		// ci va il metodo che vede se si può prenotare attraverso le date
-        	
-        	Noleggio noleggio = new Noleggio();
-        
-        	noleggio.setPrezzo_noleggio(0);
-        	noleggio.setAssistenza(null);
-        	noleggio.setCliente(utente);
         	noleggio.setVeicolo(veicolo);
-        	noleggio.setData_inizio_noleggio(data_inizio_sos.getValue().atStartOfDay());
-        	noleggio.setData_fine_noleggio(data_fine_sos.getValue().atStartOfDay());
-        	noleggio.setKM_percorsi(0);
         	noleggio.setServita(false);
-			noleggioservice.createNoleggio(noleggio);
 			assistenza.setRisposta(invio_risposta_sos.getText());
 			assistenza.setServita(true);
+			noleggioservice.updateNoleggio(noleggio);
 			assistenzaservice.updateAssistenza(assistenza);
 			successo_sos.setVisible(true);
+			
+			data_inizio_sos.setValue(null);
+			data_fine_sos.setValue(null);
+			invio_risposta_sos.clear();
     	}
     	catch (Exception e)
     	{	e.printStackTrace();   }
-    	
-
     }
     
-    void creaNoleggioSostituzione (Veicolo veicolo, Noleggio noleggio) 
+    
+    //	SCEGLI VEICOLO SOSTITUTIVO
+    void creaNoleggioSostituzione(Veicolo veicolo) 
     {
+    	this.veicolo = noleggio.getVeicolo();
+    	this.veicolo.setStato("non disponibile");
+    	try
+    	{	veicoloservice.updateVeicolo(this.veicolo);		}
+    	catch (BusinessException e)
+    	{	e.printStackTrace();	}
+    	
     	this.veicolo = veicolo;
     	
 		data_inizio_sos.setVisible(true);
@@ -128,8 +126,11 @@ public class ControllerSostituzione implements Initializable,DataInitializable<U
 		data_inizio_sos.setValue(LocalDate.now());
 		data_inizio_sos.setEditable(false);
 		data_fine_sos.setValue(noleggio.getData_fine_noleggio().toLocalDate());
+		data_fine_sos.setEditable(false);
 		invio_risposta_sos.setText("Il tuo veicolo sostitutivo sarà disponibile dal " + data_inizio_sos.getValue().toString() + " al "+ data_fine_sos.getValue().toString() );
     }
+    
+    
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
@@ -160,11 +161,11 @@ public class ControllerSostituzione implements Initializable,DataInitializable<U
 				{
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
-						final Button dettagliButton = new Button("Crea");
+						final Button dettagliButton = new Button("Scegli");
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								creaNoleggioSostituzione(param.getValue(),noleggio);
+								creaNoleggioSostituzione(param.getValue());
 								
 							}
 						});
@@ -175,28 +176,25 @@ public class ControllerSostituzione implements Initializable,DataInitializable<U
 		try {
 			 listaveicoli = veicoloservice.FindListaVeicoliByTipologia("sostitutivo");
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		
 		ObservableList<Veicolo> listav = FXCollections.observableList(listaveicoli);
 		tabella_sos.setItems(listav);
-		
-		
 	}
 
 
+	
 	@Override
-	public void initializeData(Utente utente,Assistenza assistenza) 
+	public void initializeData(Utente utente, Assistenza assistenza) 
 	{
 		this.utente = utente;
 		this.assistenza = assistenza;
 		
 		try {
-			noleggio = noleggioservice.FindNoleggioByIdAssistenza(assistenza.getID());
+			this.noleggio = noleggioservice.FindNoleggioByIdAssistenza(assistenza.getID());
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

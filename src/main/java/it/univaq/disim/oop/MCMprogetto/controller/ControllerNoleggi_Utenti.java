@@ -30,7 +30,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 public class ControllerNoleggi_Utenti implements Initializable, DataInitializable<Utente, Veicolo>
@@ -114,13 +113,12 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
     {
     	this.noleggio = nol;
     	if(noleggio.getAssistenza() != null)
-    	{
-    		
-    	}
+    	{	label_errore.setVisible(true);   	}
     	else
     	{
 	    	text_dettagli_richiesta.setVisible(true);
 			invia_button.setVisible(true);
+			label_errore.setVisible(false);
     	}
     }
 
@@ -132,6 +130,7 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		label_avviso.setVisible(false);
+		label_errore.setVisible(false);
 		text_dettagli_richiesta.setVisible(false);
 		invia_button.setVisible(false);
 		

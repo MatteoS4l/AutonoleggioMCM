@@ -20,7 +20,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -55,7 +55,7 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
     @FXML
     private Label label_risposta_assistenza;
     @FXML
-    private ChoiceBox<String> scelta_assistenza;
+    private ComboBox<String> scelta_assistenza;
     @FXML
     private Button bottone_conferma;
     
@@ -88,28 +88,28 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
     {
 		this.assistenza = assistenza;
 		scelta_assistenza.setVisible(true);
-		utente =  assistenza.getCliente();
-		
+		text_risposta_assistenza.setVisible(true);
+		bottone_invio.setVisible(true);
+		bottone_conferma.setVisible(true);
     }
     
     
     
     @FXML
     void confermaSelezione(ActionEvent event) 
-    {
-    	if (scelta_assistenza.getValue().equalsIgnoreCase("Manutenzione"))
+    {	try
     	{
-			text_risposta_assistenza.setVisible(true);
-			bottone_invio.setVisible(true);
+    		if (scelta_assistenza.getValue().equalsIgnoreCase("Manutenzione"))
+        	{
+    			text_risposta_assistenza.setVisible(true);
+    			bottone_invio.setVisible(true);
+        	}
+    	    else
+    	    {	dispatcher.renderView("sostituzione", utente, assistenza);    }
     	}
-	    	else {
-	    			if (scelta_assistenza.getValue().equalsIgnoreCase("Sostituzione"))
-	    			{ 
-	    				dispatcher.renderView("sostituzione", utente, assistenza);
-	    				
-	    			}
-	    	}
-
+    	catch(NullPointerException e)
+    	{	/* errore */	}
+    	
     }
     
     
@@ -119,13 +119,12 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
-		scelta_assistenza.getItems().add("Manutenzione");
-		scelta_assistenza.getItems().add("Sostituzione");
-		scelta_assistenza.setVisible(true);
-			
+		scelta_assistenza.getItems().addAll("Manutenzione", "Sostituzione");
+		scelta_assistenza.setVisible(false);
 		text_risposta_assistenza.setVisible(false);
 		label_risposta_assistenza.setVisible(false);
 		bottone_invio.setVisible(false);
+		bottone_conferma.setVisible(false);
 		
 		cliente_assistenza_op.setStyle("-fx-alignment: CENTER;");
 		veicolo_assistenza_op.setStyle("-fx-alignment: CENTER;");
@@ -173,8 +172,21 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
 		{	label_risposta_assistenza.setTextFill(Color.RED);
 			label_risposta_assistenza.setText("Errore generico");
 		}
-		
-		
 	}
+
+	@Override
+	public void initializeData(Utente utente)
+	{	this.utente = utente;	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -1,1 +1,2 @@
-1
+2
+1,ho bucato una gomma,true,Il tuo veicolo sostitutivo sarà disponibile dal 2021-06-12 al 2021-06-13,1,1
