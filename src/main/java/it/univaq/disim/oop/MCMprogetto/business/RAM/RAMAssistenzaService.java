@@ -1,6 +1,7 @@
 package it.univaq.disim.oop.MCMprogetto.business.RAM;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaNonTrovataException;
@@ -24,12 +25,18 @@ public class RAMAssistenzaService implements AssistenzaService
 	
 	@Override	// MODIFICA
 	public void updateAssistenza(Assistenza assistenza) throws BusinessException
-	{
-		for(Assistenza tmp : listassistenza)
-		{
-			if(tmp.getID() == assistenza.getID())
-			{	tmp = assistenza;	}
-		}
+	{	try
+		{	for(Assistenza tmp : listassistenza)
+			{
+				if(tmp.getID() == assistenza.getID())
+				{	
+					listassistenza.remove(tmp);
+					listassistenza.add(assistenza);
+				}
+			}
+		}catch(ConcurrentModificationException e)
+		{	/* errore checked */	}
+		
 	}
 	
 	

@@ -2,6 +2,7 @@ package it.univaq.disim.oop.MCMprogetto.business.RAM;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteNonTrovatoException;
@@ -55,14 +56,19 @@ public class RAMUtenteService implements UtenteService
 
 	@Override	// UPDATE
 	public void updateUtente(Utente utente) throws BusinessException
-	{
-		for(Utente tmp : listautenti)
-		{
-			if(tmp.getID() == utente.getID())
+	{	try
+		{	for(Utente tmp : listautenti)
 			{
-				tmp = utente;
+				if(tmp.getID() == utente.getID())
+				{
+					listautenti.remove(tmp);
+					listautenti.add(utente);
+				}
 			}
 		}
+		catch(ConcurrentModificationException e)
+		{	/* errore checked */	}
+		
 	}
 	
 	

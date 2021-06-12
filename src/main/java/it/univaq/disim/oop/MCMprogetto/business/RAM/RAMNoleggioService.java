@@ -3,6 +3,7 @@ package it.univaq.disim.oop.MCMprogetto.business.RAM;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
@@ -32,12 +33,18 @@ public class RAMNoleggioService implements NoleggioService
 	
 	@Override	// MODIFICA
 	public void updateNoleggio(Noleggio noleggio) throws BusinessException
-	{
-		for(Noleggio tmp : listanoleggi)
-		{
-			if(tmp.getID() == noleggio.getID())
-			{	tmp = noleggio;		return; 	}
-		}
+	{	try
+		{	for(Noleggio tmp : listanoleggi)
+			{
+				if(tmp.getID() == noleggio.getID())
+				{	
+					listanoleggi.remove(tmp);
+					listanoleggi.add(noleggio);
+				}
+			}
+		}catch(ConcurrentModificationException e)
+		{	/* errore checked */	}
+		
 	}
 	
 	
@@ -66,8 +73,20 @@ public class RAMNoleggioService implements NoleggioService
 		List<Noleggio> lista = new ArrayList<Noleggio>();
 		for(Noleggio tmp : listanoleggi)
 		{
-			if(tmp.getAssistenza() != null)
-			{	lista.add(tmp);	  }
+			if(assistenza.equalsIgnoreCase("tutte"))
+			{	return listanoleggi;	}
+			
+			if(assistenza.equalsIgnoreCase("si"))
+			{
+				if(tmp.getAssistenza() != null)
+				{	lista.add(tmp);	  }
+			}
+			if(assistenza.equalsIgnoreCase("no"))
+			{
+				if(tmp.getAssistenza() == null)
+				{	lista.add(tmp);	  }
+			}
+			
 		}
 		return lista;
 	}

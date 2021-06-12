@@ -28,12 +28,18 @@ public class RAMVeicoloService implements VeicoloService
 	
 	@Override	// MODIFICA
 	public void updateVeicolo(Veicolo veicolo) throws VeicoloNonTrovatoException
-	{
-		for(Veicolo tmp : listaveicoli)
-		{
-			if(tmp.getTarga().equalsIgnoreCase(veicolo.getTarga()))
-			{	tmp = veicolo;	}
+	{	try
+		{	for(Veicolo tmp : listaveicoli)
+			{
+				if(tmp.getTarga().equalsIgnoreCase(veicolo.getTarga()))
+				{	
+					listaveicoli.remove(tmp);
+					listaveicoli.add(veicolo);
+				}
+			}
 		}
+		catch(ConcurrentModificationException e)
+		{	/* errore checked */	}
 	}
 	
 
@@ -78,7 +84,10 @@ public class RAMVeicoloService implements VeicoloService
 			if(tmp.getTipologia().equalsIgnoreCase(tipologia) || tipologia.equalsIgnoreCase("tutte"))
 			{	listafiltrata.add(tmp); 	}
 		}
-		return listafiltrata;
+		if(!listafiltrata.isEmpty())
+		{	return listafiltrata;	}
+		throw new BusinessException();
+		
 	}
 	
 	

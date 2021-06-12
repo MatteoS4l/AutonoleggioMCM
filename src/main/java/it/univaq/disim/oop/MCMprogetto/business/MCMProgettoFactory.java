@@ -5,8 +5,8 @@ import it.univaq.disim.oop.MCMprogetto.business.file.FileMCMProgettoFactory;
 
 public abstract class MCMProgettoFactory
 {
-//	private static MCMProgettoFactory factory = new RAMMCMProgettoFactory();
-	private static MCMProgettoFactory factory = new FileMCMProgettoFactory();
+	private static MCMProgettoFactory factory = new RAMMCMProgettoFactory();
+//	private static MCMProgettoFactory factory = new FileMCMProgettoFactory();
 	
 	public static MCMProgettoFactory getInstance()
 	{	return factory; 	}

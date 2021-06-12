@@ -29,7 +29,7 @@ public class RAMTipologiaService implements TipologiaService
 			{	listatipologie.remove(tipologia);	}
 		} 
 		catch (BusinessException e)
-		{	e.printStackTrace();	}	
+		{	throw new TipologiaNonTrovataException();	}	
 	}
 	
 	
