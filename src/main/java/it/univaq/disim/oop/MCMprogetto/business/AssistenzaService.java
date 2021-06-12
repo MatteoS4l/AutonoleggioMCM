@@ -7,12 +7,13 @@ public interface AssistenzaService
 {
 	int createAssistenza(Assistenza assistenza) throws BusinessException;
 	
+	void updateAssistenza(Assistenza assistenza) throws BusinessException;
+
 	List<Assistenza> FindAllAssistenza() throws BusinessException;
 	
 	Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException;
 	
 	List<Assistenza> getListaAssistenzaByServita(boolean servita) throws BusinessException;
 	
-	public void updateAssistenza(Assistenza assistenza) throws BusinessException;
-
+	
 }

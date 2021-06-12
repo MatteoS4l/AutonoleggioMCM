@@ -15,7 +15,7 @@ public interface NoleggioService
 	
 	Noleggio FindNoleggioByID(int ID) throws NoleggioNonTrovatoException, BusinessException;
 	
-	Noleggio FindNoleggioByIdAssistenza (int ID) throws BusinessException;
+	Noleggio FindNoleggioByIdAssistenza(int ID) throws BusinessException;
 	
 	List<Noleggio> FindAllNoleggi() throws BusinessException;
 	
@@ -31,9 +31,9 @@ public interface NoleggioService
 	
 	List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException;
 	
-	List<Noleggio> FindNoleggiByDettagli () throws BusinessException;
+	List<Noleggio> FindNoleggiByDettagli() throws BusinessException;
 	
-	void CheckStatoVeicoli() throws BusinessException;
+	void CheckStatoVeicoli()throws BusinessException;
 	
 	
 	

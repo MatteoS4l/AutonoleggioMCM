@@ -39,7 +39,7 @@
          <font>
             <Font size="13.0" />
          </font></Button>
-      <Label fx:id="label_modello_macchina" layoutX="256.0" layoutY="32.0" text="Modello macchina">
+      <Label fx:id="label_modello_macchina" alignment="CENTER" layoutX="186.0" layoutY="33.0" prefHeight="21.0" prefWidth="278.0" text="Modello macchina">
          <textFill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -162,6 +162,11 @@
                </stops>
             </RadialGradient>
          </textFill>
+      </Label>
+      <Label fx:id="label_errore" alignment="CENTER" layoutX="191.0" layoutY="415.0" prefHeight="21.0" prefWidth="272.0" text="Seleziona correttamente le date !" textFill="#860000">
+         <font>
+            <Font size="15.0" />
+         </font>
       </Label>
    </children>
 </AnchorPane>

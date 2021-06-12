@@ -91,10 +91,14 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     @FXML	// APPLICA FILTRI
     void applica_filtri(ActionEvent event) throws BusinessException
     {
+    	List<Veicolo> listacompleta = new ArrayList<Veicolo>();
+    	listacompleta = veicoloservice.FindListaVeicoliByStato("disponibile");
     	List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-    	listafiltrata = veicoloservice.FindListaVeicoliByStato("disponibile");
-    	
-    	
+    	for(Veicolo tmp : listacompleta)
+    	{	
+    		if(!tmp.getTipologia().equalsIgnoreCase("sostitutivo"))
+    		{	listafiltrata.add(tmp); 	}
+    	}
     	
     	if (box_tipologia.getValue() != null)
     	{	listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTipologia(box_tipologia.getValue())); }
@@ -138,12 +142,8 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
     		listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTariffaKM(min, max));
     	}
     	
-    	
-    	
     	ObservableList<Veicolo> listavn1 = FXCollections.observableArrayList(listafiltrata);
-    	
     	lista_filtrata.setItems(listavn1);
-    	
     }
     
     
@@ -160,7 +160,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 			try
 			{	box_tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());	}
 			catch (TipologiaNonTrovataException e1)
-			{	/* errore */	}
+			{	/* lista vuota */	}
 			box_tipologia.getItems().add("Tutte");
 			
 			col_veicolo.setStyle("-fx-alignment: CENTER;");
@@ -178,17 +178,12 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 			col_azioni.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>()
 					{
 						@Override
-						public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
+						public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) 
+						{
 							final Button noleggiaButton = new Button("noleggia");
-							if(param.getValue().getTipologia().equalsIgnoreCase("sostitutivo"))
-							{
-										// POTREMMO METTERLO TRASPARENTE IL BOTTONE
-								noleggiaButton.setVisible(false);
-							}
 							noleggiaButton.setOnAction(new EventHandler<ActionEvent>() {
 								@Override
 								public void handle(ActionEvent event) {
-									
 									dispatcher.renderView("scheda_noleggio", param.getValue(), utente);
 								}
 							});
@@ -197,12 +192,8 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 					});
 			applica_filtri(null);
 		} 
-		
 		catch (BusinessException e)
 		{	e.printStackTrace();	}
-		
-    	
-		
 	}
 
 	
@@ -214,9 +205,7 @@ public class ControllerVeicoliUtente implements Initializable, DataInitializable
 	
 	@Override
 	public void initializeData(Utente utente)
-	{
-		this.utente = utente;
-	}
+	{	this.utente = utente;	}
 
 
 

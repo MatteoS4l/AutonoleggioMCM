@@ -6,9 +6,7 @@ import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
-import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
-import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -28,9 +26,7 @@ import javafx.util.Callback;
 
 public class ControllerVistaTipologie implements Initializable, DataInitializable<Object, Object>
 {
-	private ViewDispatcher dispatcher;
 	private TipologiaService tipologiaservice;
-	private VeicoloService veicoloservice;
 	
     @FXML
     private TableView<Tipologia> tabella_tipologie;
@@ -48,19 +44,21 @@ public class ControllerVistaTipologie implements Initializable, DataInitializabl
 
     public ControllerVistaTipologie()
     {
-    	dispatcher = ViewDispatcher.getInstance();
     	MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
     	tipologiaservice = factory.getTipologiaService();
-    	veicoloservice = factory.getVeicoloService();
     }
 
 
 
     @FXML	// AGGIUNGI TIPOLOGIA
     void AggiungiTipologia(ActionEvent event)
-    {
-    	try
-    	{	tipologiaservice.createTipologia(new Tipologia(new_tipologia.getText()));	label_errore.setText("");   } 
+    {	try
+    	{	
+    		Tipologia t = new Tipologia();
+    		t.setTipologia(new_tipologia.getText());
+    		tipologiaservice.createTipologia(t);	
+    		label_errore.setText("");
+    	} 
     	catch (BusinessException e)
     	{	label_errore.setText("Tipologia già esistente !");}
     	

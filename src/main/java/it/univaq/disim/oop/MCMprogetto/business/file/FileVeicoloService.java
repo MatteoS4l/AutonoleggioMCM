@@ -178,6 +178,7 @@ public class FileVeicoloService implements VeicoloService
 				
 				listacompleta.add(veicolo);
 			}
+			
 			return listacompleta;
 		}
 		catch (IOException e) {	
@@ -253,9 +254,8 @@ public class FileVeicoloService implements VeicoloService
 		
 		for(Veicolo tmp : lista)
 		{
-			System.out.println("a");
-			if(tmp.getTipologia().toLowerCase().contains(modello.toLowerCase()))
-			{	listacompleta.add(tmp);	System.out.println("b");}
+			if(tmp.getModello().toLowerCase().contains(modello.toLowerCase()))
+			{	listacompleta.add(tmp);	  }
 		}
 		return listacompleta;
 	}

@@ -139,7 +139,7 @@ public class ControllerVistaNoleggi implements Initializable, DataInitializable<
 					}
 				});	
 		
-		List<Noleggio> listacompleta = null;
+		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		try
 		{	listacompleta = noleggioservice.FindAllNoleggi();	}
 		catch (BusinessException e)

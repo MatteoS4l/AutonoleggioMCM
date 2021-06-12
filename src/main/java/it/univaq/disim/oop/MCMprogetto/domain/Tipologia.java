@@ -4,15 +4,6 @@ public class Tipologia
 {
 	private String tipologia;
 	private int ID;
-
-	
-	public Tipologia()
-	{}
-	
-	public Tipologia(String tipologia)
-	{
-		this.tipologia = tipologia;
-	}
 	
 	
 	// GET E SET
