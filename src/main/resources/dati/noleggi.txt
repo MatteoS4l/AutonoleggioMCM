@@ -1,2 +1,1 @@
-2
-1,0.0,1,1,1,2021-06-07 00:00,2021-06-10 00:00,0,false,puo ritirare il veicolo dalle 15:00,true
+1
