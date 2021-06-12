@@ -9,7 +9,6 @@ import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
-import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -22,9 +21,9 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+
 public class ControllerNotifiche implements Initializable,DataInitializable<Utente, Object>
 {
-	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
 	
 	
@@ -44,7 +43,6 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
     
     public ControllerNotifiche ()
     {
-    	dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		noleggioservice = factory.getNoleggioService();
     }
@@ -68,11 +66,16 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 			List<Noleggio> listanoleggi = noleggioservice.FindNoleggiByUtente(utente);
 			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 			
-			for(Noleggio tmp : listanoleggi)
+			try
 			{
-				if(!tmp.getDettagli().equalsIgnoreCase("null"))
-				{	listacompleta.add(tmp);	}
+				for(Noleggio tmp : listanoleggi)
+				{
+					if(!tmp.getDettagli().equalsIgnoreCase("null"))
+					{	listacompleta.add(tmp);	}
+				}
 			}
+			catch(NullPointerException e)
+			{	/* errore */	}
 			
 			dettagli_prenotazioni.setCellValueFactory(new PropertyValueFactory<Noleggio, String>("dettagli"));
 			veicolo_prenotazioni.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
@@ -85,7 +88,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 			tabella_notifiche_prenotazioni.setItems(listaNol1);
 		}
 		catch (BusinessException e)
-		{	System.out.println("ciao");	}
+		{	/* errore */	}
 		
 		
 		try
@@ -115,7 +118,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 			tabella_notifiche_assistenza.setItems(listaNol2);
 		}
 		catch (BusinessException e)
-		{	System.out.println("ciao");	}
+		{	/* errore */	}
 		
 		
 		

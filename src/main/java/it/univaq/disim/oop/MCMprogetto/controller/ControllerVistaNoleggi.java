@@ -10,7 +10,6 @@ import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
-import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -30,9 +29,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+
 public class ControllerVistaNoleggi implements Initializable, DataInitializable<Utente,Object>
 {
-	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
 
     @FXML
@@ -60,7 +59,6 @@ public class ControllerVistaNoleggi implements Initializable, DataInitializable<
     
     public ControllerVistaNoleggi()
 	{	
-		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		noleggioservice = factory.getNoleggioService();
 	}

@@ -1,1 +1,2 @@
-1
+2
+1,veicolo molto spazioso,1,1,4

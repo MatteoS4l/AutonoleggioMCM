@@ -11,18 +11,19 @@ import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 public class RAMFeedbackService implements FeedbackService
 {
 	List<Feedback> listafeedback = new ArrayList<Feedback>();
+	int cont_feedback = 1;
 
+	
 	@Override
 	public void createFeedback(Feedback feedback) throws BusinessException 
 	{
+		feedback.setID(cont_feedback++);
 		listafeedback.add(feedback);
 		
 	}
 
-	@Override
-	public List<Feedback> getListFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException
-	{
-		return listafeedback;
-	}
+	@Override	// FIND ALL FEEDBACK
+	public List<Feedback> FindAllFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException
+	{	return listafeedback;	}
 
 }

@@ -10,108 +10,29 @@ import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 public class RAMVeicoloService implements VeicoloService
 {
 	List<Veicolo> listaveicoli = new ArrayList<Veicolo>();
-
-
-	@Override	// GET LISTA VEICOLI
-	public List<Veicolo> GetListaVeicoliByStato(String stato) throws VeicoloNonTrovatoException
-	{	
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for(Veicolo tmp : listaveicoli)
-		{
-			if(tmp.getStato().equalsIgnoreCase(stato) || stato.equalsIgnoreCase("tutte"))
-			{	listafiltrata.add(tmp); 	}
-		}
-		return listafiltrata;
-	}
+	int cont_veicoli = 1;
 	
-	
-	@Override	//	GET LISTA VEICOLI TIPOLOGIA
-	public List<Veicolo> GetListaVeicoliByTipologia(String tipologia) throws VeicoloNonTrovatoException
-	{
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for(Veicolo tmp : listaveicoli)
-		{
-			if(tmp.getTipologia().equalsIgnoreCase(tipologia) || tipologia.equalsIgnoreCase("tutte"))
-			{	listafiltrata.add(tmp); 	}
-		}
-		return listafiltrata;
-	}
-	
-	@Override //  GET LISTA VEICOLI ALIMENTAZIONE
-	public List<Veicolo> GetListaVeicoliByAlimentazione(String alimentazione) throws VeicoloNonTrovatoException 
-	{
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for(Veicolo tmp : listaveicoli)
-		{
-			if(tmp.getAlimentazione().equalsIgnoreCase(alimentazione) || alimentazione.equalsIgnoreCase("tutte"))
-			{	listafiltrata.add(tmp); 	}
-		}
-		return listafiltrata;	
-	}
-	
-	
-	@Override	// GET LISTA BY TARIFFA_KM
-	public List<Veicolo> GetListaVeicoliByTariffaKM(double min, double max) throws VeicoloNonTrovatoException
-	{
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for(Veicolo tmp : listaveicoli)
-		{
-			if(tmp.getTariffa_chilometraggio() >= min && tmp.getTariffa_chilometraggio() <= max)
-			{	listafiltrata.add(tmp); 	}
-		}
-		return listafiltrata;
-	}
-	
-	
-	@Override	// GET LISTA BY TARIFFA_PERIODO
-	public List<Veicolo> GetListaVeicoliByTariffaPeriodo(double min, double max) throws VeicoloNonTrovatoException
-	{
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for(Veicolo tmp : listaveicoli)
-		{
-			if(tmp.getTariffa_periodo() >= min && tmp.getTariffa_periodo() <= max)
-			{	listafiltrata.add(tmp); 	}
-		}
-		return listafiltrata;
-	}	
-	
-	
-	@Override	// GET LISTA BY MODELLO
-	public List<Veicolo> GetListaVeicoliByModello(String modello) throws VeicoloNonTrovatoException 
-	{
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for(Veicolo tmp : listaveicoli)
-		{
-			if(tmp.getModello().equalsIgnoreCase(modello))
-			{	listafiltrata.add(tmp); 	}
-		}
-		return listafiltrata;
-	}
 	
 	
 	@Override	// CREA
 	public void createVeicolo(Veicolo veicolo) throws BusinessException
-	{	listaveicoli.add(veicolo);  	}
+	{	
+		veicolo.setID(cont_veicoli++);
+		if(!giaEsistente(veicolo.getTarga()))
+		{	listaveicoli.add(veicolo);	}
+		else
+		{	throw new BusinessException();	}
+	}
 	
 	
 	
 	@Override	// MODIFICA
 	public void updateVeicolo(Veicolo veicolo) throws VeicoloNonTrovatoException
 	{
-		for(Veicolo v : listaveicoli)
+		for(Veicolo tmp : listaveicoli)
 		{
-			if(v.getTarga().equalsIgnoreCase(veicolo.getTarga()))
-			{
-				v.setTipologia(veicolo.getTipologia());	
-				v.setModello(veicolo.getModello());
-				v.setAlimentazione(veicolo.getAlimentazione());
-				v.setTarga(veicolo.getTarga());
-				v.setManutenzione(veicolo.isManutenzione());
-				v.setDisponibilita(veicolo.isDisponibilita());
-				v.setChilometri(veicolo.getChilometri());
-				v.setTariffa_chilometraggio(veicolo.getTariffa_chilometraggio());
-				v.setTariffa_periodo(veicolo.getTariffa_periodo());
-			}
+			if(tmp.getTarga().equalsIgnoreCase(veicolo.getTarga()))
+			{	tmp = veicolo;	}
 		}
 	}
 	
@@ -126,8 +47,109 @@ public class RAMVeicoloService implements VeicoloService
 	}
 
 	
+	
+	
+	
+	@Override	// ALL VEICOLI
+	public List<Veicolo> FindAllVeicoli() throws BusinessException
+	{	return listaveicoli;	}
+	
+	
+
+	@Override	// GET LISTA VEICOLI STATO
+	public List<Veicolo> FindListaVeicoliByStato(String stato) throws VeicoloNonTrovatoException, BusinessException
+	{		
+		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
+		for(Veicolo tmp : listaveicoli)
+		{
+			if(tmp.getStato().equalsIgnoreCase(stato) || stato.equalsIgnoreCase("tutte"))
+			{	listafiltrata.add(tmp); 	}
+		}
+		return listafiltrata;
+	}
+	
+	
+	@Override	//	GET LISTA VEICOLI TIPOLOGIA
+	public List<Veicolo> FindListaVeicoliByTipologia(String tipologia) throws VeicoloNonTrovatoException, BusinessException
+	{	
+		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
+		for(Veicolo tmp : listaveicoli)
+		{
+			if(tmp.getTipologia().equalsIgnoreCase(tipologia) || tipologia.equalsIgnoreCase("tutte"))
+			{	listafiltrata.add(tmp); 	}
+		}
+		return listafiltrata;
+	}
+	
+	
+	@Override   //GET LISTA BY ALIMENTAZIONE
+	public List<Veicolo> FindListaVeicoliByAlimentazione(String alimentazione) throws VeicoloNonTrovatoException, BusinessException
+	{
+		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
+		for(Veicolo tmp : listaveicoli)
+		{
+			if(tmp.getAlimentazione().equalsIgnoreCase(alimentazione) || alimentazione.equalsIgnoreCase("tutte"))
+			{	listafiltrata.add(tmp); 	}
+		}
+		return listafiltrata;	
+	}
+	
+	
+	@Override	// GET LISTA BY MODELLO
+	public List<Veicolo> FindListaVeicoliByModello(String modello) throws VeicoloNonTrovatoException, BusinessException
+	{	
+		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
+		for(Veicolo tmp : listaveicoli)
+		{
+			if(tmp.getModello().toLowerCase().contains(modello.toLowerCase()))
+			{	listafiltrata.add(tmp);	  }
+		}
+		return listafiltrata;
+	}
+	
+	
+	
+	@Override	// GET LISTA BY TARIFFA_KM
+	public List<Veicolo> FindListaVeicoliByTariffaKM(double min, double max) throws VeicoloNonTrovatoException, BusinessException
+	{	
+		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
+		for(Veicolo tmp : listaveicoli)
+		{
+			if(tmp.getTariffa_chilometraggio() >= min && tmp.getTariffa_chilometraggio() <= max)
+			{	listafiltrata.add(tmp); 	}
+		}
+		return listafiltrata;
+	}
+	
+	
+	@Override	// GET LISTA BY TARIFFA_PERIODO
+	public List<Veicolo> FindListaVeicoliByTariffaPeriodo(double min, double max) throws VeicoloNonTrovatoException, BusinessException
+	{
+		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
+		for(Veicolo tmp : listaveicoli)
+		{
+			if(tmp.getTariffa_periodo() >= min && tmp.getTariffa_periodo() <= max)
+			{	listafiltrata.add(tmp); 	}
+		}
+		return listafiltrata;
+	}	
+	
+	
+	@Override	// GET VEICOLO BY ID
+	public Veicolo FindVeicoloById(int id) throws VeicoloNonTrovatoException , BusinessException
+	{
+		for (Veicolo tmp: listaveicoli)
+		{
+			if (tmp.getID() == id)
+			{	return tmp;	 }	
+		}
+		throw new VeicoloNonTrovatoException();
+	}
+	
+
+	
 	@Override	// GET STATO VEICOLO
-	public String[] GetListStatoVeicolo()
+	public String[] FindListStatoVeicolo()
 	{	
 		String[] s = {"disponibile","non disponibile","in noleggio"};
 		return s;
@@ -135,24 +157,25 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET ALIMENTAZIONE VEICOLO
-	public String[] GetListAlimentazioneVeicolo()
+	public String[] FindListAlimentazioneVeicolo()
 	{	
 		String[] s = {"benzina","diesel","gpl"};
 		return s;
 	}
 
 
-	@Override	// GET VEICOLO
-	public Veicolo getVeicoloById(int id) throws VeicoloNonTrovatoException 
+	
+	//	GIA ESISTENTE
+	private Boolean giaEsistente(String targa) throws BusinessException
 	{
-		for (Veicolo v: listaveicoli)
+		List<Veicolo> lista = FindAllVeicoli();
+		for(Veicolo tmp : lista)
 		{
-			if (v.getID() == id)
-			{ return v;	}	
+			if(targa.equalsIgnoreCase(tmp.getTarga()))
+			{	return true;	}
 		}
-		throw new VeicoloNonTrovatoException();
+		return false;
 	}
-
 
 	
 

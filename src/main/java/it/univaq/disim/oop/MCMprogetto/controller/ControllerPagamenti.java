@@ -69,7 +69,7 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
     private Label label_km_cliente;
 
     
-    public ControllerPagamenti ()
+    public ControllerPagamenti()
     {
     	dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -77,27 +77,25 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
     }
     
     
-    @FXML
+    @FXML	// VEDI COSTO
     void vediCosto(ActionEvent event) 
     {
     	double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(text_set_km.getText());
-    	label_costo_tot.setText(Double.toString(i)+"€");
+    	i /= 1000;
+    	label_costo_tot.setText(Double.toString(i/1000)+"€");
     	label_costo_tot.setVisible(true);
     	bottone_pagamento.setVisible(true);
     }
     
     
     
-    @FXML
+    @FXML	// REGISTRA PAGAMENTO
     void registraPagamento(MouseEvent event) throws BusinessException, InterruptedException 
     {
-    	
     	double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(text_set_km.getText());
     	noleggio.setPrezzo_noleggio(i);
     	noleggioservice.updateNoleggio(noleggio);
     	label_successo.setVisible(true);
-
-    	Thread.sleep(2000);
     	
     	dispatcher.renderView("pagamenti", utente, null);
     	
@@ -107,7 +105,7 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
 
     }
     
-    
+    // MOSTRA COSE
     void mostraCose (Noleggio noleggio)
     {
     	this.noleggio = noleggio;
@@ -117,8 +115,10 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
     	label_tariffa_euro.setText(Double.toString(noleggio.getVeicolo().getTariffa_chilometraggio())+ "€");
     	text_set_km.setVisible(true);
     	bottone_costo.setVisible(true);
-    	
     }
+    
+    
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) 
 	{
@@ -177,9 +177,6 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
 			
 			ObservableList<Noleggio> lista1 = FXCollections.observableList(lista);
 			tabella_pagamento.setItems(lista1);
-		
-		
-		
 	}
 
 }

@@ -14,17 +14,7 @@ public class RAMTipologiaService implements TipologiaService
 	VeicoloService veicoloservice = new RAMVeicoloService();
 	
 	
-	@Override	// GET LISTA TIPOLOGIA
-	public List<String> getAllTipologia() throws TipologiaNonTrovataException
-	{	
-		List<String> listaT = new ArrayList<String>();
-		for(Tipologia tmp : listatipologie)
-		{	listaT.add(tmp.getTipologia());		}
-		
-		return listaT;	
-	}
 	
-
 	@Override	// CREA
 	public void createTipologia(Tipologia tipologia) throws BusinessException 
 	{	listatipologie.add(tipologia);	}
@@ -35,16 +25,29 @@ public class RAMTipologiaService implements TipologiaService
 	public void deleteTipologia(Tipologia tipologia) throws TipologiaNonTrovataException 
 	{	
 		try
-		{	if(veicoloservice.GetListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
+		{	if(veicoloservice.FindListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
 			{	listatipologie.remove(tipologia);	}
 		} 
 		catch (BusinessException e)
 		{	e.printStackTrace();	}	
 	}
-
-
-	@Override
-	public List<Tipologia> getAllTipologiaT() throws TipologiaNonTrovataException
+	
+	
+	
+	@Override	// GET LISTA TIPOLOGIA
+	public List<String> FindAllTipologia() throws TipologiaNonTrovataException
+	{	
+		List<String> listaT = new ArrayList<String>();
+		for(Tipologia tmp : listatipologie)
+		{	listaT.add(tmp.getTipologia());		}
+		
+		return listaT;	
+	}
+	
+	
+	
+	@Override	// GET LISTA TIPOLOGIA T
+	public List<Tipologia> FindAllTipologiaT() throws TipologiaNonTrovataException, BusinessException
 	{	return listatipologie;	}
 
 	

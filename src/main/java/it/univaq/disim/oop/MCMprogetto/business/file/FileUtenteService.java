@@ -260,7 +260,7 @@ public class FileUtenteService implements UtenteService
 
 
 
-	@Override	// GET UTENTE
+	@Override	// GET UTENTE BY ID
 	public Utente FindUtenteById(int id) throws UtenteNonTrovatoException, BusinessException
 	{	try
 		{

@@ -11,16 +11,35 @@ import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 public class RAMAssistenzaService implements AssistenzaService
 {
 	List<Assistenza> listassistenza = new ArrayList<Assistenza>();
+	int cont_assistenza = 1;
 
 	
 	@Override	// CREA
-	public void createAssistenza(String dettagli) throws BusinessException
+	public int createAssistenza(Assistenza assistenza) throws BusinessException
 	{	
-		Assistenza a = new Assistenza();
-		a.setDettagli(dettagli);
-		listassistenza.add(a);
+		assistenza.setID(cont_assistenza++);
+		listassistenza.add(assistenza);
+		return listassistenza.size()-1;
 	}
+	
+	@Override	// MODIFICA
+	public void updateAssistenza(Assistenza assistenza) throws BusinessException
+	{
+		for(Assistenza tmp : listassistenza)
+		{
+			if(tmp.getID() == assistenza.getID())
+			{	tmp = assistenza;	}
+		}
+	}
+	
+	
+	
+	@Override	// FIND ALL ASSISTENZA
+	public List<Assistenza> FindAllAssistenza() throws BusinessException
+	{	return listassistenza;	}
 
+	
+	
 	
 	@Override	// GET ASSISTENZA ID
 	public Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException
@@ -31,6 +50,16 @@ public class RAMAssistenzaService implements AssistenzaService
 			{	return tmp;		}
 		}
 		throw new AssistenzaNonTrovataException();
+	}
+
+
+
+
+
+	@Override	// GET ASSISTENZA SERVITA
+	public List<Assistenza> getListaAssistenzaByServita(boolean servita) throws BusinessException
+	{
+		return null;
 	}
 	
 

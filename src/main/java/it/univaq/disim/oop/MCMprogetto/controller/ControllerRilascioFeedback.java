@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
-import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -33,8 +32,6 @@ public class ControllerRilascioFeedback implements Initializable,DataInitializab
 {
 	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
-	private Utente utente;
-	private Feedback feedback;
 
     @FXML
     private TableView<Noleggio> tabella_feedback_utente;
@@ -49,7 +46,7 @@ public class ControllerRilascioFeedback implements Initializable,DataInitializab
     @FXML
     private TableColumn<Noleggio, Button> azioni_feedback_utente;
     
-    public ControllerRilascioFeedback ()
+    public ControllerRilascioFeedback()
     {
     	dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -69,10 +66,8 @@ public class ControllerRilascioFeedback implements Initializable,DataInitializab
 
 
 	@Override
-	public void initializeData(Utente utente, Object e) 
+	public void initializeData(Utente utente) 
 	{
-		this.utente = utente;
-		
 		id_feedback_utente.setStyle("-fx-alignment: CENTER;");
 		veicolo_feedback_utente.setStyle("-fx-alignment: CENTER;");
 		data_in_feedback_utente.setStyle("-fx-alignment: CENTER;");
@@ -93,36 +88,32 @@ public class ControllerRilascioFeedback implements Initializable,DataInitializab
 				{
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Noleggio, Button> param) {
-						final Button dettagliButton = new Button("Lascia feedback");
-						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
+						final Button feedButton = new Button("Lascia feedback");
+						feedButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) 
-							{
-								System.out.println("ciao");
-								dispatcher.renderView("creazione_feedback",utente, param.getValue().getVeicolo() );
-							}
+							{	dispatcher.renderView("creazione_feedback",utente, param.getValue());		}
 						});
-						return new SimpleObjectProperty<Button>(dettagliButton);
+						return new SimpleObjectProperty<Button>(feedButton);
 					}
 				});	
 		
-		try {
+		try
+		{
 			 List<Noleggio> listaNol2 = new ArrayList<Noleggio>();
 			 listaNol2 = noleggioservice.FindNoleggiByUtente(utente);
+			 List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 			
-			 for (Noleggio n: listaNol2)
+			 for (Noleggio tmp: listaNol2)
 			 {
-				 if (n.getData_fine_noleggio().isAfter(LocalDateTime.now()))
-				 {
-					 listaNol2.remove(n);
-				 }
+				 if (tmp.getData_fine_noleggio().isBefore(LocalDateTime.now()) && tmp.isFeed_lasciato() == false)
+				 {	listacompleta.add(tmp);	}
 			 }
-			 ObservableList<Noleggio> listaNol3 = FXCollections.observableList(listaNol2);
+			 ObservableList<Noleggio> listaNol3 = FXCollections.observableList(listacompleta);
 			 tabella_feedback_utente.setItems(listaNol3);
-
-		} catch (BusinessException |NullPointerException a) {
-			a.printStackTrace();
-		}
+		} 
+		catch (BusinessException | NullPointerException a)
+		{	a.printStackTrace();	}
 		
 		
 		

@@ -42,13 +42,13 @@ public class RAMUtenteService implements UtenteService
 
 
 	@Override	// GET LISTA UTENTI
-	public List<Utente> GetListaAllUtenti(Amministratore admin)
+	public List<Utente> FindAllUtenti(Amministratore admin) throws BusinessException
 	{	return listautenti; 	}
 
 
 	
 	
-	@Override	// REGISTRAZIONE
+	@Override	// CREA
 	public void createUtente(Utente utente) throws BusinessException
 	{	utente.setID(cont++);     listautenti.add(utente);	}
 
@@ -60,16 +60,15 @@ public class RAMUtenteService implements UtenteService
 		{
 			if(tmp.getID() == utente.getID())
 			{
-				tmp.setNome(utente.getNome());
-				tmp.setCognome(utente.getCognome());
-				tmp.setUsername(utente.getUsername());
-				tmp.setPassword(utente.getPassword());
-				tmp.setData_nascita(utente.getData_nascita());
-				tmp.setEta(CalcolaEta(utente.getData_nascita()));
-				tmp.setSesso(utente.getSesso());
+				tmp = utente;
 			}
 		}
 	}
+	
+	
+	@Override	// ELIMINA
+	public void deleteUtente(Utente utente) throws UtenteNonTrovatoException
+	{	listautenti.remove(utente);		}
 
 
 	@Override	// CALCOLA ETA
@@ -92,21 +91,18 @@ public class RAMUtenteService implements UtenteService
 	}
 
 
-	@Override	// ELIMINA
-	public void deleteUtente(Utente utente) throws UtenteNonTrovatoException {
-		listautenti.remove(utente);
-		
-	}
+	
 
 
-	@Override	// GET UTENTE
-	public Utente getUtenteById(int id) throws UtenteNonTrovatoException
+	@Override	// GET UTENTE BY ID
+	public Utente FindUtenteById(int id) throws UtenteNonTrovatoException, BusinessException
 	{
-		for (Utente u:listautenti)
-		{	if (u.getID() == id)
-			{ return u; }
+		for (Utente tmp : listautenti)
+		{	
+			if (tmp.getID() == id)
+			{	return tmp;	 }
 		}
-		return null;
+		throw new UtenteNonTrovatoException();
 	}
 	
 	

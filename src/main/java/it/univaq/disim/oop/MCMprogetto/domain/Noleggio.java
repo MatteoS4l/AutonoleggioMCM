@@ -13,6 +13,7 @@ public class Noleggio
 	private LocalDateTime data_inizio_noleggio;
 	private LocalDateTime data_fine_noleggio;
 	private boolean servita;
+	private boolean feed_lasciato;
 	private String dettagli;
 	
 	
@@ -77,6 +78,12 @@ public class Noleggio
 	}
 	public void setDettagli(String dettagli) {
 		this.dettagli = dettagli;
+	}
+	public boolean isFeed_lasciato() {
+		return feed_lasciato;
+	}
+	public void setFeed_lasciato(boolean feed_lasciato) {
+		this.feed_lasciato = feed_lasciato;
 	}
 	
 

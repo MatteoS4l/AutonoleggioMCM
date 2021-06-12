@@ -4,13 +4,11 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
-import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -29,10 +27,9 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+
 public class ControllerPrenotazioniOperatore implements Initializable,DataInitializable<Noleggio, Operatore>
 {
-	
-	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
 	private Noleggio noleggio;
 	
@@ -57,7 +54,6 @@ public class ControllerPrenotazioniOperatore implements Initializable,DataInitia
     
     public ControllerPrenotazioniOperatore ()
     {
-    	dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		noleggioservice = factory.getNoleggioService();
     }

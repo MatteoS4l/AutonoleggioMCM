@@ -13,7 +13,6 @@ import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
-import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -32,13 +31,12 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+
 public class ControllerSostituzione implements Initializable,DataInitializable<Utente, Assistenza>
 {
-	private	ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
 	private NoleggioService noleggioservice;
 	private AssistenzaService assistenzaservice;
-	private Utente utente;
 	private Noleggio noleggio;
 	private Assistenza assistenza;
 	private Veicolo veicolo;
@@ -75,7 +73,6 @@ public class ControllerSostituzione implements Initializable,DataInitializable<U
     
     public ControllerSostituzione()
     {
-    	dispatcher = ViewDispatcher.getInstance();
     	MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
     	veicoloservice = factory.getVeicoloService();
     	noleggioservice = factory.getNoleggioService();
@@ -189,7 +186,6 @@ public class ControllerSostituzione implements Initializable,DataInitializable<U
 	@Override
 	public void initializeData(Utente utente, Assistenza assistenza) 
 	{
-		this.utente = utente;
 		this.assistenza = assistenza;
 		
 		try {

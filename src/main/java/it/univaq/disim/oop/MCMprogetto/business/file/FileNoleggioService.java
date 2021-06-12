@@ -28,7 +28,7 @@ public class FileNoleggioService implements NoleggioService
 	
 	@Override	// CREA
 	public void createNoleggio(Noleggio noleggio) throws BusinessException 
-	{//id, prezzo, id assistenza, id cliente, id veicolo, data inizio, data fine, km fatti, servita(true false), risposta
+	{//id, prezzo, id assistenza, id cliente, id veicolo, data inizio, data fine, km fatti, servita(true false), risposta, feedback lasciato (true false)
 		try
 		{
 			FileData fileData = Utility.readAllRows("noleggi");
@@ -60,6 +60,8 @@ public class FileNoleggioService implements NoleggioService
 				row.append(noleggio.isServita());
 				row.append(Utility.SEPARATORE);
 				row.append("null");
+				row.append(Utility.SEPARATORE);
+				row.append(noleggio.isFeed_lasciato());
 				
 				writer.println(row.toString());
 			}
@@ -110,6 +112,8 @@ public class FileNoleggioService implements NoleggioService
 						{ row.append(noleggio.getDettagli()); }
 						else
 						{  row.append("null");  }
+						row.append(Utility.SEPARATORE);
+						row.append(noleggio.isFeed_lasciato());
 						
 						writer.println(row.toString());
 					}
@@ -151,6 +155,7 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
 				noleggio.setServita(Boolean.parseBoolean(colonne[8]));
 				noleggio.setDettagli(colonne[9]);
+				noleggio.setFeed_lasciato(Boolean.parseBoolean(colonne[10]));
 
 				listanoleggi.add(noleggio);
 			}
@@ -265,7 +270,7 @@ public class FileNoleggioService implements NoleggioService
 		for(Noleggio tmp : lista)
 		{
 			if(tmp.getPrezzo_noleggio() == 0 && tmp.getData_fine_noleggio().isBefore(LocalDateTime.now()))			
-					{	listacompleta.add(tmp);	}
+			{	listacompleta.add(tmp);	}
 		}
 		return listacompleta;
 	}
@@ -351,7 +356,7 @@ public class FileNoleggioService implements NoleggioService
 	}
 
 
-	@Override
+	@Override	// FIND NOLEGGIO BY ASSISTENZA ID
 	public Noleggio FindNoleggioByIdAssistenza(int ID) throws BusinessException 
 	{
 		List<Noleggio> lista = FindAllNoleggi();
@@ -362,7 +367,6 @@ public class FileNoleggioService implements NoleggioService
 			{	return tmp; 	}
 		}
 		throw new NoleggioNonTrovatoException();
-		
 	}
 
 

@@ -18,8 +18,8 @@
           <TableColumn fx:id="id_pagamento" prefWidth="55.0" text="ID" />
           <TableColumn fx:id="veicolo_pagamento" prefWidth="113.0" text="Veicolo" />
             <TableColumn fx:id="cliente_pagamento" prefWidth="94.0" text="Cliente" />
-            <TableColumn fx:id="data_in_pagamento" prefWidth="151.0" text="Data inizio" />
-            <TableColumn fx:id="data_fi_pagamento" prefWidth="156.0" text="Data fine" />
+            <TableColumn fx:id="data_in_pagamento" prefWidth="147.0" text="Data inizio" />
+            <TableColumn fx:id="data_fi_pagamento" prefWidth="147.0" text="Data fine" />
             <TableColumn fx:id="azioni_pagamento" prefWidth="82.0" text="Azioni" />
         </columns>
       </TableView>

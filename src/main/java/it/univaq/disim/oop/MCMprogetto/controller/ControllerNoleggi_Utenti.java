@@ -13,7 +13,6 @@ import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
-import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -32,10 +31,9 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+
 public class ControllerNoleggi_Utenti implements Initializable, DataInitializable<Utente, Veicolo>
 {
-	private ViewDispatcher dispatcher;
-	private Utente utente;
 	private Noleggio noleggio;
 	private AssistenzaService assistenzaservice;
 	private NoleggioService noleggioservice;
@@ -67,7 +65,6 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
     
     public ControllerNoleggi_Utenti()
     {
-    	dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		assistenzaservice = factory.getAssistenzaService();
 		noleggioservice = factory.getNoleggioService();
@@ -173,23 +170,28 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
 						return new SimpleObjectProperty<Button>(dettagliButton);
 					}
 				});	
+		
+		
 	}
+
+
 
 
 
 	@Override
-	public void initializeData(Utente utente, Veicolo veicolo)
+	public void initializeData(Utente utente)
 	{
-		this.utente = utente;
-		
-		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
+		List<Noleggio> listaNol = new ArrayList<Noleggio>();
 		try
-		{	listacompleta = noleggioservice.FindNoleggiByUtente(utente);	}
+		{	listaNol = noleggioservice.FindNoleggiByUtente(utente);		}
 		catch (BusinessException e)
-		{	/* lista vuota */	}
-		ObservableList<Noleggio> listaNol = FXCollections.observableList(listacompleta);
-		tabella_noleggi.setItems(listaNol);
+		{	e.printStackTrace();	}
+		ObservableList<Noleggio> listaob = FXCollections.observableList(listaNol);
+		tabella_noleggi.setItems(listaob);
 	}
+
+
+	
 
 	
 	

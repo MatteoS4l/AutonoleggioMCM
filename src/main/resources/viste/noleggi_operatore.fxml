@@ -13,11 +13,10 @@
       <TableView fx:id="tabella_noleggi_op" layoutX="4.0" layoutY="96.0" prefHeight="294.0" prefWidth="643.0">
         <columns>
           <TableColumn fx:id="id_noleggio" prefWidth="64.0" text="ID" />
-          <TableColumn fx:id="veicolo_noleggio" prefWidth="116.0" text="Veicolo" />
-            <TableColumn fx:id="data_in_nol" prefWidth="140.0" text="Data inizio" />
-            <TableColumn fx:id="data_fi_nol" prefWidth="140.0" text="Data fine" />
-            <TableColumn fx:id="cliente_nol" prefWidth="107.0" text="Cliente" />
-            <TableColumn fx:id="azioni_nol" prefWidth="74.0" text="Feedback" />
+          <TableColumn fx:id="veicolo_noleggio" prefWidth="126.0" text="Veicolo" />
+            <TableColumn fx:id="data_in_nol" prefWidth="150.0" text="Data inizio" />
+            <TableColumn fx:id="data_fi_nol" prefWidth="150.0" text="Data fine" />
+            <TableColumn fx:id="cliente_nol" prefWidth="151.0" text="Cliente" />
         </columns>
       </TableView>
       <CheckBox fx:id="spunta_noleggi" layoutX="376.0" layoutY="40.0" mnemonicParsing="false" text="In corso" />
