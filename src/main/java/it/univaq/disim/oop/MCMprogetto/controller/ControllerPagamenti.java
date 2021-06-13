@@ -7,9 +7,10 @@ import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
+import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
-import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
+import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -31,10 +32,10 @@ import javafx.util.Callback;
 
 public class ControllerPagamenti implements Initializable,DataInitializable<Utente, Object>
 {
-	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
+	private VeicoloService veicoloservice;
 	private Noleggio noleggio;
-	private Utente utente;
+	private Veicolo veicolo;
 	
 
     @FXML
@@ -66,49 +67,59 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
     @FXML
     private Label label_successo;
     @FXML
+    private Label label_errore;
+    @FXML
     private Label label_km_cliente;
 
     
     public ControllerPagamenti()
     {
-    	dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		noleggioservice = factory.getNoleggioService();
+		veicoloservice = factory.getVeicoloService();
     }
     
     
     @FXML	// VEDI COSTO
     void vediCosto(ActionEvent event) 
-    {
-    	double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(text_set_km.getText());
-    	i /= 1000;
-    	label_costo_tot.setText(Double.toString(i/1000)+"€");
-    	label_costo_tot.setVisible(true);
-    	bottone_pagamento.setVisible(true);
+    {	try
+    	{
+    		double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(text_set_km.getText());
+        	i /= 1000;
+        	label_costo_tot.setText(Double.toString(i)+"€");
+        	label_costo_tot.setVisible(true);
+        	bottone_pagamento.setVisible(true);
+    	}
+    	catch(NumberFormatException e)
+    	{	label_errore.setVisible(true);	}
     }
     
     
     
     @FXML	// REGISTRA PAGAMENTO
     void registraPagamento(MouseEvent event) throws BusinessException, InterruptedException 
-    {
-    	double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(text_set_km.getText());
-    	noleggio.setPrezzo_noleggio(i);
-    	noleggioservice.updateNoleggio(noleggio);
-    	label_successo.setVisible(true);
-    	
-    	dispatcher.renderView("pagamenti", utente, null);
-    	
-    	
-			
-    	
-
+    {	try
+    	{
+    		double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(text_set_km.getText());
+        	noleggio.setPrezzo_noleggio(i/1000);
+        	noleggioservice.updateNoleggio(noleggio);
+        	label_successo.setVisible(true);
+        	veicolo.setChilometri(veicolo.getChilometri() + Integer.parseInt(text_set_km.getText()));
+        	veicoloservice.updateVeicolo(veicolo);
+        	
+        	initialize(null, null);
+    	}
+    	catch(NumberFormatException e)
+    	{	label_errore.setVisible(true);	}
     }
     
+    
+    
     // MOSTRA COSE
-    void mostraCose (Noleggio noleggio)
+    void mostraCose(Noleggio noleggio)
     {
     	this.noleggio = noleggio;
+    	this.veicolo = noleggio.getVeicolo();
     	label_tariffa_did.setVisible(true);
     	label_tariffa_euro.setVisible(true);
     	label_km_cliente.setVisible(true);
@@ -130,6 +141,7 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
     	label_tariffa_euro.setVisible(false);
     	bottone_costo.setVisible(false);
     	label_km_cliente.setVisible(false);
+    	label_errore.setVisible(false);
     	
     	id_pagamento.setStyle("-fx-alignment: CENTER;");
     	cliente_pagamento.setStyle("-fx-alignment: CENTER;");
@@ -145,13 +157,23 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
-			{	return new SimpleStringProperty (tmp.getValue().getCliente().getUsername());	}
+			{	
+				if(tmp.getValue().getCliente() == null)
+				{	return new SimpleStringProperty();	}
+				else
+				{	return new SimpleStringProperty (tmp.getValue().getCliente().getUsername());	}
+			}
 		});
 		veicolo_pagamento.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
-			{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
+			{	
+				if(tmp.getValue().getVeicolo() == null)
+				{	return new SimpleStringProperty();	}
+				else
+				{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
+			}
 		});
 		azioni_pagamento.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, Button>, ObservableValue<Button>>()

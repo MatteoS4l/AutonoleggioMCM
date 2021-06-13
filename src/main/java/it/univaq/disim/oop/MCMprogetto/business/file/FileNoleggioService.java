@@ -238,8 +238,14 @@ public class FileNoleggioService implements NoleggioService
 		
 		for(Noleggio tmp : lista)
 		{
-			if(utente.getID() == tmp.getCliente().getID())
-			{	listacompleta.add(tmp);	}
+			try
+			{
+				if(utente.getID() == tmp.getCliente().getID())
+				{	listacompleta.add(tmp);	}
+			}
+			catch(NullPointerException e)
+			{	continue;	}
+			
 		}
 		return listacompleta;
 	}

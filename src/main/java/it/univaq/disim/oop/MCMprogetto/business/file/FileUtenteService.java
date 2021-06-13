@@ -290,6 +290,14 @@ public class FileUtenteService implements UtenteService
 		}
 	}
 
+
+
+	@Override
+	public void primaAggiunta() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 	

@@ -91,13 +91,23 @@ public class ControllerNoleggi_Operatore implements Initializable, DataInitializ
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
-			{	return new SimpleStringProperty (tmp.getValue().getCliente().getUsername());	}
+			{	
+				if(tmp.getValue().getCliente() == null)
+				{	return new SimpleStringProperty();	}
+				else
+				{	return new SimpleStringProperty (tmp.getValue().getCliente().getUsername());	}
+			}
 		});
 		veicolo_noleggio.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
-			{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
+			{	
+				if(tmp.getValue().getVeicolo() == null)
+				{	return new SimpleStringProperty();	}
+				else
+				{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
+			}
 		});
 		
 		

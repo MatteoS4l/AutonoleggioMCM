@@ -97,13 +97,23 @@ public class ControllerPrenotazioniOperatore implements Initializable,DataInitia
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
-			{	return new SimpleStringProperty (tmp.getValue().getCliente().getUsername());	}
+			{	
+				if(tmp.getValue().getCliente() == null)
+				{	return new SimpleStringProperty();	}
+				else
+				{	return new SimpleStringProperty (tmp.getValue().getCliente().getUsername());	}
+			}
 		});
     	veicolo_pren.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
-			{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
+			{	
+				if(tmp.getValue().getVeicolo() == null)
+				{	return new SimpleStringProperty();	}
+				else
+				{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
+			}
 		});
     	data_inizio_pren.setCellValueFactory(new PropertyValueFactory<Noleggio,LocalDateTime>("data_inizio_noleggio"));
     	data_fine_pren.setCellValueFactory(new PropertyValueFactory<Noleggio,LocalDateTime>("data_fine_noleggio"));

@@ -127,6 +127,13 @@ public class FileTipologiaService implements TipologiaService
 			throw new BusinessException(e);
 		}
 	}
+
+
+	@Override
+	public void primaAggiunta() throws BusinessException {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

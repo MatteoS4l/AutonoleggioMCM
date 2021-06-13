@@ -135,14 +135,24 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Assistenza, String> tmp)
-			{	return new SimpleStringProperty (tmp.getValue().getCliente().getUsername());	}
+			{	
+				if(tmp.getValue().getCliente() == null)
+				{	return new SimpleStringProperty();	}
+				else
+				{	return new SimpleStringProperty (tmp.getValue().getCliente().getUsername());	}
+			}
 		});
 		
 		veicolo_assistenza_op.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>()
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Assistenza, String> tmp)
-			{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
+			{	
+				if(tmp.getValue().getVeicolo() == null)
+				{	return new SimpleStringProperty();	}
+				else
+				{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
+			}
 		});
 		
 		dettagli_assistenza_op.setCellValueFactory(new PropertyValueFactory<Assistenza,String>("dettagli"));

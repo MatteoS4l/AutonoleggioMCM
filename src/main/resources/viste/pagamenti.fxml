@@ -52,5 +52,10 @@
       <Button fx:id="bottone_pagamento" layoutX="467.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#registraPagamento" text="Registra pagamento" />
       <Label fx:id="label_km_cliente" layoutX="164.0" layoutY="365.0" text="Km fatti dal cliente" />
       <Label fx:id="label_successo" layoutX="430.0" layoutY="411.0" prefHeight="17.0" prefWidth="197.0" text="Pagamento effettuato con successo!" textFill="#00da21" />
+      <Label fx:id="label_errore" alignment="CENTER" layoutX="46.0" layoutY="420.0" prefHeight="17.0" prefWidth="318.0" text="Compila correttamente i campi !" textFill="#800000">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

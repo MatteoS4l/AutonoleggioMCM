@@ -340,6 +340,14 @@ public class FileVeicoloService implements VeicoloService
 		return false;
 	}
 
+
+
+	@Override
+	public void primaAggiunta() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 	
