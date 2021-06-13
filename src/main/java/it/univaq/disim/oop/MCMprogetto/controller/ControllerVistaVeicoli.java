@@ -140,7 +140,6 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 	public void initializeData(Utente utente)
 	{
 		this.utente = utente;	
-		System.out.println(utente.getNome() + " " + utente.getCognome());
 		if(utente instanceof Operatore)
 		{	aggiungi_veicolo_button.setVisible(false);	}
 		
