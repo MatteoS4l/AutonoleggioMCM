@@ -79,16 +79,16 @@ public class RAMVeicoloService implements VeicoloService
 	@Override	//	GET LISTA VEICOLI TIPOLOGIA
 	public List<Veicolo> FindListaVeicoliByTipologia(String tipologia) throws VeicoloNonTrovatoException, BusinessException
 	{	
+		if(tipologia.equalsIgnoreCase("tutte"))
+		{	return FindAllVeicoli();	}
+		
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
 		{
-			if(tmp.getTipologia().equalsIgnoreCase(tipologia) || tipologia.equalsIgnoreCase("tutte"))
+			if(tmp.getTipologia().equalsIgnoreCase(tipologia))
 			{	listafiltrata.add(tmp); 	}
 		}
-		if(!listafiltrata.isEmpty())
-		{	return listafiltrata;	}
-		throw new BusinessException();
-		
+		return listafiltrata;
 	}
 	
 	
@@ -195,11 +195,18 @@ public class RAMVeicoloService implements VeicoloService
 		if(!veico)
 		{
 			Veicolo v1 = new Veicolo(1,"lusso","ferrari","benzina",null,"disponibile","AA001AA",false,true,0,100,100);
-			Veicolo v2 = new Veicolo(1,"lusso","lamborghini","benzina",null,"disponibile","AA002AA",false,true,0,200,200);
-			Veicolo v3 = new Veicolo(1,"berlina","panda","benzina",null,"disponibile","AA003AA",false,true,0,50,50);
-			listaveicoli.add(v1);
-			listaveicoli.add(v2);
-			listaveicoli.add(v3);
+			Veicolo v2 = new Veicolo(2,"lusso","lamborghini","benzina",null,"disponibile","AA002AA",false,true,0,200,200);
+			Veicolo v3 = new Veicolo(3,"berlina","panda","benzina",null,"disponibile","AA003AA",false,true,0,50,50);
+			try {
+				createVeicolo(v1);
+				createVeicolo(v2);
+				createVeicolo(v3);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			veico = true;
 		}
 		
 	}

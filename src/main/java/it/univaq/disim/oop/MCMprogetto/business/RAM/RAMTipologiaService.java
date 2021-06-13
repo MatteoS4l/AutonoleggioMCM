@@ -22,13 +22,12 @@ public class RAMTipologiaService implements TipologiaService
 	
 	
 	@Override	// ELIMINA
-	public void deleteTipologia(Tipologia tipologia) throws TipologiaNonTrovataException 
+	public void deleteTipologia(Tipologia tipologia) throws BusinessException 
 	{	
-		try
-		{	if(veicoloservice.FindListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
-			{	listatipologie.remove(tipologia);	}
-		} 
-		catch (BusinessException e)
+		if(veicoloservice.FindListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
+		{	listatipologie.remove(tipologia);	}
+		
+		else
 		{	throw new TipologiaNonTrovataException();	}	
 	}
 	
@@ -55,16 +54,16 @@ public class RAMTipologiaService implements TipologiaService
 	@Override
 	public void primaAggiunta() throws BusinessException 
 	{
-		if (!tipo)
+		if(!tipo)
 		{
-		Tipologia tipo1 = new Tipologia("lusso",1);
-		Tipologia tipo2 = new Tipologia("berlina",2);
-		Tipologia tipo3 = new Tipologia("sportiva",3);
-		listatipologie.add(tipo1);
-		listatipologie.add(tipo2);
-		listatipologie.add(tipo3);
-		
-		tipo = true;
+			Tipologia tipo1 = new Tipologia("lusso",1);
+			Tipologia tipo2 = new Tipologia("berlina",2);
+			Tipologia tipo3 = new Tipologia("sportiva",3);
+			listatipologie.add(tipo1);
+			listatipologie.add(tipo2);
+			listatipologie.add(tipo3);
+			
+			tipo = true;
 		}
 	}
 

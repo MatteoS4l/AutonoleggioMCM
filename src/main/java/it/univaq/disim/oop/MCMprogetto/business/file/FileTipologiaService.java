@@ -64,7 +64,7 @@ public class FileTipologiaService implements TipologiaService
 					for(String[] righe : fileData.getRighe())
 					{
 						if(Integer.parseInt(righe[0]) == tipologia.getID())
-						{	System.out.println("eliminato");	}
+						{	/* eliminato */	}
 						else
 						{	writer.println(String.join(Utility.SEPARATORE, righe));	}
 					}
