@@ -211,6 +211,12 @@ public class RAMNoleggioService implements NoleggioService
 			
 			if(datafine.isAfter(tmp.getData_inizio_noleggio()) && datafine.isBefore(tmp.getData_fine_noleggio()))
 			{	veicolidaeliminare.add(tmp.getVeicolo());	}
+			
+			if(tmp.getData_inizio_noleggio().isAfter(datainizio) && tmp.getData_inizio_noleggio().isBefore(datafine))
+			{	veicolidaeliminare.add(tmp.getVeicolo());	continue;	}
+			
+			if(tmp.getData_fine_noleggio().isAfter(datainizio) && tmp.getData_fine_noleggio().isBefore(datafine))
+			{	veicolidaeliminare.add(tmp.getVeicolo());	continue;	}
 		}
 		
 		for(int i=0; i<listaveicoli.size(); i++)
@@ -238,7 +244,28 @@ public class RAMNoleggioService implements NoleggioService
 	}
 	
 	
-	
+	@Override	// DISPONIBILITA DATE
+	public boolean DisponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException
+	{
+		for(Noleggio tmp : listanoleggi)
+		{
+			if(tmp.getVeicolo().getID() == veicolo.getID())
+			{
+				if(inizio.isAfter(tmp.getData_inizio_noleggio()) && inizio.isBefore(tmp.getData_fine_noleggio()))
+				{	return false;	}
+				
+				if(fine.isAfter(tmp.getData_inizio_noleggio()) && fine.isBefore(tmp.getData_fine_noleggio()))
+				{	return false;	}
+				
+				if(tmp.getData_inizio_noleggio().isAfter(inizio) && tmp.getData_inizio_noleggio().isBefore(fine))
+				{	return false;	}
+				
+				if(tmp.getData_fine_noleggio().isAfter(inizio) && tmp.getData_fine_noleggio().isBefore(inizio))
+				{	return false;	}
+			}
+		}
+		return true;
+	}
 	
 	
 	

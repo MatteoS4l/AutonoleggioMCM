@@ -63,7 +63,7 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     {  	try
     	{	
     		if(data_inizio_nol.getValue() == null || data_fine_nol.getValue() == null)
-    		{	label_errore.setVisible(true);	}
+    		{	label_errore.setText("Seleziona correttamente le date !");   label_errore.setVisible(true);	}
     		else
     		{
     			if (selezione_tariffa_km.isSelected())
@@ -83,35 +83,44 @@ public class ControllerSchedaNoleggio implements Initializable, DataInitializabl
     		}
     	}
     	catch(NullPointerException e)
-    	{	label_errore.setVisible(true);	}
+    	{	label_errore.setText("Seleziona correttamente le date !");  label_errore.setVisible(true);	}
     	
     	return 0;
 
     }
 
     @FXML	// NOLEGGIA AUTO
-    Noleggio noleggiaAuto(ActionEvent event)
-    {	try
-    	{
-    		// ci va il metodo che vede se si può prenotare attraverso le date
-        	
-        	Noleggio noleggio = new Noleggio();
+    Noleggio noleggiaAuto(ActionEvent event) throws BusinessException
+    {	
+    	if(noleggioservice.DisponibilitaDate(data_inizio_nol.getValue().atStartOfDay(), data_fine_nol.getValue().atStartOfDay(), veicolo)
+    	   && data_fine_nol.getValue().isAfter(data_inizio_nol.getValue()))
+    	{	try
+        	{
+            	Noleggio noleggio = new Noleggio();
+            
+            	noleggio.setPrezzo_noleggio(calcolaPreventivo(null));
+            	noleggio.setAssistenza(null);
+            	noleggio.setCliente(utente);
+            	noleggio.setVeicolo(veicolo);
+            	noleggio.setData_inizio_noleggio(data_inizio_nol.getValue().atStartOfDay());
+            	noleggio.setData_fine_noleggio(data_fine_nol.getValue().atStartOfDay());
+            	noleggio.setKM_percorsi(0);
+            	noleggio.setServita(false);
+    			noleggioservice.createNoleggio(noleggio);
+    			dispatcher.renderView("home", utente, null);
+    		} 
+        	catch(BusinessException e)
+        	{	label_errore.setText("Seleziona correttamente le date !");   label_errore.setVisible(true);		}
         
-        	noleggio.setPrezzo_noleggio(calcolaPreventivo(null));
-        	noleggio.setAssistenza(null);
-        	noleggio.setCliente(utente);
-        	noleggio.setVeicolo(veicolo);
-        	noleggio.setData_inizio_noleggio(data_inizio_nol.getValue().atStartOfDay());
-        	noleggio.setData_fine_noleggio(data_fine_nol.getValue().atStartOfDay());
-        	noleggio.setKM_percorsi(0);
-        	noleggio.setServita(false);
-			noleggioservice.createNoleggio(noleggio);
-			dispatcher.renderView("home", utente, null);
-		} 
-    	catch(BusinessException e)
-    	{	label_errore.setVisible(true);		}
-    
-	return noleggio;
+    		return noleggio;
+    	}
+    	else
+    	{
+    		label_errore.setText("Non disponibile per queste date !");
+    		label_errore.setVisible(true);
+    	}
+    	
+    	return null;
     }
     
     

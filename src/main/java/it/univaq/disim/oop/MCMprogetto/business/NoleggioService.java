@@ -33,6 +33,8 @@ public interface NoleggioService
 	
 	List<Noleggio> FindNoleggiByDettagli() throws BusinessException;
 	
+	boolean DisponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException;
+	
 	void CheckStatoVeicoli()throws BusinessException;
 	
 	

@@ -338,10 +338,17 @@ public class FileNoleggioService implements NoleggioService
 		for(Noleggio tmp : listanoleggi)
 		{
 			if(datainizio.isAfter(tmp.getData_inizio_noleggio()) && datainizio.isBefore(tmp.getData_fine_noleggio()))
-			{	veicolidaeliminare.add(tmp.getVeicolo());	}
+			{	veicolidaeliminare.add(tmp.getVeicolo());	continue;	}
 			
 			if(datafine.isAfter(tmp.getData_inizio_noleggio()) && datafine.isBefore(tmp.getData_fine_noleggio()))
-			{	veicolidaeliminare.add(tmp.getVeicolo());	}
+			{	veicolidaeliminare.add(tmp.getVeicolo());	continue;	}
+			
+			if(tmp.getData_inizio_noleggio().isAfter(datainizio) && tmp.getData_inizio_noleggio().isBefore(datafine))
+			{	veicolidaeliminare.add(tmp.getVeicolo());	continue;	}
+			
+			if(tmp.getData_fine_noleggio().isAfter(datainizio) && tmp.getData_fine_noleggio().isBefore(datafine))
+			{	veicolidaeliminare.add(tmp.getVeicolo());	continue;	}
+			
 		}
 		
 		for(int i=0; i<listaveicoli.size(); i++)
@@ -370,6 +377,33 @@ public class FileNoleggioService implements NoleggioService
 	}
 
 
+	@Override	// DISPONIBILITA DATE
+	public boolean DisponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException
+	{
+		List<Noleggio> lista = FindAllNoleggi();
+		
+		for(Noleggio tmp : lista)
+		{
+			if(tmp.getVeicolo().getID() == veicolo.getID())
+			{
+				if(inizio.isAfter(tmp.getData_inizio_noleggio()) && inizio.isBefore(tmp.getData_fine_noleggio()))
+				{	return false;	}
+				
+				if(fine.isAfter(tmp.getData_inizio_noleggio()) && fine.isBefore(tmp.getData_fine_noleggio()))
+				{	return false;	}
+				
+				if(tmp.getData_inizio_noleggio().isAfter(inizio) && tmp.getData_inizio_noleggio().isBefore(fine))
+				{	return false;	}
+				
+				if(tmp.getData_fine_noleggio().isAfter(inizio) && tmp.getData_fine_noleggio().isBefore(inizio))
+				{	return false;	}
+			}
+		}
+		return true;
+	}
+
+
+	
 	
 
 
@@ -384,42 +418,6 @@ public class FileNoleggioService implements NoleggioService
 			
 	
 
-
-
-	/*@Override	// LISTA NOLEGGI DATE							id veicolo non ci vuole
-	public List<Veicolo> FindNoleggiByData(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException
-	{	try
-		{
-			FileData filedata = Utility.readAllRows("noleggi");
-			List<Veicolo> listaveicolo = new ArrayList<Veicolo>();
-			
-			for (String[] colonne : filedata.getRighe()) 
-			{
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
-				if( !(datainizio.isAfter(LocalDateTime.parse(colonne[5], formatter)) && datainizio.isBefore(LocalDateTime.parse(colonne[6], formatter)))
-				&&  !(datafine.isAfter(LocalDateTime.parse(colonne[5], formatter)) && datafine.isBefore(LocalDateTime.parse(colonne[6], formatter))))
-				{
-					Noleggio noleggio = new Noleggio();
-					
-					noleggio.setID(Integer.parseInt(colonne[0]));
-					noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
-					noleggio.setAssistenza(assistenzaservice.getAssistenzaByID(Integer.parseInt(colonne[2])));
-					noleggio.setCliente(utenteservice.getUtenteById(Integer.parseInt(colonne[3])));
-					noleggio.setVeicolo(veicoloservice.getVeicoloById(Integer.parseInt(colonne[4])));
-					noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
-					noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
-					noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
-					noleggio.setServita(Boolean.parseBoolean(colonne[8]));
-					noleggio.setDettagli(colonne[9]);
-					listaveicolo.add(noleggio.getVeicolo());
-				}
-			}
-			return listaveicolo;
-		}
-		catch(IOException e)
-		{	throw new NoleggioNonTrovatoException();	}
-	}*/
-	
 	
 }	
 	
