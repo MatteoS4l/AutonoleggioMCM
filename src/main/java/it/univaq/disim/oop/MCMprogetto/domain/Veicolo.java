@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Veicolo
 {
+	
 	private int ID;
 	private String tipologia;
 	private String modello;
@@ -17,6 +18,27 @@ public class Veicolo
 	private int chilometri;
 	private double tariffa_chilometraggio;
 	private double tariffa_periodo;
+	
+	
+	public Veicolo(int iD, String tipologia, String modello, String alimentazione, ArrayList<Feedback> feedback,
+			String stato, String targa, boolean manutenzione, boolean disponibilita, int chilometri,
+			double tariffa_chilometraggio, double tariffa_periodo) {
+		super();
+		ID = iD;
+		this.tipologia = tipologia;
+		this.modello = modello;
+		this.alimentazione = alimentazione;
+		this.feedback = feedback;
+		this.stato = stato;
+		this.targa = targa;
+		this.manutenzione = manutenzione;
+		this.disponibilita = disponibilita;
+		this.chilometri = chilometri;
+		this.tariffa_chilometraggio = tariffa_chilometraggio;
+		this.tariffa_periodo = tariffa_periodo;
+	}
+	
+	public Veicolo () {}
 	
 	
 	// GET E SET

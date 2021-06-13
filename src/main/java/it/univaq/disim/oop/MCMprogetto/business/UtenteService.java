@@ -22,4 +22,6 @@ public interface UtenteService
 	
 	Utente FindUtenteById(int id) throws UtenteNonTrovatoException, BusinessException;
 	
+	void primaAggiunta ();
+	
 }

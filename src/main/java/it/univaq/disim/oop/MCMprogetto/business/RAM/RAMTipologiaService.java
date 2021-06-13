@@ -12,7 +12,7 @@ public class RAMTipologiaService implements TipologiaService
 {
 	List<Tipologia> listatipologie = new ArrayList<Tipologia>();
 	VeicoloService veicoloservice = new RAMVeicoloService();
-	
+	boolean tipo = false;  //da togliere
 	
 	
 	@Override	// CREA
@@ -49,6 +49,24 @@ public class RAMTipologiaService implements TipologiaService
 	@Override	// GET LISTA TIPOLOGIA T
 	public List<Tipologia> FindAllTipologiaT() throws TipologiaNonTrovataException, BusinessException
 	{	return listatipologie;	}
+
+
+
+	@Override
+	public void primaAggiunta() throws BusinessException 
+	{
+		if (!tipo)
+		{
+		Tipologia tipo1 = new Tipologia("lusso",1);
+		Tipologia tipo2 = new Tipologia("berlina",2);
+		Tipologia tipo3 = new Tipologia("sportiva",3);
+		listatipologie.add(tipo1);
+		listatipologie.add(tipo2);
+		listatipologie.add(tipo3);
+		
+		tipo = true;
+		}
+	}
 
 	
 

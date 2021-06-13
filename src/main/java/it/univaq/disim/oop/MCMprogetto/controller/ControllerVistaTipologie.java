@@ -28,6 +28,7 @@ public class ControllerVistaTipologie implements Initializable, DataInitializabl
 {
 	private TipologiaService tipologiaservice;
 	
+	
     @FXML
     private TableView<Tipologia> tabella_tipologie;
     @FXML
@@ -99,7 +100,7 @@ public class ControllerVistaTipologie implements Initializable, DataInitializabl
 				});	
 		List<Tipologia> listatipologie = null;
 		try
-		{	listatipologie = tipologiaservice.FindAllTipologiaT();	  } 
+		{	listatipologie = tipologiaservice.FindAllTipologiaT();	} 
 		catch (BusinessException e)
 		{	e.printStackTrace();	}
 		ObservableList<Tipologia> listaT = FXCollections.observableList(listatipologie);

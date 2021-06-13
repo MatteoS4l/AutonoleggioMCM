@@ -1,9 +1,20 @@
 package it.univaq.disim.oop.MCMprogetto.domain;
 
 public class Tipologia
-{
+{	
 	private String tipologia;
 	private int ID;
+	
+	
+	public Tipologia(String tipologia, int iD) {
+		super();
+		this.tipologia = tipologia;
+		ID = iD;
+	}
+	public Tipologia () {}
+	
+
+	
 	
 	
 	// GET E SET

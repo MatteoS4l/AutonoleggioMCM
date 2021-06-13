@@ -31,6 +31,8 @@ public interface VeicoloService
 	
 	Veicolo FindVeicoloById(int id) throws VeicoloNonTrovatoException, BusinessException;
 	
+	void primaAggiunta();
+	
 
 	
 	

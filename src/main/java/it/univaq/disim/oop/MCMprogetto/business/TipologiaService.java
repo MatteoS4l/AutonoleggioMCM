@@ -14,5 +14,7 @@ public interface TipologiaService
 	List<String> FindAllTipologia() throws TipologiaNonTrovataException, BusinessException;
 	
 	List<Tipologia> FindAllTipologiaT() throws TipologiaNonTrovataException, BusinessException;
+	
+	void primaAggiunta () throws BusinessException;
  
 }

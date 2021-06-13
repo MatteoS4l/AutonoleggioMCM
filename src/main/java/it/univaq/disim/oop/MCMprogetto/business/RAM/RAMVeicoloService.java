@@ -11,6 +11,7 @@ public class RAMVeicoloService implements VeicoloService
 {
 	List<Veicolo> listaveicoli = new ArrayList<Veicolo>();
 	int cont_veicoli = 1;
+	private boolean veico = false;
 	
 	
 	
@@ -184,6 +185,23 @@ public class RAMVeicoloService implements VeicoloService
 			{	return true;	}
 		}
 		return false;
+	}
+
+
+
+	@Override
+	public void primaAggiunta() 
+	{
+		if(!veico)
+		{
+			Veicolo v1 = new Veicolo(1,"lusso","ferrari","benzina",null,"disponibile","AA001AA",false,true,0,100,100);
+			Veicolo v2 = new Veicolo(1,"lusso","lamborghini","benzina",null,"disponibile","AA002AA",false,true,0,200,200);
+			Veicolo v3 = new Veicolo(1,"berlina","panda","benzina",null,"disponibile","AA003AA",false,true,0,50,50);
+			listaveicoli.add(v1);
+			listaveicoli.add(v2);
+			listaveicoli.add(v3);
+		}
+		
 	}
 
 	

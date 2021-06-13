@@ -4,6 +4,20 @@ import java.time.LocalDate;
 
 public class Utente
 {
+	
+	public Utente () {}
+	public Utente(int iD, String nome, String cognome, String username, String password, char sesso, int eta,
+			LocalDate data_nascita) {
+		ID = iD;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.username = username;
+		this.password = password;
+		this.sesso = sesso;
+		this.eta = eta;
+		this.data_nascita = data_nascita;
+	}
+
 	private int ID;
 	private String nome;
 	private String cognome;

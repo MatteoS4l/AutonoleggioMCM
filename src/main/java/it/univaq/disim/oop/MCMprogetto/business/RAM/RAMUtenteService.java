@@ -8,6 +8,8 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
+import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
+import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 
 
@@ -15,6 +17,7 @@ public class RAMUtenteService implements UtenteService
 {
 	private static int cont=1;
 	List<Utente> listautenti = new ArrayList<Utente>();	// vorse si deve mettere set
+	private boolean ute = false; //da togliere
 	
 
 	@Override		// metodo invocato al momento di login
@@ -111,7 +114,19 @@ public class RAMUtenteService implements UtenteService
 		throw new UtenteNonTrovatoException();
 	}
 	
-	
+	public void primaAggiunta ()
+	{
+		if (!ute) 
+		{
+			LocalDate data = LocalDate.now();
+			Cliente cliente =  new Cliente(1,"a","a","a","a",'M',0,data);
+			Operatore operatore = new Operatore(2,"o","o","o","o",'M',0,data);
+			listautenti.add(cliente);
+			listautenti.add(operatore);
+			
+			ute = true;
+		}
+	}
 	
 	
 	
