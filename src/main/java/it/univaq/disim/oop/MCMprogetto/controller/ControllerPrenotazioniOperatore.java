@@ -2,6 +2,7 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
@@ -136,9 +137,19 @@ public class ControllerPrenotazioniOperatore implements Initializable,DataInitia
     	
     	List<Noleggio> listacompleta1 = null;
 		try
-		{	listacompleta1 = noleggioservice.FindNoleggiByDettagli();	}
+		{	
+			listacompleta1 = noleggioservice.FindNoleggiByDettagli();
+			for(Noleggio tmp : listacompleta1)
+			{
+				if(tmp.getData_inizio_noleggio().isBefore(LocalDateTime.now()))
+				{	listacompleta1.remove(tmp);	}
+			}
+		}
 		catch (BusinessException e)
 		{	/* lista vuota */	}
+		catch ( ConcurrentModificationException e)
+		{	/* errore */	}
+		
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
 		tabella_prenotazioni.setItems(listaNol1);
 		

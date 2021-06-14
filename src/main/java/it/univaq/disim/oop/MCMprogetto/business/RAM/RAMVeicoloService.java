@@ -11,7 +11,7 @@ public class RAMVeicoloService implements VeicoloService
 {
 	List<Veicolo> listaveicoli = new ArrayList<Veicolo>();
 	int cont_veicoli = 1;
-	private boolean veico = false;
+	public static boolean veico = false;
 	
 	
 	
@@ -29,18 +29,23 @@ public class RAMVeicoloService implements VeicoloService
 	
 	@Override	// MODIFICA
 	public void updateVeicolo(Veicolo veicolo) throws VeicoloNonTrovatoException
-	{	try
+	{	
+		System.out.println("Targa veicolo: " + veicolo.getTarga());
+		System.out.println(listaveicoli);
+		try
 		{	for(Veicolo tmp : listaveicoli)
 			{
+				
 				if(tmp.getTarga().equalsIgnoreCase(veicolo.getTarga()))
 				{	
-					listaveicoli.remove(tmp);
 					listaveicoli.add(veicolo);
+					listaveicoli.remove(tmp);
+					System.out.println("ciao");
 				}
 			}
 		}
 		catch(ConcurrentModificationException e)
-		{	/* errore checked */	}
+		{	System.out.println("errore");	}
 	}
 	
 
@@ -205,7 +210,6 @@ public class RAMVeicoloService implements VeicoloService
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			veico = true;
 		}
 		

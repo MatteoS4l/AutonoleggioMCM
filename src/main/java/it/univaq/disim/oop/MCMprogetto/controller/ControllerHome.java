@@ -38,7 +38,7 @@ public class ControllerHome implements Initializable, DataInitializable<Utente,O
 		try
 		{	noleggioservice.CheckStatoVeicoli();	}
 		catch (BusinessException e)
-		{	System.out.println("errore");	}
+		{	/* errore */	}
 		
 		
 	}

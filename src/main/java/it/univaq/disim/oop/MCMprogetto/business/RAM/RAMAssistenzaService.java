@@ -66,7 +66,13 @@ public class RAMAssistenzaService implements AssistenzaService
 	@Override	// GET ASSISTENZA SERVITA
 	public List<Assistenza> getListaAssistenzaByServita(boolean servita) throws BusinessException
 	{
-		return null;
+		List<Assistenza> lista = new ArrayList<Assistenza>();
+		for(Assistenza tmp : listassistenza)
+		{
+			if(tmp.isServita() == servita)
+			{	lista.add(tmp);	}
+		}
+		return lista;
 	}
 	
 

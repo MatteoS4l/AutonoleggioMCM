@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
+import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
@@ -16,8 +17,8 @@ import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 public class RAMNoleggioService implements NoleggioService
 {
 	List<Noleggio> listanoleggi = new ArrayList<Noleggio>();
+	VeicoloService veicoloservice = null;
 	int cont_noleggi;
-	private VeicoloService veicoloservice = new RAMVeicoloService();
 	
 	
 	
@@ -166,6 +167,7 @@ public class RAMNoleggioService implements NoleggioService
 	@Override	// CHECK STATO VEICOLI
 	public void CheckStatoVeicoli() throws BusinessException
 	{
+		Instance();
 		for(Noleggio tmp : listanoleggi)
 		{
 			Veicolo veicolo = new Veicolo();
@@ -269,7 +271,11 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	
-	
+	public void Instance()
+	{
+		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
+		this.veicoloservice = factory.getVeicoloService();
+	}
 	
 	
 	

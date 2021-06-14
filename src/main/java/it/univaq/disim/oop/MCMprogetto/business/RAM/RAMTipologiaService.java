@@ -25,7 +25,7 @@ public class RAMTipologiaService implements TipologiaService
 	@Override	// ELIMINA
 	public void deleteTipologia(Tipologia tipologia) throws BusinessException 
 	{	
-		ciao();
+		Instance();
 		if(veicoloservice.FindListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
 		{	listatipologie.remove(tipologia);		}
 		
@@ -70,11 +70,10 @@ public class RAMTipologiaService implements TipologiaService
 	}
 	
 	
-	public void ciao ()
+	public void Instance()
 	{
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		this.veicoloservice = factory.getVeicoloService();
-		
 	}
 
 	
