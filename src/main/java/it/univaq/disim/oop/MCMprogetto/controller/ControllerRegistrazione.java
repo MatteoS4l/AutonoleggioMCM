@@ -87,7 +87,6 @@ public class ControllerRegistrazione implements Initializable, DataInitializable
 	    		catch (BusinessException e)
 	    		{	e.printStackTrace();		}
 		    	
-		    	System.out.println("utente aggiunto, la sua età è: " + utente.getEta());
 		    	Torna_Indietro(null);
 	    	}
 	    	
@@ -136,7 +135,6 @@ public class ControllerRegistrazione implements Initializable, DataInitializable
 		tipologia_registrazione.setValue("Cliente");
 		if(utente instanceof Amministratore)
 		{
-			System.out.println("deve stampare solo se entro con admin"); // non lo stampa quindi va bene
 			tipologia_registrazione.getItems().add("Operatore");
 			logo.setVisible(false);
 		}

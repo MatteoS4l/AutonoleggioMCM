@@ -18,7 +18,14 @@ public class RAMTipologiaService implements TipologiaService
 	
 	@Override	// CREA
 	public void createTipologia(Tipologia tipologia) throws BusinessException 
-	{	listatipologie.add(tipologia);	}
+	{	
+		for(Tipologia tmp : listatipologie)
+		{
+			if(tmp.getTipologia().equalsIgnoreCase(tipologia.getTipologia()))
+			{	throw new BusinessException();	}
+		}
+		listatipologie.add(tipologia);
+	}
 		
 	
 	

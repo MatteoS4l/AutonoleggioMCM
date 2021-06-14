@@ -87,7 +87,7 @@ public class RAMUtenteService implements UtenteService
 		try
 		{	eta = LocalDate.now().getYear() - data.getYear();	}
 		catch(NullPointerException e)
-		{	System.out.println("Inserire data");	}
+		{	/* da inserire la data */	}
 		
 		if(data.getMonthValue() > LocalDate.now().getMonthValue())
 		{	return --eta;	}

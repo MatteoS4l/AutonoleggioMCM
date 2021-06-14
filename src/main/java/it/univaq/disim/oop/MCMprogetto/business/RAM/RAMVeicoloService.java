@@ -29,10 +29,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	@Override	// MODIFICA
 	public void updateVeicolo(Veicolo veicolo) throws VeicoloNonTrovatoException
-	{	
-		System.out.println("Targa veicolo: " + veicolo.getTarga());
-		System.out.println(listaveicoli);
-		try
+	{	try
 		{	for(Veicolo tmp : listaveicoli)
 			{
 				
@@ -40,12 +37,11 @@ public class RAMVeicoloService implements VeicoloService
 				{	
 					listaveicoli.add(veicolo);
 					listaveicoli.remove(tmp);
-					System.out.println("ciao");
 				}
 			}
 		}
 		catch(ConcurrentModificationException e)
-		{	System.out.println("errore");	}
+		{	/* errore checked */	}
 	}
 	
 
@@ -206,10 +202,9 @@ public class RAMVeicoloService implements VeicoloService
 				createVeicolo(v1);
 				createVeicolo(v2);
 				createVeicolo(v3);
-			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
+			catch (BusinessException e)
+			{	e.printStackTrace();	}
 			veico = true;
 		}
 		

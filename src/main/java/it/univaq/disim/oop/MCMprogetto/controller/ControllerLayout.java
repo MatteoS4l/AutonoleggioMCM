@@ -80,7 +80,6 @@ public class ControllerLayout implements Initializable, DataInitializable<Utente
 	@Override
 	public void initializeData(Utente utente)
 	{
-		System.out.println(utente.getNome());
 		this.utente = utente;
 		barra_menu.getChildren().add(createButton(MENU_HOME));
 		barra_menu.getChildren().add(new Separator());

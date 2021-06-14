@@ -225,7 +225,7 @@ public class FileUtenteService implements UtenteService
 				for(String[] righe : fileData.getRighe())
 				{
 					if(Integer.parseInt(righe[0]) == utente.getID())
-					{	System.out.println("eliminato");	}
+					{	/* eliminato */	}
 					else
 					{	writer.println(String.join(Utility.SEPARATORE, righe));	}
 				}

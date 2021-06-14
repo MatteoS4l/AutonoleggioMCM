@@ -108,7 +108,6 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 								{	dispatcher.renderView("scheda_veicolo", param.getValue(), utente);	}
 								if(utente instanceof Operatore)
 								{	dispatcher.renderView("feedback", param.getValue(), utente);	}		
-								System.out.println("b");
 							}
 						});
 						return new SimpleObjectProperty<Button>(veicoliButton);
