@@ -3,6 +3,7 @@ package it.univaq.disim.oop.MCMprogetto.business.RAM;
 import java.util.ArrayList;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
+import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
@@ -11,7 +12,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 public class RAMTipologiaService implements TipologiaService
 {
 	List<Tipologia> listatipologie = new ArrayList<Tipologia>();
-	VeicoloService veicoloservice = new RAMVeicoloService();
+	VeicoloService veicoloservice = null;
 	boolean tipo = false;  //da togliere
 	
 	
@@ -24,8 +25,9 @@ public class RAMTipologiaService implements TipologiaService
 	@Override	// ELIMINA
 	public void deleteTipologia(Tipologia tipologia) throws BusinessException 
 	{	
+		ciao();
 		if(veicoloservice.FindListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty())
-		{	listatipologie.remove(tipologia);	}
+		{	listatipologie.remove(tipologia);		}
 		
 		else
 		{	throw new TipologiaNonTrovataException();	}	
@@ -65,6 +67,14 @@ public class RAMTipologiaService implements TipologiaService
 			
 			tipo = true;
 		}
+	}
+	
+	
+	public void ciao ()
+	{
+		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
+		this.veicoloservice = factory.getVeicoloService();
+		
 	}
 
 	
