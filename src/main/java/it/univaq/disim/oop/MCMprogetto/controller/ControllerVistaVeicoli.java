@@ -75,7 +75,7 @@ public class ControllerVistaVeicoli implements Initializable, DataInitializable<
 			tabella_veicoli.setItems(listaV);
 		} 
 		catch (BusinessException e)
-		{	/* errore */	}
+		{	System.out.println("errore");	}
     }
     
     

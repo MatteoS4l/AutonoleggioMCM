@@ -95,7 +95,7 @@ public class ControllerNoleggi_Utenti implements Initializable, DataInitializabl
         		label_errore.setVisible(false);
         	} 
         	catch (BusinessException e)
-        	{	/* errore */	}
+        	{	System.out.println("errore");	}
     	}
     	else
     	{	label_errore.setVisible(true);	}

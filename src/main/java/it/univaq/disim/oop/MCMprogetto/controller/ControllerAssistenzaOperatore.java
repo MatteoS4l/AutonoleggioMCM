@@ -88,8 +88,6 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
     {
 		this.assistenza = assistenza;
 		scelta_assistenza.setVisible(true);
-		text_risposta_assistenza.setVisible(true);
-		bottone_invio.setVisible(true);
 		bottone_conferma.setVisible(true);
     }
     
@@ -108,7 +106,7 @@ public class ControllerAssistenzaOperatore implements Initializable,DataInitiali
     	    {	dispatcher.renderView("sostituzione", utente, assistenza);    }
     	}
     	catch(NullPointerException e)
-    	{	/* errore */	}
+    	{	System.out.println("errore");	}
     	
     }
     

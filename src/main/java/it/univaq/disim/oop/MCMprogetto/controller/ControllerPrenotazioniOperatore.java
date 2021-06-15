@@ -148,7 +148,7 @@ public class ControllerPrenotazioniOperatore implements Initializable,DataInitia
 		catch (BusinessException e)
 		{	/* lista vuota */	}
 		catch ( ConcurrentModificationException e)
-		{	/* errore */	}
+		{	System.out.println("errore");	}
 		
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
 		tabella_prenotazioni.setItems(listaNol1);

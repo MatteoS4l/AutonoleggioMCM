@@ -188,9 +188,6 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 		this.veicolo = noleggio.getVeicolo();
 		this.noleggio = noleggio;
 		label_nome.setText(veicolo.getModello());
-		
-		
-		
 	}
 	   
 	    

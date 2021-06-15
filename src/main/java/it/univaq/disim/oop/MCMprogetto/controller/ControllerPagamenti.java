@@ -180,7 +180,7 @@ public class ControllerPagamenti implements Initializable,DataInitializable<Uten
 				{
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Noleggio, Button> param) {
-						final Button dettagliButton = new Button("Dettagli");
+						final Button dettagliButton = new Button("Registra");
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {

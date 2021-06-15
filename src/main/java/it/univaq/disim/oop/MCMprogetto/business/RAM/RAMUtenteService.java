@@ -119,9 +119,11 @@ public class RAMUtenteService implements UtenteService
 		if (!ute) 
 		{
 			LocalDate data = LocalDate.now();
-			Cliente cliente =  new Cliente(1,"a","a","a","a",'M',0,data);
-			Operatore operatore = new Operatore(2,"o","o","o","o",'M',0,data);
+			Cliente cliente = new Cliente(1,"Carmine","Pittella","carmine","cliente",'M',21,data);
+			Cliente cliente2 = new Cliente(2,"Matteo","Salvatore","matteo","cliente",'M',30,data);
+			Operatore operatore = new Operatore(3,"Matteo","De Bernardinis","matteo","operatore",'M',30,data);
 			listautenti.add(cliente);
+			listautenti.add(cliente2);
 			listautenti.add(operatore);
 			
 			ute = true;

@@ -75,7 +75,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 				}
 			}
 			catch(NullPointerException e)
-			{	/* errore */	}
+			{	System.out.println("errore");	}
 			
 			dettagli_prenotazioni.setCellValueFactory(new PropertyValueFactory<Noleggio, String>("dettagli"));
 			veicolo_prenotazioni.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
@@ -88,7 +88,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 			tabella_notifiche_prenotazioni.setItems(listaNol1);
 		}
 		catch (BusinessException e)
-		{	/* errore */	}
+		{	System.out.println("errore");	}
 		
 		
 		try
@@ -118,7 +118,7 @@ public class ControllerNotifiche implements Initializable,DataInitializable<Uten
 			tabella_notifiche_assistenza.setItems(listaNol2);
 		}
 		catch (BusinessException e)
-		{	/* errore */	}
+		{	System.out.println("errore");	}
 		
 		
 		
