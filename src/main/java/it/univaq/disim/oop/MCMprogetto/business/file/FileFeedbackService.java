@@ -39,7 +39,7 @@ public class FileFeedbackService implements FeedbackService
 				StringBuilder row = new StringBuilder();
 				row.append(fileData.getCont());
 				row.append(Utility.SEPARATORE);
-				row.append(feedback.getFeedback());
+				row.append(feedback.getFeedback().toString().replace(",", " "));
 				row.append(Utility.SEPARATORE);
 				row.append(feedback.getUtente().getID());
 				row.append(Utility.SEPARATORE);

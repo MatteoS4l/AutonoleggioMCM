@@ -18,22 +18,22 @@ public class Utente
 		this.data_nascita = data_nascita;
 	}
 
-	private int ID;
+	private Integer ID;
 	private String nome;
 	private String cognome;
 	private String username;
 	private String password;
-	private char sesso;
-	private int eta;
+	private Character sesso;
+	private Integer eta;
 	private LocalDate data_nascita;
 	
 	
 	
 	
-	public int getID()		// Get e Set
+	public Integer getID()		// Get e Set
 	{	return ID;	}
 	
-	public void setID(int id)
+	public void setID(Integer id)
 	{	this.ID = id;	}
 	
 	public String getNome()
@@ -60,16 +60,16 @@ public class Utente
 	public void setPassword(String password)
 	{	this.password = password;	}
 
-	public char getSesso()
+	public Character getSesso()
 	{	return sesso;	}
 
-	public void setSesso(char sesso)
+	public void setSesso(Character sesso)
 	{	this.sesso = sesso;	}
 
-	public int getEta()
+	public Integer getEta()
 	{	return eta;	}
 
-	public void setEta(int eta)
+	public void setEta(Integer eta)
 	{	this.eta = eta;	}
 
 	public LocalDate getData_nascita()

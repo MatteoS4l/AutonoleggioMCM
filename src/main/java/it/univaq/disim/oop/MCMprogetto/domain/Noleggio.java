@@ -4,31 +4,31 @@ import java.time.LocalDateTime;
 
 public class Noleggio
 {
-	private int ID;
-	private int KM_percorsi;
-	private double prezzo_noleggio;
+	private Integer ID;
+	private Integer KM_percorsi;
+	private Double prezzo_noleggio;
 	private Assistenza assistenza;
 	private Utente cliente;
 	private Veicolo veicolo;
 	private LocalDateTime data_inizio_noleggio;
 	private LocalDateTime data_fine_noleggio;
-	private boolean servita;
-	private boolean feed_lasciato;
+	private Boolean servita;
+	private Boolean feed_lasciato;
 	private String dettagli;
 	
 	
 	
 	// GET E SET
-	public int getID() {
+	public Integer getID() {
 		return ID;
 	}
-	public void setID(int id) {
+	public void setID(Integer id) {
 		this.ID = id;
 	}
-	public double getPrezzo_noleggio() {
+	public Double getPrezzo_noleggio() {
 		return prezzo_noleggio;
 	}
-	public void setPrezzo_noleggio(double prezzo_noleggio) {
+	public void setPrezzo_noleggio(Double prezzo_noleggio) {
 		this.prezzo_noleggio = prezzo_noleggio;
 	}
 	public Assistenza getAssistenza() {
@@ -61,16 +61,16 @@ public class Noleggio
 	public void setData_fine_noleggio(LocalDateTime data_fine_noleggio) {
 		this.data_fine_noleggio = data_fine_noleggio;
 	}
-	public int getKM_percorsi() {
+	public Integer getKM_percorsi() {
 		return KM_percorsi;
 	}
-	public void setKM_percorsi(int kM_percorsi) {
+	public void setKM_percorsi(Integer kM_percorsi) {
 		KM_percorsi = kM_percorsi;
 	}
-	public boolean isServita() {
+	public Boolean isServita() {
 		return servita;
 	}
-	public void setServita(boolean servita) {
+	public void setServita(Boolean servita) {
 		this.servita = servita;
 	}
 	public String getDettagli() {
@@ -79,10 +79,10 @@ public class Noleggio
 	public void setDettagli(String dettagli) {
 		this.dettagli = dettagli;
 	}
-	public boolean isFeed_lasciato() {
+	public Boolean isFeed_lasciato() {
 		return feed_lasciato;
 	}
-	public void setFeed_lasciato(boolean feed_lasciato) {
+	public void setFeed_lasciato(Boolean feed_lasciato) {
 		this.feed_lasciato = feed_lasciato;
 	}
 	

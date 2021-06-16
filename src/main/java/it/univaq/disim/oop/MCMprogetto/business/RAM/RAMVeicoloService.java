@@ -195,9 +195,9 @@ public class RAMVeicoloService implements VeicoloService
 	{
 		if(!veico)
 		{
-			Veicolo v1 = new Veicolo(1,"lusso","ferrari","benzina",null,"disponibile","AA001AA",false,true,0,100,100);
-			Veicolo v2 = new Veicolo(2,"lusso","lamborghini","benzina",null,"disponibile","AA002AA",false,true,0,200,200);
-			Veicolo v3 = new Veicolo(3,"berlina","panda","benzina",null,"disponibile","AA003AA",false,true,0,50,50);
+			Veicolo v1 = new Veicolo(1,"lusso","ferrari","benzina",null,"disponibile","AA001AA",false,true,0,100.0,100.0);
+			Veicolo v2 = new Veicolo(2,"lusso","lamborghini","benzina",null,"disponibile","AA002AA",false,true,0,200.0,200.0);
+			Veicolo v3 = new Veicolo(3,"berlina","panda","benzina",null,"disponibile","AA003AA",false,true,0,50.0,50.0);
 			try {
 				createVeicolo(v1);
 				createVeicolo(v2);

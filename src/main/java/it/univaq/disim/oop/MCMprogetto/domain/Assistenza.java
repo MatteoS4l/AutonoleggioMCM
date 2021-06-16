@@ -2,8 +2,8 @@ package it.univaq.disim.oop.MCMprogetto.domain;
 
 public class Assistenza
 {
-	private int ID;
-	private boolean servita;
+	private Integer ID;
+	private Boolean servita;
 	private String dettagli;
 	private String risposta;
 	private Veicolo veicolo;
@@ -17,16 +17,16 @@ public class Assistenza
 	public void setDettagli(String dettagli) {
 		this.dettagli = dettagli;
 	}
-	public int getID() {
+	public Integer getID() {
 		return ID;
 	}
-	public void setID(int iD) {
+	public void setID(Integer iD) {
 		ID = iD;
 	}
-	public boolean isServita() {
+	public Boolean isServita() {
 		return servita;
 	}
-	public void setServita(boolean servita) {
+	public void setServita(Boolean servita) {
 		this.servita = servita;
 	}
 	public String getRisposta() {

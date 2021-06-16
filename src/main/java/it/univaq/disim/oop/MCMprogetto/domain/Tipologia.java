@@ -3,7 +3,7 @@ package it.univaq.disim.oop.MCMprogetto.domain;
 public class Tipologia
 {	
 	private String tipologia;
-	private int ID;
+	private Integer ID;
 	
 	
 	public Tipologia(String tipologia, int iD) {
@@ -24,10 +24,10 @@ public class Tipologia
 	public void setTipologia(String tipologia)
 	{	this.tipologia = tipologia; 	}
 
-	public int getID()
+	public Integer getID()
 	{	return ID;	}
 
-	public void setID(int iD)
+	public void setID(Integer iD)
 	{	ID = iD;	}
 	
 	

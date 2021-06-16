@@ -73,11 +73,11 @@ public class FileAssistenzaService implements AssistenzaService
 						
 						row.append(assistenza.getID());
 						row.append(Utility.SEPARATORE);
-						row.append(assistenza.getDettagli());
+						row.append(assistenza.getDettagli().toString().replace(",", " "));
 						row.append(Utility.SEPARATORE);
 						row.append(assistenza.isServita());
 						row.append(Utility.SEPARATORE);
-						row.append(assistenza.getRisposta());
+						row.append(assistenza.getRisposta().toString().replace(",", " "));
 						row.append(Utility.SEPARATORE);
 						row.append(assistenza.getVeicolo().getID());
 						row.append(Utility.SEPARATORE);

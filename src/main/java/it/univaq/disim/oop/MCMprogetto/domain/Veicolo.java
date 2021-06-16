@@ -6,23 +6,23 @@ import java.util.List;
 public class Veicolo
 {
 	
-	private int ID;
+	private Integer ID;
 	private String tipologia;
 	private String modello;
 	private String alimentazione; 
-	private ArrayList<Feedback> feedback; 
+	private ArrayList<Feedback> feedback;
 	private String stato;
 	private String targa;
-	private boolean manutenzione;
-	private boolean disponibilita;
-	private int chilometri;
-	private double tariffa_chilometraggio;
-	private double tariffa_periodo;
+	private Boolean manutenzione;
+	private Boolean disponibilita;
+	private Integer chilometri;
+	private Double tariffa_chilometraggio;
+	private Double tariffa_periodo;
 	
 	
-	public Veicolo(int iD, String tipologia, String modello, String alimentazione, ArrayList<Feedback> feedback,
-			String stato, String targa, boolean manutenzione, boolean disponibilita, int chilometri,
-			double tariffa_chilometraggio, double tariffa_periodo) {
+	public Veicolo(Integer iD, String tipologia, String modello, String alimentazione, ArrayList<Feedback> feedback,
+			String stato, String targa, Boolean manutenzione, Boolean disponibilita, Integer chilometri,
+			Double tariffa_chilometraggio, Double tariffa_periodo) {
 		super();
 		ID = iD;
 		this.tipologia = tipologia;
@@ -42,10 +42,10 @@ public class Veicolo
 	
 	
 	// GET E SET
-	public int getID() {
+	public Integer getID() {
 		return ID;
 	}
-	public void setID(int iD) {
+	public void setID(Integer iD) {
 		ID = iD;
 	}
 	public String getTipologia() {
@@ -84,34 +84,34 @@ public class Veicolo
 	public void setModello(String modello) {
 		this.modello = modello;
 	}
-	public boolean isManutenzione() {
+	public Boolean isManutenzione() {
 		return manutenzione;
 	}
-	public void setManutenzione(boolean manutenzione) {
+	public void setManutenzione(Boolean manutenzione) {
 		this.manutenzione = manutenzione;
 	}
-	public boolean isDisponibilita() {
+	public Boolean isDisponibilita() {
 		return disponibilita;
 	}
-	public void setDisponibilita(boolean disponibilità) {
+	public void setDisponibilita(Boolean disponibilità) {
 		this.disponibilita = disponibilità;
 	}
-	public int getChilometri() {
+	public Integer getChilometri() {
 		return chilometri;
 	}
-	public void setChilometri(int chilometri) {
+	public void setChilometri(Integer chilometri) {
 		this.chilometri = chilometri;
 	}
-	public double getTariffa_chilometraggio() {
+	public Double getTariffa_chilometraggio() {
 		return tariffa_chilometraggio;
 	}
-	public void setTariffa_chilometraggio(double tariffa_chilometraggio) {
+	public void setTariffa_chilometraggio(Double tariffa_chilometraggio) {
 		this.tariffa_chilometraggio = tariffa_chilometraggio;
 	}
-	public double getTariffa_periodo() {
+	public Double getTariffa_periodo() {
 		return tariffa_periodo;
 	}
-	public void setTariffa_periodo(double tariffa_periodo) {
+	public void setTariffa_periodo(Double tariffa_periodo) {
 		this.tariffa_periodo = tariffa_periodo;
 	}
 		

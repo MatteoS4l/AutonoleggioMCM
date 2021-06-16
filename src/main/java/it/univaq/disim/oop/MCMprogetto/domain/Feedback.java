@@ -6,8 +6,8 @@ public class Feedback
 	private String feedback;
 	private Veicolo veicolo;
 	private Utente utente;
-	private int ID;
-	private int stelle;
+	private Integer ID;
+	private Integer stelle;
 	
 	
 	//	GET E SET
@@ -29,16 +29,16 @@ public class Feedback
 	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
-	public int getID() {
+	public Integer getID() {
 		return ID;
 	}
-	public void setID(int iD) {
+	public void setID(Integer iD) {
 		ID = iD;
 	}	
-	public int getStelle() {
+	public Integer getStelle() {
 		return stelle;
 	}
-	public void setStelle(int stelle) {
+	public void setStelle(Integer stelle) {
 		this.stelle = stelle;
 	}
 
