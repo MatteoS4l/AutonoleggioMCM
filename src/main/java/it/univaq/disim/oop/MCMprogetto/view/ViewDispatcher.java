@@ -61,12 +61,12 @@ public class ViewDispatcher
 	
 	
 	// metodo che apre una schermata generica
-	public <T,E> void GetView( String viewName, T data, E data2)
+	public <T,S> void GetView( String viewName, T data, S data2)
 	{	try
-		{	View<T,E> view = loadView(viewName);
+		{	View<T,S> view = loadView(viewName);
 			Scene scene = new Scene(view.getView());
 			stage.setScene(scene);
-			DataInitializable<T,E> controller = view.getController();
+			DataInitializable<T,S> controller = view.getController();
 			controller.initializeData(data);
 		}
 		catch (ViewException e)
@@ -88,11 +88,11 @@ public class ViewDispatcher
 
 	
 	// metodo che carica una generica vista
-	public <T,E> void renderView(String viewName, T data, E data2)
+	public <T,S> void renderView(String viewName, T data, S data2)
 	{	try
 		{
-			View<T,E> view = loadView(viewName);
-			DataInitializable<T,E> controller = view.getController();
+			View<T,S> view = loadView(viewName);
+			DataInitializable<T,S> controller = view.getController();
 			controller.initializeData(data, data2);
 			controller.initializeData(data);
 			layout.setCenter(view.getView());
@@ -103,12 +103,12 @@ public class ViewDispatcher
 
 	
 	// prende una vista dalla cartella per caricarla
-	private <T,E> View<T,E> loadView(String viewName) throws ViewException
+	private <T,S> View<T,S> loadView(String viewName) throws ViewException
 	{	try
 		{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTE + viewName + FXML));
 			Parent parent = (Parent) loader.load();
-			return new View<T,E>(parent, loader.getController());
+			return new View<T,S>(parent, loader.getController());
 		}
 		catch (IOException ex)
 		{	throw new ViewException(ex);	}

@@ -2,13 +2,13 @@ package it.univaq.disim.oop.MCMprogetto.view;
 import it.univaq.disim.oop.MCMprogetto.controller.DataInitializable;
 import javafx.scene.Parent;
 
-public class View<T,E>
+public class View<T,S>
 {
 	
 	private Parent view;
-	private DataInitializable<T,E> controller;
+	private DataInitializable<T,S> controller;
 	
-	public View(Parent view, DataInitializable<T,E> controller) {
+	public View(Parent view, DataInitializable<T,S> controller) {
 		super();
 		this.view = view;
 		this.controller = controller;
@@ -21,11 +21,11 @@ public class View<T,E>
 		this.view = view;
 	}
 
-	public DataInitializable<T,E> getController() {
+	public DataInitializable<T,S> getController() {
 		return controller;
 	}
 	
-	public void setController(DataInitializable<T,E> controller) {
+	public void setController(DataInitializable<T,S> controller) {
 		this.controller = controller;
 	}
 	
