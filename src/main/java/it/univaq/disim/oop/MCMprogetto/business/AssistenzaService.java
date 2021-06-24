@@ -5,15 +5,15 @@ import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 
 public interface AssistenzaService
 {
-	int createAssistenza(Assistenza assistenza) throws BusinessException;
+	Assistenza createAssistenza(Assistenza assistenza) throws BusinessException;
 	
 	void updateAssistenza(Assistenza assistenza) throws BusinessException;
 
-	List<Assistenza> FindAllAssistenza() throws BusinessException;
+	List<Assistenza> findAllAssistenza() throws BusinessException;
 	
 	Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException;
 	
-	List<Assistenza> getListaAssistenzaByServita(boolean servita) throws BusinessException;
+	List<Assistenza> getLisgdftaAssistenzaByServita(boolean servita) throws BusinessException;
 	
 	
 }

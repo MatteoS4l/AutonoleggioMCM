@@ -11,10 +11,10 @@ public interface TipologiaService
 	
 	void deleteTipologia(Tipologia tipologia) throws TipologiaNonTrovataException, BusinessException;
 	
-	List<String> FindAllTipologia() throws TipologiaNonTrovataException, BusinessException;
+	List<String> findAllTipologia() throws TipologiaNonTrovataException, BusinessException;
 	
 	List<Tipologia> FindAllTipologiaT() throws TipologiaNonTrovataException, BusinessException;
 	
-	void primaAggiunta () throws BusinessException;
+//	void primaAggiunta () throws BusinessException;
  
 }

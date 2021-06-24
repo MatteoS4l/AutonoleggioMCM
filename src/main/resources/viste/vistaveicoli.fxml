@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerVistaVeicoli">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.VistaVeicoliController">
    <children>
       <TableView fx:id="tabella_veicoli" layoutY="9.0" prefHeight="375.0" prefWidth="650.0">
         <columns>

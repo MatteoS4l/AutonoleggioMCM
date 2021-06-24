@@ -18,17 +18,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
-
-public class ControllerCreazioneFeedback implements Initializable, DataInitializable <Utente, Noleggio>
-{
+public class ControllerCreazioneFeedback implements Initializable, DataInitializable<Utente, Noleggio> {
 	private ViewDispatcher dispatcher;
 	private Veicolo veicolo;
 	private Utente utente;
 	private Noleggio noleggio;
 	private NoleggioService noleggioservice;
 	private FeedbackService feedbackservice;
-	  
-	private int tmp=0;
+
+	private int tmp = 0;
 
 	@FXML
 	private Label label_nome;
@@ -56,25 +54,17 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 	private ImageView piena_4;
 	@FXML
 	private ImageView piena_5;
-	   
-	
-	  
-	   
-	public ControllerCreazioneFeedback()
-	{
+
+	public ControllerCreazioneFeedback() {
 		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		noleggioservice = factory.getNoleggioService();
 		feedbackservice = factory.getFeedbackService();
-		
 	}
-	   
-	    
-	    
-	@FXML	// INVIA FEEDBACK
-	void inviafeedback(MouseEvent event)
-	{	try 
-		{
+
+	@FXML // INVIA FEEDBACK
+	void inviafeedback(MouseEvent event) {
+		try {
 			Feedback feedback = new Feedback();
 			feedback.setFeedback(recensione_txtfield.getText());
 			feedback.setStelle(tmp);
@@ -84,95 +74,94 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 			
 			noleggio.setFeed_lasciato(true);
 			noleggioservice.updateNoleggio(noleggio);
-			
+
 			dispatcher.renderView("rilascio_feedback", utente, null);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		catch (Exception e)
-		{ e.printStackTrace();  }
 	}
 
-	
 	/************************ INIZIO STELLE **********************/
-	
+
 	@FXML
-    void show1(MouseEvent event) {
-    	piena_1.setVisible(true);
-    	vuota_1.setVisible(false);
-    	piena_2.setVisible(false);
-    	vuota_2.setVisible(true);
-    	piena_3.setVisible(false);
-    	vuota_3.setVisible(true);
-    	piena_4.setVisible(false);
-    	vuota_4.setVisible(true);
-    	piena_5.setVisible(false);
-    	vuota_5.setVisible(true);
-    	tmp=1;
-    }
-    @FXML
-    void show2(MouseEvent event) {
-    	piena_1.setVisible(true);
-    	vuota_1.setVisible(false);
-    	piena_2.setVisible(true);
-    	vuota_2.setVisible(false);
-    	piena_3.setVisible(false);
-    	vuota_3.setVisible(true);
-    	piena_4.setVisible(false);
-    	vuota_4.setVisible(true);
-    	piena_5.setVisible(false);
-    	vuota_5.setVisible(true);
-    	tmp=2;
-    }
-    @FXML
-    void show3(MouseEvent event) {
-    	piena_1.setVisible(true);
-    	vuota_1.setVisible(false);
-    	piena_2.setVisible(true);
-    	vuota_2.setVisible(false);
-    	piena_3.setVisible(true);
-    	vuota_3.setVisible(false);
-    	piena_4.setVisible(false);
-    	vuota_4.setVisible(true);
-    	piena_5.setVisible(false);
-    	vuota_5.setVisible(true);
-    	tmp=3;
-    }
-    @FXML
-    void show4(MouseEvent event) {
-    	piena_1.setVisible(true);
-    	vuota_1.setVisible(false);
-    	piena_2.setVisible(true);
-    	vuota_2.setVisible(false);
-    	piena_3.setVisible(true);
-    	vuota_3.setVisible(false);
-    	piena_4.setVisible(true);
-    	vuota_4.setVisible(false);
-    	piena_5.setVisible(false);
-    	vuota_5.setVisible(true);
-    	tmp=4;
-    }
-    @FXML
-    void show5(MouseEvent event) {
-    	piena_1.setVisible(true);
-    	vuota_1.setVisible(false);
-    	piena_2.setVisible(true);
-    	vuota_2.setVisible(false);
-    	piena_3.setVisible(true);
-    	vuota_3.setVisible(false);
-    	piena_4.setVisible(true);
-    	vuota_4.setVisible(false);
-    	piena_5.setVisible(true);
-    	vuota_5.setVisible(false);
-    	tmp=5;
-    }
-	
+	void show1(MouseEvent event) {
+		piena_1.setVisible(true);
+		vuota_1.setVisible(false);
+		piena_2.setVisible(false);
+		vuota_2.setVisible(true);
+		piena_3.setVisible(false);
+		vuota_3.setVisible(true);
+		piena_4.setVisible(false);
+		vuota_4.setVisible(true);
+		piena_5.setVisible(false);
+		vuota_5.setVisible(true);
+		tmp = 1;
+	}
+
+	@FXML
+	void show2(MouseEvent event) {
+		piena_1.setVisible(true);
+		vuota_1.setVisible(false);
+		piena_2.setVisible(true);
+		vuota_2.setVisible(false);
+		piena_3.setVisible(false);
+		vuota_3.setVisible(true);
+		piena_4.setVisible(false);
+		vuota_4.setVisible(true);
+		piena_5.setVisible(false);
+		vuota_5.setVisible(true);
+		tmp = 2;
+	}
+
+	@FXML
+	void show3(MouseEvent event) {
+		piena_1.setVisible(true);
+		vuota_1.setVisible(false);
+		piena_2.setVisible(true);
+		vuota_2.setVisible(false);
+		piena_3.setVisible(true);
+		vuota_3.setVisible(false);
+		piena_4.setVisible(false);
+		vuota_4.setVisible(true);
+		piena_5.setVisible(false);
+		vuota_5.setVisible(true);
+		tmp = 3;
+	}
+
+	@FXML
+	void show4(MouseEvent event) {
+		piena_1.setVisible(true);
+		vuota_1.setVisible(false);
+		piena_2.setVisible(true);
+		vuota_2.setVisible(false);
+		piena_3.setVisible(true);
+		vuota_3.setVisible(false);
+		piena_4.setVisible(true);
+		vuota_4.setVisible(false);
+		piena_5.setVisible(false);
+		vuota_5.setVisible(true);
+		tmp = 4;
+	}
+
+	@FXML
+	void show5(MouseEvent event) {
+		piena_1.setVisible(true);
+		vuota_1.setVisible(false);
+		piena_2.setVisible(true);
+		vuota_2.setVisible(false);
+		piena_3.setVisible(true);
+		vuota_3.setVisible(false);
+		piena_4.setVisible(true);
+		vuota_4.setVisible(false);
+		piena_5.setVisible(true);
+		vuota_5.setVisible(false);
+		tmp = 5;
+	}
+
 	/************************ FINE STELLE **********************/
-	
-	
-	
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources)
-	{
+	public void initialize(URL location, ResourceBundle resources) {
 		piena_1.setVisible(false);
 		piena_2.setVisible(false);
 		piena_3.setVisible(false);
@@ -180,35 +169,12 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 		piena_5.setVisible(false);
 	}
 
-
 	@Override
-	public void initializeData(Utente utente, Noleggio noleggio) 
-	{
+	public void initializeData(Utente utente, Noleggio noleggio) {
 		this.utente = utente;
 		this.veicolo = noleggio.getVeicolo();
 		this.noleggio = noleggio;
 		label_nome.setText(veicolo.getModello());
 	}
-	   
-	    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	    
-	    
-	    
+
 }
