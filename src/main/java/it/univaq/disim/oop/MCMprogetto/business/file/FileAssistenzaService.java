@@ -46,7 +46,8 @@ public class FileAssistenzaService implements AssistenzaService
 
 				writer.println(row.toString());
 				
-				return fileData.getCont();
+				assistenza.setID(fileData.getCont());
+				return assistenza;
 			}
 		} 
 		catch (IOException e) {

@@ -4,10 +4,9 @@ import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
-public interface FeedbackService 
-{
-	
+public interface FeedbackService {
+
 	void createFeedback(Feedback feedback) throws BusinessException;
-	
+
 	List<Feedback> findAllFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException;
 }

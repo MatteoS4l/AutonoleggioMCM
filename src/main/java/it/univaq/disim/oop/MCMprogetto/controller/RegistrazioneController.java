@@ -97,7 +97,7 @@ public class RegistrazioneController implements Initializable, DataInitializable
 			utente.setCognome(cognomeRegistrazione.getText());
 			utente.setUsername(usernameRegistrazione.getText());
 			utente.setPassword(passwordRegistrazione.getText());
-			utente.setData_nascita(dataDiNascitaRegistrazione.getValue());
+			utente.setDataNascita(dataDiNascitaRegistrazione.getValue());
 			utente.setEta(utenteservice.CalcolaEta(dataDiNascitaRegistrazione.getValue()));
 			utente.setSesso(sessoRegistrazione.getValue());
 

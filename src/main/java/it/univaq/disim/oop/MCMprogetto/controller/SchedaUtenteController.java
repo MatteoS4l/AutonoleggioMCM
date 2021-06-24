@@ -73,7 +73,7 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 		cognome.setText(utente.getCognome());
 		username.setText(utente.getUsername());
 		password.setText(utente.getPassword());
-		dataNascita.setValue(utente.getData_nascita());
+		dataNascita.setValue(utente.getDataNascita());
 		sesso.setValue(utente.getSesso());
 		if (utente instanceof Cliente) {
 			tipologia.setValue("cliente");
@@ -97,7 +97,7 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 			utente_modificato.setCognome(cognome.getText());
 			utente_modificato.setUsername(username.getText());
 			utente_modificato.setPassword(password.getText());
-			utente_modificato.setData_nascita(dataNascita.getValue());
+			utente_modificato.setDataNascita(dataNascita.getValue());
 			utente_modificato.setSesso(sesso.getValue());
 
 			utenteservice.updateUtente(utente_modificato);

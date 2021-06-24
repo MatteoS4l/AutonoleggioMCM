@@ -7,37 +7,33 @@ import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
-public interface NoleggioService 
-{
+public interface NoleggioService {
 	void createNoleggio(Noleggio noleggio) throws BusinessException;
-	
+
 	void updateNoleggio(Noleggio noleggio) throws BusinessException;
-	
+
 	Noleggio findNoleggioByID(int ID) throws NoleggioNonTrovatoException, BusinessException;
-	
+
 	Noleggio findNoleggioByIdAssistenza(int ID) throws BusinessException;
-	
+
 	List<Noleggio> findAllNoleggi() throws BusinessException;
-	
+
 	List<Noleggio> findNoleggiByAssistenza(String assistenza) throws BusinessException;
-	
+
 	List<Noleggio> findNoleggiInCorso() throws BusinessException;
-	
+
 	List<Noleggio> findNoleggiByUtente(Utente utente) throws BusinessException;
-	
+
 	List<Noleggio> findNoleggiByPagamento() throws BusinessException;
-	
+
 	List<Noleggio> findNoleggiByDataFine(LocalDate data_fine) throws BusinessException;
-	
+
 	List<Veicolo> findVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException;
-	
+
 	List<Noleggio> findNoleggiByDettagli() throws BusinessException;
-	
+
 	boolean disponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException;
-	
-	void checkStatoVeicoli()throws BusinessException;
-	
-	
-	
+
+	void checkStatoVeicoli() throws BusinessException;
 
 }

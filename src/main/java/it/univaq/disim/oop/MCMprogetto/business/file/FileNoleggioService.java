@@ -68,7 +68,7 @@ public class FileNoleggioService implements NoleggioService
 		}
 		catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("noleggio non creato");
 		}
 	}
 

@@ -18,7 +18,7 @@ public class RAMAssistenzaService implements AssistenzaService {
 	public Assistenza createAssistenza(Assistenza assistenza) throws BusinessException {
 		assistenza.setID(cont_assistenza++);
 		listassistenza.add(assistenza);
-		return listassistenza.size() - 1;
+		return assistenza;
 	}
 
 	@Override // MODIFICA

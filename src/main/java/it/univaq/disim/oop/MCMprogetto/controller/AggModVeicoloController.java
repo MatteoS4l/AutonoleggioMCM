@@ -2,6 +2,7 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
@@ -16,8 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 
 public class AggModVeicoloController implements Initializable, DataInitializable<Utente, Object> {
 	private ViewDispatcher dispatcher;
@@ -59,7 +58,7 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 						.or(textfieldGiorno.textProperty().isEmpty()));
 
 		try {
-			choiceboxTipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
+			choiceboxTipologia.getItems().addAll(tipologiaservice.findAllTipologia());
 			choiceboxTipologia.setValue("berlina");
 			choiceboxAlimentazione.getItems().addAll(veicoloservice.findListAlimentazioneVeicolo());
 			choiceboxAlimentazione.setValue("benzina");

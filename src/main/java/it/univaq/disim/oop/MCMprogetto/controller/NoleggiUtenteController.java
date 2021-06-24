@@ -136,8 +136,7 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 				assistenza.setDettagli(textDettagliRichiesta.getText());
 				assistenza.setCliente(noleggio.getCliente());
 				assistenza.setVeicolo(noleggio.getVeicolo());
-				int id_assistenza = assistenzaservice.createAssistenza(assistenza);
-				assistenza.setID(id_assistenza);
+				assistenza = assistenzaservice.createAssistenza(assistenza);
 
 				noleggio.setAssistenza(assistenza);
 				noleggioservice.updateNoleggio(noleggio);
