@@ -39,7 +39,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label fx:id="label_nome" layoutX="196.0" layoutY="44.0" text="nome">
+      <Label fx:id="labelNome" layoutX="196.0" layoutY="44.0" text="nome">
          <font>
             <Font name="Lucida Fax Regular" size="18.0" />
          </font>
@@ -65,7 +65,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <TextField fx:id="recensione_txtfield" layoutX="25.0" layoutY="132.0" prefHeight="25.0" prefWidth="600.0" promptText="Scrivi una recensione" />
+      <TextField fx:id="recensioneTxtfield" layoutX="25.0" layoutY="132.0" prefHeight="25.0" prefWidth="600.0" promptText="Scrivi una recensione" />
       <Label layoutX="25.0" layoutY="245.0" text="Come valuti la tua esperienza?">
          <font>
             <Font name="Lucida Fax Regular" size="14.0" />
@@ -87,32 +87,32 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <ImageView fx:id="vuota_1" fitHeight="72.0" fitWidth="60.0" layoutX="321.0" layoutY="224.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="vuota1" fitHeight="72.0" fitWidth="60.0" layoutX="321.0" layoutY="224.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/stella%20vuota.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="vuota_2" fitHeight="60.0" fitWidth="60.0" layoutX="381.0" layoutY="224.0" onMouseClicked="#show2" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="vuota2" fitHeight="60.0" fitWidth="60.0" layoutX="381.0" layoutY="224.0" onMouseClicked="#show2" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/stella%20vuota.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="vuota_3" fitHeight="60.0" fitWidth="60.0" layoutX="441.0" layoutY="224.0" onMouseClicked="#show3" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="vuota3" fitHeight="60.0" fitWidth="60.0" layoutX="441.0" layoutY="224.0" onMouseClicked="#show3" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/stella%20vuota.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="vuota_4" fitHeight="60.0" fitWidth="67.0" layoutX="501.0" layoutY="224.0" onMouseClicked="#show4" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="vuota4" fitHeight="60.0" fitWidth="67.0" layoutX="501.0" layoutY="224.0" onMouseClicked="#show4" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/stella%20vuota.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="vuota_5" fitHeight="60.0" fitWidth="60.0" layoutX="561.0" layoutY="224.0" onMouseClicked="#show5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="vuota5" fitHeight="60.0" fitWidth="60.0" layoutX="561.0" layoutY="224.0" onMouseClicked="#show5" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/stella%20vuota.png" />
          </image>
       </ImageView>
-      <Button fx:id="invia_bottone" layoutX="513.0" layoutY="386.0" mnemonicParsing="false" onMouseClicked="#inviafeedback" prefHeight="31.0" prefWidth="95.0" text="Invia">
+      <Button fx:id="inviaBottone" layoutX="513.0" layoutY="386.0" mnemonicParsing="false" onMouseClicked="#inviafeedback" prefHeight="31.0" prefWidth="95.0" text="Invia">
          <font>
             <Font name="Lucida Fax Regular" size="12.0" />
          </font>
@@ -133,27 +133,27 @@
             </RadialGradient>
          </textFill>
       </Button>
-      <ImageView fx:id="piena_1" fitHeight="72.0" fitWidth="60.0" layoutX="321.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="piena1" fitHeight="72.0" fitWidth="60.0" layoutX="321.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/Stella.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="piena_2" fitHeight="72.0" fitWidth="60.0" layoutX="381.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="piena2" fitHeight="72.0" fitWidth="60.0" layoutX="381.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/Stella.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="piena_3" fitHeight="72.0" fitWidth="60.0" layoutX="441.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="piena3" fitHeight="72.0" fitWidth="60.0" layoutX="441.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/Stella.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="piena_4" fitHeight="72.0" fitWidth="60.0" layoutX="501.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="piena4" fitHeight="72.0" fitWidth="60.0" layoutX="501.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/Stella.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="piena_5" fitHeight="72.0" fitWidth="60.0" layoutX="561.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="piena5" fitHeight="72.0" fitWidth="60.0" layoutX="561.0" layoutY="225.0" onMouseClicked="#show1" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/Stella.png" />
          </image>

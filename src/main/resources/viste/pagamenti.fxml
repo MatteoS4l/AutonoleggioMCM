@@ -11,20 +11,20 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.PagamentiController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.PagamentiController">
    <children>
-      <TableView fx:id="tabella_pagamento" layoutX="3.0" layoutY="57.0" prefHeight="288.0" prefWidth="642.0">
+      <TableView fx:id="tabellaPagamento" layoutX="3.0" layoutY="57.0" prefHeight="288.0" prefWidth="642.0">
         <columns>
-          <TableColumn fx:id="id_pagamento" prefWidth="55.0" text="ID" />
-          <TableColumn fx:id="veicolo_pagamento" prefWidth="113.0" text="Veicolo" />
-            <TableColumn fx:id="cliente_pagamento" prefWidth="94.0" text="Cliente" />
-            <TableColumn fx:id="data_in_pagamento" prefWidth="147.0" text="Data inizio" />
-            <TableColumn fx:id="data_fi_pagamento" prefWidth="147.0" text="Data fine" />
-            <TableColumn fx:id="azioni_pagamento" prefWidth="82.0" text="Azioni" />
+          <TableColumn fx:id="idPagamento" prefWidth="55.0" text="ID" />
+          <TableColumn fx:id="veicoloPagamento" prefWidth="113.0" text="Veicolo" />
+            <TableColumn fx:id="clientePagamento" prefWidth="94.0" text="Cliente" />
+            <TableColumn fx:id="dataInPagamento" prefWidth="147.0" text="Data inizio" />
+            <TableColumn fx:id="dataFiPagamento" prefWidth="147.0" text="Data fine" />
+            <TableColumn fx:id="azioniPagamento" prefWidth="82.0" text="Azioni" />
         </columns>
       </TableView>
-      <TextField fx:id="text_set_km" layoutX="164.0" layoutY="382.0" prefHeight="25.0" prefWidth="100.0" />
-      <Button fx:id="bottone_costo" layoutX="264.0" layoutY="382.0" mnemonicParsing="false" onAction="#vediCosto" text="Vedi costo" />
+      <TextField fx:id="textSetKm" layoutX="164.0" layoutY="382.0" prefHeight="25.0" prefWidth="100.0" />
+      <Button fx:id="bottoneCosto" layoutX="264.0" layoutY="382.0" mnemonicParsing="false" onAction="#vediCosto" text="Vedi costo" />
       <Label layoutX="14.0" layoutY="14.0" text="Verranno visualizzati soltanto i noleggi che non sono stati pagati">
          <font>
             <Font name="Lucida Fax Regular" size="14.0" />
@@ -46,13 +46,13 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <Label fx:id="label_tariffa_did" layoutX="55.0" layoutY="373.0" text="Tariffa €/1000km" />
-      <Label fx:id="label_tariffa_euro" layoutX="86.0" layoutY="394.0" text="Label" />
-      <Label fx:id="label_costo_tot" layoutX="359.0" layoutY="386.0" text="Label" />
-      <Button fx:id="bottone_pagamento" layoutX="467.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#registraPagamento" text="Registra pagamento" />
-      <Label fx:id="label_km_cliente" layoutX="164.0" layoutY="365.0" text="Km fatti dal cliente" />
-      <Label fx:id="label_successo" layoutX="430.0" layoutY="411.0" prefHeight="17.0" prefWidth="197.0" text="Pagamento effettuato con successo!" textFill="#00da21" />
-      <Label fx:id="label_errore" alignment="CENTER" layoutX="46.0" layoutY="420.0" prefHeight="17.0" prefWidth="318.0" text="Compila correttamente i campi !" textFill="#800000">
+      <Label fx:id="labelTariffaDid" layoutX="55.0" layoutY="373.0" text="Tariffa €/1000km" />
+      <Label fx:id="labelTariffaEuro" layoutX="86.0" layoutY="394.0" text="Label" />
+      <Label fx:id="labelCostoTot" layoutX="359.0" layoutY="386.0" text="Label" />
+      <Button fx:id="bottonePagamento" layoutX="467.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#registraPagamento" text="Registra pagamento" />
+      <Label fx:id="labelKmCliente" layoutX="164.0" layoutY="365.0" text="Km fatti dal cliente" />
+      <Label fx:id="labelSuccesso" layoutX="430.0" layoutY="411.0" prefHeight="17.0" prefWidth="197.0" text="Pagamento effettuato con successo!" textFill="#00da21" />
+      <Label fx:id="labelErrore" alignment="CENTER" layoutX="46.0" layoutY="420.0" prefHeight="17.0" prefWidth="318.0" text="Compila correttamente i campi !" textFill="#800000">
          <font>
             <Font size="14.0" />
          </font>

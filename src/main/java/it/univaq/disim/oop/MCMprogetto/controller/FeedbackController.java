@@ -34,13 +34,13 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 	private Utente utente;
 
 	@FXML
-	private TableView<Feedback> tabella_feedback;
+	private TableView<Feedback> tabellaFeedback;
 	@FXML
-	private TableColumn<Feedback, String> utente_tabella;
+	private TableColumn<Feedback, String> utenteTabella;
 	@FXML
-	private TableColumn<Feedback, String> feedback_tabella;
+	private TableColumn<Feedback, String> feedbackTabella;
 	@FXML
-	private TableColumn<Feedback, Integer> rating_tabella;
+	private TableColumn<Feedback, Integer> ratingTabella;
 	@FXML
 	private Label label_veicolo;
 
@@ -67,7 +67,7 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		utente_tabella.setStyle("-fx-alignment: CENTER;");
+		utenteTabella.setStyle("-fx-alignment: CENTER;");
 	}
 
 	@Override
@@ -77,18 +77,18 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 
 		label_veicolo.setText("Feedback Di: " + veicolo.getModello());
 
-		feedback_tabella.setStyle("-fx-alignment: CENTER;");
-		utente_tabella.setStyle("-fx-alignment: CENTER;");
-		rating_tabella.setStyle("-fx-alignment: CENTER;");
-		feedback_tabella.setCellValueFactory(new PropertyValueFactory<Feedback, String>("feedback"));
-		utente_tabella.setCellValueFactory(
+		feedbackTabella.setStyle("-fx-alignment: CENTER;");
+		utenteTabella.setStyle("-fx-alignment: CENTER;");
+		ratingTabella.setStyle("-fx-alignment: CENTER;");
+		feedbackTabella.setCellValueFactory(new PropertyValueFactory<Feedback, String>("feedback"));
+		utenteTabella.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Feedback, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Feedback, String> tmp) {
 						return new SimpleStringProperty(tmp.getValue().getUtente().getUsername());
 					}
 				});
-		rating_tabella.setCellValueFactory(new PropertyValueFactory<Feedback, Integer>("stelle"));
+		ratingTabella.setCellValueFactory(new PropertyValueFactory<Feedback, Integer>("stelle"));
 
 		List<Feedback> listafeedback = null;
 		try {
@@ -96,7 +96,7 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 		} catch (BusinessException e) {
 			/* nessun feedback per questo veicolo */ }
 		ObservableList<Feedback> listaFeed = FXCollections.observableList(listafeedback);
-		tabella_feedback.setItems(listaFeed);
+		tabellaFeedback.setItems(listaFeed);
 
 	}
 

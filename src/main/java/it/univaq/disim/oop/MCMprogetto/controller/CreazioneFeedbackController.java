@@ -29,31 +29,31 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 	private int tmp = 0;
 
 	@FXML
-	private Label label_nome;
+	private Label labelNome;
 	@FXML
-	private TextField recensione_txtfield;
+	private TextField recensioneTxtfield;
 	@FXML
-	private ImageView vuota_1;
+	private ImageView vuota1;
 	@FXML
-	private ImageView vuota_2;
+	private ImageView vuota2;
 	@FXML
-	private ImageView vuota_3;
+	private ImageView vuota3;
 	@FXML
-	private ImageView vuota_4;
+	private ImageView vuota4;
 	@FXML
-	private ImageView vuota_5;
+	private ImageView vuota5;
 	@FXML
-	private Button invia_bottone;
+	private Button inviaBottone;
 	@FXML
-	private ImageView piena_1;
+	private ImageView piena1;
 	@FXML
-	private ImageView piena_2;
+	private ImageView piena2;
 	@FXML
-	private ImageView piena_3;
+	private ImageView piena3;
 	@FXML
-	private ImageView piena_4;
+	private ImageView piena4;
 	@FXML
-	private ImageView piena_5;
+	private ImageView piena5;
 
 	public CreazioneFeedbackController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -66,7 +66,7 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 	void inviafeedback(MouseEvent event) {
 		try {
 			Feedback feedback = new Feedback();
-			feedback.setFeedback(recensione_txtfield.getText());
+			feedback.setFeedback(recensioneTxtfield.getText());
 			feedback.setStelle(tmp);
 			feedback.setUtente(utente);
 			feedback.setVeicolo(veicolo);
@@ -85,76 +85,76 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 
 	@FXML
 	void show1(MouseEvent event) {
-		piena_1.setVisible(true);
-		vuota_1.setVisible(false);
-		piena_2.setVisible(false);
-		vuota_2.setVisible(true);
-		piena_3.setVisible(false);
-		vuota_3.setVisible(true);
-		piena_4.setVisible(false);
-		vuota_4.setVisible(true);
-		piena_5.setVisible(false);
-		vuota_5.setVisible(true);
+		piena1.setVisible(true);
+		vuota1.setVisible(false);
+		piena2.setVisible(false);
+		vuota2.setVisible(true);
+		piena3.setVisible(false);
+		vuota3.setVisible(true);
+		piena4.setVisible(false);
+		vuota4.setVisible(true);
+		piena5.setVisible(false);
+		vuota5.setVisible(true);
 		tmp = 1;
 	}
 
 	@FXML
 	void show2(MouseEvent event) {
-		piena_1.setVisible(true);
-		vuota_1.setVisible(false);
-		piena_2.setVisible(true);
-		vuota_2.setVisible(false);
-		piena_3.setVisible(false);
-		vuota_3.setVisible(true);
-		piena_4.setVisible(false);
-		vuota_4.setVisible(true);
-		piena_5.setVisible(false);
-		vuota_5.setVisible(true);
+		piena1.setVisible(true);
+		vuota1.setVisible(false);
+		piena2.setVisible(true);
+		vuota2.setVisible(false);
+		piena3.setVisible(false);
+		vuota3.setVisible(true);
+		piena4.setVisible(false);
+		vuota4.setVisible(true);
+		piena5.setVisible(false);
+		vuota5.setVisible(true);
 		tmp = 2;
 	}
 
 	@FXML
 	void show3(MouseEvent event) {
-		piena_1.setVisible(true);
-		vuota_1.setVisible(false);
-		piena_2.setVisible(true);
-		vuota_2.setVisible(false);
-		piena_3.setVisible(true);
-		vuota_3.setVisible(false);
-		piena_4.setVisible(false);
-		vuota_4.setVisible(true);
-		piena_5.setVisible(false);
-		vuota_5.setVisible(true);
+		piena1.setVisible(true);
+		vuota1.setVisible(false);
+		piena2.setVisible(true);
+		vuota2.setVisible(false);
+		piena3.setVisible(true);
+		vuota3.setVisible(false);
+		piena4.setVisible(false);
+		vuota4.setVisible(true);
+		piena5.setVisible(false);
+		vuota5.setVisible(true);
 		tmp = 3;
 	}
 
 	@FXML
 	void show4(MouseEvent event) {
-		piena_1.setVisible(true);
-		vuota_1.setVisible(false);
-		piena_2.setVisible(true);
-		vuota_2.setVisible(false);
-		piena_3.setVisible(true);
-		vuota_3.setVisible(false);
-		piena_4.setVisible(true);
-		vuota_4.setVisible(false);
-		piena_5.setVisible(false);
-		vuota_5.setVisible(true);
+		piena1.setVisible(true);
+		vuota1.setVisible(false);
+		piena2.setVisible(true);
+		vuota2.setVisible(false);
+		piena3.setVisible(true);
+		vuota3.setVisible(false);
+		piena4.setVisible(true);
+		vuota4.setVisible(false);
+		piena5.setVisible(false);
+		vuota5.setVisible(true);
 		tmp = 4;
 	}
 
 	@FXML
 	void show5(MouseEvent event) {
-		piena_1.setVisible(true);
-		vuota_1.setVisible(false);
-		piena_2.setVisible(true);
-		vuota_2.setVisible(false);
-		piena_3.setVisible(true);
-		vuota_3.setVisible(false);
-		piena_4.setVisible(true);
-		vuota_4.setVisible(false);
-		piena_5.setVisible(true);
-		vuota_5.setVisible(false);
+		piena1.setVisible(true);
+		vuota1.setVisible(false);
+		piena2.setVisible(true);
+		vuota2.setVisible(false);
+		piena3.setVisible(true);
+		vuota3.setVisible(false);
+		piena4.setVisible(true);
+		vuota4.setVisible(false);
+		piena5.setVisible(true);
+		vuota5.setVisible(false);
 		tmp = 5;
 	}
 
@@ -162,11 +162,11 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		piena_1.setVisible(false);
-		piena_2.setVisible(false);
-		piena_3.setVisible(false);
-		piena_4.setVisible(false);
-		piena_5.setVisible(false);
+		piena1.setVisible(false);
+		piena2.setVisible(false);
+		piena3.setVisible(false);
+		piena4.setVisible(false);
+		piena5.setVisible(false);
 	}
 
 	@Override
@@ -174,7 +174,7 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 		this.utente = utente;
 		this.veicolo = noleggio.getVeicolo();
 		this.noleggio = noleggio;
-		label_nome.setText(veicolo.getModello());
+		labelNome.setText(veicolo.getModello());
 	}
 
 }

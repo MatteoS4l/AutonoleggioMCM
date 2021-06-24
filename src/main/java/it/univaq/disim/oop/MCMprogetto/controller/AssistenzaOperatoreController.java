@@ -37,25 +37,25 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 	private Utente utente;
 
 	@FXML
-	private TableView<Assistenza> tabella_assistenza_op;
+	private TableView<Assistenza> tabellaAssistenzaOp;
 	@FXML
-	private TableColumn<Assistenza, String> cliente_assistenza_op;
+	private TableColumn<Assistenza, String> clienteAssistenzaOp;
 	@FXML
-	private TableColumn<Assistenza, String> veicolo_assistenza_op;
+	private TableColumn<Assistenza, String> veicoloAssistenzaOp;
 	@FXML
-	private TableColumn<Assistenza, String> dettagli_assistenza_op;
+	private TableColumn<Assistenza, String> dettagliAssistenzaOp;
 	@FXML
-	private TableColumn<Assistenza, Button> azioni_assistenza_op;
+	private TableColumn<Assistenza, Button> azioniAssistenzaOp;
 	@FXML
-	private TextField text_risposta_assistenza;
+	private TextField textRispostaAssistenza;
 	@FXML
-	private Button bottone_invio;
+	private Button bottoneInvio;
 	@FXML
-	private Label label_risposta_assistenza;
+	private Label labelRispostaAssistenza;
 	@FXML
-	private ComboBox<String> scelta_assistenza;
+	private ComboBox<String> sceltaAssistenza;
 	@FXML
-	private Button bottone_conferma;
+	private Button bottoneConferma;
 
 	public AssistenzaOperatoreController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -65,30 +65,30 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 
 	@FXML // INVIA RISPOSTA
 	void inviaRispostaAssistenza(ActionEvent event) throws BusinessException {
-		assistenza.setRisposta(text_risposta_assistenza.getText());
+		assistenza.setRisposta(textRispostaAssistenza.getText());
 		assistenza.setServita(true);
 		assistenzaservice.updateAssistenza(assistenza);
 
-		text_risposta_assistenza.clear();
-		text_risposta_assistenza.setVisible(false);
-		label_risposta_assistenza.setVisible(true);
-		bottone_invio.setVisible(false);
+		textRispostaAssistenza.clear();
+		textRispostaAssistenza.setVisible(false);
+		labelRispostaAssistenza.setVisible(true);
+		bottoneInvio.setVisible(false);
 
 		initialize(null, null);
 	}
 
 	void mostraCose(Assistenza assistenza) {
 		this.assistenza = assistenza;
-		scelta_assistenza.setVisible(true);
-		bottone_conferma.setVisible(true);
+		sceltaAssistenza.setVisible(true);
+		bottoneConferma.setVisible(true);
 	}
 
 	@FXML
 	void confermaSelezione(ActionEvent event) {
 		try {
-			if (scelta_assistenza.getValue().equalsIgnoreCase("Manutenzione")) {
-				text_risposta_assistenza.setVisible(true);
-				bottone_invio.setVisible(true);
+			if (sceltaAssistenza.getValue().equalsIgnoreCase("Manutenzione")) {
+				textRispostaAssistenza.setVisible(true);
+				bottoneInvio.setVisible(true);
 			} else {
 				dispatcher.renderView("sostituzione", utente, assistenza);
 			}
@@ -100,19 +100,19 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		scelta_assistenza.getItems().addAll("Manutenzione", "Sostituzione");
-		scelta_assistenza.setVisible(false);
-		text_risposta_assistenza.setVisible(false);
-		label_risposta_assistenza.setVisible(false);
-		bottone_invio.setVisible(false);
-		bottone_conferma.setVisible(false);
+		sceltaAssistenza.getItems().addAll("Manutenzione", "Sostituzione");
+		sceltaAssistenza.setVisible(false);
+		textRispostaAssistenza.setVisible(false);
+		labelRispostaAssistenza.setVisible(false);
+		bottoneInvio.setVisible(false);
+		bottoneConferma.setVisible(false);
 
-		cliente_assistenza_op.setStyle("-fx-alignment: CENTER;");
-		veicolo_assistenza_op.setStyle("-fx-alignment: CENTER;");
-		dettagli_assistenza_op.setStyle("-fx-alignment: CENTER;");
-		azioni_assistenza_op.setStyle("-fx-alignment: CENTER;");
+		clienteAssistenzaOp.setStyle("-fx-alignment: CENTER;");
+		veicoloAssistenzaOp.setStyle("-fx-alignment: CENTER;");
+		dettagliAssistenzaOp.setStyle("-fx-alignment: CENTER;");
+		azioniAssistenzaOp.setStyle("-fx-alignment: CENTER;");
 
-		cliente_assistenza_op.setCellValueFactory(
+		clienteAssistenzaOp.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Assistenza, String> tmp) {
@@ -124,7 +124,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 					}
 				});
 
-		veicolo_assistenza_op.setCellValueFactory(
+		veicoloAssistenzaOp.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Assistenza, String> tmp) {
@@ -136,8 +136,8 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 					}
 				});
 
-		dettagli_assistenza_op.setCellValueFactory(new PropertyValueFactory<Assistenza, String>("dettagli"));
-		azioni_assistenza_op.setCellValueFactory(
+		dettagliAssistenzaOp.setCellValueFactory(new PropertyValueFactory<Assistenza, String>("dettagli"));
+		azioniAssistenzaOp.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Assistenza, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Assistenza, Button> param) {
@@ -155,10 +155,10 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 			List<Assistenza> lista_ass = new ArrayList<Assistenza>();
 			lista_ass = assistenzaservice.getListaAssistenzaByServita(false);
 			ObservableList<Assistenza> lista_a = FXCollections.observableList(lista_ass);
-			tabella_assistenza_op.setItems(lista_a);
+			tabellaAssistenzaOp.setItems(lista_a);
 		} catch (BusinessException e) {
-			label_risposta_assistenza.setTextFill(Color.RED);
-			label_risposta_assistenza.setText("Errore generico");
+			labelRispostaAssistenza.setTextFill(Color.RED);
+			labelRispostaAssistenza.setText("Errore generico");
 		}
 	}
 

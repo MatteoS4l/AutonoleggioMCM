@@ -41,7 +41,7 @@ public class LayoutController implements Initializable, DataInitializable<Utente
 	};
 
 	@FXML
-	private VBox barra_menu;
+	private VBox barraMenu;
 
 	public LayoutController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -60,24 +60,24 @@ public class LayoutController implements Initializable, DataInitializable<Utente
 	@Override
 	public void initializeData(Utente utente) {
 		this.utente = utente;
-		barra_menu.getChildren().add(createButton(MENU_HOME));
-		barra_menu.getChildren().add(new Separator());
+		barraMenu.getChildren().add(createButton(MENU_HOME));
+		barraMenu.getChildren().add(new Separator());
 
 		if (utente instanceof Amministratore) {
 			for (MenuElement menuElement : MENU_ADMIN) {
-				barra_menu.getChildren().add(createButton(menuElement));
+				barraMenu.getChildren().add(createButton(menuElement));
 			}
 		}
 
 		if (utente instanceof Operatore) {
 			for (MenuElement menuElement : MENU_OPERATORE) {
-				barra_menu.getChildren().add(createButton(menuElement));
+				barraMenu.getChildren().add(createButton(menuElement));
 			}
 		}
 
 		if (utente instanceof Cliente) {
 			for (MenuElement m : MENU_CLIENTE) {
-				barra_menu.getChildren().add(createButton(m));
+				barraMenu.getChildren().add(createButton(m));
 			}
 		}
 	}

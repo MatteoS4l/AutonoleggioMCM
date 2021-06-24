@@ -9,15 +9,15 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.RilascioFeedbackController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.RilascioFeedbackController">
    <children>
-      <TableView fx:id="tabella_feedback_utente" layoutX="3.0" layoutY="65.0" prefHeight="313.0" prefWidth="643.0">
+      <TableView fx:id="tabellaFeedbackUtente" layoutX="3.0" layoutY="65.0" prefHeight="313.0" prefWidth="643.0">
         <columns>
-          <TableColumn fx:id="id_feedback_utente" prefWidth="60.0" text="ID" />
-          <TableColumn fx:id="veicolo_feedback_utente" prefWidth="111.0" text="Veicolo" />
-            <TableColumn fx:id="data_in_feedback_utente" prefWidth="150.0" text="Data inizio" />
-            <TableColumn fx:id="data_fi_feedback_utente" prefWidth="150.0" text="Data fine" />
-            <TableColumn fx:id="azioni_feedback_utente" prefWidth="169.0" text="Feedback" />
+          <TableColumn fx:id="idFeedbackUtente" prefWidth="60.0" text="ID" />
+          <TableColumn fx:id="veicoloFeedbackUtente" prefWidth="111.0" text="Veicolo" />
+            <TableColumn fx:id="dataInFeedbackUtente" prefWidth="150.0" text="Data inizio" />
+            <TableColumn fx:id="dataFiFeedbackUtente" prefWidth="150.0" text="Data fine" />
+            <TableColumn fx:id="azioniFeedbackUtente" prefWidth="169.0" text="Feedback" />
         </columns>
       </TableView>
       <Label layoutX="14.0" layoutY="389.0" text="Verranno visualizzati soltanto i noleggi terminati">

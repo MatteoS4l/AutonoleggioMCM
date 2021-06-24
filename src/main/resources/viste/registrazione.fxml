@@ -11,23 +11,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.RegistrazioneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.RegistrazioneController">
    <children>
       <ImageView fx:id="logo" fitHeight="73.0" fitWidth="252.0" layoutX="196.0" layoutY="14.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../immagini/logo.png" />
          </image>
       </ImageView>
-      <TextField fx:id="nome_registrazione" layoutX="107.0" layoutY="111.0" prefHeight="35.0" prefWidth="160.0" promptText="Nome" />
-      <TextField fx:id="cognome_registrazione" layoutX="107.0" layoutY="169.0" prefHeight="35.0" prefWidth="160.0" promptText="Cognome" />
-      <TextField fx:id="username_registrazione" layoutX="107.0" layoutY="236.0" prefHeight="35.0" prefWidth="160.0" promptText="Username" />
-      <PasswordField fx:id="password_registrazione" layoutX="107.0" layoutY="295.0" prefHeight="35.0" prefWidth="160.0" promptText="Password" />
-      <PasswordField fx:id="conferma_pass_registrazione" layoutX="107.0" layoutY="360.0" prefHeight="35.0" prefWidth="160.0" promptText="Conferma Password" />
-      <DatePicker fx:id="data_di_nascita_registrazione" layoutX="358.0" layoutY="111.0" prefHeight="35.0" prefWidth="160.0" promptText="Data di nascita" />
-      <Button fx:id="conferma_registrazione" layoutX="504.0" layoutY="373.0" mnemonicParsing="false" onAction="#Conferma_Registrazione" prefHeight="35.0" prefWidth="92.0" text="Conferma" />
-      <ChoiceBox fx:id="sesso_registrazione" layoutX="358.0" layoutY="169.0" prefHeight="35.0" prefWidth="160.0" />
-      <ChoiceBox fx:id="tipologia_registrazione" layoutX="358.0" layoutY="236.0" prefHeight="35.0" prefWidth="160.0" />
-      <Label fx:id="label_errore" alignment="CENTER" layoutX="331.0" layoutY="320.0" prefHeight="19.0" prefWidth="290.0" textFill="#b50808">
+      <TextField fx:id="nomeRegistrazione" layoutX="107.0" layoutY="111.0" prefHeight="35.0" prefWidth="160.0" promptText="Nome" />
+      <TextField fx:id="cognomeRegistrazione" layoutX="107.0" layoutY="169.0" prefHeight="35.0" prefWidth="160.0" promptText="Cognome" />
+      <TextField fx:id="usernameRegistrazione" layoutX="107.0" layoutY="236.0" prefHeight="35.0" prefWidth="160.0" promptText="Username" />
+      <PasswordField fx:id="passwordRegistrazione" layoutX="107.0" layoutY="295.0" prefHeight="35.0" prefWidth="160.0" promptText="Password" />
+      <PasswordField fx:id="confermaPassRegistrazione" layoutX="107.0" layoutY="360.0" prefHeight="35.0" prefWidth="160.0" promptText="Conferma Password" />
+      <DatePicker fx:id="dataDiNascitaRegistrazione" layoutX="358.0" layoutY="111.0" prefHeight="35.0" prefWidth="160.0" promptText="Data di nascita" />
+      <Button fx:id="confermaRegistrazione" layoutX="504.0" layoutY="373.0" mnemonicParsing="false" onAction="#Conferma_Registrazione" prefHeight="35.0" prefWidth="92.0" text="Conferma" />
+      <ChoiceBox fx:id="sessoRegistrazione" layoutX="358.0" layoutY="169.0" prefHeight="35.0" prefWidth="160.0" />
+      <ChoiceBox fx:id="tipologiaRegistrazione" layoutX="358.0" layoutY="236.0" prefHeight="35.0" prefWidth="160.0" />
+      <Label fx:id="labelErrore" alignment="CENTER" layoutX="331.0" layoutY="320.0" prefHeight="19.0" prefWidth="290.0" textFill="#b50808">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Label>

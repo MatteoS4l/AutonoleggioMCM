@@ -24,13 +24,13 @@ public class LoginController implements Initializable, DataInitializable<Utente,
 	private UtenteService utenteservice;
 	
 	@FXML
-    private TextField username_login;
+    private TextField usernameLogin;
     @FXML
-    private PasswordField password_login;
+    private PasswordField passwordLogin;
     @FXML
-    private Label errore_label;
+    private Label erroreLabel;
     @FXML
-    private Button accedi_button;
+    private Button accediButton;
     
     
     public LoginController()
@@ -46,13 +46,13 @@ public class LoginController implements Initializable, DataInitializable<Utente,
     void Accesso(ActionEvent event) throws ViewException
     {  	try
     	{
-			Utente utente = utenteservice.Autenticazione(username_login.getText(), password_login.getText());
+			Utente utente = utenteservice.Autenticazione(usernameLogin.getText(), passwordLogin.getText());
 			dispatcher.loggedIn(utente);
 		}
     	catch (UtenteNonTrovatoException e)
     	{
-			errore_label.setText("Utente non trovato");
-			errore_label.setVisible(true);
+			erroreLabel.setText("Utente non trovato");
+			erroreLabel.setVisible(true);
 		}
     	catch (BusinessException e)
     	{	dispatcher.renderError(e);	}
@@ -69,9 +69,9 @@ public class LoginController implements Initializable, DataInitializable<Utente,
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		errore_label.setVisible(false);
-		accedi_button.disableProperty().bind(username_login.textProperty().isEmpty()
-										.or(password_login.textProperty().isEmpty()));
+		erroreLabel.setVisible(false);
+		accediButton.disableProperty().bind(usernameLogin.textProperty().isEmpty()
+										.or(passwordLogin.textProperty().isEmpty()));
 	}
 	
 	

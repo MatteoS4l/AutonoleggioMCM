@@ -26,23 +26,23 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	private Noleggio noleggio;
 
 	@FXML
-	private Button bottone_noleggio;
+	private Button bottoneNoleggio;
 	@FXML
-	private Label label_modello_macchina;
+	private Label labelModelloMacchina;
 	@FXML
-	private Label label_errore;
+	private Label labelErrore;
 	@FXML
-	private Button bottone_preventivo;
+	private Button bottonePreventivo;
 	@FXML
-	private DatePicker data_inizio_nol;
+	private DatePicker dataInizioNol;
 	@FXML
-	private DatePicker data_fine_nol;
+	private DatePicker dataFineNol;
 	@FXML
-	private Label label_preventivo;
+	private Label labelPreventivo;
 	@FXML
-	private CheckBox selezione_tariffa_periodo;
+	private CheckBox selezioneTariffaPeriodo;
 	@FXML
-	private CheckBox selezione_tariffa_km;
+	private CheckBox selezioneTariffaKm;
 
 	public SchedaNoleggioController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -53,25 +53,25 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	@FXML // CALCOLA PREVENTIVO
 	double calcolaPreventivo(ActionEvent event) throws BusinessException {
 		try {
-			if (data_inizio_nol.getValue() == null || data_fine_nol.getValue() == null) {
-				label_errore.setText("Seleziona correttamente le date !");
-				label_errore.setVisible(true);
+			if (dataInizioNol.getValue() == null || dataFineNol.getValue() == null) {
+				labelErrore.setText("Seleziona correttamente le date !");
+				labelErrore.setVisible(true);
 			} else {
-				if (selezione_tariffa_km.isSelected()) {
-					label_preventivo.setText("0");
-					label_preventivo.setVisible(true);
+				if (selezioneTariffaKm.isSelected()) {
+					labelPreventivo.setText("0");
+					labelPreventivo.setVisible(true);
 					return 0;
 				} else {
-					label_errore.setVisible(false);
-					long daysBetween = ChronoUnit.DAYS.between(data_inizio_nol.getValue(), data_fine_nol.getValue());
-					label_preventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
-					label_preventivo.setVisible(true);
-					return Double.parseDouble(label_preventivo.getText());
+					labelErrore.setVisible(false);
+					long daysBetween = ChronoUnit.DAYS.between(dataInizioNol.getValue(), dataFineNol.getValue());
+					labelPreventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
+					labelPreventivo.setVisible(true);
+					return Double.parseDouble(labelPreventivo.getText());
 				}
 			}
 		} catch (NullPointerException e) {
-			label_errore.setText("Seleziona correttamente le date !");
-			label_errore.setVisible(true);
+			labelErrore.setText("Seleziona correttamente le date !");
+			labelErrore.setVisible(true);
 		}
 
 		return 0;
@@ -80,9 +80,9 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 
 	@FXML // NOLEGGIA AUTO
 	Noleggio noleggiaAuto(ActionEvent event) throws BusinessException {
-		if (noleggioservice.DisponibilitaDate(data_inizio_nol.getValue().atStartOfDay(),
-				data_fine_nol.getValue().atStartOfDay(), veicolo)
-				&& data_fine_nol.getValue().isAfter(data_inizio_nol.getValue())) {
+		if (noleggioservice.DisponibilitaDate(dataInizioNol.getValue().atStartOfDay(),
+				dataFineNol.getValue().atStartOfDay(), veicolo)
+				&& dataFineNol.getValue().isAfter(dataInizioNol.getValue())) {
 			try {
 				Noleggio noleggio = new Noleggio();
 
@@ -90,21 +90,21 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				noleggio.setAssistenza(null);
 				noleggio.setCliente(utente);
 				noleggio.setVeicolo(veicolo);
-				noleggio.setData_inizio_noleggio(data_inizio_nol.getValue().atStartOfDay());
-				noleggio.setData_fine_noleggio(data_fine_nol.getValue().atStartOfDay());
+				noleggio.setData_inizio_noleggio(dataInizioNol.getValue().atStartOfDay());
+				noleggio.setData_fine_noleggio(dataFineNol.getValue().atStartOfDay());
 				noleggio.setKM_percorsi(0);
 				noleggio.setServita(false);
 				noleggioservice.createNoleggio(noleggio);
 				dispatcher.renderView("home", utente, null);
 			} catch (BusinessException e) {
-				label_errore.setText("Seleziona correttamente le date !");
-				label_errore.setVisible(true);
+				labelErrore.setText("Seleziona correttamente le date !");
+				labelErrore.setVisible(true);
 			}
 
 			return noleggio;
 		} else {
-			label_errore.setText("Non disponibile per queste date !");
-			label_errore.setVisible(true);
+			labelErrore.setText("Non disponibile per queste date !");
+			labelErrore.setVisible(true);
 		}
 
 		return null;
@@ -112,12 +112,12 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 
 	@FXML // SELEZIONA PAGAMENTO
 	void SelezionaPagamento(ActionEvent event) {
-		if (event.getSource().equals(selezione_tariffa_km)) {
-			selezione_tariffa_periodo.setSelected(false);
+		if (event.getSource().equals(selezioneTariffaKm)) {
+			selezioneTariffaPeriodo.setSelected(false);
 		}
 
 		else {
-			selezione_tariffa_km.setSelected(false);
+			selezioneTariffaKm.setSelected(false);
 		}
 	}
 
@@ -128,10 +128,10 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		selezione_tariffa_km.setSelected(true);
-		label_errore.setVisible(false);
-		bottone_noleggio.disableProperty()
-				.bind(data_inizio_nol.valueProperty().isNull().or(data_fine_nol.valueProperty().isNull()));
+		selezioneTariffaKm.setSelected(true);
+		labelErrore.setVisible(false);
+		bottoneNoleggio.disableProperty()
+				.bind(dataInizioNol.valueProperty().isNull().or(dataFineNol.valueProperty().isNull()));
 
 	}
 
@@ -139,8 +139,8 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	public void initializeData(Veicolo veicolo, Utente utente) {
 		this.veicolo = veicolo;
 		this.utente = utente;
-		label_modello_macchina.setText(veicolo.getModello());
-		label_preventivo.setVisible(false);
+		labelModelloMacchina.setText(veicolo.getModello());
+		labelPreventivo.setVisible(false);
 	}
 
 }

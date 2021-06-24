@@ -34,17 +34,17 @@ public class RilascioFeedbackController implements Initializable,DataInitializab
 	private NoleggioService noleggioservice;
 
     @FXML
-    private TableView<Noleggio> tabella_feedback_utente;
+    private TableView<Noleggio> tabellaFeedbackUtente;
     @FXML
-    private TableColumn<Noleggio, Integer> id_feedback_utente;
+    private TableColumn<Noleggio, Integer> idFeedbackUtente;
     @FXML
-    private TableColumn<Noleggio, String> veicolo_feedback_utente;
+    private TableColumn<Noleggio, String> veicoloFeedbackUtente;
     @FXML
-    private TableColumn<Noleggio, LocalDateTime> data_in_feedback_utente;
+    private TableColumn<Noleggio, LocalDateTime> dataInFeedbackUtente;
     @FXML
-    private TableColumn<Noleggio, LocalDateTime> data_fi_feedback_utente;
+    private TableColumn<Noleggio, LocalDateTime> dataFiFeedbackUtente;
     @FXML
-    private TableColumn<Noleggio, Button> azioni_feedback_utente;
+    private TableColumn<Noleggio, Button> azioniFeedbackUtente;
     
     public RilascioFeedbackController()
     {
@@ -68,22 +68,22 @@ public class RilascioFeedbackController implements Initializable,DataInitializab
 	@Override
 	public void initializeData(Utente utente) 
 	{
-		id_feedback_utente.setStyle("-fx-alignment: CENTER;");
-		veicolo_feedback_utente.setStyle("-fx-alignment: CENTER;");
-		data_in_feedback_utente.setStyle("-fx-alignment: CENTER;");
-		data_fi_feedback_utente.setStyle("-fx-alignment: CENTER;");
-		azioni_feedback_utente.setStyle("-fx-alignment: CENTER;");
+		idFeedbackUtente.setStyle("-fx-alignment: CENTER;");
+		veicoloFeedbackUtente.setStyle("-fx-alignment: CENTER;");
+		dataInFeedbackUtente.setStyle("-fx-alignment: CENTER;");
+		dataFiFeedbackUtente.setStyle("-fx-alignment: CENTER;");
+		azioniFeedbackUtente.setStyle("-fx-alignment: CENTER;");
 		
-		id_feedback_utente.setCellValueFactory(new PropertyValueFactory<Noleggio,Integer>("ID"));
-		data_in_feedback_utente.setCellValueFactory(new PropertyValueFactory<Noleggio,LocalDateTime>("data_inizio_noleggio"));
-		data_fi_feedback_utente.setCellValueFactory(new PropertyValueFactory<Noleggio,LocalDateTime>("data_fine_noleggio"));
-		veicolo_feedback_utente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
+		idFeedbackUtente.setCellValueFactory(new PropertyValueFactory<Noleggio,Integer>("ID"));
+		dataInFeedbackUtente.setCellValueFactory(new PropertyValueFactory<Noleggio,LocalDateTime>("data_inizio_noleggio"));
+		dataFiFeedbackUtente.setCellValueFactory(new PropertyValueFactory<Noleggio,LocalDateTime>("data_fine_noleggio"));
+		veicoloFeedbackUtente.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>()
 	    {
 			@Override
 			public ObservableValue<String> call (CellDataFeatures<Noleggio, String> tmp)
 			{	return new SimpleStringProperty (tmp.getValue().getVeicolo().getModello());	}
 		});
-		azioni_feedback_utente.setCellValueFactory(
+		azioniFeedbackUtente.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, Button>, ObservableValue<Button>>()
 				{
 					@Override
@@ -110,7 +110,7 @@ public class RilascioFeedbackController implements Initializable,DataInitializab
 				 {	listacompleta.add(tmp);	}
 			 }
 			 ObservableList<Noleggio> listaNol3 = FXCollections.observableList(listacompleta);
-			 tabella_feedback_utente.setItems(listaNol3);
+			 tabellaFeedbackUtente.setItems(listaNol3);
 		} 
 		catch (BusinessException | NullPointerException a)
 		{	a.printStackTrace();	}

@@ -31,35 +31,35 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class NoleggiUtentiController implements Initializable, DataInitializable<Utente, Veicolo> {
+public class NoleggiUtenteController implements Initializable, DataInitializable<Utente, Veicolo> {
 	private Noleggio noleggio;
 	private AssistenzaService assistenzaservice;
 	private NoleggioService noleggioservice;
 
 	@FXML
-	private TableView<Noleggio> tabella_noleggi;
+	private TableView<Noleggio> tabellaNoleggi;
 	@FXML
-	private TableColumn<Noleggio, Integer> id_noleggio;
+	private TableColumn<Noleggio, Integer> idNoleggio;
 	@FXML
-	private TableColumn<Noleggio, String> veicolo_noleggio;
+	private TableColumn<Noleggio, String> veicoloNoleggio;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> data_inizio_noleggio;
+	private TableColumn<Noleggio, LocalDateTime> dataInizioNoleggio;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> data_fine_noleggio;
+	private TableColumn<Noleggio, LocalDateTime> dataFineNoleggio;
 	@FXML
-	private TableColumn<Noleggio, String> cliente_noleggio;
+	private TableColumn<Noleggio, String> clienteNoleggio;
 	@FXML
-	private TableColumn<Noleggio, Button> azioni_noleggio;
+	private TableColumn<Noleggio, Button> azioniNoleggio;
 	@FXML
-	private TextField text_dettagli_richiesta;
+	private TextField textDettagliRichiesta;
 	@FXML
-	private Label label_avviso;
+	private Label labelAvviso;
 	@FXML
-	private Button invia_button;
+	private Button inviaButton;
 	@FXML
-	private Label label_errore;
+	private Label labelErrore;
 
-	public NoleggiUtentiController() {
+	public NoleggiUtenteController() {
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		assistenzaservice = factory.getAssistenzaService();
 		noleggioservice = factory.getNoleggioService();
@@ -71,7 +71,7 @@ public class NoleggiUtentiController implements Initializable, DataInitializable
 			try {
 				Assistenza assistenza = new Assistenza();
 
-				assistenza.setDettagli(text_dettagli_richiesta.getText());
+				assistenza.setDettagli(textDettagliRichiesta.getText());
 				assistenza.setCliente(noleggio.getCliente());
 				assistenza.setVeicolo(noleggio.getVeicolo());
 				int id_assistenza = assistenzaservice.createAssistenza(assistenza);
@@ -80,13 +80,13 @@ public class NoleggiUtentiController implements Initializable, DataInitializable
 				noleggio.setAssistenza(assistenza);
 				noleggioservice.updateNoleggio(noleggio);
 
-				label_avviso.setVisible(true);
-				label_errore.setVisible(false);
+				labelAvviso.setVisible(true);
+				labelErrore.setVisible(false);
 			} catch (BusinessException e) {
 				System.out.println("errore");
 			}
 		} else {
-			label_errore.setVisible(true);
+			labelErrore.setVisible(true);
 		}
 
 		initialize(null, null);
@@ -96,49 +96,49 @@ public class NoleggiUtentiController implements Initializable, DataInitializable
 	private void RichiediAssistenza(Noleggio nol) {
 		this.noleggio = nol;
 		if (noleggio.getAssistenza() != null) {
-			label_errore.setVisible(true);
+			labelErrore.setVisible(true);
 		} else {
-			text_dettagli_richiesta.setVisible(true);
-			invia_button.setVisible(true);
-			label_errore.setVisible(false);
+			textDettagliRichiesta.setVisible(true);
+			inviaButton.setVisible(true);
+			labelErrore.setVisible(false);
 		}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		label_avviso.setVisible(false);
-		label_errore.setVisible(false);
-		text_dettagli_richiesta.setVisible(false);
-		invia_button.setVisible(false);
+		labelAvviso.setVisible(false);
+		labelErrore.setVisible(false);
+		textDettagliRichiesta.setVisible(false);
+		inviaButton.setVisible(false);
 
-		invia_button.disableProperty().bind(text_dettagli_richiesta.textProperty().isEmpty());
+		inviaButton.disableProperty().bind(textDettagliRichiesta.textProperty().isEmpty());
 
-		id_noleggio.setStyle("-fx-alignment: CENTER;");
-		data_inizio_noleggio.setStyle("-fx-alignment: CENTER;");
-		data_fine_noleggio.setStyle("-fx-alignment: CENTER;");
-		veicolo_noleggio.setStyle("-fx-alignment: CENTER;");
-		cliente_noleggio.setStyle("-fx-alignment: CENTER;");
-		azioni_noleggio.setStyle("-fx-alignment: CENTER;");
+		idNoleggio.setStyle("-fx-alignment: CENTER;");
+		dataInizioNoleggio.setStyle("-fx-alignment: CENTER;");
+		dataFineNoleggio.setStyle("-fx-alignment: CENTER;");
+		veicoloNoleggio.setStyle("-fx-alignment: CENTER;");
+		clienteNoleggio.setStyle("-fx-alignment: CENTER;");
+		azioniNoleggio.setStyle("-fx-alignment: CENTER;");
 
-		id_noleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		data_inizio_noleggio
-				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
-		data_fine_noleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
-		cliente_noleggio.setCellValueFactory(
+		idNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
+		dataInizioNoleggio
+				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));
+		dataFineNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataFineNoleggio"));
+		clienteNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
 						return new SimpleStringProperty(tmp.getValue().getCliente().getUsername());
 					}
 				});
-		veicolo_noleggio.setCellValueFactory(
+		veicoloNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
 						return new SimpleStringProperty(tmp.getValue().getVeicolo().getModello());
 					}
 				});
-		azioni_noleggio.setCellValueFactory(
+		azioniNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Noleggio, Button> param) {
@@ -164,7 +164,7 @@ public class NoleggiUtentiController implements Initializable, DataInitializable
 			e.printStackTrace();
 		}
 		ObservableList<Noleggio> listaob = FXCollections.observableList(listaNol);
-		tabella_noleggi.setItems(listaob);
+		tabellaNoleggi.setItems(listaob);
 	}
 
 }

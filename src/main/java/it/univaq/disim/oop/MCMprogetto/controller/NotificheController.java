@@ -25,17 +25,17 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 	private NoleggioService noleggioservice;
 
 	@FXML
-	private TableView<Noleggio> tabella_notifiche_prenotazioni;
+	private TableView<Noleggio> tabellaNotifichePrenotazioni;
 	@FXML
-	private TableColumn<Noleggio, String> veicolo_prenotazioni;
+	private TableColumn<Noleggio, String> veicoloPrenotazioni;
 	@FXML
-	private TableColumn<Noleggio, String> dettagli_prenotazioni;
+	private TableColumn<Noleggio, String> dettagliPrenotazioni;
 	@FXML
-	private TableView<Noleggio> tabella_notifiche_assistenza;
+	private TableView<Noleggio> tabellaNotificheAssistenza;
 	@FXML
-	private TableColumn<Noleggio, String> dettagli_assistenza;
+	private TableColumn<Noleggio, String> dettagliAssistenza;
 	@FXML
-	private TableColumn<Noleggio, String> veicolo_assistenza;
+	private TableColumn<Noleggio, String> veicoloAssistenza;
 
 	public NotificheController() {
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -63,8 +63,8 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 				System.out.println("errore");
 			}
 
-			dettagli_prenotazioni.setCellValueFactory(new PropertyValueFactory<Noleggio, String>("dettagli"));
-			veicolo_prenotazioni.setCellValueFactory(
+			dettagliPrenotazioni.setCellValueFactory(new PropertyValueFactory<Noleggio, String>("dettagli"));
+			veicoloPrenotazioni.setCellValueFactory(
 					new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 						@Override
 						public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
@@ -72,7 +72,7 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 						}
 					});
 			ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta);
-			tabella_notifiche_prenotazioni.setItems(listaNol1);
+			tabellaNotifichePrenotazioni.setItems(listaNol1);
 		} catch (BusinessException e) {
 			System.out.println("errore");
 		}
@@ -87,14 +87,14 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 				}
 			}
 
-			dettagli_assistenza.setCellValueFactory(
+			dettagliAssistenza.setCellValueFactory(
 					new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 						@Override
 						public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
 							return new SimpleStringProperty(tmp.getValue().getAssistenza().getRisposta());
 						}
 					});
-			veicolo_assistenza.setCellValueFactory(
+			veicoloAssistenza.setCellValueFactory(
 					new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 						@Override
 						public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
@@ -102,7 +102,7 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 						}
 					});
 			ObservableList<Noleggio> listaNol2 = FXCollections.observableList(listacompleta);
-			tabella_notifiche_assistenza.setItems(listaNol2);
+			tabellaNotificheAssistenza.setItems(listaNol2);
 		} catch (BusinessException e) {
 			System.out.println("errore");
 		}

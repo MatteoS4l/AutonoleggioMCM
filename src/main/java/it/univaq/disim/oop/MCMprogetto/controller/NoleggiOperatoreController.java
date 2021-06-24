@@ -29,23 +29,23 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 	private NoleggioService noleggioservice;
 
 	@FXML
-	private TableView<Noleggio> tabella_noleggi_op;
+	private TableView<Noleggio> tabellaNoleggiOp;
 	@FXML
-	private TableColumn<Noleggio, Integer> id_noleggio;
+	private TableColumn<Noleggio, Integer> idNoleggio;
 	@FXML
-	private TableColumn<Noleggio, String> veicolo_noleggio;
+	private TableColumn<Noleggio, String> veicoloNoleggio;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> data_in_nol;
+	private TableColumn<Noleggio, LocalDateTime> dataInNol;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> data_fi_nol;
+	private TableColumn<Noleggio, LocalDateTime> dataFiNol;
 	@FXML
-	private TableColumn<Noleggio, String> cliente_nol;
+	private TableColumn<Noleggio, String> clienteNol;
 	@FXML
-	private CheckBox spunta_noleggi;
+	private CheckBox spuntaNoleggi;
 	@FXML
-	private DatePicker ricerca_per_data;
+	private DatePicker ricercaPerData;
 	@FXML
-	private Button bottone_applica;
+	private Button bottoneApplica;
 
 	public NoleggiOperatoreController() {
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -56,31 +56,31 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
 		List<Noleggio> listafiltrata = noleggioservice.FindAllNoleggi();
 
-		if (spunta_noleggi.isSelected()) {
+		if (spuntaNoleggi.isSelected()) {
 			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindNoleggiInCorso());
 		}
 
-		if (ricerca_per_data.getValue() != null) {
+		if (ricercaPerData.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					noleggioservice.FindNoleggiByDataFine(ricerca_per_data.getValue()));
+					noleggioservice.FindNoleggiByDataFine(ricercaPerData.getValue()));
 		}
 
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
-		tabella_noleggi_op.setItems(listaNol);
+		tabellaNoleggiOp.setItems(listaNol);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		id_noleggio.setStyle("-fx-alignment: CENTER;");
-		veicolo_noleggio.setStyle("-fx-alignment: CENTER;");
-		data_in_nol.setStyle("-fx-alignment: CENTER;");
-		data_fi_nol.setStyle("-fx-alignment: CENTER;");
-		cliente_nol.setStyle("-fx-alignment: CENTER;");
+		idNoleggio.setStyle("-fx-alignment: CENTER;");
+		veicoloNoleggio.setStyle("-fx-alignment: CENTER;");
+		dataInNol.setStyle("-fx-alignment: CENTER;");
+		dataFiNol.setStyle("-fx-alignment: CENTER;");
+		clienteNol.setStyle("-fx-alignment: CENTER;");
 
-		id_noleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		data_in_nol.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
-		data_fi_nol.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
-		cliente_nol.setCellValueFactory(
+		idNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
+		dataInNol.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
+		dataFiNol.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
+		clienteNol.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
@@ -91,7 +91,7 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 						}
 					}
 				});
-		veicolo_noleggio.setCellValueFactory(
+		veicoloNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
@@ -109,7 +109,7 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 		} catch (BusinessException e) {
 			/* lista vuota */ }
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
-		tabella_noleggi_op.setItems(listaNol1);
+		tabellaNoleggiOp.setItems(listaNol1);
 	}
 
 	// INTERSEZIONE

@@ -24,7 +24,7 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 	private Utente utente;
 
 	@FXML
-	private Label label_errore;
+	private Label labelErrore;
 	@FXML
 	private TextField nome;
 	@FXML
@@ -34,15 +34,15 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 	@FXML
 	private TextField password;
 	@FXML
-	private DatePicker data_nascita;
+	private DatePicker dataNascita;
 	@FXML
-	private Button modifica_button;
+	private Button modificaButton;
 	@FXML
 	private ChoiceBox<Character> sesso;
 	@FXML
 	private ChoiceBox<String> tipologia;
 	@FXML
-	private Button elimina_button;
+	private Button eliminaButton;
 
 	public SchedaUtenteController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -59,19 +59,19 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 			utente_modificato = new Operatore();
 		}
 		try {
-			utente_modificato.setEta(utenteservice.CalcolaEta(data_nascita.getValue()));
+			utente_modificato.setEta(utenteservice.CalcolaEta(dataNascita.getValue()));
 			utente_modificato.setID(utente.getID());
 			utente_modificato.setNome(nome.getText());
 			utente_modificato.setCognome(cognome.getText());
 			utente_modificato.setUsername(username.getText());
 			utente_modificato.setPassword(password.getText());
-			utente_modificato.setData_nascita(data_nascita.getValue());
+			utente_modificato.setData_nascita(dataNascita.getValue());
 			utente_modificato.setSesso(sesso.getValue());
 
 			utenteservice.updateUtente(utente_modificato);
 			dispatcher.renderView("vistautenti", null, null);
 		} catch (NullPointerException e) {
-			label_errore.setText("Inserire la data");
+			labelErrore.setText("Inserire la data");
 		}
 	}
 
@@ -88,10 +88,10 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 		tipologia.getItems().add("cliente");
 		tipologia.getItems().add("operatore");
 
-		modifica_button.disableProperty().bind(nome.textProperty().isEmpty().or(cognome.textProperty().isEmpty())
+		modificaButton.disableProperty().bind(nome.textProperty().isEmpty().or(cognome.textProperty().isEmpty())
 				.or(username.textProperty().isEmpty()).or(password.textProperty().isEmpty()));
 
-		elimina_button.disableProperty().bind(nome.textProperty().isEmpty().or(cognome.textProperty().isEmpty())
+		eliminaButton.disableProperty().bind(nome.textProperty().isEmpty().or(cognome.textProperty().isEmpty())
 				.or(username.textProperty().isEmpty()).or(password.textProperty().isEmpty()));
 
 	}
@@ -104,7 +104,7 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 		cognome.setText(utente.getCognome());
 		username.setText(utente.getUsername());
 		password.setText(utente.getPassword());
-		data_nascita.setValue(utente.getData_nascita());
+		dataNascita.setValue(utente.getData_nascita());
 		sesso.setValue(utente.getSesso());
 		if (utente instanceof Cliente) {
 			tipologia.setValue("cliente");

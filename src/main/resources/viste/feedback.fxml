@@ -13,14 +13,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.FeedbackController">
    <children>
-      <TableView fx:id="tabella_feedback" layoutX="21.0" layoutY="73.0" prefHeight="361.0" prefWidth="610.0">
+      <TableView fx:id="tabellaFeedback" layoutX="21.0" layoutY="73.0" prefHeight="361.0" prefWidth="610.0">
         <columns>
-          <TableColumn fx:id="utente_tabella" prefWidth="110.0" text="Utente" />
-          <TableColumn fx:id="feedback_tabella" prefWidth="431.0" text="Feedback" />
-            <TableColumn fx:id="rating_tabella" prefWidth="67.0" text="Rating" />
+          <TableColumn fx:id="utenteTabella" prefWidth="110.0" text="Utente" />
+          <TableColumn fx:id="feedbackTabella" prefWidth="431.0" text="Feedback" />
+            <TableColumn fx:id="ratingTabella" prefWidth="67.0" text="Rating" />
         </columns>
       </TableView>
-      <Label fx:id="label_veicolo" layoutX="21.0" layoutY="21.0" prefHeight="22.0" prefWidth="543.0" text="Feedback di: ">
+      <Label fx:id="labelVeicolo" layoutX="21.0" layoutY="21.0" prefHeight="22.0" prefWidth="543.0" text="Feedback di: ">
          <font>
             <Font name="Britannic Bold" size="21.0" />
          </font>

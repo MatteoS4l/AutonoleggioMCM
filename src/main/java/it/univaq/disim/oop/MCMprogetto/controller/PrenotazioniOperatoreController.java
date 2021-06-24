@@ -33,23 +33,23 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 	private Noleggio noleggio;
 
 	@FXML
-	private TableView<Noleggio> tabella_prenotazioni;
+	private TableView<Noleggio> tabellaPrenotazioni;
 	@FXML
-	private TableColumn<Noleggio, String> cliente_pren;
+	private TableColumn<Noleggio, String> clientePren;
 	@FXML
-	private TableColumn<Noleggio, String> veicolo_pren;
+	private TableColumn<Noleggio, String> veicoloPren;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> data_inizio_pren;
+	private TableColumn<Noleggio, LocalDateTime> dataInizioPren;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> data_fine_pren;
+	private TableColumn<Noleggio, LocalDateTime> dataFinePren;
 	@FXML
-	private TableColumn<Noleggio, Button> azioni_pren;
+	private TableColumn<Noleggio, Button> azioniPren;
 	@FXML
-	private TextField text_riposta;
+	private TextField textRisposta;
 	@FXML
-	private Button bottone_risposta;
+	private Button bottoneRisposta;
 	@FXML
-	private Label label_risposta;
+	private Label labelRisposta;
 
 	public PrenotazioniOperatoreController() {
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -59,32 +59,32 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 	@FXML
 	void InviaRisposta(ActionEvent event) throws BusinessException {
 
-		noleggio.setDettagli(text_riposta.getText());
+		noleggio.setDettagli(textRisposta.getText());
 		noleggioservice.updateNoleggio(noleggio);
-		label_risposta.setVisible(true);
+		labelRisposta.setVisible(true);
 		initialize(null, null);
 
 	}
 
 	void mostraCose(Noleggio noleggio) {
 		this.noleggio = noleggio;
-		text_riposta.setVisible(true);
-		bottone_risposta.setVisible(true);
+		textRisposta.setVisible(true);
+		bottoneRisposta.setVisible(true);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		label_risposta.setVisible(false);
-		text_riposta.setVisible(false);
-		bottone_risposta.setVisible(false);
+		labelRisposta.setVisible(false);
+		textRisposta.setVisible(false);
+		bottoneRisposta.setVisible(false);
 
-		cliente_pren.setStyle("-fx-alignment: CENTER;");
-		veicolo_pren.setStyle("-fx-alignment: CENTER;");
-		data_inizio_pren.setStyle("-fx-alignment: CENTER;");
-		data_fine_pren.setStyle("-fx-alignment: CENTER;");
-		azioni_pren.setStyle("-fx-alignment: CENTER;");
+		clientePren.setStyle("-fx-alignment: CENTER;");
+		veicoloPren.setStyle("-fx-alignment: CENTER;");
+		dataInizioPren.setStyle("-fx-alignment: CENTER;");
+		dataFinePren.setStyle("-fx-alignment: CENTER;");
+		azioniPren.setStyle("-fx-alignment: CENTER;");
 
-		cliente_pren.setCellValueFactory(
+		clientePren.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
@@ -95,7 +95,7 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 						}
 					}
 				});
-		veicolo_pren.setCellValueFactory(
+		veicoloPren.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
@@ -106,9 +106,9 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 						}
 					}
 				});
-		data_inizio_pren.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
-		data_fine_pren.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
-		azioni_pren.setCellValueFactory(
+		dataInizioPren.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
+		dataFinePren.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
+		azioniPren.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Noleggio, Button> param) {
@@ -137,7 +137,7 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 		}
 
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
-		tabella_prenotazioni.setItems(listaNol1);
+		tabellaPrenotazioni.setItems(listaNol1);
 
 	}
 

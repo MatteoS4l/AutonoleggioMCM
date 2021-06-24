@@ -8,20 +8,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.Noleggi_OperatoreController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.Noleggi_OperatoreController">
    <children>
-      <TableView fx:id="tabella_noleggi_op" layoutX="4.0" layoutY="96.0" prefHeight="294.0" prefWidth="643.0">
+      <TableView fx:id="tabellaNoleggiOp" layoutX="4.0" layoutY="96.0" prefHeight="294.0" prefWidth="643.0">
         <columns>
-          <TableColumn fx:id="id_noleggio" prefWidth="64.0" text="ID" />
-          <TableColumn fx:id="veicolo_noleggio" prefWidth="126.0" text="Veicolo" />
-            <TableColumn fx:id="data_in_nol" prefWidth="150.0" text="Data inizio" />
-            <TableColumn fx:id="data_fi_nol" prefWidth="150.0" text="Data fine" />
-            <TableColumn fx:id="cliente_nol" prefWidth="151.0" text="Cliente" />
+          <TableColumn fx:id="idNoleggio" prefWidth="64.0" text="ID" />
+          <TableColumn fx:id="veicoloNoleggio" prefWidth="126.0" text="Veicolo" />
+            <TableColumn fx:id="dataInNol" prefWidth="150.0" text="Data inizio" />
+            <TableColumn fx:id="dataFiNol" prefWidth="150.0" text="Data fine" />
+            <TableColumn fx:id="clienteNol" prefWidth="151.0" text="Cliente" />
         </columns>
       </TableView>
-      <CheckBox fx:id="spunta_noleggi" layoutX="376.0" layoutY="40.0" mnemonicParsing="false" text="In corso" />
-      <DatePicker fx:id="ricerca_per_data" layoutX="82.0" layoutY="36.0" />
-      <Button fx:id="bottone_applica" layoutX="560.0" layoutY="36.0" mnemonicParsing="false" onAction="#ApplicaFiltri" text="Applica" />
+      <CheckBox fx:id="spuntaNoleggi" layoutX="376.0" layoutY="40.0" mnemonicParsing="false" text="In corso" />
+      <DatePicker fx:id="ricercaPerData" layoutX="82.0" layoutY="36.0" />
+      <Button fx:id="bottoneApplica" layoutX="560.0" layoutY="36.0" mnemonicParsing="false" onAction="#ApplicaFiltri" text="Applica" />
       <Label layoutX="26.0" layoutY="14.0" text="Visualizza i noleggi in riconsegna in una specifica data" />
    </children>
 </AnchorPane>

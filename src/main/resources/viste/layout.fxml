@@ -24,6 +24,6 @@
       </Pane>
    </top>
    <left>
-      <VBox fx:id="barra_menu" opacity="0.92" prefHeight="450.0" prefWidth="150.0" style="-fx-background-color: #C45050;" BorderPane.alignment="CENTER" />
+      <VBox fx:id="barraMenu" opacity="0.92" prefHeight="450.0" prefWidth="150.0" style="-fx-background-color: #C45050;" BorderPane.alignment="CENTER" />
    </left>
 </BorderPane>

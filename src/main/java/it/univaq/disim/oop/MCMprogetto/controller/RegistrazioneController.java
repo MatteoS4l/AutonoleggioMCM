@@ -29,25 +29,25 @@ public class RegistrazioneController implements Initializable, DataInitializable
 	@FXML
 	private ImageView logo;
 	@FXML
-	private TextField nome_registrazione;
+	private TextField nomeRegistrazione;
 	@FXML
-	private TextField cognome_registrazione;
+	private TextField cognomeRegistrazione;
 	@FXML
-	private TextField username_registrazione;
+	private TextField usernameRegistrazione;
 	@FXML
-	private PasswordField password_registrazione;
+	private PasswordField passwordRegistrazione;
 	@FXML
-	private PasswordField conferma_pass_registrazione;
+	private PasswordField confermaPassRegistrazione;
 	@FXML
-	private DatePicker data_di_nascita_registrazione;
+	private DatePicker dataDiNascitaRegistrazione;
 	@FXML
-	private Button conferma_registrazione;
+	private Button confermaRegistrazione;
 	@FXML
-	private ChoiceBox<Character> sesso_registrazione;
+	private ChoiceBox<Character> sessoRegistrazione;
 	@FXML
-	private ChoiceBox<String> tipologia_registrazione;
+	private ChoiceBox<String> tipologiaRegistrazione;
 	@FXML
-	private Label label_errore;
+	private Label labelErrore;
 
 	public RegistrazioneController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -60,21 +60,21 @@ public class RegistrazioneController implements Initializable, DataInitializable
 		try {
 			Utente utente = null;
 
-			if (tipologia_registrazione.getValue().equalsIgnoreCase("operatore")) {
+			if (tipologiaRegistrazione.getValue().equalsIgnoreCase("operatore")) {
 				utente = new Operatore();
 			}
 			utente = new Cliente();
 
-			utente.setNome(nome_registrazione.getText());
-			utente.setCognome(cognome_registrazione.getText());
-			utente.setUsername(username_registrazione.getText());
-			utente.setPassword(password_registrazione.getText());
-			utente.setData_nascita(data_di_nascita_registrazione.getValue());
-			utente.setEta(utenteservice.CalcolaEta(data_di_nascita_registrazione.getValue()));
-			utente.setSesso(sesso_registrazione.getValue());
+			utente.setNome(nomeRegistrazione.getText());
+			utente.setCognome(cognomeRegistrazione.getText());
+			utente.setUsername(usernameRegistrazione.getText());
+			utente.setPassword(passwordRegistrazione.getText());
+			utente.setData_nascita(dataDiNascitaRegistrazione.getValue());
+			utente.setEta(utenteservice.CalcolaEta(dataDiNascitaRegistrazione.getValue()));
+			utente.setSesso(sessoRegistrazione.getValue());
 
-			if (!password_registrazione.getText().equals(conferma_pass_registrazione.getText())) {
-				label_errore.setText("Le password non corrispondono!");
+			if (!passwordRegistrazione.getText().equals(confermaPassRegistrazione.getText())) {
+				labelErrore.setText("Le password non corrispondono!");
 			} else {
 				try {
 					utenteservice.createUtente(utente);
@@ -86,7 +86,7 @@ public class RegistrazioneController implements Initializable, DataInitializable
 			}
 
 		} catch (NullPointerException e) {
-			label_errore.setText("Inserire la data");
+			labelErrore.setText("Inserire la data");
 		}
 	}
 
@@ -104,25 +104,25 @@ public class RegistrazioneController implements Initializable, DataInitializable
 		if (utente instanceof Amministratore) {
 			logo.setVisible(false);
 		}
-		conferma_registrazione.disableProperty()
-				.bind(nome_registrazione.textProperty().isEmpty().or(cognome_registrazione.textProperty().isEmpty())
-						.or(username_registrazione.textProperty().isEmpty())
-						.or(data_di_nascita_registrazione.promptTextProperty().isEmpty())
-						.or(password_registrazione.textProperty().isEmpty())
-						.or(conferma_pass_registrazione.textProperty().isEmpty()));
+		confermaRegistrazione.disableProperty()
+				.bind(nomeRegistrazione.textProperty().isEmpty().or(cognomeRegistrazione.textProperty().isEmpty())
+						.or(usernameRegistrazione.textProperty().isEmpty())
+						.or(dataDiNascitaRegistrazione.promptTextProperty().isEmpty())
+						.or(passwordRegistrazione.textProperty().isEmpty())
+						.or(confermaPassRegistrazione.textProperty().isEmpty()));
 	}
 
 	@Override
 	public void initializeData(Utente utente) {
 		this.utente = utente;
 
-		sesso_registrazione.getItems().add('M');
-		sesso_registrazione.getItems().add('F');
-		sesso_registrazione.setValue('M');
-		tipologia_registrazione.getItems().add("Cliente");
-		tipologia_registrazione.setValue("Cliente");
+		sessoRegistrazione.getItems().add('M');
+		sessoRegistrazione.getItems().add('F');
+		sessoRegistrazione.setValue('M');
+		tipologiaRegistrazione.getItems().add("Cliente");
+		tipologiaRegistrazione.setValue("Cliente");
 		if (utente instanceof Amministratore) {
-			tipologia_registrazione.getItems().add("Operatore");
+			tipologiaRegistrazione.getItems().add("Operatore");
 			logo.setVisible(false);
 		}
 	}
