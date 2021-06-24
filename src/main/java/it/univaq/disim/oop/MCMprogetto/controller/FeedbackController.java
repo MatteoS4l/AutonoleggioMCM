@@ -50,21 +50,6 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 		feedbackservice = factory.getFeedbackService();
 	}
 
-	@FXML // TORNA INDIETRO
-	void TornaIndietro(MouseEvent event) {
-		if (utente instanceof Amministratore) {
-			dispatcher.renderView("scheda_veicolo", veicolo, null);
-		}
-
-		if (utente instanceof Operatore) {
-			dispatcher.renderView("vistaveicoli", utente, null);
-		}
-
-		if (utente instanceof Cliente) {
-			dispatcher.renderView("scheda_noleggio", veicolo, utente);
-		}
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		utenteTabella.setStyle("-fx-alignment: CENTER;");
@@ -98,6 +83,21 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 		ObservableList<Feedback> listaFeed = FXCollections.observableList(listafeedback);
 		tabellaFeedback.setItems(listaFeed);
 
+	}
+
+	@FXML // TORNA INDIETRO
+	void TornaIndietro(MouseEvent event) {
+		if (utente instanceof Amministratore) {
+			dispatcher.renderView("scheda_veicolo", veicolo, null);
+		}
+
+		if (utente instanceof Operatore) {
+			dispatcher.renderView("vistaveicoli", utente, null);
+		}
+
+		if (utente instanceof Cliente) {
+			dispatcher.renderView("scheda_noleggio", veicolo, utente);
+		}
 	}
 
 }

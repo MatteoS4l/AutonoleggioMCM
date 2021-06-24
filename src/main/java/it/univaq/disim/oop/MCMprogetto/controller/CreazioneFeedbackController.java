@@ -62,6 +62,23 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 		feedbackservice = factory.getFeedbackService();
 	}
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		piena1.setVisible(false);
+		piena2.setVisible(false);
+		piena3.setVisible(false);
+		piena4.setVisible(false);
+		piena5.setVisible(false);
+	}
+
+	@Override
+	public void initializeData(Utente utente, Noleggio noleggio) {
+		this.utente = utente;
+		this.veicolo = noleggio.getVeicolo();
+		this.noleggio = noleggio;
+		labelNome.setText(veicolo.getModello());
+	}
+
 	@FXML // INVIA FEEDBACK
 	void inviafeedback(MouseEvent event) {
 		try {
@@ -159,22 +176,5 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 	}
 
 	/************************ FINE STELLE **********************/
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		piena1.setVisible(false);
-		piena2.setVisible(false);
-		piena3.setVisible(false);
-		piena4.setVisible(false);
-		piena5.setVisible(false);
-	}
-
-	@Override
-	public void initializeData(Utente utente, Noleggio noleggio) {
-		this.utente = utente;
-		this.veicolo = noleggio.getVeicolo();
-		this.noleggio = noleggio;
-		labelNome.setText(veicolo.getModello());
-	}
 
 }

@@ -55,6 +55,37 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 		tipologiaservice = factory.getTipologiaService();
 	}
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		labelErrore.setVisible(false);
+		try {
+			stato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
+			tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
+
+			modificaButton.disableProperty()
+					.bind(modello.textProperty().isEmpty().or(alimentazione.textProperty().isEmpty())
+							.or(targa.textProperty().isEmpty()).or(kilometraggio.textProperty().isEmpty())
+							.or(tariffaKm.textProperty().isEmpty()).or(tariffaGiorno.textProperty().isEmpty()));
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void initializeData(Veicolo veicolo, Utente utente) {
+		this.veicolo = veicolo;
+		this.utente = utente;
+
+		modello.setText(veicolo.getModello());
+		tipologia.setValue(veicolo.getTipologia());
+		stato.setValue(veicolo.getStato());
+		alimentazione.setText(veicolo.getAlimentazione());
+		targa.setText(veicolo.getTarga());
+		kilometraggio.setText(String.valueOf(veicolo.getChilometri()));
+		tariffaKm.setText(String.valueOf(veicolo.getTariffa_chilometraggio()));
+		tariffaGiorno.setText(String.valueOf(veicolo.getTariffa_periodo()));
+	}
+
 	@FXML // MODIFICA
 	void ModificaVeicolo(ActionEvent event) throws BusinessException {
 		Veicolo veicolo_modificato = new Veicolo();
@@ -97,37 +128,6 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 	@FXML // VEDI FEEDBACK
 	void VisualizzaFeedback(ActionEvent event) {
 		dispatcher.renderView("feedback", veicolo, utente);
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		labelErrore.setVisible(false);
-		try {
-			stato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
-			tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
-
-			modificaButton.disableProperty()
-					.bind(modello.textProperty().isEmpty().or(alimentazione.textProperty().isEmpty())
-							.or(targa.textProperty().isEmpty()).or(kilometraggio.textProperty().isEmpty())
-							.or(tariffaKm.textProperty().isEmpty()).or(tariffaGiorno.textProperty().isEmpty()));
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void initializeData(Veicolo veicolo, Utente utente) {
-		this.veicolo = veicolo;
-		this.utente = utente;
-
-		modello.setText(veicolo.getModello());
-		tipologia.setValue(veicolo.getTipologia());
-		stato.setValue(veicolo.getStato());
-		alimentazione.setText(veicolo.getAlimentazione());
-		targa.setText(veicolo.getTarga());
-		kilometraggio.setText(String.valueOf(veicolo.getChilometri()));
-		tariffaKm.setText(String.valueOf(veicolo.getTariffa_chilometraggio()));
-		tariffaGiorno.setText(String.valueOf(veicolo.getTariffa_periodo()));
 	}
 
 }

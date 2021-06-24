@@ -50,6 +50,32 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 	@FXML
 	private ChoiceBox<String> choiceboxStato;
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		labelErrore.setText("");
+		bottoneAggiungi.disableProperty()
+				.bind(textfieldTarga.textProperty().isEmpty().or(textfieldModello.textProperty().isEmpty())
+						.or(textfieldKmTot.textProperty().isEmpty()).or(textfieldKm.textProperty().isEmpty())
+						.or(textfieldGiorno.textProperty().isEmpty()));
+
+		try {
+			choiceboxTipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
+			choiceboxTipologia.setValue("berlina");
+			choiceboxAlimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
+			choiceboxAlimentazione.setValue("benzina");
+			choiceboxStato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
+			choiceboxStato.setValue("disponibile");
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void initializeData(Utente utente) {
+		this.utente = utente;
+	}
+
 	public AggModVeicoloController() {
 		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -97,32 +123,6 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 	@FXML // TORNA INDIETRO
 	void TornaIndietro(ActionEvent event) {
 		dispatcher.renderView("vistaveicoli", utente, null);
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		labelErrore.setText("");
-		bottoneAggiungi.disableProperty()
-				.bind(textfieldTarga.textProperty().isEmpty().or(textfieldModello.textProperty().isEmpty())
-						.or(textfieldKmTot.textProperty().isEmpty()).or(textfieldKm.textProperty().isEmpty())
-						.or(textfieldGiorno.textProperty().isEmpty()));
-
-		try {
-			choiceboxTipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
-			choiceboxTipologia.setValue("berlina");
-			choiceboxAlimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
-			choiceboxAlimentazione.setValue("benzina");
-			choiceboxStato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
-			choiceboxStato.setValue("disponibile");
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	@Override
-	public void initializeData(Utente utente) {
-		this.utente = utente;
 	}
 
 }

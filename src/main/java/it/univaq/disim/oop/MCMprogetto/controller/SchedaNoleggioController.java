@@ -50,6 +50,22 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 		noleggioservice = factory.getNoleggioService();
 	}
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		selezioneTariffaKm.setSelected(true);
+		labelErrore.setVisible(false);
+		bottoneNoleggio.disableProperty()
+				.bind(dataInizioNol.valueProperty().isNull().or(dataFineNol.valueProperty().isNull()));
+	}
+
+	@Override
+	public void initializeData(Veicolo veicolo, Utente utente) {
+		this.veicolo = veicolo;
+		this.utente = utente;
+		labelModelloMacchina.setText(veicolo.getModello());
+		labelPreventivo.setVisible(false);
+	}
+
 	@FXML // CALCOLA PREVENTIVO
 	double calcolaPreventivo(ActionEvent event) throws BusinessException {
 		try {
@@ -124,23 +140,6 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	@FXML // FEEDBACK
 	void visualizzaFeed(ActionEvent event) {
 		dispatcher.renderView("feedback", veicolo, utente);
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		selezioneTariffaKm.setSelected(true);
-		labelErrore.setVisible(false);
-		bottoneNoleggio.disableProperty()
-				.bind(dataInizioNol.valueProperty().isNull().or(dataFineNol.valueProperty().isNull()));
-
-	}
-
-	@Override
-	public void initializeData(Veicolo veicolo, Utente utente) {
-		this.veicolo = veicolo;
-		this.utente = utente;
-		labelModelloMacchina.setText(veicolo.getModello());
-		labelPreventivo.setVisible(false);
 	}
 
 }

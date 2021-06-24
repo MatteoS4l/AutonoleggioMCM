@@ -56,22 +56,6 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 		noleggioservice = factory.getNoleggioService();
 	}
 
-	@FXML
-	void InviaRisposta(ActionEvent event) throws BusinessException {
-
-		noleggio.setDettagli(textRisposta.getText());
-		noleggioservice.updateNoleggio(noleggio);
-		labelRisposta.setVisible(true);
-		initialize(null, null);
-
-	}
-
-	void mostraCose(Noleggio noleggio) {
-		this.noleggio = noleggio;
-		textRisposta.setVisible(true);
-		bottoneRisposta.setVisible(true);
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		labelRisposta.setVisible(false);
@@ -138,7 +122,22 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
 		tabellaPrenotazioni.setItems(listaNol1);
+	}
 
+	@FXML
+	void InviaRisposta(ActionEvent event) throws BusinessException {
+
+		noleggio.setDettagli(textRisposta.getText());
+		noleggioservice.updateNoleggio(noleggio);
+		labelRisposta.setVisible(true);
+		initialize(null, null);
+
+	}
+
+	void mostraCose(Noleggio noleggio) {
+		this.noleggio = noleggio;
+		textRisposta.setVisible(true);
+		bottoneRisposta.setVisible(true);
 	}
 
 }

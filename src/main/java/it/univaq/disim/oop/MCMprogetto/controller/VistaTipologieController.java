@@ -45,21 +45,6 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 		tipologiaservice = factory.getTipologiaService();
 	}
 
-	@FXML // AGGIUNGI TIPOLOGIA
-	void AggiungiTipologia(ActionEvent event) {
-		try {
-			Tipologia t = new Tipologia();
-			t.setTipologia(nuovaTipologia.getText());
-			tipologiaservice.createTipologia(t);
-			labelErrore.setText("");
-		} catch (BusinessException e) {
-			labelErrore.setText("Tipologia già esistente !");
-		}
-
-		nuovaTipologia.clear();
-		initialize(null, null);
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		aggiungiButton.disableProperty().bind(nuovaTipologia.textProperty().isEmpty());
@@ -97,7 +82,20 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 		ObservableList<Tipologia> listaT = FXCollections.observableList(listatipologie);
 		tabellaTipologie.setItems(listaT);
 		tabellaTipologie.setItems(listaT);
-
 	}
 
+	@FXML // AGGIUNGI TIPOLOGIA
+	void AggiungiTipologia(ActionEvent event) {
+		try {
+			Tipologia t = new Tipologia();
+			t.setTipologia(nuovaTipologia.getText());
+			tipologiaservice.createTipologia(t);
+			labelErrore.setText("");
+		} catch (BusinessException e) {
+			labelErrore.setText("Tipologia già esistente !");
+		}
+
+		nuovaTipologia.clear();
+		initialize(null, null);
+	}
 }

@@ -58,32 +58,6 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 		noleggioservice = factory.getNoleggioService();
 	}
 
-	@FXML // APPLICA FILTRI
-	void ApplicaFiltri(ActionEvent event) throws BusinessException {
-		List<Noleggio> listafiltrata = noleggioservice.FindAllNoleggi();
-
-		if (checkNoleggiIncorso.isSelected()) {
-			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindNoleggiInCorso());
-		}
-
-		if (boxAssistenza.getValue() != null) {
-			listafiltrata = Intersezione(listafiltrata,
-					noleggioservice.FindNoleggiByAssistenza(boxAssistenza.getValue()));
-		}
-
-		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
-		tabellaNoleggi.setItems(listaNol);
-	}
-
-	// VEDI DETTAGLI
-	private void VediDettagli(Noleggio noleggio) {
-		if (noleggio.getAssistenza() == null) {
-			textDettagli.setText("Nessuna assistenza ricevuta per questo noleggio");
-		} else {
-			textDettagli.setText(noleggio.getAssistenza().getDettagli());
-		}
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		boxAssistenza.getItems().add("SI");
@@ -146,10 +120,35 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 		}
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listacompleta);
 		tabellaNoleggi.setItems(listaNol);
-
 	}
 
-//	INTERSEZIONE FRA LE LISTE
+	@FXML // APPLICA FILTRI
+	void ApplicaFiltri(ActionEvent event) throws BusinessException {
+		List<Noleggio> listafiltrata = noleggioservice.FindAllNoleggi();
+
+		if (checkNoleggiIncorso.isSelected()) {
+			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindNoleggiInCorso());
+		}
+
+		if (boxAssistenza.getValue() != null) {
+			listafiltrata = Intersezione(listafiltrata,
+					noleggioservice.FindNoleggiByAssistenza(boxAssistenza.getValue()));
+		}
+
+		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
+		tabellaNoleggi.setItems(listaNol);
+	}
+
+	// VEDI DETTAGLI
+	private void VediDettagli(Noleggio noleggio) {
+		if (noleggio.getAssistenza() == null) {
+			textDettagli.setText("Nessuna assistenza ricevuta per questo noleggio");
+		} else {
+			textDettagli.setText(noleggio.getAssistenza().getDettagli());
+		}
+	}
+
+	// INTERSEZIONE FRA LE LISTE
 	public List<Noleggio> Intersezione(List<Noleggio> list1, List<Noleggio> list2) {
 		List<Noleggio> list = new ArrayList<Noleggio>();
 		for (int i = 0; i < list1.size(); i++) {

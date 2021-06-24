@@ -47,11 +47,6 @@ public class LayoutController implements Initializable, DataInitializable<Utente
 		dispatcher = ViewDispatcher.getInstance();
 	}
 
-	@FXML // LOGOUT
-	void Logout(MouseEvent event) {
-		dispatcher.logout();
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -80,6 +75,11 @@ public class LayoutController implements Initializable, DataInitializable<Utente
 				barraMenu.getChildren().add(createButton(m));
 			}
 		}
+	}
+
+	@FXML // LOGOUT
+	void Logout(MouseEvent event) {
+		dispatcher.logout();
 	}
 
 	// metodo che serve per creare un bottone nella BARRA_MENU

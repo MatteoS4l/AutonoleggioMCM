@@ -50,11 +50,6 @@ public class VistaUtentiController implements Initializable, DataInitializable<U
 		utenteservice = factory.getUtenteService();
 	}
 
-	@FXML
-	void AggiungiUtente(ActionEvent event) {
-		dispatcher.renderView("registrazione", utente, null);
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		idTabellaUtenti.setStyle("-fx-alignment: CENTER;");
@@ -97,7 +92,11 @@ public class VistaUtentiController implements Initializable, DataInitializable<U
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
+	}
 
+	@FXML
+	void AggiungiUtente(ActionEvent event) {
+		dispatcher.renderView("registrazione", utente, null);
 	}
 
 }

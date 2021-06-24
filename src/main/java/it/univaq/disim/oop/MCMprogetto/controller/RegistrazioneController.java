@@ -55,6 +55,34 @@ public class RegistrazioneController implements Initializable, DataInitializable
 		utenteservice = factory.getUtenteService();
 	}
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		if (utente instanceof Amministratore) {
+			logo.setVisible(false);
+		}
+		confermaRegistrazione.disableProperty()
+				.bind(nomeRegistrazione.textProperty().isEmpty().or(cognomeRegistrazione.textProperty().isEmpty())
+						.or(usernameRegistrazione.textProperty().isEmpty())
+						.or(dataDiNascitaRegistrazione.promptTextProperty().isEmpty())
+						.or(passwordRegistrazione.textProperty().isEmpty())
+						.or(confermaPassRegistrazione.textProperty().isEmpty()));
+	}
+
+	@Override
+	public void initializeData(Utente utente) {
+		this.utente = utente;
+
+		sessoRegistrazione.getItems().add('M');
+		sessoRegistrazione.getItems().add('F');
+		sessoRegistrazione.setValue('M');
+		tipologiaRegistrazione.getItems().add("Cliente");
+		tipologiaRegistrazione.setValue("Cliente");
+		if (utente instanceof Amministratore) {
+			tipologiaRegistrazione.getItems().add("Operatore");
+			logo.setVisible(false);
+		}
+	}
+
 	@FXML // CONFERMA
 	void Conferma_Registrazione(ActionEvent event) throws BusinessException {
 		try {
@@ -96,34 +124,6 @@ public class RegistrazioneController implements Initializable, DataInitializable
 			dispatcher.renderView("vistautenti", utente, null);
 		} else {
 			dispatcher.logout();
-		}
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		if (utente instanceof Amministratore) {
-			logo.setVisible(false);
-		}
-		confermaRegistrazione.disableProperty()
-				.bind(nomeRegistrazione.textProperty().isEmpty().or(cognomeRegistrazione.textProperty().isEmpty())
-						.or(usernameRegistrazione.textProperty().isEmpty())
-						.or(dataDiNascitaRegistrazione.promptTextProperty().isEmpty())
-						.or(passwordRegistrazione.textProperty().isEmpty())
-						.or(confermaPassRegistrazione.textProperty().isEmpty()));
-	}
-
-	@Override
-	public void initializeData(Utente utente) {
-		this.utente = utente;
-
-		sessoRegistrazione.getItems().add('M');
-		sessoRegistrazione.getItems().add('F');
-		sessoRegistrazione.setValue('M');
-		tipologiaRegistrazione.getItems().add("Cliente");
-		tipologiaRegistrazione.setValue("Cliente");
-		if (utente instanceof Amministratore) {
-			tipologiaRegistrazione.getItems().add("Operatore");
-			logo.setVisible(false);
 		}
 	}
 

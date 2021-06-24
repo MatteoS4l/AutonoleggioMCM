@@ -57,22 +57,6 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 		veicoloservice = factory.getVeicoloService();
 	}
 
-	@FXML // AGGIUNGI
-	void AggiungiVeicolo(ActionEvent event) {
-		dispatcher.renderView("agg_mod_veicolo", utente, null);
-	}
-
-	@FXML // FILTRA VEICOLI
-	void FiltraVeicoli(ActionEvent event) {
-		try {
-			List<Veicolo> listaveicoli = veicoloservice.FindListaVeicoliByStato(filtroStatoVeicolo.getValue());
-			ObservableList<Veicolo> listaV = FXCollections.observableList(listaveicoli);
-			tabellaVeicoli.setItems(listaV);
-		} catch (BusinessException e) {
-			System.out.println("errore");
-		}
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		modelloVeicolo.setStyle("-fx-alignment: CENTER;");
@@ -130,7 +114,22 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 		if (utente instanceof Operatore) {
 			aggiungiVeicoloButton.setVisible(false);
 		}
+	}
 
+	@FXML // AGGIUNGI
+	void AggiungiVeicolo(ActionEvent event) {
+		dispatcher.renderView("agg_mod_veicolo", utente, null);
+	}
+
+	@FXML // FILTRA VEICOLI
+	void FiltraVeicoli(ActionEvent event) {
+		try {
+			List<Veicolo> listaveicoli = veicoloservice.FindListaVeicoliByStato(filtroStatoVeicolo.getValue());
+			ObservableList<Veicolo> listaV = FXCollections.observableList(listaveicoli);
+			tabellaVeicoli.setItems(listaV);
+		} catch (BusinessException e) {
+			System.out.println("errore");
+		}
 	}
 
 }

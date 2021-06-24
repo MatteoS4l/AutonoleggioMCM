@@ -65,45 +65,6 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 		noleggioservice = factory.getNoleggioService();
 	}
 
-	@FXML // INVIA RICHIESTA
-	void InviaRichiesta(ActionEvent event) {
-		if (noleggio.getAssistenza() == null) {
-			try {
-				Assistenza assistenza = new Assistenza();
-
-				assistenza.setDettagli(textDettagliRichiesta.getText());
-				assistenza.setCliente(noleggio.getCliente());
-				assistenza.setVeicolo(noleggio.getVeicolo());
-				int id_assistenza = assistenzaservice.createAssistenza(assistenza);
-				assistenza.setID(id_assistenza);
-
-				noleggio.setAssistenza(assistenza);
-				noleggioservice.updateNoleggio(noleggio);
-
-				labelAvviso.setVisible(true);
-				labelErrore.setVisible(false);
-			} catch (BusinessException e) {
-				System.out.println("errore");
-			}
-		} else {
-			labelErrore.setVisible(true);
-		}
-
-		initialize(null, null);
-	}
-
-	// RICHIEDI
-	private void RichiediAssistenza(Noleggio nol) {
-		this.noleggio = nol;
-		if (noleggio.getAssistenza() != null) {
-			labelErrore.setVisible(true);
-		} else {
-			textDettagliRichiesta.setVisible(true);
-			inviaButton.setVisible(true);
-			labelErrore.setVisible(false);
-		}
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		labelAvviso.setVisible(false);
@@ -121,8 +82,7 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 		azioniNoleggio.setStyle("-fx-alignment: CENTER;");
 
 		idNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		dataInizioNoleggio
-				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));
+		dataInizioNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));
 		dataFineNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataFineNoleggio"));
 		clienteNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
@@ -165,6 +125,45 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 		}
 		ObservableList<Noleggio> listaob = FXCollections.observableList(listaNol);
 		tabellaNoleggi.setItems(listaob);
+	}
+
+	@FXML // INVIA RICHIESTA
+	void InviaRichiesta(ActionEvent event) {
+		if (noleggio.getAssistenza() == null) {
+			try {
+				Assistenza assistenza = new Assistenza();
+
+				assistenza.setDettagli(textDettagliRichiesta.getText());
+				assistenza.setCliente(noleggio.getCliente());
+				assistenza.setVeicolo(noleggio.getVeicolo());
+				int id_assistenza = assistenzaservice.createAssistenza(assistenza);
+				assistenza.setID(id_assistenza);
+
+				noleggio.setAssistenza(assistenza);
+				noleggioservice.updateNoleggio(noleggio);
+
+				labelAvviso.setVisible(true);
+				labelErrore.setVisible(false);
+			} catch (BusinessException e) {
+				System.out.println("errore");
+			}
+		} else {
+			labelErrore.setVisible(true);
+		}
+
+		initialize(null, null);
+	}
+
+	// RICHIEDI
+	private void RichiediAssistenza(Noleggio nol) {
+		this.noleggio = nol;
+		if (noleggio.getAssistenza() != null) {
+			labelErrore.setVisible(true);
+		} else {
+			textDettagliRichiesta.setVisible(true);
+			inviaButton.setVisible(true);
+			labelErrore.setVisible(false);
+		}
 	}
 
 }

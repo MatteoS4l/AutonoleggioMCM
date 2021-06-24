@@ -63,41 +63,6 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 		assistenzaservice = factory.getAssistenzaService();
 	}
 
-	@FXML // INVIA RISPOSTA
-	void inviaRispostaAssistenza(ActionEvent event) throws BusinessException {
-		assistenza.setRisposta(textRispostaAssistenza.getText());
-		assistenza.setServita(true);
-		assistenzaservice.updateAssistenza(assistenza);
-
-		textRispostaAssistenza.clear();
-		textRispostaAssistenza.setVisible(false);
-		labelRispostaAssistenza.setVisible(true);
-		bottoneInvio.setVisible(false);
-
-		initialize(null, null);
-	}
-
-	void mostraCose(Assistenza assistenza) {
-		this.assistenza = assistenza;
-		sceltaAssistenza.setVisible(true);
-		bottoneConferma.setVisible(true);
-	}
-
-	@FXML
-	void confermaSelezione(ActionEvent event) {
-		try {
-			if (sceltaAssistenza.getValue().equalsIgnoreCase("Manutenzione")) {
-				textRispostaAssistenza.setVisible(true);
-				bottoneInvio.setVisible(true);
-			} else {
-				dispatcher.renderView("sostituzione", utente, assistenza);
-			}
-		} catch (NullPointerException e) {
-			System.out.println("errore");
-		}
-
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		sceltaAssistenza.getItems().addAll("Manutenzione", "Sostituzione");
@@ -165,6 +130,41 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 	@Override
 	public void initializeData(Utente utente) {
 		this.utente = utente;
+	}
+
+	@FXML // INVIA RISPOSTA
+	void inviaRispostaAssistenza(ActionEvent event) throws BusinessException {
+		assistenza.setRisposta(textRispostaAssistenza.getText());
+		assistenza.setServita(true);
+		assistenzaservice.updateAssistenza(assistenza);
+
+		textRispostaAssistenza.clear();
+		textRispostaAssistenza.setVisible(false);
+		labelRispostaAssistenza.setVisible(true);
+		bottoneInvio.setVisible(false);
+
+		initialize(null, null);
+	}
+
+	void mostraCose(Assistenza assistenza) {
+		this.assistenza = assistenza;
+		sceltaAssistenza.setVisible(true);
+		bottoneConferma.setVisible(true);
+	}
+
+	@FXML
+	void confermaSelezione(ActionEvent event) {
+		try {
+			if (sceltaAssistenza.getValue().equalsIgnoreCase("Manutenzione")) {
+				textRispostaAssistenza.setVisible(true);
+				bottoneInvio.setVisible(true);
+			} else {
+				dispatcher.renderView("sostituzione", utente, assistenza);
+			}
+		} catch (NullPointerException e) {
+			System.out.println("errore");
+		}
+
 	}
 
 }

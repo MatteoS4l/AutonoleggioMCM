@@ -79,6 +79,54 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 		noleggioservice = factory.getNoleggioService();
 	}
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			boxAlimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
+			boxAlimentazione.getItems().add("Tutte");
+			try {
+				boxTipologia.getItems().addAll(tipologiaservice.findAllTipologia());
+			} catch (TipologiaNonTrovataException e1) {
+				/* lista vuota */ }
+			boxTipologia.getItems().add("Tutte");
+
+			colVeicolo.setStyle("-fx-alignment: CENTER;");
+			colAlimentazione.setStyle("-fx-alignment: CENTER;");
+			colTipologia.setStyle("-fx-alignment: CENTER;");
+			colKm.setStyle("-fx-alignment: CENTER;");
+			colGiorno.setStyle("-fx-alignment: CENTER;");
+			colAzioni.setStyle("-fx-alignment: CENTER;");
+
+			colVeicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
+			colAlimentazione.setCellValueFactory(new PropertyValueFactory<>("alimentazione"));
+			colTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+			colKm.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
+			colGiorno.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
+			colAzioni.setCellValueFactory(
+					new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>() {
+						@Override
+						public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
+							final Button noleggiaButton = new Button("noleggia");
+							noleggiaButton.setOnAction(new EventHandler<ActionEvent>() {
+								@Override
+								public void handle(ActionEvent event) {
+									dispatcher.renderView("scheda_noleggio", param.getValue(), utente);
+								}
+							});
+							return new SimpleObjectProperty<Button>(noleggiaButton);
+						}
+					});
+			ApplicaFiltri(null);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void initializeData(Utente utente) {
+		this.utente = utente;
+	}
+
 	@FXML // APPLICA FILTRI
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
@@ -143,54 +191,6 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 
 		ObservableList<Veicolo> listavn1 = FXCollections.observableArrayList(listafiltrata);
 		listaFiltrata.setItems(listavn1);
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			boxAlimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
-			boxAlimentazione.getItems().add("Tutte");
-			try {
-				boxTipologia.getItems().addAll(tipologiaservice.findAllTipologia());
-			} catch (TipologiaNonTrovataException e1) {
-				/* lista vuota */ }
-			boxTipologia.getItems().add("Tutte");
-
-			colVeicolo.setStyle("-fx-alignment: CENTER;");
-			colAlimentazione.setStyle("-fx-alignment: CENTER;");
-			colTipologia.setStyle("-fx-alignment: CENTER;");
-			colKm.setStyle("-fx-alignment: CENTER;");
-			colGiorno.setStyle("-fx-alignment: CENTER;");
-			colAzioni.setStyle("-fx-alignment: CENTER;");
-
-			colVeicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
-			colAlimentazione.setCellValueFactory(new PropertyValueFactory<>("alimentazione"));
-			colTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-			colKm.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
-			colGiorno.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
-			colAzioni.setCellValueFactory(
-					new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>() {
-						@Override
-						public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
-							final Button noleggiaButton = new Button("noleggia");
-							noleggiaButton.setOnAction(new EventHandler<ActionEvent>() {
-								@Override
-								public void handle(ActionEvent event) {
-									dispatcher.renderView("scheda_noleggio", param.getValue(), utente);
-								}
-							});
-							return new SimpleObjectProperty<Button>(noleggiaButton);
-						}
-					});
-			ApplicaFiltri(null);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void initializeData(Utente utente) {
-		this.utente = utente;
 	}
 
 	// INTERSEZIONE FRA LE LISTE

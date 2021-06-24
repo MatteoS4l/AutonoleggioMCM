@@ -47,28 +47,6 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 	@FXML
 	private Button bottoneApplica;
 
-	public NoleggiOperatoreController() {
-		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
-		noleggioservice = factory.getNoleggioService();
-	}
-
-	@FXML // APPLICA FILTRI
-	void ApplicaFiltri(ActionEvent event) throws BusinessException {
-		List<Noleggio> listafiltrata = noleggioservice.FindAllNoleggi();
-
-		if (spuntaNoleggi.isSelected()) {
-			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindNoleggiInCorso());
-		}
-
-		if (ricercaPerData.getValue() != null) {
-			listafiltrata = Intersezione(listafiltrata,
-					noleggioservice.FindNoleggiByDataFine(ricercaPerData.getValue()));
-		}
-
-		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
-		tabellaNoleggiOp.setItems(listaNol);
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		idNoleggio.setStyle("-fx-alignment: CENTER;");
@@ -110,6 +88,28 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 			/* lista vuota */ }
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
 		tabellaNoleggiOp.setItems(listaNol1);
+	}
+
+	public NoleggiOperatoreController() {
+		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
+		noleggioservice = factory.getNoleggioService();
+	}
+
+	@FXML // APPLICA FILTRI
+	void ApplicaFiltri(ActionEvent event) throws BusinessException {
+		List<Noleggio> listafiltrata = noleggioservice.FindAllNoleggi();
+
+		if (spuntaNoleggi.isSelected()) {
+			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindNoleggiInCorso());
+		}
+
+		if (ricercaPerData.getValue() != null) {
+			listafiltrata = Intersezione(listafiltrata,
+					noleggioservice.FindNoleggiByDataFine(ricercaPerData.getValue()));
+		}
+
+		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
+		tabellaNoleggiOp.setItems(listaNol);
 	}
 
 	// INTERSEZIONE

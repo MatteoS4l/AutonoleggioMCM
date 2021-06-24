@@ -75,47 +75,6 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 		veicoloservice = factory.getVeicoloService();
 	}
 
-	@FXML // VEDI COSTO
-	void vediCosto(ActionEvent event) {
-		try {
-			double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(textSetKm.getText());
-			i /= 1000;
-			labelCostoTot.setText(Double.toString(i) + "€");
-			labelCostoTot.setVisible(true);
-			bottonePagamento.setVisible(true);
-		} catch (NumberFormatException e) {
-			labelErrore.setVisible(true);
-		}
-	}
-
-	@FXML // REGISTRA PAGAMENTO
-	void registraPagamento(MouseEvent event) throws BusinessException, InterruptedException {
-		try {
-			double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(textSetKm.getText());
-			noleggio.setPrezzo_noleggio(i / 1000);
-			noleggioservice.updateNoleggio(noleggio);
-			labelSuccesso.setVisible(true);
-			veicolo.setChilometri(veicolo.getChilometri() + Integer.parseInt(textSetKm.getText()));
-			veicoloservice.updateVeicolo(veicolo);
-
-			initialize(null, null);
-		} catch (NumberFormatException e) {
-			labelErrore.setVisible(true);
-		}
-	}
-
-	// MOSTRA COSE
-	void mostraCose(Noleggio noleggio) {
-		this.noleggio = noleggio;
-		this.veicolo = noleggio.getVeicolo();
-		labelTariffaDid.setVisible(true);
-		labelTariffaEuro.setVisible(true);
-		labelKmCliente.setVisible(true);
-		labelTariffaEuro.setText(Double.toString(noleggio.getVeicolo().getTariffa_chilometraggio()) + "€");
-		textSetKm.setVisible(true);
-		bottoneCosto.setVisible(true);
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		textSetKm.setVisible(false);
@@ -183,6 +142,47 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 
 		ObservableList<Noleggio> lista1 = FXCollections.observableList(lista);
 		tabellaPagamento.setItems(lista1);
+	}
+
+	@FXML // VEDI COSTO
+	void vediCosto(ActionEvent event) {
+		try {
+			double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(textSetKm.getText());
+			i /= 1000;
+			labelCostoTot.setText(Double.toString(i) + "€");
+			labelCostoTot.setVisible(true);
+			bottonePagamento.setVisible(true);
+		} catch (NumberFormatException e) {
+			labelErrore.setVisible(true);
+		}
+	}
+
+	@FXML // REGISTRA PAGAMENTO
+	void registraPagamento(MouseEvent event) throws BusinessException, InterruptedException {
+		try {
+			double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(textSetKm.getText());
+			noleggio.setPrezzo_noleggio(i / 1000);
+			noleggioservice.updateNoleggio(noleggio);
+			labelSuccesso.setVisible(true);
+			veicolo.setChilometri(veicolo.getChilometri() + Integer.parseInt(textSetKm.getText()));
+			veicoloservice.updateVeicolo(veicolo);
+
+			initialize(null, null);
+		} catch (NumberFormatException e) {
+			labelErrore.setVisible(true);
+		}
+	}
+
+	// MOSTRA COSE
+	void mostraCose(Noleggio noleggio) {
+		this.noleggio = noleggio;
+		this.veicolo = noleggio.getVeicolo();
+		labelTariffaDid.setVisible(true);
+		labelTariffaEuro.setVisible(true);
+		labelKmCliente.setVisible(true);
+		labelTariffaEuro.setText(Double.toString(noleggio.getVeicolo().getTariffa_chilometraggio()) + "€");
+		textSetKm.setVisible(true);
+		bottoneCosto.setVisible(true);
 	}
 
 }

@@ -50,37 +50,6 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 		utenteservice = factory.getUtenteService();
 	}
 
-	@FXML // MODIFICA
-	void ConfermaModifica(ActionEvent event) throws BusinessException {
-		Utente utente_modificato;
-		if (tipologia.getValue().equalsIgnoreCase("cliente")) {
-			utente_modificato = new Cliente();
-		} else {
-			utente_modificato = new Operatore();
-		}
-		try {
-			utente_modificato.setEta(utenteservice.CalcolaEta(dataNascita.getValue()));
-			utente_modificato.setID(utente.getID());
-			utente_modificato.setNome(nome.getText());
-			utente_modificato.setCognome(cognome.getText());
-			utente_modificato.setUsername(username.getText());
-			utente_modificato.setPassword(password.getText());
-			utente_modificato.setData_nascita(dataNascita.getValue());
-			utente_modificato.setSesso(sesso.getValue());
-
-			utenteservice.updateUtente(utente_modificato);
-			dispatcher.renderView("vistautenti", null, null);
-		} catch (NullPointerException e) {
-			labelErrore.setText("Inserire la data");
-		}
-	}
-
-	@FXML // ELIMINA
-	void Elimina(ActionEvent event) throws BusinessException {
-		utenteservice.deleteUtente(utente);
-		dispatcher.renderView("vistautenti", null, null);
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		sesso.getItems().add('M');
@@ -111,7 +80,37 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 		} else {
 			tipologia.setValue("operatore");
 		}
+	}
 
+	@FXML // MODIFICA
+	void ConfermaModifica(ActionEvent event) throws BusinessException {
+		Utente utente_modificato;
+		if (tipologia.getValue().equalsIgnoreCase("cliente")) {
+			utente_modificato = new Cliente();
+		} else {
+			utente_modificato = new Operatore();
+		}
+		try {
+			utente_modificato.setEta(utenteservice.CalcolaEta(dataNascita.getValue()));
+			utente_modificato.setID(utente.getID());
+			utente_modificato.setNome(nome.getText());
+			utente_modificato.setCognome(cognome.getText());
+			utente_modificato.setUsername(username.getText());
+			utente_modificato.setPassword(password.getText());
+			utente_modificato.setData_nascita(dataNascita.getValue());
+			utente_modificato.setSesso(sesso.getValue());
+
+			utenteservice.updateUtente(utente_modificato);
+			dispatcher.renderView("vistautenti", null, null);
+		} catch (NullPointerException e) {
+			labelErrore.setText("Inserire la data");
+		}
+	}
+
+	@FXML // ELIMINA
+	void Elimina(ActionEvent event) throws BusinessException {
+		utenteservice.deleteUtente(utente);
+		dispatcher.renderView("vistautenti", null, null);
 	}
 
 }

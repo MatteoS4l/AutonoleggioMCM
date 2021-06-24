@@ -74,53 +74,7 @@ public class SostituzioneController implements Initializable, DataInitializable<
 		noleggioservice = factory.getNoleggioService();
 		assistenzaservice = factory.getAssistenzaService();
 	}
-
-	@FXML // INVIA NOTIFICA
-	void inviaNotificaSostituzione(ActionEvent event) {
-		try {
-			noleggio.setVeicolo(veicolo);
-			noleggio.setServita(false);
-			assistenza.setRisposta(invioRispostaSos.getText());
-			assistenza.setServita(true);
-			noleggioservice.updateNoleggio(noleggio);
-			assistenzaservice.updateAssistenza(assistenza);
-			successoSos.setVisible(true);
-
-			dataInizioSos.setValue(null);
-			dataFineSos.setValue(null);
-			invioRispostaSos.clear();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// SCEGLI VEICOLO SOSTITUTIVO
-	void creaNoleggioSostituzione(Veicolo veicolo) {
-		this.veicolo = noleggio.getVeicolo();
-		this.veicolo.setStato("non disponibile");
-		try {
-			veicoloservice.updateVeicolo(this.veicolo);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-
-		this.veicolo = veicolo;
-
-		dataInizioSos.setVisible(true);
-		dataFineSos.setVisible(true);
-		invioRispostaSos.setVisible(true);
-		labelInizio.setVisible(true);
-		labelFine.setVisible(true);
-		bottoneSos.setVisible(true);
-
-		dataInizioSos.setValue(LocalDate.now());
-		dataInizioSos.setEditable(false);
-		dataFineSos.setValue(noleggio.getData_fine_noleggio().toLocalDate());
-		dataFineSos.setEditable(false);
-		invioRispostaSos.setText("Il tuo veicolo sostitutivo sarà disponibile dal "
-				+ dataInizioSos.getValue().toString() + " al " + dataFineSos.getValue().toString());
-	}
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		List<Veicolo> listaveicoli = null;
@@ -179,7 +133,54 @@ public class SostituzioneController implements Initializable, DataInitializable<
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-
 	}
+
+	@FXML // INVIA NOTIFICA
+	void inviaNotificaSostituzione(ActionEvent event) {
+		try {
+			noleggio.setVeicolo(veicolo);
+			noleggio.setServita(false);
+			assistenza.setRisposta(invioRispostaSos.getText());
+			assistenza.setServita(true);
+			noleggioservice.updateNoleggio(noleggio);
+			assistenzaservice.updateAssistenza(assistenza);
+			successoSos.setVisible(true);
+
+			dataInizioSos.setValue(null);
+			dataFineSos.setValue(null);
+			invioRispostaSos.clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// SCEGLI VEICOLO SOSTITUTIVO
+	void creaNoleggioSostituzione(Veicolo veicolo) {
+		this.veicolo = noleggio.getVeicolo();
+		this.veicolo.setStato("non disponibile");
+		try {
+			veicoloservice.updateVeicolo(this.veicolo);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		}
+
+		this.veicolo = veicolo;
+
+		dataInizioSos.setVisible(true);
+		dataFineSos.setVisible(true);
+		invioRispostaSos.setVisible(true);
+		labelInizio.setVisible(true);
+		labelFine.setVisible(true);
+		bottoneSos.setVisible(true);
+
+		dataInizioSos.setValue(LocalDate.now());
+		dataInizioSos.setEditable(false);
+		dataFineSos.setValue(noleggio.getData_fine_noleggio().toLocalDate());
+		dataFineSos.setEditable(false);
+		invioRispostaSos.setText("Il tuo veicolo sostitutivo sarà disponibile dal "
+				+ dataInizioSos.getValue().toString() + " al " + dataFineSos.getValue().toString());
+	}
+
+	
 
 }
