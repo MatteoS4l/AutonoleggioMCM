@@ -91,7 +91,7 @@ public class RilascioFeedbackController implements Initializable, DataInitializa
 
 		try {
 			List<Noleggio> listaNol2 = new ArrayList<Noleggio>();
-			listaNol2 = noleggioservice.FindNoleggiByUtente(utente);
+			listaNol2 = noleggioservice.findNoleggiByUtente(utente);
 			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
 			for (Noleggio tmp : listaNol2) {

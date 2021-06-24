@@ -49,7 +49,7 @@ public class RAMUtenteService implements UtenteService
 
 
 	@Override	// GET LISTA UTENTI
-	public List<Utente> FindAllUtenti(Amministratore admin) throws BusinessException
+	public List<Utente> findAllUtenti(Amministratore admin) throws BusinessException
 	{	return listautenti; 	}
 
 
@@ -107,7 +107,7 @@ public class RAMUtenteService implements UtenteService
 
 
 	@Override	// GET UTENTE BY ID
-	public Utente FindUtenteById(int id) throws UtenteNonTrovatoException, BusinessException
+	public Utente findUtenteById(int id) throws UtenteNonTrovatoException, BusinessException
 	{
 		for (Utente tmp : listautenti)
 		{	

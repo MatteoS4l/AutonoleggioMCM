@@ -74,7 +74,7 @@ public class FileUtenteService implements UtenteService
 	
 	
 	@Override	// GET LISTA UTENTI
-	public List<Utente> FindAllUtenti(Amministratore admin) throws BusinessException
+	public List<Utente> findAllUtenti(Amministratore admin) throws BusinessException
 	{	try
 		{
 			FileData filedata = Utility.readAllRows("utenti");		// elimina anche gli spazi
@@ -261,7 +261,7 @@ public class FileUtenteService implements UtenteService
 
 
 	@Override	// GET UTENTE BY ID
-	public Utente FindUtenteById(int id) throws UtenteNonTrovatoException, BusinessException
+	public Utente findUtenteById(int id) throws UtenteNonTrovatoException, BusinessException
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("utenti");	

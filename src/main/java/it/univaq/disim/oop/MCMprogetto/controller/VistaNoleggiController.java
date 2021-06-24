@@ -37,7 +37,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 	@FXML
 	private TableColumn<Noleggio, Integer> idNoleggio;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> dataInizioIoleggio;
+	private TableColumn<Noleggio, LocalDateTime> dataInizioNoleggio;
 	@FXML
 	private TableColumn<Noleggio, LocalDateTime> dataFineNoleggio;
 	@FXML
@@ -65,15 +65,14 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 		boxAssistenza.getItems().add("Tutte");
 
 		idNoleggio.setStyle("-fx-alignment: CENTER;");
-		dataInizioIoleggio.setStyle("-fx-alignment: CENTER;");
+		dataInizioNoleggio.setStyle("-fx-alignment: CENTER;");
 		dataFineNoleggio.setStyle("-fx-alignment: CENTER;");
 		veicoloNoleggio.setStyle("-fx-alignment: CENTER;");
 		clienteNoleggio.setStyle("-fx-alignment: CENTER;");
 		azioniNoleggio.setStyle("-fx-alignment: CENTER;");
 
 		idNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		dataInizioIoleggio
-				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
+		dataInizioNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
 		dataFineNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
 		clienteNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
@@ -114,7 +113,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		try {
-			listacompleta = noleggioservice.FindAllNoleggi();
+			listacompleta = noleggioservice.findAllNoleggi();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -124,15 +123,15 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 
 	@FXML // APPLICA FILTRI
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
-		List<Noleggio> listafiltrata = noleggioservice.FindAllNoleggi();
+		List<Noleggio> listafiltrata = noleggioservice.findAllNoleggi();
 
 		if (checkNoleggiIncorso.isSelected()) {
-			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindNoleggiInCorso());
+			listafiltrata = Intersezione(listafiltrata, noleggioservice.findNoleggiInCorso());
 		}
 
 		if (boxAssistenza.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					noleggioservice.FindNoleggiByAssistenza(boxAssistenza.getValue()));
+					noleggioservice.findNoleggiByAssistenza(boxAssistenza.getValue()));
 		}
 
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);

@@ -10,7 +10,7 @@ public interface UtenteService
 	/* tutte queste variabili è come se fossero (public static final) */
 	Utente Autenticazione(String username, String password) throws UtenteNonTrovatoException, BusinessException;
 	
-	List<Utente> FindAllUtenti(Amministratore admin) throws BusinessException;
+	List<Utente> findAllUtenti(Amministratore admin) throws BusinessException;
 	
 	void createUtente(Utente utente) throws BusinessException;	
 	
@@ -20,7 +20,7 @@ public interface UtenteService
 	
 	void deleteUtente(Utente utente) throws BusinessException;
 	
-	Utente FindUtenteById(int id) throws UtenteNonTrovatoException, BusinessException;
+	Utente findUtenteById(int id) throws UtenteNonTrovatoException, BusinessException;
 	
 	void primaAggiunta ();
 	

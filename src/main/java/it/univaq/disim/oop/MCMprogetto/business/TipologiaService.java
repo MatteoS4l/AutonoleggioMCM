@@ -13,7 +13,7 @@ public interface TipologiaService
 	
 	List<String> findAllTipologia() throws TipologiaNonTrovataException, BusinessException;
 	
-	List<Tipologia> FindAllTipologiaT() throws TipologiaNonTrovataException, BusinessException;
+	List<Tipologia> findAllTipologiaT() throws TipologiaNonTrovataException, BusinessException;
 	
 //	void primaAggiunta () throws BusinessException;
  

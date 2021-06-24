@@ -75,7 +75,7 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 				});
 		List<Tipologia> listatipologie = null;
 		try {
-			listatipologie = tipologiaservice.FindAllTipologiaT();
+			listatipologie = tipologiaservice.findAllTipologiaT();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

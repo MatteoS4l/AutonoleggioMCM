@@ -77,7 +77,7 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 
 		List<Feedback> listafeedback = null;
 		try {
-			listafeedback = feedbackservice.FindAllFeedback(veicolo);
+			listafeedback = feedbackservice.findAllFeedback(veicolo);
 		} catch (BusinessException e) {
 			/* nessun feedback per questo veicolo */ }
 		ObservableList<Feedback> listaFeed = FXCollections.observableList(listafeedback);

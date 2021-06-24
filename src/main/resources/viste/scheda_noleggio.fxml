@@ -12,14 +12,14 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.SchedaNoleggioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.SchedaNoleggioController">
    <children>
       <ImageView fitHeight="450.0" fitWidth="650.0" opacity="0.2" pickOnBounds="true">
          <image>
             <Image url="@../immagini/sfondo_noleggio.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="bottoneNoleggio" layoutX="488.0" layoutY="325.0" mnemonicParsing="false" onAction="#noleggiaAuto" text="Prenota noleggio">
+      <Button fx:id="bottoneNoleggio" layoutX="488.0" layoutY="325.0" mnemonicParsing="false" onAction="#NoleggiaAuto" text="Prenota noleggio">
          <textFill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -59,7 +59,7 @@
          <font>
             <Font name="Lucida Fax Regular" size="15.0" />
          </font></Label>
-      <Button layoutX="70.0" layoutY="325.0" mnemonicParsing="false" onAction="#visualizzaFeed" text="Visualizza feedback">
+      <Button layoutX="70.0" layoutY="325.0" mnemonicParsing="false" onAction="#VisualizzaFeed" text="Visualizza feedback">
          <textFill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>
@@ -79,7 +79,7 @@
          <font>
             <Font size="13.0" />
          </font></Button>
-      <Button fx:id="bottonePreventivo" layoutX="270.0" layoutY="278.0" mnemonicParsing="false" onAction="#calcolaPreventivo" text="Calcola Preventivo">
+      <Button fx:id="bottonePreventivo" layoutX="270.0" layoutY="278.0" mnemonicParsing="false" onAction="#CalcolaPreventivo" text="Calcola Preventivo">
          <textFill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>

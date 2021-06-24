@@ -11,25 +11,25 @@ public interface VeicoloService
 	
 	void deleteVeicolo(Veicolo veicolo) throws BusinessException;
 	
-	List<Veicolo> FindAllVeicoli() throws BusinessException;
+	List<Veicolo> findAllVeicoli() throws BusinessException;
 	
-	List<Veicolo> FindListaVeicoliByStato(String stato) throws BusinessException;
+	List<Veicolo> findListaVeicoliByStato(String stato) throws BusinessException;
 	
-	List<Veicolo> FindListaVeicoliByTipologia(String tipologia) throws BusinessException;
+	List<Veicolo> findListaVeicoliByTipologia(String tipologia) throws BusinessException;
 	
-	List<Veicolo> FindListaVeicoliByAlimentazione(String alimentazione) throws BusinessException;
+	List<Veicolo> findListaVeicoliByAlimentazione(String alimentazione) throws BusinessException;
 	
-	List<Veicolo> FindListaVeicoliByModello(String modello) throws BusinessException;
+	List<Veicolo> findListaVeicoliByModello(String modello) throws BusinessException;
 	
-	List<Veicolo> FindListaVeicoliByTariffaKM(double min, double max) throws BusinessException;
+	List<Veicolo> findListaVeicoliByTariffaKM(double min, double max) throws BusinessException;
 	
-	List<Veicolo> FindListaVeicoliByTariffaPeriodo(double min, double max) throws BusinessException;
+	List<Veicolo> findListaVeicoliByTariffaPeriodo(double min, double max) throws BusinessException;
 	
-	String[] FindListStatoVeicolo() throws BusinessException;
+	String[] findListStatoVeicolo() throws BusinessException;
 	
-	String[] FindListAlimentazioneVeicolo() throws BusinessException;
+	String[] findListAlimentazioneVeicolo() throws BusinessException;
 	
-	Veicolo FindVeicoloById(int id) throws VeicoloNonTrovatoException, BusinessException;
+	Veicolo findVeicoloById(int id) throws VeicoloNonTrovatoException, BusinessException;
 	
 	void primaAggiunta();
 	

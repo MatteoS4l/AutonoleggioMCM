@@ -50,7 +50,7 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 	@Override
 	public void initializeData(Utente utente) {
 		try {
-			List<Noleggio> listanoleggi = noleggioservice.FindNoleggiByUtente(utente);
+			List<Noleggio> listanoleggi = noleggioservice.findNoleggiByUtente(utente);
 			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
 			try {
@@ -78,7 +78,7 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 		}
 
 		try {
-			List<Noleggio> lista_nol = noleggioservice.FindNoleggiByAssistenza("si");
+			List<Noleggio> lista_nol = noleggioservice.findNoleggiByAssistenza("si");
 			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
 			for (Noleggio tmp : lista_nol) {

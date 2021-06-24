@@ -13,7 +13,7 @@ public interface AssistenzaService
 	
 	Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException;
 	
-	List<Assistenza> getLisgdftaAssistenzaByServita(boolean servita) throws BusinessException;
+	List<Assistenza> findListaAssistenzaByServita(boolean servita) throws BusinessException;
 	
 	
 }

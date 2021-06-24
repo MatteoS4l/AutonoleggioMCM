@@ -23,7 +23,7 @@
       <DatePicker fx:id="dataInizioSos" layoutX="33.0" layoutY="333.0" />
       <DatePicker fx:id="dataFineSos" layoutX="33.0" layoutY="392.0" />
       <TextField fx:id="invioRispostaSos" layoutX="258.0" layoutY="333.0" prefHeight="25.0" prefWidth="376.0" />
-      <Button fx:id="bottoneSos" layoutX="423.0" layoutY="367.0" mnemonicParsing="false" onAction="#inviaNotificaSostituzione" prefHeight="25.0" prefWidth="61.0" text="Invia" />
+      <Button fx:id="bottoneSos" layoutX="423.0" layoutY="367.0" mnemonicParsing="false" onAction="#InviaNotificaSostituzione" prefHeight="25.0" prefWidth="61.0" text="Invia" />
       <Label fx:id="successoSos" layoutX="367.0" layoutY="404.0" prefHeight="17.0" prefWidth="174.0" text="Sostituzione andata a buon fine!" textFill="#09bc30" />
       <Label fx:id="labelInizio" layoutX="31.0" layoutY="316.0" text="Inizio noleggio veicolo sostitutivo" />
       <Label fx:id="labelFine" layoutX="34.0" layoutY="371.0" text="Fine noleggio veicolo sostitutivo" />

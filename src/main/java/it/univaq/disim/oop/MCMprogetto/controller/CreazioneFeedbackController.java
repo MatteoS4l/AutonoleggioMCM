@@ -10,6 +10,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -80,7 +81,7 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 	}
 
 	@FXML // INVIA FEEDBACK
-	void inviafeedback(MouseEvent event) {
+	void InviaFeedback(ActionEvent event) {
 		try {
 			Feedback feedback = new Feedback();
 			feedback.setFeedback(recensioneTxtfield.getText());

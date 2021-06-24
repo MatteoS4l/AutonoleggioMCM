@@ -59,8 +59,8 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 	public void initialize(URL location, ResourceBundle resources) {
 		labelErrore.setVisible(false);
 		try {
-			stato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
-			tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
+			stato.getItems().addAll(veicoloservice.findListStatoVeicolo());
+			tipologia.getItems().addAll(tipologiaservice.findAllTipologia());
 
 			modificaButton.disableProperty()
 					.bind(modello.textProperty().isEmpty().or(alimentazione.textProperty().isEmpty())

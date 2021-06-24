@@ -50,13 +50,13 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// ALL NOLEGGI
-	public List<Noleggio> FindAllNoleggi() throws BusinessException
+	public List<Noleggio> findAllNoleggi() throws BusinessException
 	{	return listanoleggi;	}
 	
 	
 	
 	@Override	// TROVA NOLEGGIO BY ID
-	public Noleggio FindNoleggioByID(int ID) throws BusinessException
+	public Noleggio findNoleggioByID(int ID) throws BusinessException
 	{
 		for(Noleggio tmp : listanoleggi)
 		{
@@ -69,7 +69,7 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// LISTA NOLEGGI BY ASSISTENZA
-	public List<Noleggio> FindNoleggiByAssistenza(String assistenza) throws BusinessException
+	public List<Noleggio> findNoleggiByAssistenza(String assistenza) throws BusinessException
 	{
 		List<Noleggio> lista = new ArrayList<Noleggio>();
 		for(Noleggio tmp : listanoleggi)
@@ -94,7 +94,7 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// LISTA NOLEGGI IN CORSO
-	public List<Noleggio> FindNoleggiInCorso() throws BusinessException
+	public List<Noleggio> findNoleggiInCorso() throws BusinessException
 	{
 		List<Noleggio> lista = new ArrayList<Noleggio>();
 		for(Noleggio tmp : listanoleggi)
@@ -108,7 +108,7 @@ public class RAMNoleggioService implements NoleggioService
 
 
 	@Override	// LISTA NOLEGGI UTENTE
-	public List<Noleggio> FindNoleggiByUtente(Utente utente) throws BusinessException
+	public List<Noleggio> findNoleggiByUtente(Utente utente) throws BusinessException
 	{
 		List<Noleggio> lista = new ArrayList<Noleggio>();
 		for(Noleggio tmp : listanoleggi)
@@ -121,7 +121,7 @@ public class RAMNoleggioService implements NoleggioService
 
 
 	@Override	// LISTA NOLEGGI DATA FINE
-	public List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
+	public List<Noleggio> findNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
 	{
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
@@ -135,7 +135,7 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// LISTA NOLEGGI NON PAGATI
-	public List<Noleggio> FindNoleggiByPagamento() throws BusinessException
+	public List<Noleggio> findNoleggiByPagamento() throws BusinessException
 	{
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
@@ -150,7 +150,7 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// NOLEGGI BY DETTAGLI
-	public List<Noleggio> FindNoleggiByDettagli() throws BusinessException 
+	public List<Noleggio> findNoleggiByDettagli() throws BusinessException 
 	{
 		List<Noleggio> listacompleta=new ArrayList<Noleggio>();
 		
@@ -165,7 +165,7 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// CHECK STATO VEICOLI
-	public void CheckStatoVeicoli() throws BusinessException
+	public void checkStatoVeicoli() throws BusinessException
 	{
 		Instance();
 		for(Noleggio tmp : listanoleggi)
@@ -201,9 +201,9 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// VEICOLI DISPONIBILI PER DATA
-	public List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException
+	public List<Veicolo> findVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException
 	{
-		List<Veicolo> listaveicoli = veicoloservice.FindListaVeicoliByStato("tutte");
+		List<Veicolo> listaveicoli = veicoloservice.findListaVeicoliByStato("tutte");
 		List<Veicolo> veicolidaeliminare = new ArrayList<Veicolo>();
 		
 		for(Noleggio tmp : listanoleggi)
@@ -235,7 +235,7 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// FIND NOLEGGIO BY ASSISTENZA ID
-	public Noleggio FindNoleggioByIdAssistenza(int ID) throws BusinessException 
+	public Noleggio findNoleggioByIdAssistenza(int ID) throws BusinessException 
 	{
 		for(Noleggio tmp : listanoleggi)
 		{
@@ -247,7 +247,7 @@ public class RAMNoleggioService implements NoleggioService
 	
 	
 	@Override	// DISPONIBILITA DATE
-	public boolean DisponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException
+	public boolean disponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException
 	{
 		for(Noleggio tmp : listanoleggi)
 		{

@@ -127,7 +127,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								mostraCose(param.getValue());
+								MostraCose(param.getValue());
 							}
 						});
 						return new SimpleObjectProperty<Button>(dettagliButton);
@@ -135,7 +135,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 				});
 		List<Noleggio> lista = null;
 		try {
-			lista = noleggioservice.FindNoleggiByPagamento();
+			lista = noleggioservice.findNoleggiByPagamento();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -145,7 +145,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 	}
 
 	@FXML // VEDI COSTO
-	void vediCosto(ActionEvent event) {
+	void VediCosto(ActionEvent event) {
 		try {
 			double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(textSetKm.getText());
 			i /= 1000;
@@ -158,7 +158,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 	}
 
 	@FXML // REGISTRA PAGAMENTO
-	void registraPagamento(MouseEvent event) throws BusinessException, InterruptedException {
+	void RegistraPagamento(MouseEvent event) throws BusinessException, InterruptedException {
 		try {
 			double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(textSetKm.getText());
 			noleggio.setPrezzo_noleggio(i / 1000);
@@ -174,7 +174,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 	}
 
 	// MOSTRA COSE
-	void mostraCose(Noleggio noleggio) {
+	void MostraCose(Noleggio noleggio) {
 		this.noleggio = noleggio;
 		this.veicolo = noleggio.getVeicolo();
 		labelTariffaDid.setVisible(true);

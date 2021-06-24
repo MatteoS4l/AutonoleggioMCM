@@ -61,9 +61,9 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 		try {
 			choiceboxTipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
 			choiceboxTipologia.setValue("berlina");
-			choiceboxAlimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
+			choiceboxAlimentazione.getItems().addAll(veicoloservice.findListAlimentazioneVeicolo());
 			choiceboxAlimentazione.setValue("benzina");
-			choiceboxStato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
+			choiceboxStato.getItems().addAll(veicoloservice.findListStatoVeicolo());
 			choiceboxStato.setValue("disponibile");
 		} catch (BusinessException e) {
 			e.printStackTrace();
@@ -84,7 +84,7 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 	}
 
 	@FXML // CREA VEICOLO
-	void crea_veicolo(ActionEvent event) throws BusinessException {
+	void CreaVeicolo(ActionEvent event) throws BusinessException {
 		try {
 			Veicolo veicolo = new Veicolo();
 

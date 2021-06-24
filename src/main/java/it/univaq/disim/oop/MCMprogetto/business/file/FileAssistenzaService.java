@@ -19,7 +19,7 @@ public class FileAssistenzaService implements AssistenzaService
 	private UtenteService utenteservice = new FileUtenteService();
 	
 	@Override	// CREA
-	public int createAssistenza(Assistenza assistenza) throws BusinessException
+	public Assistenza createAssistenza(Assistenza assistenza) throws BusinessException
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("assistenza");
@@ -98,7 +98,7 @@ public class FileAssistenzaService implements AssistenzaService
 	
 	
 	@Override	// FIND ALL ASSISTENZA
-	public List<Assistenza> FindAllAssistenza() throws BusinessException
+	public List<Assistenza> findAllAssistenza() throws BusinessException
 	{	try
 		{
 			FileData fileData = Utility.readAllRows("assistenza");	
@@ -112,8 +112,8 @@ public class FileAssistenzaService implements AssistenzaService
 				assistenza.setDettagli(righe[1]);
 				assistenza.setServita(Boolean.parseBoolean(righe[2]));
 				assistenza.setRisposta(righe[3]);
-				assistenza.setVeicolo(veicoloservice.FindVeicoloById(Integer.parseInt(righe[4])));
-				assistenza.setCliente(utenteservice.FindUtenteById(Integer.parseInt(righe[5])));
+				assistenza.setVeicolo(veicoloservice.findVeicoloById(Integer.parseInt(righe[4])));
+				assistenza.setCliente(utenteservice.findUtenteById(Integer.parseInt(righe[5])));
 
 				lista.add(assistenza);
 			}
@@ -133,7 +133,7 @@ public class FileAssistenzaService implements AssistenzaService
 		if(id == 0)
 		{	return null;	}
 		
-		List<Assistenza> lista = FindAllAssistenza();
+		List<Assistenza> lista = findAllAssistenza();
 		
 		for(Assistenza tmp : lista)
 		{
@@ -145,9 +145,9 @@ public class FileAssistenzaService implements AssistenzaService
 
 
 	@Override	// FIND ASSISTENZA SERVITA
-	public List<Assistenza> getListaAssistenzaByServita(boolean servita) throws BusinessException 
+	public List<Assistenza> findListaAssistenzaByServita(boolean servita) throws BusinessException 
 	{
-		List<Assistenza> lista = FindAllAssistenza();
+		List<Assistenza> lista = findAllAssistenza();
 		List<Assistenza> listacompleta = new ArrayList<Assistenza>();
 		
 		for(Assistenza tmp : lista)

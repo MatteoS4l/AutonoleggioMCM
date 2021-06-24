@@ -13,7 +13,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.AssistenzaOperatoreController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.AssistenzaOperatoreController">
    <children>
       <TableView fx:id="tabellaAssistenzaOp" layoutX="3.0" layoutY="83.0" prefHeight="245.0" prefWidth="640.0">
         <columns>
@@ -24,7 +24,7 @@
         </columns>
       </TableView>
       <TextField fx:id="textRispostaAssistenza" layoutX="166.0" layoutY="365.0" prefHeight="33.0" prefWidth="398.0" />
-      <Button fx:id="bottoneInvio" layoutX="564.0" layoutY="365.0" mnemonicParsing="false" onAction="#inviaRispostaAssistenza" prefHeight="33.0" prefWidth="52.0" text="Invia">
+      <Button fx:id="bottoneInvio" layoutX="564.0" layoutY="365.0" mnemonicParsing="false" onAction="#InviaRispostaAssistenza" prefHeight="33.0" prefWidth="52.0" text="Invia">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -46,7 +46,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="bottoneConferma" layoutX="44.0" layoutY="404.0" mnemonicParsing="false" onAction="#confermaSelezione" text="Conferma">
+      <Button fx:id="bottoneConferma" layoutX="44.0" layoutY="404.0" mnemonicParsing="false" onAction="#ConfermaSelezione" text="Conferma">
          <textFill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
                <stops>

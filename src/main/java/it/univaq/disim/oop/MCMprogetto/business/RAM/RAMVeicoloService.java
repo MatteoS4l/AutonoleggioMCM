@@ -59,13 +59,13 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// ALL VEICOLI
-	public List<Veicolo> FindAllVeicoli() throws BusinessException
+	public List<Veicolo> findAllVeicoli() throws BusinessException
 	{	return listaveicoli;	}
 	
 	
 
 	@Override	// GET LISTA VEICOLI STATO
-	public List<Veicolo> FindListaVeicoliByStato(String stato) throws VeicoloNonTrovatoException, BusinessException
+	public List<Veicolo> findListaVeicoliByStato(String stato) throws VeicoloNonTrovatoException, BusinessException
 	{		
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -78,10 +78,10 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	//	GET LISTA VEICOLI TIPOLOGIA
-	public List<Veicolo> FindListaVeicoliByTipologia(String tipologia) throws VeicoloNonTrovatoException, BusinessException
+	public List<Veicolo> findListaVeicoliByTipologia(String tipologia) throws VeicoloNonTrovatoException, BusinessException
 	{	
 		if(tipologia.equalsIgnoreCase("tutte"))
-		{	return FindAllVeicoli();	}
+		{	return findAllVeicoli();	}
 		
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -94,7 +94,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override   //GET LISTA BY ALIMENTAZIONE
-	public List<Veicolo> FindListaVeicoliByAlimentazione(String alimentazione) throws VeicoloNonTrovatoException, BusinessException
+	public List<Veicolo> findListaVeicoliByAlimentazione(String alimentazione) throws VeicoloNonTrovatoException, BusinessException
 	{
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -107,7 +107,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET LISTA BY MODELLO
-	public List<Veicolo> FindListaVeicoliByModello(String modello) throws VeicoloNonTrovatoException, BusinessException
+	public List<Veicolo> findListaVeicoliByModello(String modello) throws VeicoloNonTrovatoException, BusinessException
 	{	
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -121,7 +121,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET LISTA BY TARIFFA_KM
-	public List<Veicolo> FindListaVeicoliByTariffaKM(double min, double max) throws VeicoloNonTrovatoException, BusinessException
+	public List<Veicolo> findListaVeicoliByTariffaKM(double min, double max) throws VeicoloNonTrovatoException, BusinessException
 	{	
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -134,7 +134,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET LISTA BY TARIFFA_PERIODO
-	public List<Veicolo> FindListaVeicoliByTariffaPeriodo(double min, double max) throws VeicoloNonTrovatoException, BusinessException
+	public List<Veicolo> findListaVeicoliByTariffaPeriodo(double min, double max) throws VeicoloNonTrovatoException, BusinessException
 	{
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for(Veicolo tmp : listaveicoli)
@@ -147,7 +147,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET VEICOLO BY ID
-	public Veicolo FindVeicoloById(int id) throws VeicoloNonTrovatoException , BusinessException
+	public Veicolo findVeicoloById(int id) throws VeicoloNonTrovatoException , BusinessException
 	{
 		for (Veicolo tmp: listaveicoli)
 		{
@@ -160,7 +160,7 @@ public class RAMVeicoloService implements VeicoloService
 
 	
 	@Override	// GET STATO VEICOLO
-	public String[] FindListStatoVeicolo()
+	public String[] findListStatoVeicolo()
 	{	
 		String[] s = {"disponibile","non disponibile","in noleggio"};
 		return s;
@@ -168,7 +168,7 @@ public class RAMVeicoloService implements VeicoloService
 	
 	
 	@Override	// GET ALIMENTAZIONE VEICOLO
-	public String[] FindListAlimentazioneVeicolo()
+	public String[] findListAlimentazioneVeicolo()
 	{	
 		String[] s = {"benzina","diesel","gpl"};
 		return s;
@@ -179,7 +179,7 @@ public class RAMVeicoloService implements VeicoloService
 	//	GIA ESISTENTE
 	private Boolean giaEsistente(String targa) throws BusinessException
 	{
-		List<Veicolo> lista = FindAllVeicoli();
+		List<Veicolo> lista = findAllVeicoli();
 		for(Veicolo tmp : lista)
 		{
 			if(targa.equalsIgnoreCase(tmp.getTarga()))

@@ -83,7 +83,7 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 
 		List<Noleggio> listacompleta1 = null;
 		try {
-			listacompleta1 = noleggioservice.FindAllNoleggi();
+			listacompleta1 = noleggioservice.findAllNoleggi();
 		} catch (BusinessException e) {
 			/* lista vuota */ }
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
@@ -97,15 +97,15 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 
 	@FXML // APPLICA FILTRI
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
-		List<Noleggio> listafiltrata = noleggioservice.FindAllNoleggi();
+		List<Noleggio> listafiltrata = noleggioservice.findAllNoleggi();
 
 		if (spuntaNoleggi.isSelected()) {
-			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindNoleggiInCorso());
+			listafiltrata = Intersezione(listafiltrata, noleggioservice.findNoleggiInCorso());
 		}
 
 		if (ricercaPerData.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					noleggioservice.FindNoleggiByDataFine(ricercaPerData.getValue()));
+					noleggioservice.findNoleggiByDataFine(ricercaPerData.getValue()));
 		}
 
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);

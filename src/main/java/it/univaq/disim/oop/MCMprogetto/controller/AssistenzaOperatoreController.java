@@ -110,7 +110,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								mostraCose(param.getValue());
+								MostraCose(param.getValue());
 							}
 						});
 						return new SimpleObjectProperty<Button>(dettagliButton);
@@ -118,7 +118,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 				});
 		try {
 			List<Assistenza> lista_ass = new ArrayList<Assistenza>();
-			lista_ass = assistenzaservice.getListaAssistenzaByServita(false);
+			lista_ass = assistenzaservice.findListaAssistenzaByServita(false);
 			ObservableList<Assistenza> lista_a = FXCollections.observableList(lista_ass);
 			tabellaAssistenzaOp.setItems(lista_a);
 		} catch (BusinessException e) {
@@ -133,7 +133,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 	}
 
 	@FXML // INVIA RISPOSTA
-	void inviaRispostaAssistenza(ActionEvent event) throws BusinessException {
+	void InviaRispostaAssistenza(ActionEvent event) throws BusinessException {
 		assistenza.setRisposta(textRispostaAssistenza.getText());
 		assistenza.setServita(true);
 		assistenzaservice.updateAssistenza(assistenza);
@@ -146,14 +146,14 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 		initialize(null, null);
 	}
 
-	void mostraCose(Assistenza assistenza) {
+	void MostraCose(Assistenza assistenza) {
 		this.assistenza = assistenza;
 		sceltaAssistenza.setVisible(true);
 		bottoneConferma.setVisible(true);
 	}
 
 	@FXML
-	void confermaSelezione(ActionEvent event) {
+	void ConfermaSelezione(ActionEvent event) {
 		try {
 			if (sceltaAssistenza.getValue().equalsIgnoreCase("Manutenzione")) {
 				textRispostaAssistenza.setVisible(true);

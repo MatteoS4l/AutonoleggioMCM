@@ -84,7 +84,7 @@ public class RegistrazioneController implements Initializable, DataInitializable
 	}
 
 	@FXML // CONFERMA
-	void Conferma_Registrazione(ActionEvent event) throws BusinessException {
+	void ConfermaRegistrazione(ActionEvent event) throws BusinessException {
 		try {
 			Utente utente = null;
 
@@ -110,7 +110,7 @@ public class RegistrazioneController implements Initializable, DataInitializable
 					e.printStackTrace();
 				}
 
-				Torna_Indietro(null);
+				TornaIndietro(null);
 			}
 
 		} catch (NullPointerException e) {
@@ -119,7 +119,7 @@ public class RegistrazioneController implements Initializable, DataInitializable
 	}
 
 	@FXML // ANNULLA
-	void Torna_Indietro(ActionEvent event) {
+	void TornaIndietro(ActionEvent event) {
 		if (utente instanceof Amministratore) {
 			dispatcher.renderView("vistautenti", utente, null);
 		} else {

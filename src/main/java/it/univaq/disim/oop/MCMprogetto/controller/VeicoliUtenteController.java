@@ -82,7 +82,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			boxAlimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
+			boxAlimentazione.getItems().addAll(veicoloservice.findListAlimentazioneVeicolo());
 			boxAlimentazione.getItems().add("Tutte");
 			try {
 				boxTipologia.getItems().addAll(tipologiaservice.findAllTipologia());
@@ -130,7 +130,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	@FXML // APPLICA FILTRI
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
-		listacompleta = veicoloservice.FindListaVeicoliByStato("disponibile");
+		listacompleta = veicoloservice.findListaVeicoliByStato("disponibile");
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for (Veicolo tmp : listacompleta) {
 			if (!tmp.getTipologia().equalsIgnoreCase("sostitutivo")) {
@@ -140,20 +140,20 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 
 		if (boxTipologia.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					veicoloservice.FindListaVeicoliByTipologia(boxTipologia.getValue()));
+					veicoloservice.findListaVeicoliByTipologia(boxTipologia.getValue()));
 		}
 
 		if (boxAlimentazione.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					veicoloservice.FindListaVeicoliByAlimentazione(boxAlimentazione.getValue()));
+					veicoloservice.findListaVeicoliByAlimentazione(boxAlimentazione.getValue()));
 		}
 
 		if (!txtModello.getText().isEmpty()) {
-			listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByModello(txtModello.getText()));
+			listafiltrata = Intersezione(listafiltrata, veicoloservice.findListaVeicoliByModello(txtModello.getText()));
 		}
 
 		if (dataInizio.getValue() != null && dataFine.getValue() != null) {
-			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindVeicoliDisponibiliForDate(
+			listafiltrata = Intersezione(listafiltrata, noleggioservice.findVeicoliDisponibiliForDate(
 					dataInizio.getValue().atStartOfDay(), dataFine.getValue().atStartOfDay()));
 		}
 
@@ -170,7 +170,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 				max = Double.parseDouble(txtTariffaGiornoMax.getText());
 			}
 
-			listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTariffaPeriodo(min, max));
+			listafiltrata = Intersezione(listafiltrata, veicoloservice.findListaVeicoliByTariffaPeriodo(min, max));
 		}
 
 		if (!(txtTariffaKmMin.getText().isEmpty() && txtTariffaKmMax.getText().isEmpty())) {
@@ -186,7 +186,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 				max = Double.parseDouble(txtTariffaKmMax.getText());
 			}
 
-			listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTariffaKM(min, max));
+			listafiltrata = Intersezione(listafiltrata, veicoloservice.findListaVeicoliByTariffaKM(min, max));
 		}
 
 		ObservableList<Veicolo> listavn1 = FXCollections.observableArrayList(listafiltrata);

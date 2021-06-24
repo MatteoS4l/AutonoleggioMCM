@@ -119,7 +119,7 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 	public void initializeData(Utente utente) {
 		List<Noleggio> listaNol = new ArrayList<Noleggio>();
 		try {
-			listaNol = noleggioservice.FindNoleggiByUtente(utente);
+			listaNol = noleggioservice.findNoleggiByUtente(utente);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

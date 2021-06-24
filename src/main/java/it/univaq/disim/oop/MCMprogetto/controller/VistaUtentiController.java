@@ -86,7 +86,7 @@ public class VistaUtentiController implements Initializable, DataInitializable<U
 
 		try {
 			// utenteservice.primaAggiunta();
-			List<Utente> listautenti = utenteservice.FindAllUtenti((Amministratore) utente);
+			List<Utente> listautenti = utenteservice.findAllUtenti((Amministratore) utente);
 			ObservableList<Utente> listaU = FXCollections.observableList(listautenti);
 			tabellaUtenti.setItems(listaU);
 		} catch (BusinessException e) {

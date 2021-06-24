@@ -13,29 +13,29 @@ public interface NoleggioService
 	
 	void updateNoleggio(Noleggio noleggio) throws BusinessException;
 	
-	Noleggio FindNoleggioByID(int ID) throws NoleggioNonTrovatoException, BusinessException;
+	Noleggio findNoleggioByID(int ID) throws NoleggioNonTrovatoException, BusinessException;
 	
-	Noleggio FindNoleggioByIdAssistenza(int ID) throws BusinessException;
+	Noleggio findNoleggioByIdAssistenza(int ID) throws BusinessException;
 	
-	List<Noleggio> FindAllNoleggi() throws BusinessException;
+	List<Noleggio> findAllNoleggi() throws BusinessException;
 	
-	List<Noleggio> FindNoleggiByAssistenza(String assistenza) throws BusinessException;
+	List<Noleggio> findNoleggiByAssistenza(String assistenza) throws BusinessException;
 	
-	List<Noleggio> FindNoleggiInCorso() throws BusinessException;
+	List<Noleggio> findNoleggiInCorso() throws BusinessException;
 	
-	List<Noleggio> FindNoleggiByUtente(Utente utente) throws BusinessException;
+	List<Noleggio> findNoleggiByUtente(Utente utente) throws BusinessException;
 	
-	List<Noleggio> FindNoleggiByPagamento() throws BusinessException;
+	List<Noleggio> findNoleggiByPagamento() throws BusinessException;
 	
-	List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException;
+	List<Noleggio> findNoleggiByDataFine(LocalDate data_fine) throws BusinessException;
 	
-	List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException;
+	List<Veicolo> findVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException;
 	
-	List<Noleggio> FindNoleggiByDettagli() throws BusinessException;
+	List<Noleggio> findNoleggiByDettagli() throws BusinessException;
 	
-	boolean DisponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException;
+	boolean disponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException;
 	
-	void CheckStatoVeicoli()throws BusinessException;
+	void checkStatoVeicoli()throws BusinessException;
 	
 	
 	

@@ -115,7 +115,7 @@ public class SostituzioneController implements Initializable, DataInitializable<
 				});
 
 		try {
-			listaveicoli = veicoloservice.FindListaVeicoliByTipologia("sostitutivo");
+			listaveicoli = veicoloservice.findListaVeicoliByTipologia("sostitutivo");
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -129,14 +129,14 @@ public class SostituzioneController implements Initializable, DataInitializable<
 		this.assistenza = assistenza;
 
 		try {
-			this.noleggio = noleggioservice.FindNoleggioByIdAssistenza(assistenza.getID());
+			this.noleggio = noleggioservice.findNoleggioByIdAssistenza(assistenza.getID());
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@FXML // INVIA NOTIFICA
-	void inviaNotificaSostituzione(ActionEvent event) {
+	void InviaNotificaSostituzione(ActionEvent event) {
 		try {
 			noleggio.setVeicolo(veicolo);
 			noleggio.setServita(false);

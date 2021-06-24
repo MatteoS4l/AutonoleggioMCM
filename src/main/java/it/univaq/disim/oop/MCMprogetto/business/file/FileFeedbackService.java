@@ -58,7 +58,7 @@ public class FileFeedbackService implements FeedbackService
 
 	
 	@Override // GET LISTA FEEDBACK
-	public List<Feedback> FindAllFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException
+	public List<Feedback> findAllFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException
 	{	try 
 		{
 			FileData filedata = Utility.readAllRows("feedback");
@@ -75,14 +75,14 @@ public class FileFeedbackService implements FeedbackService
 					
 
 					try 
-					{	feedback.setUtente(utenteservice.FindUtenteById(Integer.parseInt(colonne[2])));	}
+					{	feedback.setUtente(utenteservice.findUtenteById(Integer.parseInt(colonne[2])));	}
 					catch (NumberFormatException e)
 					{	e.printStackTrace();	} 
 					catch (UtenteNonTrovatoException e)
 					{	e.printStackTrace();	}
 
 					try 
-					{	feedback.setVeicolo(veicoloservice.FindVeicoloById(Integer.parseInt(colonne[3])));	}
+					{	feedback.setVeicolo(veicoloservice.findVeicoloById(Integer.parseInt(colonne[3])));	}
 					catch (NumberFormatException e) 
 					{	e.printStackTrace();	} 
 					catch (VeicoloNonTrovatoException e)	

@@ -134,7 +134,7 @@ public class FileNoleggioService implements NoleggioService
 	
 	
 	@Override	// ALL NOLEGGI
-	public List<Noleggio> FindAllNoleggi() throws BusinessException
+	public List<Noleggio> findAllNoleggi() throws BusinessException
 	{	try
 		{
 			FileData filedata = Utility.readAllRows("noleggi");
@@ -148,8 +148,8 @@ public class FileNoleggioService implements NoleggioService
 				noleggio.setID(Integer.parseInt(colonne[0]));
 				noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[1]));
 				noleggio.setAssistenza(assistenzaservice.getAssistenzaByID(Integer.parseInt(colonne[2])));
-				noleggio.setCliente(utenteservice.FindUtenteById(Integer.parseInt(colonne[3])));
-				noleggio.setVeicolo(veicoloservice.FindVeicoloById(Integer.parseInt(colonne[4])));
+				noleggio.setCliente(utenteservice.findUtenteById(Integer.parseInt(colonne[3])));
+				noleggio.setVeicolo(veicoloservice.findVeicoloById(Integer.parseInt(colonne[4])));
 				noleggio.setData_inizio_noleggio(LocalDateTime.parse(colonne[5], formatter));
 				noleggio.setData_fine_noleggio(LocalDateTime.parse(colonne[6], formatter));
 				noleggio.setKM_percorsi(Integer.parseInt(colonne[7]));
@@ -169,9 +169,9 @@ public class FileNoleggioService implements NoleggioService
 	
 	
 	@Override	// TROVA NOLEGGIO BY ID
-	public Noleggio FindNoleggioByID(int ID) throws BusinessException
+	public Noleggio findNoleggioByID(int ID) throws BusinessException
 	{	
-		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> lista = findAllNoleggi();
 		
 		for(Noleggio tmp : lista)
 		{
@@ -186,12 +186,12 @@ public class FileNoleggioService implements NoleggioService
 
 
 	@Override	// LISTA NOLEGGI BY ASSISTENZA
-	public List<Noleggio> FindNoleggiByAssistenza(String assistenza) throws BusinessException
+	public List<Noleggio> findNoleggiByAssistenza(String assistenza) throws BusinessException
 	{	
 		if(assistenza.equalsIgnoreCase("tutte"))
-		{	return FindAllNoleggi();	}
+		{	return findAllNoleggi();	}
 		
-		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
@@ -214,9 +214,9 @@ public class FileNoleggioService implements NoleggioService
 		
 		
 	@Override	// LISTA NOLEGGI IN CORSO
-	public List<Noleggio> FindNoleggiInCorso() throws BusinessException
+	public List<Noleggio> findNoleggiInCorso() throws BusinessException
 	{	
-		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
@@ -231,9 +231,9 @@ public class FileNoleggioService implements NoleggioService
 
 
 	@Override	// LISTA NOLEGGI UTENTE
-	public List<Noleggio> FindNoleggiByUtente(Utente utente) throws BusinessException
+	public List<Noleggio> findNoleggiByUtente(Utente utente) throws BusinessException
 	{	
-		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
@@ -252,9 +252,9 @@ public class FileNoleggioService implements NoleggioService
 	
 	
 	@Override	// LISTA NOLEGGI DATA FINE
-	public List<Noleggio> FindNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
+	public List<Noleggio> findNoleggiByDataFine(LocalDate data_fine) throws BusinessException 
 	{
-		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
@@ -268,9 +268,9 @@ public class FileNoleggioService implements NoleggioService
 	
 	
 	@Override	// LISTA NOLEGGI NON PAGATI
-	public List<Noleggio> FindNoleggiByPagamento() throws BusinessException
+	public List<Noleggio> findNoleggiByPagamento() throws BusinessException
 	{
-		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp : lista)
@@ -283,9 +283,9 @@ public class FileNoleggioService implements NoleggioService
 	
 	
 	@Override	// NOLEGGI BY DETTAGLI
-	public List<Noleggio> FindNoleggiByDettagli() throws BusinessException 
+	public List<Noleggio> findNoleggiByDettagli() throws BusinessException 
 	{
-		List<Noleggio> listanol=FindAllNoleggi();
+		List<Noleggio> listanol=findAllNoleggi();
 		List<Noleggio> listacompleta=new ArrayList<Noleggio>();
 		
 		for(Noleggio tmp: listanol)
@@ -300,9 +300,9 @@ public class FileNoleggioService implements NoleggioService
 	
 
 	@Override	// CHECK STATO VEICOLI
-	public void CheckStatoVeicoli() throws BusinessException
+	public void checkStatoVeicoli() throws BusinessException
 	{
-		List<Noleggio> listanoleggi = FindAllNoleggi();
+		List<Noleggio> listanoleggi = findAllNoleggi();
 		for(Noleggio tmp : listanoleggi)
 		{
 			Veicolo veicolo = new Veicolo();
@@ -335,10 +335,10 @@ public class FileNoleggioService implements NoleggioService
 
 
 	@Override	// VEICOLI DISPONIBILI PER DATA
-	public List<Veicolo> FindVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException
+	public List<Veicolo> findVeicoliDisponibiliForDate(LocalDateTime datainizio, LocalDateTime datafine) throws BusinessException
 	{
-		List<Veicolo> listaveicoli = veicoloservice.FindListaVeicoliByStato("tutte");
-		List<Noleggio> listanoleggi = FindAllNoleggi();
+		List<Veicolo> listaveicoli = veicoloservice.findListaVeicoliByStato("tutte");
+		List<Noleggio> listanoleggi = findAllNoleggi();
 		List<Veicolo> veicolidaeliminare = new ArrayList<Veicolo>();
 		
 		for(Noleggio tmp : listanoleggi)
@@ -370,9 +370,9 @@ public class FileNoleggioService implements NoleggioService
 
 
 	@Override	// FIND NOLEGGIO BY ASSISTENZA ID
-	public Noleggio FindNoleggioByIdAssistenza(int ID) throws BusinessException 
+	public Noleggio findNoleggioByIdAssistenza(int ID) throws BusinessException 
 	{
-		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> lista = findAllNoleggi();
 		
 		for(Noleggio tmp : lista)
 		{
@@ -384,9 +384,9 @@ public class FileNoleggioService implements NoleggioService
 
 
 	@Override	// DISPONIBILITA DATE
-	public boolean DisponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException
+	public boolean disponibilitaDate(LocalDateTime inizio, LocalDateTime fine, Veicolo veicolo) throws BusinessException
 	{
-		List<Noleggio> lista = FindAllNoleggi();
+		List<Noleggio> lista = findAllNoleggi();
 		
 		for(Noleggio tmp : lista)
 		{

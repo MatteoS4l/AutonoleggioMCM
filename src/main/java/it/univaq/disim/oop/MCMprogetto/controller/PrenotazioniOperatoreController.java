@@ -100,7 +100,7 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								mostraCose(param.getValue());
+								MostraCose(param.getValue());
 							}
 						});
 						return new SimpleObjectProperty<Button>(dettagliButton);
@@ -109,7 +109,7 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 
 		List<Noleggio> listacompleta1 = null;
 		try {
-			listacompleta1 = noleggioservice.FindNoleggiByDettagli();
+			listacompleta1 = noleggioservice.findNoleggiByDettagli();
 			for (Noleggio tmp : listacompleta1) {
 				if (tmp.getData_inizio_noleggio().isBefore(LocalDateTime.now())) {
 					listacompleta1.remove(tmp);
@@ -134,7 +134,7 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 
 	}
 
-	void mostraCose(Noleggio noleggio) {
+	void MostraCose(Noleggio noleggio) {
 		this.noleggio = noleggio;
 		textRisposta.setVisible(true);
 		bottoneRisposta.setVisible(true);

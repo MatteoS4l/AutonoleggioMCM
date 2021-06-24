@@ -67,7 +67,7 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	}
 
 	@FXML // CALCOLA PREVENTIVO
-	double calcolaPreventivo(ActionEvent event) throws BusinessException {
+	double CalcolaPreventivo(ActionEvent event) throws BusinessException {
 		try {
 			if (dataInizioNol.getValue() == null || dataFineNol.getValue() == null) {
 				labelErrore.setText("Seleziona correttamente le date !");
@@ -95,14 +95,14 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	}
 
 	@FXML // NOLEGGIA AUTO
-	Noleggio noleggiaAuto(ActionEvent event) throws BusinessException {
-		if (noleggioservice.DisponibilitaDate(dataInizioNol.getValue().atStartOfDay(),
+	Noleggio NoleggiaAuto(ActionEvent event) throws BusinessException {
+		if (noleggioservice.disponibilitaDate(dataInizioNol.getValue().atStartOfDay(),
 				dataFineNol.getValue().atStartOfDay(), veicolo)
 				&& dataFineNol.getValue().isAfter(dataInizioNol.getValue())) {
 			try {
 				Noleggio noleggio = new Noleggio();
 
-				noleggio.setPrezzo_noleggio(calcolaPreventivo(null));
+				noleggio.setPrezzo_noleggio(CalcolaPreventivo(null));
 				noleggio.setAssistenza(null);
 				noleggio.setCliente(utente);
 				noleggio.setVeicolo(veicolo);
@@ -138,7 +138,7 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	}
 
 	@FXML // FEEDBACK
-	void visualizzaFeed(ActionEvent event) {
+	void VisualizzaFeed(ActionEvent event) {
 		dispatcher.renderView("feedback", veicolo, utente);
 	}
 

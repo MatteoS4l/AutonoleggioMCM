@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.AggModVeicoloController">
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.AggModVeicoloController">
    <children>
       <ImageView fx:id="sfondo" fitHeight="450.0" fitWidth="650.0" opacity="0.29">
          <image>
@@ -176,7 +176,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Button fx:id="bottoneAggiungi" alignment="CENTER" layoutX="523.0" layoutY="370.0" mnemonicParsing="false" onAction="#crea_veicolo" prefHeight="35.0" prefWidth="72.0" text="Aggiungi" textAlignment="CENTER">
+      <Button fx:id="bottoneAggiungi" alignment="CENTER" layoutX="523.0" layoutY="370.0" mnemonicParsing="false" onAction="#CreaVeicolo" prefHeight="35.0" prefWidth="72.0" text="Aggiungi" textAlignment="CENTER">
          <textFill>
             <LinearGradient endX="0.8047619047619048" endY="1.0" startX="0.45238095238095233">
                <stops>
