@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class ControllerLogin implements Initializable, DataInitializable<Utente,Object>
+public class LoginController implements Initializable, DataInitializable<Utente,Object>
 {
 	private ViewDispatcher dispatcher;
 	private Utente utente;
@@ -33,7 +33,7 @@ public class ControllerLogin implements Initializable, DataInitializable<Utente,
     private Button accedi_button;
     
     
-    public ControllerLogin()
+    public LoginController()
 	{	
     	dispatcher = ViewDispatcher.getInstance();
     	MCMProgettoFactory factory = MCMProgettoFactory.getInstance();

@@ -24,64 +24,53 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-
-public class ControllerVistaUtenti implements Initializable, DataInitializable<Utente,Object>
-{	
+public class VistaUtentiController implements Initializable, DataInitializable<Utente, Object> {
 	private ViewDispatcher dispatcher;
 	private UtenteService utenteservice;
 	private Utente utente;
-	
+
 	@FXML
-    private TableView<Utente> tabella_utenti;
-    @FXML
-    private TableColumn<Utente, Integer> ID_tabella_utenti;
-    @FXML
-    private TableColumn<Utente, String> nome_tabella_utenti;
-    @FXML
-    private TableColumn<Utente, String> cognome_tabella_utenti;
-    @FXML
-    private TableColumn<Utente, Integer> eta_tabella_utenti;
-    @FXML
-    private TableColumn<Utente, Character> sesso_tabella_utenti;
-    @FXML
-    private TableColumn<Utente, Button> azioni_tabella_utenti;
+	private TableView<Utente> tabella_utenti;
+	@FXML
+	private TableColumn<Utente, Integer> ID_tabella_utenti;
+	@FXML
+	private TableColumn<Utente, String> nome_tabella_utenti;
+	@FXML
+	private TableColumn<Utente, String> cognome_tabella_utenti;
+	@FXML
+	private TableColumn<Utente, Integer> eta_tabella_utenti;
+	@FXML
+	private TableColumn<Utente, Character> sesso_tabella_utenti;
+	@FXML
+	private TableColumn<Utente, Button> azioni_tabella_utenti;
 
-    
-    public ControllerVistaUtenti()
-    {
-    	dispatcher = ViewDispatcher.getInstance();
-    	MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
-    	utenteservice = factory.getUtenteService();
-    }
-    
-    
-    
-   
+	public VistaUtentiController() {
+		dispatcher = ViewDispatcher.getInstance();
+		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
+		utenteservice = factory.getUtenteService();
+	}
 
-    @FXML
-    void AggiungiUtente(ActionEvent event)
-    {	dispatcher.renderView("registrazione", utente, null);    }
-    
-    
-    
+	@FXML
+	void AggiungiUtente(ActionEvent event) {
+		dispatcher.renderView("registrazione", utente, null);
+	}
+
 	@Override
-	public void initialize(URL location, ResourceBundle resources)
-	{
+	public void initialize(URL location, ResourceBundle resources) {
 		ID_tabella_utenti.setStyle("-fx-alignment: CENTER;");
 		nome_tabella_utenti.setStyle("-fx-alignment: CENTER;");
 		cognome_tabella_utenti.setStyle("-fx-alignment: CENTER;");
 		eta_tabella_utenti.setStyle("-fx-alignment: CENTER;");
 		sesso_tabella_utenti.setStyle("-fx-alignment: CENTER;");
 		azioni_tabella_utenti.setStyle("-fx-alignment: CENTER;");
-		
+
 		ID_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		nome_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		cognome_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("cognome"));
 		eta_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("eta"));
 		sesso_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("sesso"));
 		azioni_tabella_utenti.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<Utente, Button>, ObservableValue<Button>>()
-				{
+				new Callback<TableColumn.CellDataFeatures<Utente, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Utente, Button> param) {
 						final Button appelliButton = new Button("visualizza");
@@ -93,42 +82,22 @@ public class ControllerVistaUtenti implements Initializable, DataInitializable<U
 						});
 						return new SimpleObjectProperty<Button>(appelliButton);
 					}
-				});		
+				});
 	}
-
-
 
 	@Override
-	public void initializeData(Utente utente)
-	{	
+	public void initializeData(Utente utente) {
 		this.utente = utente;
-		
-		try
-		{
-			//utenteservice.primaAggiunta();
-			List<Utente> listautenti = utenteservice.FindAllUtenti((Amministratore)utente);
+
+		try {
+			// utenteservice.primaAggiunta();
+			List<Utente> listautenti = utenteservice.FindAllUtenti((Amministratore) utente);
 			ObservableList<Utente> listaU = FXCollections.observableList(listautenti);
 			tabella_utenti.setItems(listaU);
+		} catch (BusinessException e) {
+			e.printStackTrace();
 		}
-		catch (BusinessException e)
-		{	e.printStackTrace();	}
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

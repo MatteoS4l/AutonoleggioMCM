@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.ControllerAggModVeicolo">
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.AggModVeicoloController">
    <children>
       <ImageView fx:id="sfondo" fitHeight="450.0" fitWidth="650.0" opacity="0.29">
          <image>
@@ -40,7 +40,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <ChoiceBox fx:id="choicebox_tipologia" layoutX="66.0" layoutY="105.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceboxTipologia" layoutX="66.0" layoutY="105.0" prefWidth="150.0" />
       <Label layoutX="467.0" layoutY="64.0" prefHeight="35.0" prefWidth="83.0" text="Alimentazione">
          <font>
             <Font name="Dubai Regular" size="14.0" />
@@ -62,7 +62,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <ChoiceBox fx:id="choicebox_alimentazione" layoutX="433.0" layoutY="107.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceboxAlimentazione" layoutX="433.0" layoutY="107.0" prefWidth="150.0" />
       <Label layoutX="116.0" layoutY="191.0" prefHeight="35.0" prefWidth="51.0" text="Modello">
          <font>
             <Font name="Dubai Regular" size="14.0" />
@@ -84,7 +84,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <TextField fx:id="textfield_modello" layoutX="67.0" layoutY="235.0" />
+      <TextField fx:id="textfieldModello" layoutX="67.0" layoutY="235.0" />
       <Label layoutX="499.0" layoutY="191.0" prefHeight="35.0" prefWidth="38.0" text="Targa">
          <font>
             <Font name="Dubai Regular" size="14.0" />
@@ -106,8 +106,8 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <TextField fx:id="textfield_targa" layoutX="443.0" layoutY="236.0" prefHeight="25.0" prefWidth="149.0" />
-      <Label fx:id="label_errore" alignment="CENTER" layoutX="192.0" layoutY="416.0" prefHeight="19.0" prefWidth="269.0" text="ERRORE: Compila correttamente i campi!" textFill="#bc0101">
+      <TextField fx:id="textfieldTarga" layoutX="443.0" layoutY="236.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label fx:id="labelErrore" alignment="CENTER" layoutX="192.0" layoutY="416.0" prefHeight="19.0" prefWidth="269.0" text="ERRORE: Compila correttamente i campi!" textFill="#bc0101">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font></Label>
@@ -132,8 +132,8 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <TextField fx:id="textfield_km" layoutX="67.0" layoutY="322.0" prefHeight="25.0" prefWidth="60.0" />
-      <TextField fx:id="textfield_giorno" layoutX="67.0" layoutY="376.0" prefHeight="25.0" prefWidth="60.0" />
+      <TextField fx:id="textfieldKm" layoutX="67.0" layoutY="322.0" prefHeight="25.0" prefWidth="60.0" />
+      <TextField fx:id="textfieldGiorno" layoutX="67.0" layoutY="376.0" prefHeight="25.0" prefWidth="60.0" />
       <Label layoutX="141.0" layoutY="370.0" prefHeight="35.0" prefWidth="72.0" text="€/giorno">
          <font>
             <Font name="Dubai Regular" size="14.0" />
@@ -176,7 +176,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Button fx:id="bottone_aggiungi" alignment="CENTER" layoutX="523.0" layoutY="370.0" mnemonicParsing="false" onAction="#crea_veicolo" prefHeight="35.0" prefWidth="72.0" text="Aggiungi" textAlignment="CENTER">
+      <Button fx:id="bottoneAggiungi" alignment="CENTER" layoutX="523.0" layoutY="370.0" mnemonicParsing="false" onAction="#crea_veicolo" prefHeight="35.0" prefWidth="72.0" text="Aggiungi" textAlignment="CENTER">
          <textFill>
             <LinearGradient endX="0.8047619047619048" endY="1.0" startX="0.45238095238095233">
                <stops>
@@ -194,7 +194,7 @@
             </LinearGradient>
          </textFill>
       </Button>
-      <Button fx:id="bottone_annulla" alignment="CENTER" layoutX="523.0" layoutY="330.0" mnemonicParsing="false" onAction="#TornaIndietro" prefHeight="35.0" prefWidth="72.0" text="Annulla" textAlignment="CENTER">
+      <Button fx:id="bottoneAnnulla" alignment="CENTER" layoutX="523.0" layoutY="330.0" mnemonicParsing="false" onAction="#TornaIndietro" prefHeight="35.0" prefWidth="72.0" text="Annulla" textAlignment="CENTER">
          <textFill>
             <LinearGradient endX="0.8047619047619048" endY="1.0" startX="0.45238095238095233">
                <stops>
@@ -254,8 +254,8 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <TextField fx:id="textfield_KmTot" layoutX="273.0" layoutY="105.0" prefHeight="25.0" prefWidth="104.0" />
-      <ChoiceBox fx:id="choicebox_Stato" layoutX="252.0" layoutY="358.0" prefWidth="150.0" />
+      <TextField fx:id="textfieldKmTot" layoutX="273.0" layoutY="105.0" prefHeight="25.0" prefWidth="104.0" />
+      <ChoiceBox fx:id="choiceboxStato" layoutX="252.0" layoutY="358.0" prefWidth="150.0" />
       <Label fx:id="label_aggiungi_veicolo" layoutX="257.0" layoutY="14.0" prefHeight="35.0" prefWidth="136.0" text="Aggiungi Veicolo">
          <font>
             <Font name="Dubai Regular" size="19.0" />
