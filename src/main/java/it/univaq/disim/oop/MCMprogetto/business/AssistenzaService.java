@@ -4,6 +4,7 @@ import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 
 public interface AssistenzaService {
+
 	Assistenza createAssistenza(Assistenza assistenza) throws BusinessException;
 
 	void updateAssistenza(Assistenza assistenza) throws BusinessException;

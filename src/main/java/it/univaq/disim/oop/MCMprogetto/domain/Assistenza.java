@@ -2,21 +2,11 @@ package it.univaq.disim.oop.MCMprogetto.domain;
 
 public class Assistenza {
 	private Integer ID;
-	private Boolean servita;
-	private String dettagli;
+	private String richiesta;
 	private String risposta;
-	private Veicolo veicolo;
-	private Utente cliente;
+	private Noleggio noleggio;
 
 	// GET E SET
-	public String getDettagli() {
-		return dettagli;
-	}
-
-	public void setDettagli(String dettagli) {
-		this.dettagli = dettagli;
-	}
-
 	public Integer getID() {
 		return ID;
 	}
@@ -25,12 +15,12 @@ public class Assistenza {
 		ID = iD;
 	}
 
-	public Boolean isServita() {
-		return servita;
+	public String getRichiesta() {
+		return richiesta;
 	}
 
-	public void setServita(Boolean servita) {
-		this.servita = servita;
+	public void setRichiesta(String richiesta) {
+		this.richiesta = richiesta;
 	}
 
 	public String getRisposta() {
@@ -41,20 +31,12 @@ public class Assistenza {
 		this.risposta = risposta;
 	}
 
-	public Veicolo getVeicolo() {
-		return veicolo;
+	public Noleggio getNoleggio() {
+		return noleggio;
 	}
 
-	public void setVeicolo(Veicolo veicolo) {
-		this.veicolo = veicolo;
-	}
-
-	public Utente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Utente cliente) {
-		this.cliente = cliente;
+	public void setNoleggio(Noleggio noleggio) {
+		this.noleggio = noleggio;
 	}
 
 }

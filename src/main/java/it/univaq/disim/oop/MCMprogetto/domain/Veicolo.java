@@ -1,139 +1,84 @@
 package it.univaq.disim.oop.MCMprogetto.domain;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 public class Veicolo {
 
-	private Integer ID;
-	private String tipologia;
-	private String modello;
-	private String alimentazione;
-	private ArrayList<Feedback> feedback;
-	private String stato;
 	private String targa;
-	private Boolean manutenzione;
-	private Boolean disponibilita;
-	private Integer chilometri;
-	private Double tariffa_chilometraggio;
-	private Double tariffa_periodo;
-
-	public Veicolo(Integer iD, String tipologia, String modello, String alimentazione, ArrayList<Feedback> feedback,
-			String stato, String targa, Boolean manutenzione, Boolean disponibilita, Integer chilometri,
-			Double tariffa_chilometraggio, Double tariffa_periodo) {
-		super();
-		ID = iD;
-		this.tipologia = tipologia;
-		this.modello = modello;
-		this.alimentazione = alimentazione;
-		this.feedback = feedback;
-		this.stato = stato;
-		this.targa = targa;
-		this.manutenzione = manutenzione;
-		this.disponibilita = disponibilita;
-		this.chilometri = chilometri;
-		this.tariffa_chilometraggio = tariffa_chilometraggio;
-		this.tariffa_periodo = tariffa_periodo;
-	}
-
-	public Veicolo() {
-	}
-
+	private String modello;
+	private int chilometri;
+	private Tipologia tipologia;
+	private Alimentazione alimentazione;
+	private Stato stato;
+	private Double tariffaChilometraggio;   // da mettere nel domain model
+	private Double tariffaPeriodo;			// da mettere nel domain model
+	private ArrayList<Feedback> feedback;
+	private Set<Noleggio> listaNoleggi;
+	
+	
 	// GET E SET
-	public Integer getID() {
-		return ID;
-	}
-
-	public void setID(Integer iD) {
-		ID = iD;
-	}
-
-	public String getTipologia() {
-		return tipologia;
-	}
-
-	public void setTipologia(String tipologia) {
-		this.tipologia = tipologia;
-	}
-
-	public String getAlimentazione() {
-		return alimentazione;
-	}
-
-	public void setTarga(String targa) {
-		this.targa = targa;
-	}
-
 	public String getTarga() {
 		return targa;
 	}
-
-	public void setAlimentazione(String alimentazione) {
-		this.alimentazione = alimentazione;
+	public void setTarga(String targa) {
+		this.targa = targa;
 	}
-
-	public ArrayList<Feedback> getFeedback() {
-		return feedback;
-	}
-
-	public void addFeedback(List<Feedback> feedback) {
-		this.feedback = (ArrayList<Feedback>) feedback;
-	}
-
-	public String getStato() {
-		return stato;
-	}
-
-	public void setStato(String stato) {
-		this.stato = stato;
-	}
-
 	public String getModello() {
 		return modello;
 	}
-
 	public void setModello(String modello) {
 		this.modello = modello;
 	}
-
-	public Boolean isManutenzione() {
-		return manutenzione;
-	}
-
-	public void setManutenzione(Boolean manutenzione) {
-		this.manutenzione = manutenzione;
-	}
-
-	public Boolean isDisponibilita() {
-		return disponibilita;
-	}
-
-	public void setDisponibilita(Boolean disponibilità) {
-		this.disponibilita = disponibilità;
-	}
-
-	public Integer getChilometri() {
+	public int getChilometri() {
 		return chilometri;
 	}
-
-	public void setChilometri(Integer chilometri) {
+	public void setChilometri(int chilometri) {
 		this.chilometri = chilometri;
 	}
-
-	public Double getTariffa_chilometraggio() {
-		return tariffa_chilometraggio;
+	public Tipologia getTipologia() {
+		return tipologia;
 	}
-
-	public void setTariffa_chilometraggio(Double tariffa_chilometraggio) {
-		this.tariffa_chilometraggio = tariffa_chilometraggio;
+	public void setTipologia(Tipologia tipologia) {
+		this.tipologia = tipologia;
 	}
-
-	public Double getTariffa_periodo() {
-		return tariffa_periodo;
+	public Alimentazione getAlimentazione() {
+		return alimentazione;
 	}
-
-	public void setTariffa_periodo(Double tariffa_periodo) {
-		this.tariffa_periodo = tariffa_periodo;
+	public void setAlimentazione(Alimentazione alimentazione) {
+		this.alimentazione = alimentazione;
 	}
+	public Stato getStato() {
+		return stato;
+	}
+	public void setStato(Stato stato) {
+		this.stato = stato;
+	}
+	public Double getTariffaChilometraggio() {
+		return tariffaChilometraggio;
+	}
+	public void setTariffaChilometraggio(Double tariffaChilometraggio) {
+		this.tariffaChilometraggio = tariffaChilometraggio;
+	}
+	public Double getTariffaPeriodo() {
+		return tariffaPeriodo;
+	}
+	public void setTariffaPeriodo(Double tariffaPeriodo) {
+		this.tariffaPeriodo = tariffaPeriodo;
+	}
+	public ArrayList<Feedback> getFeedback() {
+		return feedback;
+	}
+	public void setFeedback(ArrayList<Feedback> feedback) {
+		this.feedback = feedback;
+	}
+	public Set<Noleggio> getListaNoleggi() {
+		return listaNoleggi;
+	}
+	public void setListaNoleggi(Set<Noleggio> listaNoleggi) {
+		this.listaNoleggi = listaNoleggi;
+	}
+	
+	
 
 }
