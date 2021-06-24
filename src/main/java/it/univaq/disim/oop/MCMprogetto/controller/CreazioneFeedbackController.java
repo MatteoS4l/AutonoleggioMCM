@@ -18,7 +18,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 
+<<<<<<< HEAD:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/ControllerCreazioneFeedback.java
 public class ControllerCreazioneFeedback implements Initializable, DataInitializable<Utente, Noleggio> {
+=======
+public class CreazioneFeedbackController implements Initializable, DataInitializable<Utente, Noleggio> {
+>>>>>>> c365a43044db5bb7c5291a750310d6b2dbb19fa4:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/CreazioneFeedbackController.java
 	private ViewDispatcher dispatcher;
 	private Veicolo veicolo;
 	private Utente utente;
@@ -55,11 +59,19 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 	@FXML
 	private ImageView piena_5;
 
+<<<<<<< HEAD:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/ControllerCreazioneFeedback.java
 	public ControllerCreazioneFeedback() {
+=======
+	public CreazioneFeedbackController() {
+>>>>>>> c365a43044db5bb7c5291a750310d6b2dbb19fa4:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/CreazioneFeedbackController.java
 		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		noleggioservice = factory.getNoleggioService();
 		feedbackservice = factory.getFeedbackService();
+<<<<<<< HEAD:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/ControllerCreazioneFeedback.java
+=======
+
+>>>>>>> c365a43044db5bb7c5291a750310d6b2dbb19fa4:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/CreazioneFeedbackController.java
 	}
 
 	@FXML // INVIA FEEDBACK
@@ -71,7 +83,7 @@ public class ControllerCreazioneFeedback implements Initializable, DataInitializ
 			feedback.setUtente(utente);
 			feedback.setVeicolo(veicolo);
 			feedbackservice.createFeedback(feedback);
-			
+
 			noleggio.setFeed_lasciato(true);
 			noleggioservice.updateNoleggio(noleggio);
 

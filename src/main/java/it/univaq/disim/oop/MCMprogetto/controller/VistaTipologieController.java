@@ -24,7 +24,11 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
+<<<<<<< HEAD:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/ControllerVistaTipologie.java
 public class ControllerVistaTipologie implements Initializable, DataInitializable<Object, Object> {
+=======
+public class VistaTipologieController implements Initializable, DataInitializable<Object, Object> {
+>>>>>>> c365a43044db5bb7c5291a750310d6b2dbb19fa4:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/VistaTipologieController.java
 	private TipologiaService tipologiaservice;
 
 	@FXML
@@ -40,7 +44,11 @@ public class ControllerVistaTipologie implements Initializable, DataInitializabl
 	@FXML
 	private Label label_errore;
 
+<<<<<<< HEAD:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/ControllerVistaTipologie.java
 	public ControllerVistaTipologie() {
+=======
+	public VistaTipologieController() {
+>>>>>>> c365a43044db5bb7c5291a750310d6b2dbb19fa4:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/VistaTipologieController.java
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		tipologiaservice = factory.getTipologiaService();
 	}
@@ -95,7 +103,11 @@ public class ControllerVistaTipologie implements Initializable, DataInitializabl
 			e.printStackTrace();
 		}
 		ObservableList<Tipologia> listaT = FXCollections.observableList(listatipologie);
+<<<<<<< HEAD:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/ControllerVistaTipologie.java
 		tabella_tipologie.setItems(listaT);dadfa
+=======
+		tabella_tipologie.setItems(listaT);
+>>>>>>> c365a43044db5bb7c5291a750310d6b2dbb19fa4:src/main/java/it/univaq/disim/oop/MCMprogetto/controller/VistaTipologieController.java
 
 	}
 

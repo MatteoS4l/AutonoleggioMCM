@@ -28,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 
-public class ControllerRilascioFeedback implements Initializable,DataInitializable<Utente, Object>
+public class RilascioFeedbackController implements Initializable,DataInitializable<Utente, Object>
 {
 	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
@@ -46,7 +46,7 @@ public class ControllerRilascioFeedback implements Initializable,DataInitializab
     @FXML
     private TableColumn<Noleggio, Button> azioni_feedback_utente;
     
-    public ControllerRilascioFeedback()
+    public RilascioFeedbackController()
     {
     	dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
