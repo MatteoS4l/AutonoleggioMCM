@@ -125,7 +125,7 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <TextField fx:id="tf_modello" alignment="CENTER" layoutX="27.0" layoutY="246.0">
+      <TextField fx:id="modello" alignment="CENTER" layoutX="27.0" layoutY="246.0">
          <font>
             <Font name="Dubai Medium" size="13.0" />
          </font>
@@ -133,7 +133,7 @@
             <Glow level="0.0" />
          </effect>
       </TextField>
-      <TextField fx:id="tf_alimentazione" alignment="CENTER" editable="false" layoutX="27.0" layoutY="364.0">
+      <TextField fx:id="alimentazione" alignment="CENTER" editable="false" layoutX="27.0" layoutY="364.0">
          <font>
             <Font name="Dubai Medium" size="13.0" />
          </font>
@@ -167,7 +167,7 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <TextField fx:id="tf_targa" alignment="CENTER" layoutX="268.0" layoutY="246.0">
+      <TextField fx:id="targa" alignment="CENTER" layoutX="268.0" layoutY="246.0">
          <font>
             <Font name="Dubai Medium" size="13.0" />
          </font>
@@ -227,7 +227,7 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <TextField fx:id="tf_kilometraggio" alignment="CENTER" layoutX="268.0" layoutY="364.0">
+      <TextField fx:id="kilometraggio" alignment="CENTER" layoutX="268.0" layoutY="364.0">
          <font>
             <Font name="Dubai Medium" size="13.0" />
          </font>
@@ -235,7 +235,7 @@
             <Glow level="0.0" />
          </effect>
       </TextField>
-      <TextField fx:id="tf_tariffaKM" alignment="CENTER" layoutX="470.0" layoutY="122.0" prefHeight="30.0" prefWidth="62.0">
+      <TextField fx:id="tariffaKm" alignment="CENTER" layoutX="470.0" layoutY="122.0" prefHeight="30.0" prefWidth="62.0">
          <font>
             <Font name="Dubai Medium" size="13.0" />
          </font>
@@ -269,7 +269,7 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <TextField fx:id="tf_tariffaGiorno" alignment="CENTER" layoutX="574.0" layoutY="122.0" prefHeight="30.0" prefWidth="62.0">
+      <TextField fx:id="tariffaGiorno" alignment="CENTER" layoutX="574.0" layoutY="122.0" prefHeight="30.0" prefWidth="62.0">
          <font>
             <Font name="Dubai Medium" size="13.0" />
          </font>
@@ -356,13 +356,13 @@
          </textFill>
       </Label>
       <Separator layoutY="65.0" prefHeight="3.0" prefWidth="650.0" />
-      <ChoiceBox fx:id="tf_stato" layoutX="268.0" layoutY="122.0" prefHeight="30.0" prefWidth="147.0" />
-      <Button fx:id="modifica_button" layoutX="532.0" layoutY="328.0" mnemonicParsing="false" onAction="#ModificaVeicolo" prefHeight="44.0" prefWidth="85.0" style="-fx-background-color: #77e169;" text="Modifica">
+      <ChoiceBox fx:id="stato" layoutX="268.0" layoutY="122.0" prefHeight="30.0" prefWidth="147.0" />
+      <Button fx:id="modificaButton" layoutX="532.0" layoutY="328.0" mnemonicParsing="false" onAction="#ModificaVeicolo" prefHeight="44.0" prefWidth="85.0" style="-fx-background-color: #77e169;" text="Modifica">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="elimina_button" layoutX="532.0" layoutY="379.0" mnemonicParsing="false" onAction="#EliminaVeicolo" prefHeight="44.0" prefWidth="85.0" style="-fx-background-color: #da4a4a;" text="Elimina">
+      <Button fx:id="eliminaButton" layoutX="532.0" layoutY="379.0" mnemonicParsing="false" onAction="#EliminaVeicolo" prefHeight="44.0" prefWidth="85.0" style="-fx-background-color: #da4a4a;" text="Elimina">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -372,8 +372,8 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <ChoiceBox fx:id="tf_tipologia" layoutX="37.0" layoutY="122.0" prefHeight="30.0" prefWidth="147.0" />
-      <Label fx:id="label_errore" alignment="CENTER" layoutX="147.0" layoutY="415.0" prefHeight="19.0" prefWidth="368.0" text="Errore: veicolo in noleggio, non può essere eliminato !" textFill="#8d0000">
+      <ChoiceBox fx:id="tipologia" layoutX="37.0" layoutY="122.0" prefHeight="30.0" prefWidth="147.0" />
+      <Label fx:id="labelErrore" alignment="CENTER" layoutX="147.0" layoutY="415.0" prefHeight="19.0" prefWidth="368.0" text="Errore: veicolo in noleggio, non può essere eliminato !" textFill="#8d0000">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

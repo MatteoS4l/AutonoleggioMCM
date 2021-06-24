@@ -40,33 +40,33 @@ public class SostituzioneController implements Initializable, DataInitializable<
 	private Veicolo veicolo;
 
 	@FXML
-	private TableView<Veicolo> tabella_sos;
+	private TableView<Veicolo> tabellaSos;
 	@FXML
-	private TableColumn<Veicolo, String> modello_veicolo_sos;
+	private TableColumn<Veicolo, String> modelloVeicoloSos;
 	@FXML
-	private TableColumn<Veicolo, String> tipologia_veicolo_sos;
+	private TableColumn<Veicolo, String> tipologiaVeicoloSos;
 	@FXML
-	private TableColumn<Veicolo, Double> tariffa_km__sos;
+	private TableColumn<Veicolo, Double> tariffaKmSos;
 	@FXML
-	private TableColumn<Veicolo, Double> tariffa_periodo_sos;
+	private TableColumn<Veicolo, Double> tariffaPeriodoSos;
 	@FXML
-	private TableColumn<Veicolo, String> stato_veicolo_sos;
+	private TableColumn<Veicolo, String> statoVeicoloSos;
 	@FXML
-	private TableColumn<Veicolo, Button> azioni_sos;
+	private TableColumn<Veicolo, Button> azioniSos;
 	@FXML
-	private DatePicker data_inizio_sos;
+	private DatePicker dataInizioSos;
 	@FXML
-	private DatePicker data_fine_sos;
+	private DatePicker dataFineSos;
 	@FXML
-	private TextField invio_risposta_sos;
+	private TextField invioRispostaSos;
 	@FXML
-	private Button bottone_sos;
+	private Button bottoneSos;
 	@FXML
-	private Label successo_sos;
+	private Label successoSos;
 	@FXML
-	private Label label_inizio;
+	private Label labelInizio;
 	@FXML
-	private Label label_fine;
+	private Label labelFine;
 
 	public SostituzioneController() {
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -80,15 +80,15 @@ public class SostituzioneController implements Initializable, DataInitializable<
 		try {
 			noleggio.setVeicolo(veicolo);
 			noleggio.setServita(false);
-			assistenza.setRisposta(invio_risposta_sos.getText());
+			assistenza.setRisposta(invioRispostaSos.getText());
 			assistenza.setServita(true);
 			noleggioservice.updateNoleggio(noleggio);
 			assistenzaservice.updateAssistenza(assistenza);
-			successo_sos.setVisible(true);
+			successoSos.setVisible(true);
 
-			data_inizio_sos.setValue(null);
-			data_fine_sos.setValue(null);
-			invio_risposta_sos.clear();
+			dataInizioSos.setValue(null);
+			dataFineSos.setValue(null);
+			invioRispostaSos.clear();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,45 +106,45 @@ public class SostituzioneController implements Initializable, DataInitializable<
 
 		this.veicolo = veicolo;
 
-		data_inizio_sos.setVisible(true);
-		data_fine_sos.setVisible(true);
-		invio_risposta_sos.setVisible(true);
-		label_inizio.setVisible(true);
-		label_fine.setVisible(true);
-		bottone_sos.setVisible(true);
+		dataInizioSos.setVisible(true);
+		dataFineSos.setVisible(true);
+		invioRispostaSos.setVisible(true);
+		labelInizio.setVisible(true);
+		labelFine.setVisible(true);
+		bottoneSos.setVisible(true);
 
-		data_inizio_sos.setValue(LocalDate.now());
-		data_inizio_sos.setEditable(false);
-		data_fine_sos.setValue(noleggio.getData_fine_noleggio().toLocalDate());
-		data_fine_sos.setEditable(false);
-		invio_risposta_sos.setText("Il tuo veicolo sostitutivo sarà disponibile dal "
-				+ data_inizio_sos.getValue().toString() + " al " + data_fine_sos.getValue().toString());
+		dataInizioSos.setValue(LocalDate.now());
+		dataInizioSos.setEditable(false);
+		dataFineSos.setValue(noleggio.getData_fine_noleggio().toLocalDate());
+		dataFineSos.setEditable(false);
+		invioRispostaSos.setText("Il tuo veicolo sostitutivo sarà disponibile dal "
+				+ dataInizioSos.getValue().toString() + " al " + dataFineSos.getValue().toString());
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		List<Veicolo> listaveicoli = null;
-		successo_sos.setVisible(false);
-		data_inizio_sos.setVisible(false);
-		data_fine_sos.setVisible(false);
-		invio_risposta_sos.setVisible(false);
-		label_inizio.setVisible(false);
-		label_fine.setVisible(false);
-		bottone_sos.setVisible(false);
+		successoSos.setVisible(false);
+		dataInizioSos.setVisible(false);
+		dataFineSos.setVisible(false);
+		invioRispostaSos.setVisible(false);
+		labelInizio.setVisible(false);
+		labelFine.setVisible(false);
+		bottoneSos.setVisible(false);
 
-		modello_veicolo_sos.setStyle("-fx-alignment: CENTER;");
-		tipologia_veicolo_sos.setStyle("-fx-alignment: CENTER;");
-		tariffa_km__sos.setStyle("-fx-alignment: CENTER;");
-		tariffa_periodo_sos.setStyle("-fx-alignment: CENTER;");
-		stato_veicolo_sos.setStyle("-fx-alignment: CENTER;");
-		azioni_sos.setStyle("-fx-alignment: CENTER;");
+		modelloVeicoloSos.setStyle("-fx-alignment: CENTER;");
+		tipologiaVeicoloSos.setStyle("-fx-alignment: CENTER;");
+		tariffaKmSos.setStyle("-fx-alignment: CENTER;");
+		tariffaPeriodoSos.setStyle("-fx-alignment: CENTER;");
+		statoVeicoloSos.setStyle("-fx-alignment: CENTER;");
+		azioniSos.setStyle("-fx-alignment: CENTER;");
 
-		modello_veicolo_sos.setCellValueFactory(new PropertyValueFactory<>("modello"));
-		tipologia_veicolo_sos.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-		tariffa_km__sos.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
-		tariffa_periodo_sos.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
-		stato_veicolo_sos.setCellValueFactory(new PropertyValueFactory<>("stato"));
-		azioni_sos.setCellValueFactory(
+		modelloVeicoloSos.setCellValueFactory(new PropertyValueFactory<>("modello"));
+		tipologiaVeicoloSos.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+		tariffaKmSos.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
+		tariffaPeriodoSos.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
+		statoVeicoloSos.setCellValueFactory(new PropertyValueFactory<>("stato"));
+		azioniSos.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
@@ -167,7 +167,7 @@ public class SostituzioneController implements Initializable, DataInitializable<
 		}
 
 		ObservableList<Veicolo> listav = FXCollections.observableList(listaveicoli);
-		tabella_sos.setItems(listav);
+		tabellaSos.setItems(listav);
 	}
 
 	@Override

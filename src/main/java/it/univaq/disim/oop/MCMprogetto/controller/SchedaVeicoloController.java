@@ -26,27 +26,27 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 	private Utente utente;
 
 	@FXML
-	private TextField tf_modello;
+	private TextField modello;
 	@FXML
-	private TextField tf_alimentazione;
+	private TextField alimentazione;
 	@FXML
-	private TextField tf_targa;
+	private TextField targa;
 	@FXML
-	private TextField tf_kilometraggio;
+	private TextField kilometraggio;
 	@FXML
-	private TextField tf_tariffaKM;
+	private TextField tariffaKm;
 	@FXML
-	private TextField tf_tariffaGiorno;
+	private TextField tariffaGiorno;
 	@FXML
-	private ChoiceBox<String> tf_stato;
+	private ChoiceBox<String> stato;
 	@FXML
-	private ChoiceBox<String> tf_tipologia;
+	private ChoiceBox<String> tipologia;
 	@FXML
-	private Button modifica_button;
+	private Button modificaButton;
 	@FXML
-	private Button elimina_button;
+	private Button eliminaButton;
 	@FXML
-	private Label label_errore;
+	private Label labelErrore;
 
 	public SchedaVeicoloController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -60,14 +60,14 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 		Veicolo veicolo_modificato = new Veicolo();
 
 		veicolo_modificato.setID(veicolo.getID());
-		veicolo_modificato.setModello(tf_modello.getText());
-		veicolo_modificato.setTarga(tf_targa.getText());
-		veicolo_modificato.setTipologia(tf_tipologia.getValue());
-		veicolo_modificato.setAlimentazione(tf_alimentazione.getText());
-		veicolo_modificato.setChilometri(Integer.parseInt(tf_kilometraggio.getText()));
-		veicolo_modificato.setTariffa_chilometraggio(Double.parseDouble(tf_tariffaKM.getText()));
-		veicolo_modificato.setTariffa_periodo(Double.parseDouble(tf_tariffaGiorno.getText()));
-		veicolo_modificato.setStato(tf_stato.getValue());
+		veicolo_modificato.setModello(modello.getText());
+		veicolo_modificato.setTarga(targa.getText());
+		veicolo_modificato.setTipologia(tipologia.getValue());
+		veicolo_modificato.setAlimentazione(alimentazione.getText());
+		veicolo_modificato.setChilometri(Integer.parseInt(kilometraggio.getText()));
+		veicolo_modificato.setTariffa_chilometraggio(Double.parseDouble(tariffaKm.getText()));
+		veicolo_modificato.setTariffa_periodo(Double.parseDouble(tariffaGiorno.getText()));
+		veicolo_modificato.setStato(stato.getValue());
 		switch (veicolo_modificato.getStato()) {
 		case "disponibile":
 			veicolo_modificato.setManutenzione(false);
@@ -90,7 +90,7 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 			veicoloservice.deleteVeicolo(veicolo);
 			dispatcher.renderView("vistaveicoli", utente, null);
 		} catch (VeicoloNonTrovatoException e) {
-			label_errore.setVisible(true);
+			labelErrore.setVisible(true);
 		}
 	}
 
@@ -101,15 +101,15 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		label_errore.setVisible(false);
+		labelErrore.setVisible(false);
 		try {
-			tf_stato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
-			tf_tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
+			stato.getItems().addAll(veicoloservice.FindListStatoVeicolo());
+			tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
 
-			modifica_button.disableProperty()
-					.bind(tf_modello.textProperty().isEmpty().or(tf_alimentazione.textProperty().isEmpty())
-							.or(tf_targa.textProperty().isEmpty()).or(tf_kilometraggio.textProperty().isEmpty())
-							.or(tf_tariffaKM.textProperty().isEmpty()).or(tf_tariffaGiorno.textProperty().isEmpty()));
+			modificaButton.disableProperty()
+					.bind(modello.textProperty().isEmpty().or(alimentazione.textProperty().isEmpty())
+							.or(targa.textProperty().isEmpty()).or(kilometraggio.textProperty().isEmpty())
+							.or(tariffaKm.textProperty().isEmpty()).or(tariffaGiorno.textProperty().isEmpty()));
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -120,14 +120,14 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 		this.veicolo = veicolo;
 		this.utente = utente;
 
-		tf_modello.setText(veicolo.getModello());
-		tf_tipologia.setValue(veicolo.getTipologia());
-		tf_stato.setValue(veicolo.getStato());
-		tf_alimentazione.setText(veicolo.getAlimentazione());
-		tf_targa.setText(veicolo.getTarga());
-		tf_kilometraggio.setText(String.valueOf(veicolo.getChilometri()));
-		tf_tariffaKM.setText(String.valueOf(veicolo.getTariffa_chilometraggio()));
-		tf_tariffaGiorno.setText(String.valueOf(veicolo.getTariffa_periodo()));
+		modello.setText(veicolo.getModello());
+		tipologia.setValue(veicolo.getTipologia());
+		stato.setValue(veicolo.getStato());
+		alimentazione.setText(veicolo.getAlimentazione());
+		targa.setText(veicolo.getTarga());
+		kilometraggio.setText(String.valueOf(veicolo.getChilometri()));
+		tariffaKm.setText(String.valueOf(veicolo.getTariffa_chilometraggio()));
+		tariffaGiorno.setText(String.valueOf(veicolo.getTariffa_periodo()));
 	}
 
 }

@@ -43,33 +43,33 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	@FXML
 	private DatePicker dataFine;
 	@FXML
-	private TextField txt_tariffaKMmax;
+	private TextField txtTariffaKmMax;
 	@FXML
-	private TextField txt_tariffaKMmin;
+	private TextField txtTariffaKmMin;
 	@FXML
-	private TextField txt_modello;
+	private TextField txtModello;
 	@FXML
-	private TextField txt_tariffaGiornomin;
+	private TextField txtTariffaGiornoMin;
 	@FXML
-	private TextField txt_tariffaGiornomax;
+	private TextField txtTariffaGiornoMax;
 	@FXML
-	private ComboBox<String> box_alimentazione;
+	private ComboBox<String> boxAlimentazione;
 	@FXML
-	private ComboBox<String> box_tipologia;
+	private ComboBox<String> boxTipologia;
 	@FXML
-	private TableView<Veicolo> lista_filtrata;
+	private TableView<Veicolo> listaFiltrata;
 	@FXML
-	private TableColumn<Veicolo, String> col_veicolo;
+	private TableColumn<Veicolo, String> colVeicolo;
 	@FXML
-	private TableColumn<Veicolo, String> col_alimentazione;
+	private TableColumn<Veicolo, String> colAlimentazione;
 	@FXML
-	private TableColumn<Veicolo, String> col_tipologia;
+	private TableColumn<Veicolo, String> colTipologia;
 	@FXML
-	private TableColumn<Veicolo, Double> col_km;
+	private TableColumn<Veicolo, Double> colKm;
 	@FXML
-	private TableColumn<Veicolo, Double> col_giorno;
+	private TableColumn<Veicolo, Double> colGiorno;
 	@FXML
-	private TableColumn<Veicolo, Button> col_azioni;
+	private TableColumn<Veicolo, Button> colAzioni;
 
 	public VeicoliUtenteController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -80,7 +80,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	}
 
 	@FXML // APPLICA FILTRI
-	void applica_filtri(ActionEvent event) throws BusinessException {
+	void ApplicaFiltri(ActionEvent event) throws BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 		listacompleta = veicoloservice.FindListaVeicoliByStato("disponibile");
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
@@ -90,19 +90,18 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 			}
 		}
 
-		if (box_tipologia.getValue() != null) {
+		if (boxTipologia.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					veicoloservice.FindListaVeicoliByTipologia(box_tipologia.getValue()));
+					veicoloservice.FindListaVeicoliByTipologia(boxTipologia.getValue()));
 		}
 
-		if (box_alimentazione.getValue() != null) {
+		if (boxAlimentazione.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					veicoloservice.FindListaVeicoliByAlimentazione(box_alimentazione.getValue()));
+					veicoloservice.FindListaVeicoliByAlimentazione(boxAlimentazione.getValue()));
 		}
 
-		if (!txt_modello.getText().isEmpty()) {
-			listafiltrata = Intersezione(listafiltrata,
-					veicoloservice.FindListaVeicoliByModello(txt_modello.getText()));
+		if (!txtModello.getText().isEmpty()) {
+			listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByModello(txtModello.getText()));
 		}
 
 		if (dataInizio.getValue() != null && dataFine.getValue() != null) {
@@ -110,66 +109,66 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 					dataInizio.getValue().atStartOfDay(), dataFine.getValue().atStartOfDay()));
 		}
 
-		if (!(txt_tariffaGiornomin.getText().isEmpty() && txt_tariffaGiornomax.getText().isEmpty())) {
+		if (!(txtTariffaGiornoMin.getText().isEmpty() && txtTariffaGiornoMax.getText().isEmpty())) {
 			double min, max;
-			if (txt_tariffaGiornomin.getText().isEmpty()) {
+			if (txtTariffaGiornoMin.getText().isEmpty()) {
 				min = 0;
 			} else {
-				min = Double.parseDouble(txt_tariffaGiornomin.getText());
+				min = Double.parseDouble(txtTariffaGiornoMin.getText());
 			}
-			if (txt_tariffaGiornomax.getText().isEmpty()) {
+			if (txtTariffaGiornoMax.getText().isEmpty()) {
 				max = 999999;
 			} else {
-				max = Double.parseDouble(txt_tariffaGiornomax.getText());
+				max = Double.parseDouble(txtTariffaGiornoMax.getText());
 			}
 
 			listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTariffaPeriodo(min, max));
 		}
 
-		if (!(txt_tariffaKMmin.getText().isEmpty() && txt_tariffaKMmax.getText().isEmpty())) {
+		if (!(txtTariffaKmMin.getText().isEmpty() && txtTariffaKmMax.getText().isEmpty())) {
 			double min, max;
-			if (txt_tariffaKMmin.getText().isEmpty()) {
+			if (txtTariffaKmMin.getText().isEmpty()) {
 				min = 0;
 			} else {
-				min = Double.parseDouble(txt_tariffaKMmin.getText());
+				min = Double.parseDouble(txtTariffaKmMin.getText());
 			}
-			if (txt_tariffaKMmax.getText().isEmpty()) {
+			if (txtTariffaKmMax.getText().isEmpty()) {
 				max = 999999;
 			} else {
-				max = Double.parseDouble(txt_tariffaKMmax.getText());
+				max = Double.parseDouble(txtTariffaKmMax.getText());
 			}
 
 			listafiltrata = Intersezione(listafiltrata, veicoloservice.FindListaVeicoliByTariffaKM(min, max));
 		}
 
 		ObservableList<Veicolo> listavn1 = FXCollections.observableArrayList(listafiltrata);
-		lista_filtrata.setItems(listavn1);
+		listaFiltrata.setItems(listavn1);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			box_alimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
-			box_alimentazione.getItems().add("Tutte");
+			boxAlimentazione.getItems().addAll(veicoloservice.FindListAlimentazioneVeicolo());
+			boxAlimentazione.getItems().add("Tutte");
 			try {
-				box_tipologia.getItems().addAll(tipologiaservice.FindAllTipologia());
+				boxTipologia.getItems().addAll(tipologiaservice.findAllTipologia());
 			} catch (TipologiaNonTrovataException e1) {
 				/* lista vuota */ }
-			box_tipologia.getItems().add("Tutte");
+			boxTipologia.getItems().add("Tutte");
 
-			col_veicolo.setStyle("-fx-alignment: CENTER;");
-			col_alimentazione.setStyle("-fx-alignment: CENTER;");
-			col_tipologia.setStyle("-fx-alignment: CENTER;");
-			col_km.setStyle("-fx-alignment: CENTER;");
-			col_giorno.setStyle("-fx-alignment: CENTER;");
-			col_azioni.setStyle("-fx-alignment: CENTER;");
+			colVeicolo.setStyle("-fx-alignment: CENTER;");
+			colAlimentazione.setStyle("-fx-alignment: CENTER;");
+			colTipologia.setStyle("-fx-alignment: CENTER;");
+			colKm.setStyle("-fx-alignment: CENTER;");
+			colGiorno.setStyle("-fx-alignment: CENTER;");
+			colAzioni.setStyle("-fx-alignment: CENTER;");
 
-			col_veicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
-			col_alimentazione.setCellValueFactory(new PropertyValueFactory<>("alimentazione"));
-			col_tipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-			col_km.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
-			col_giorno.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
-			col_azioni.setCellValueFactory(
+			colVeicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
+			colAlimentazione.setCellValueFactory(new PropertyValueFactory<>("alimentazione"));
+			colTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+			colKm.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
+			colGiorno.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
+			colAzioni.setCellValueFactory(
 					new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>() {
 						@Override
 						public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
@@ -183,7 +182,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 							return new SimpleObjectProperty<Button>(noleggiaButton);
 						}
 					});
-			applica_filtri(null);
+			ApplicaFiltri(null);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

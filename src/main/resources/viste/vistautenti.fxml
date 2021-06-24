@@ -7,14 +7,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.VistaUtentiController">
    <children>
-      <TableView fx:id="tabella_utenti" layoutX="10.0" layoutY="82.0" prefHeight="350.0" prefWidth="630.0">
+      <TableView fx:id="tabellaUtenti" layoutX="10.0" layoutY="82.0" prefHeight="350.0" prefWidth="630.0">
          <columns>
-            <TableColumn fx:id="ID_tabella_utenti" prefWidth="70.0" text="ID" />
-            <TableColumn fx:id="nome_tabella_utenti" prefWidth="140.0" text="Nome" />
-            <TableColumn fx:id="cognome_tabella_utenti" minWidth="6.0" prefWidth="140.0" text="Cognome" />
-            <TableColumn fx:id="eta_tabella_utenti" prefWidth="75.0" text="Età" />
-            <TableColumn fx:id="sesso_tabella_utenti" prefWidth="75.0" text="Sesso" />
-            <TableColumn fx:id="azioni_tabella_utenti" prefWidth="128.0" text="Azioni" />
+            <TableColumn fx:id="idTabellaUtenti" prefWidth="70.0" text="ID" />
+            <TableColumn fx:id="nomeTabellaUtenti" prefWidth="140.0" text="Nome" />
+            <TableColumn fx:id="cognomeTabellaUtenti" minWidth="6.0" prefWidth="140.0" text="Cognome" />
+            <TableColumn fx:id="etaTabellaUtenti" prefWidth="75.0" text="Età" />
+            <TableColumn fx:id="sessoTabellaUtenti" prefWidth="75.0" text="Sesso" />
+            <TableColumn fx:id="azioniTabellaUtenti" prefWidth="128.0" text="Azioni" />
          </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#AggiungiUtente" prefHeight="33.0" prefWidth="133.0" text="Aggiungi utente" />

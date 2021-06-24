@@ -11,17 +11,17 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.VistaVeicoliController">
    <children>
-      <TableView fx:id="tabella_veicoli" layoutY="9.0" prefHeight="375.0" prefWidth="650.0">
+      <TableView fx:id="tabellaVeicoli" layoutY="9.0" prefHeight="375.0" prefWidth="650.0">
         <columns>
-          <TableColumn fx:id="modello_veicolo" prefWidth="109.0" text="Modello" />
-            <TableColumn fx:id="tipologia_veicolo" prefWidth="110.0" text="Tipologia" />
-            <TableColumn fx:id="prezzo_km_veicolo" prefWidth="95.0" text="€/1000km" />
-            <TableColumn fx:id="prezzo_giorno_veicolo" prefWidth="95.0" text="€/giorno" />
-            <TableColumn fx:id="stato_veicolo" prefWidth="119.0" text="Stato" />
-            <TableColumn fx:id="azioni_veicolo" minWidth="0.0" prefWidth="119.0" text="Azioni" />
+          <TableColumn fx:id="modelloVeicolo" prefWidth="109.0" text="Modello" />
+            <TableColumn fx:id="tipologiaVeicolo" prefWidth="110.0" text="Tipologia" />
+            <TableColumn fx:id="prezzoKmVeicolo" prefWidth="95.0" text="€/1000km" />
+            <TableColumn fx:id="prezzoGiornoVeicolo" prefWidth="95.0" text="€/giorno" />
+            <TableColumn fx:id="statoVeicolo" prefWidth="119.0" text="Stato" />
+            <TableColumn fx:id="azioniVeicolo" minWidth="0.0" prefWidth="119.0" text="Azioni" />
         </columns>
       </TableView>
-      <Button fx:id="aggiungi_veicolo_button" layoutX="497.0" layoutY="400.0" mnemonicParsing="false" onAction="#AggiungiVeicolo" prefHeight="31.0" prefWidth="139.0" text="Aggiungi veicolo">
+      <Button fx:id="aggiungiVeicoloButton" layoutX="497.0" layoutY="400.0" mnemonicParsing="false" onAction="#AggiungiVeicolo" prefHeight="31.0" prefWidth="139.0" text="Aggiungi veicolo">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>
@@ -38,6 +38,6 @@
                </stops>
             </LinearGradient>
          </textFill></Button>
-      <ComboBox fx:id="filtro_stato_veicolo" layoutX="14.0" layoutY="400.0" onAction="#FiltraVeicoli" prefHeight="31.0" prefWidth="139.0" promptText="Stato veicolo" />
+      <ComboBox fx:id="filtroStatoVeicolo" layoutX="14.0" layoutY="400.0" onAction="#FiltraVeicoli" prefHeight="31.0" prefWidth="139.0" promptText="Stato veicolo" />
    </children>
 </AnchorPane>

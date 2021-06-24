@@ -30,19 +30,19 @@ public class VistaUtentiController implements Initializable, DataInitializable<U
 	private Utente utente;
 
 	@FXML
-	private TableView<Utente> tabella_utenti;
+	private TableView<Utente> tabellaUtenti;
 	@FXML
-	private TableColumn<Utente, Integer> ID_tabella_utenti;
+	private TableColumn<Utente, Integer> idTabellaUtenti;
 	@FXML
-	private TableColumn<Utente, String> nome_tabella_utenti;
+	private TableColumn<Utente, String> nomeTabellaUtenti;
 	@FXML
-	private TableColumn<Utente, String> cognome_tabella_utenti;
+	private TableColumn<Utente, String> cognomeTabellaUtenti;
 	@FXML
-	private TableColumn<Utente, Integer> eta_tabella_utenti;
+	private TableColumn<Utente, Integer> etaTabellaUtenti;
 	@FXML
-	private TableColumn<Utente, Character> sesso_tabella_utenti;
+	private TableColumn<Utente, Character> sessoTabellaUtenti;
 	@FXML
-	private TableColumn<Utente, Button> azioni_tabella_utenti;
+	private TableColumn<Utente, Button> azioniTabellaUtenti;
 
 	public VistaUtentiController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -57,19 +57,19 @@ public class VistaUtentiController implements Initializable, DataInitializable<U
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ID_tabella_utenti.setStyle("-fx-alignment: CENTER;");
-		nome_tabella_utenti.setStyle("-fx-alignment: CENTER;");
-		cognome_tabella_utenti.setStyle("-fx-alignment: CENTER;");
-		eta_tabella_utenti.setStyle("-fx-alignment: CENTER;");
-		sesso_tabella_utenti.setStyle("-fx-alignment: CENTER;");
-		azioni_tabella_utenti.setStyle("-fx-alignment: CENTER;");
+		idTabellaUtenti.setStyle("-fx-alignment: CENTER;");
+		nomeTabellaUtenti.setStyle("-fx-alignment: CENTER;");
+		cognomeTabellaUtenti.setStyle("-fx-alignment: CENTER;");
+		etaTabellaUtenti.setStyle("-fx-alignment: CENTER;");
+		sessoTabellaUtenti.setStyle("-fx-alignment: CENTER;");
+		azioniTabellaUtenti.setStyle("-fx-alignment: CENTER;");
 
-		ID_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("ID"));
-		nome_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		cognome_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("cognome"));
-		eta_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("eta"));
-		sesso_tabella_utenti.setCellValueFactory(new PropertyValueFactory<>("sesso"));
-		azioni_tabella_utenti.setCellValueFactory(
+		idTabellaUtenti.setCellValueFactory(new PropertyValueFactory<>("ID"));
+		nomeTabellaUtenti.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		cognomeTabellaUtenti.setCellValueFactory(new PropertyValueFactory<>("cognome"));
+		etaTabellaUtenti.setCellValueFactory(new PropertyValueFactory<>("eta"));
+		sessoTabellaUtenti.setCellValueFactory(new PropertyValueFactory<>("sesso"));
+		azioniTabellaUtenti.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Utente, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Utente, Button> param) {
@@ -93,7 +93,7 @@ public class VistaUtentiController implements Initializable, DataInitializable<U
 			// utenteservice.primaAggiunta();
 			List<Utente> listautenti = utenteservice.FindAllUtenti((Amministratore) utente);
 			ObservableList<Utente> listaU = FXCollections.observableList(listautenti);
-			tabella_utenti.setItems(listaU);
+			tabellaUtenti.setItems(listaU);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}

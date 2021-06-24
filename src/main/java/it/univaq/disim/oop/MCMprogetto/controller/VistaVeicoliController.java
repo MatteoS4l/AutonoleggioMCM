@@ -33,23 +33,23 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 	private Utente utente;
 
 	@FXML
-	private TableView<Veicolo> tabella_veicoli;
+	private TableView<Veicolo> tabellaVeicoli;
 	@FXML
-	private TableColumn<Veicolo, String> modello_veicolo;
+	private TableColumn<Veicolo, String> modelloVeicolo;
 	@FXML
-	private TableColumn<Veicolo, String> tipologia_veicolo;
+	private TableColumn<Veicolo, String> tipologiaVeicolo;
 	@FXML
-	private TableColumn<Veicolo, Double> prezzo_km_veicolo;
+	private TableColumn<Veicolo, Double> prezzoKmVeicolo;
 	@FXML
-	private TableColumn<Veicolo, Double> prezzo_giorno_veicolo;
+	private TableColumn<Veicolo, Double> prezzoGiornoVeicolo;
 	@FXML
-	private TableColumn<Veicolo, String> stato_veicolo;
+	private TableColumn<Veicolo, String> statoVeicolo;
 	@FXML
-	private TableColumn<Veicolo, Button> azioni_veicolo;
+	private TableColumn<Veicolo, Button> azioniVeicolo;
 	@FXML
-	private ComboBox<String> filtro_stato_veicolo;
+	private ComboBox<String> filtroStatoVeicolo;
 	@FXML
-	private Button aggiungi_veicolo_button;
+	private Button aggiungiVeicoloButton;
 
 	public VistaVeicoliController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -65,9 +65,9 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 	@FXML // FILTRA VEICOLI
 	void FiltraVeicoli(ActionEvent event) {
 		try {
-			List<Veicolo> listaveicoli = veicoloservice.FindListaVeicoliByStato(filtro_stato_veicolo.getValue());
+			List<Veicolo> listaveicoli = veicoloservice.FindListaVeicoliByStato(filtroStatoVeicolo.getValue());
 			ObservableList<Veicolo> listaV = FXCollections.observableList(listaveicoli);
-			tabella_veicoli.setItems(listaV);
+			tabellaVeicoli.setItems(listaV);
 		} catch (BusinessException e) {
 			System.out.println("errore");
 		}
@@ -75,19 +75,19 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		modello_veicolo.setStyle("-fx-alignment: CENTER;");
-		tipologia_veicolo.setStyle("-fx-alignment: CENTER;");
-		prezzo_km_veicolo.setStyle("-fx-alignment: CENTER;");
-		prezzo_giorno_veicolo.setStyle("-fx-alignment: CENTER;");
-		stato_veicolo.setStyle("-fx-alignment: CENTER;");
-		azioni_veicolo.setStyle("-fx-alignment: CENTER;");
+		modelloVeicolo.setStyle("-fx-alignment: CENTER;");
+		tipologiaVeicolo.setStyle("-fx-alignment: CENTER;");
+		prezzoKmVeicolo.setStyle("-fx-alignment: CENTER;");
+		prezzoGiornoVeicolo.setStyle("-fx-alignment: CENTER;");
+		statoVeicolo.setStyle("-fx-alignment: CENTER;");
+		azioniVeicolo.setStyle("-fx-alignment: CENTER;");
 
-		modello_veicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
-		tipologia_veicolo.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-		prezzo_km_veicolo.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
-		prezzo_giorno_veicolo.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
-		stato_veicolo.setCellValueFactory(new PropertyValueFactory<>("stato"));
-		azioni_veicolo.setCellValueFactory(
+		modelloVeicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
+		tipologiaVeicolo.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+		prezzoKmVeicolo.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
+		prezzoGiornoVeicolo.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
+		statoVeicolo.setCellValueFactory(new PropertyValueFactory<>("stato"));
+		azioniVeicolo.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Veicolo, Button> param) {
@@ -107,8 +107,8 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 					}
 				});
 		try {
-			filtro_stato_veicolo.getItems().addAll(veicoloservice.FindListStatoVeicolo());
-			filtro_stato_veicolo.getItems().add("Tutte");
+			filtroStatoVeicolo.getItems().addAll(veicoloservice.FindListStatoVeicolo());
+			filtroStatoVeicolo.getItems().add("Tutte");
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
@@ -120,7 +120,7 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 			e.printStackTrace();
 		}
 		ObservableList<Veicolo> listaV1 = FXCollections.observableList(listaV);
-		tabella_veicoli.setItems(listaV1);
+		tabellaVeicoli.setItems(listaV1);
 
 	}
 
@@ -128,7 +128,7 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 	public void initializeData(Utente utente) {
 		this.utente = utente;
 		if (utente instanceof Operatore) {
-			aggiungi_veicolo_button.setVisible(false);
+			aggiungiVeicoloButton.setVisible(false);
 		}
 
 	}

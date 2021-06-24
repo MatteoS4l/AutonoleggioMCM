@@ -33,25 +33,25 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 	private NoleggioService noleggioservice;
 
 	@FXML
-	private TableView<Noleggio> tabella_noleggi;
+	private TableView<Noleggio> tabellaNoleggi;
 	@FXML
-	private TableColumn<Noleggio, Integer> id_noleggio;
+	private TableColumn<Noleggio, Integer> idNoleggio;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> data_inizio_noleggio;
+	private TableColumn<Noleggio, LocalDateTime> dataInizioIoleggio;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> data_fine_noleggio;
+	private TableColumn<Noleggio, LocalDateTime> dataFineNoleggio;
 	@FXML
-	private TableColumn<Noleggio, String> veicolo_noleggio;
+	private TableColumn<Noleggio, String> veicoloNoleggio;
 	@FXML
-	private TableColumn<Noleggio, String> cliente_noleggio;
+	private TableColumn<Noleggio, String> clienteNoleggio;
 	@FXML
-	private TableColumn<Noleggio, Button> azioni_noleggio;
+	private TableColumn<Noleggio, Button> azioniNoleggio;
 	@FXML
-	private ComboBox<String> box_assistenza;
+	private ComboBox<String> boxAssistenza;
 	@FXML
-	private CheckBox check_noleggi_incorso;
+	private CheckBox checkNoleggiIncorso;
 	@FXML
-	private Text text_dettagli;
+	private Text textDettagli;
 
 	public VistaNoleggiController() {
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -62,46 +62,46 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
 		List<Noleggio> listafiltrata = noleggioservice.FindAllNoleggi();
 
-		if (check_noleggi_incorso.isSelected()) {
+		if (checkNoleggiIncorso.isSelected()) {
 			listafiltrata = Intersezione(listafiltrata, noleggioservice.FindNoleggiInCorso());
 		}
 
-		if (box_assistenza.getValue() != null) {
+		if (boxAssistenza.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					noleggioservice.FindNoleggiByAssistenza(box_assistenza.getValue()));
+					noleggioservice.FindNoleggiByAssistenza(boxAssistenza.getValue()));
 		}
 
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
-		tabella_noleggi.setItems(listaNol);
+		tabellaNoleggi.setItems(listaNol);
 	}
 
 	// VEDI DETTAGLI
 	private void VediDettagli(Noleggio noleggio) {
 		if (noleggio.getAssistenza() == null) {
-			text_dettagli.setText("Nessuna assistenza ricevuta per questo noleggio");
+			textDettagli.setText("Nessuna assistenza ricevuta per questo noleggio");
 		} else {
-			text_dettagli.setText(noleggio.getAssistenza().getDettagli());
+			textDettagli.setText(noleggio.getAssistenza().getDettagli());
 		}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		box_assistenza.getItems().add("SI");
-		box_assistenza.getItems().add("NO");
-		box_assistenza.getItems().add("Tutte");
+		boxAssistenza.getItems().add("SI");
+		boxAssistenza.getItems().add("NO");
+		boxAssistenza.getItems().add("Tutte");
 
-		id_noleggio.setStyle("-fx-alignment: CENTER;");
-		data_inizio_noleggio.setStyle("-fx-alignment: CENTER;");
-		data_fine_noleggio.setStyle("-fx-alignment: CENTER;");
-		veicolo_noleggio.setStyle("-fx-alignment: CENTER;");
-		cliente_noleggio.setStyle("-fx-alignment: CENTER;");
-		azioni_noleggio.setStyle("-fx-alignment: CENTER;");
+		idNoleggio.setStyle("-fx-alignment: CENTER;");
+		dataInizioIoleggio.setStyle("-fx-alignment: CENTER;");
+		dataFineNoleggio.setStyle("-fx-alignment: CENTER;");
+		veicoloNoleggio.setStyle("-fx-alignment: CENTER;");
+		clienteNoleggio.setStyle("-fx-alignment: CENTER;");
+		azioniNoleggio.setStyle("-fx-alignment: CENTER;");
 
-		id_noleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		data_inizio_noleggio
+		idNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
+		dataInizioIoleggio
 				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
-		data_fine_noleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
-		cliente_noleggio.setCellValueFactory(
+		dataFineNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
+		clienteNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
@@ -112,7 +112,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 						}
 					}
 				});
-		veicolo_noleggio.setCellValueFactory(
+		veicoloNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
@@ -123,7 +123,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 						}
 					}
 				});
-		azioni_noleggio.setCellValueFactory(
+		azioniNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Noleggio, Button> param) {
@@ -145,7 +145,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 			e.printStackTrace();
 		}
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listacompleta);
-		tabella_noleggi.setItems(listaNol);
+		tabellaNoleggi.setItems(listaNol);
 
 	}
 

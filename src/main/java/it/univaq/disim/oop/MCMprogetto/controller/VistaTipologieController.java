@@ -28,17 +28,17 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 	private TipologiaService tipologiaservice;
 
 	@FXML
-	private TableView<Tipologia> tabella_tipologie;
+	private TableView<Tipologia> tabellaTipologie;
 	@FXML
-	private TableColumn<Tipologia, String> tipologie_col;
+	private TableColumn<Tipologia, String> tipologieCol;
 	@FXML
-	private TableColumn<Tipologia, Button> azioni_col;
+	private TableColumn<Tipologia, Button> azioniCol;
 	@FXML
-	private TextField new_tipologia;
+	private TextField nuovaTipologia;
 	@FXML
-	private Button aggiungi_button;
+	private Button aggiungiButton;
 	@FXML
-	private Label label_errore;
+	private Label labelErrore;
 
 	public VistaTipologieController() {
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
@@ -49,25 +49,25 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 	void AggiungiTipologia(ActionEvent event) {
 		try {
 			Tipologia t = new Tipologia();
-			t.setTipologia(new_tipologia.getText());
+			t.setTipologia(nuovaTipologia.getText());
 			tipologiaservice.createTipologia(t);
-			label_errore.setText("");
+			labelErrore.setText("");
 		} catch (BusinessException e) {
-			label_errore.setText("Tipologia già esistente !");
+			labelErrore.setText("Tipologia già esistente !");
 		}
 
-		new_tipologia.clear();
+		nuovaTipologia.clear();
 		initialize(null, null);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		aggiungi_button.disableProperty().bind(new_tipologia.textProperty().isEmpty());
-		tipologie_col.setStyle("-fx-alignment: CENTER;");
-		azioni_col.setStyle("-fx-alignment: CENTER;");
+		aggiungiButton.disableProperty().bind(nuovaTipologia.textProperty().isEmpty());
+		tipologieCol.setStyle("-fx-alignment: CENTER;");
+		azioniCol.setStyle("-fx-alignment: CENTER;");
 
-		tipologie_col.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-		azioni_col.setCellValueFactory(
+		tipologieCol.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+		azioniCol.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Tipologia, Button>, ObservableValue<Button>>() {
 					@Override
 					public ObservableValue<Button> call(CellDataFeatures<Tipologia, Button> param) {
@@ -78,9 +78,9 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 								try
 								/* ELIMINA */ {
 									tipologiaservice.deleteTipologia(param.getValue());
-									label_errore.setText("");
+									labelErrore.setText("");
 								} catch (NumberFormatException | BusinessException e) {
-									label_errore.setText("veicoli appartenenti a questa tipologia !");
+									labelErrore.setText("veicoli appartenenti a questa tipologia !");
 								}
 								initialize(null, null);
 							}
@@ -95,8 +95,8 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 			e.printStackTrace();
 		}
 		ObservableList<Tipologia> listaT = FXCollections.observableList(listatipologie);
-		tabella_tipologie.setItems(listaT);
-		tabella_tipologie.setItems(listaT);
+		tabellaTipologie.setItems(listaT);
+		tabellaTipologie.setItems(listaT);
 
 	}
 
