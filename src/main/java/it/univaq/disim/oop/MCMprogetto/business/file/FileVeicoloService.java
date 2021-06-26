@@ -5,15 +5,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Alimentazione;
 import it.univaq.disim.oop.MCMprogetto.domain.Stato;
+import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class FileVeicoloService implements VeicoloService { //targa, modello, KM, tipologia, alimentazione,
 															// stato, tariffaKM, tariffaPeriodo
+	
 	@Override // CREA
 	public void createVeicolo(Veicolo veicolo) throws BusinessException {
 		if (!giaEsistente(veicolo.getTarga())) {
@@ -127,7 +130,9 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 				veicolo.setTarga(colonne[1]);
 				veicolo.setModello(colonne[2]);
 				veicolo.setChilometri(Integer.parseInt(colonne[3]));
-				veicolo.getTipologia().setNome(colonne[4]);
+				Tipologia t=new Tipologia();
+				t.setNome(colonne[4]);
+				veicolo.setTipologia(t);
 				veicolo.setAlimentazione(Alimentazione.valueOf(colonne[5]));
 				veicolo.setStato(Stato.valueOf(colonne[6]));
 				veicolo.setTariffaChilometraggio(Double.parseDouble(colonne[7]));

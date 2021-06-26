@@ -118,9 +118,9 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[4]));
 				noleggio.setKmPercorsi(Integer.parseInt(colonne[5]));
 				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[6])));
-				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[7]));// DA CAMBIARE METODO IN VEICOLOSERVICE
+				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[7]));
 				noleggio.setDettagli(colonne[8]);
-
+				
 				listanoleggi.add(noleggio);
 			}
 			return listanoleggi;

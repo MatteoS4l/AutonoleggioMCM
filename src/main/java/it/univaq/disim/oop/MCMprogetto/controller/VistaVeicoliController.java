@@ -69,8 +69,8 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 
 		modelloVeicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
 		tipologiaVeicolo.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-		prezzoKmVeicolo.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
-		prezzoGiornoVeicolo.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
+		prezzoKmVeicolo.setCellValueFactory(new PropertyValueFactory<>("tariffaChilometraggio"));
+		prezzoGiornoVeicolo.setCellValueFactory(new PropertyValueFactory<>("tariffaPeriodo"));
 		statoVeicolo.setCellValueFactory(new PropertyValueFactory<>("stato"));
 		azioniVeicolo.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>() {

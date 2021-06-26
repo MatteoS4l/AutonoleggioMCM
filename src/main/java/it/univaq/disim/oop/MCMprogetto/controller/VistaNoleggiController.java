@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
@@ -29,7 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
-public class VistaNoleggiController implements Initializable, DataInitializable<Utente, Object> {
+public class VistaNoleggiController implements Initializable, DataInitializable<Utente> {
 	private NoleggioService noleggioservice;
 
 	@FXML
@@ -60,9 +62,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		boxAssistenza.getItems().add("SI");
-		boxAssistenza.getItems().add("NO");
-		boxAssistenza.getItems().add("Tutte");
+		boxAssistenza.getItems().addAll("SI","NO","Tutte");
 
 		idNoleggio.setStyle("-fx-alignment: CENTER;");
 		dataInizioNoleggio.setStyle("-fx-alignment: CENTER;");
@@ -72,8 +72,8 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 		azioniNoleggio.setStyle("-fx-alignment: CENTER;");
 
 		idNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		dataInizioNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
-		dataFineNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
+		dataInizioNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));///
+		dataFineNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataFineNoleggio"));///// occhio al nome delle variabili
 		clienteNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
