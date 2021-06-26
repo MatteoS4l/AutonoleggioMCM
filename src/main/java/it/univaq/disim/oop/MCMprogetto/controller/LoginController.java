@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController implements Initializable, DataInitializable<Utente, Object> {
+public class LoginController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
 	private Utente utente;
 	private UtenteService utenteservice;
@@ -64,7 +64,7 @@ public class LoginController implements Initializable, DataInitializable<Utente,
 
 	@FXML // REGISTRATI
 	void Registrati(ActionEvent event) {
-		dispatcher.GetView("registrazione", utente, null);
+		dispatcher.GetView("registrazione", utente);
 	}
 
 }

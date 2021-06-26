@@ -12,12 +12,12 @@ import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 
-public class FileTipologiaService implements TipologiaService {
+public class FileTipologiaService implements TipologiaService { // ID, nome
 	private VeicoloService veicoloservice = new FileVeicoloService();
 
 	@Override // CREA
 	public void createTipologia(Tipologia tipologia) throws BusinessException {
-		if (!findAllTipologia().contains(tipologia.getTipologia())) {
+		if (!findAllTipologia().contains(tipologia.getNome())) {
 			try {
 				FileData fileData = Utility.readAllRows("tipologie");
 				try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "tipologie" + Utility.FORMATO))) {
@@ -31,7 +31,7 @@ public class FileTipologiaService implements TipologiaService {
 					StringBuilder row = new StringBuilder();
 					row.append(fileData.getCont());
 					row.append(Utility.SEPARATORE);
-					row.append(tipologia.getTipologia());
+					row.append(tipologia.getNome());
 
 					writer.println(row.toString());
 				}
@@ -46,7 +46,7 @@ public class FileTipologiaService implements TipologiaService {
 
 	@Override // ELIMINA
 	public void deleteTipologia(Tipologia tipologia) throws VeicoloNonTrovatoException, BusinessException {
-		if (veicoloservice.findListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty()) {
+		if (veicoloservice.findListaVeicoliByTipologia(tipologia.getNome()).isEmpty()) {
 			try {
 				FileData fileData = Utility.readAllRows("tipologie");
 				try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "tipologie" + Utility.FORMATO))) {
@@ -78,8 +78,8 @@ public class FileTipologiaService implements TipologiaService {
 				Tipologia tipologia = new Tipologia();
 
 				tipologia.setID(Integer.parseInt(colonne[0]));
-				tipologia.setTipologia(colonne[1]);
-				listatipo.add(tipologia.getTipologia());
+				tipologia.setNome(colonne[1]);
+				listatipo.add(tipologia.getNome());
 			}
 			return listatipo;
 		} catch (IOException e) {
@@ -98,7 +98,7 @@ public class FileTipologiaService implements TipologiaService {
 				Tipologia tipologia = new Tipologia();
 
 				tipologia.setID(Integer.parseInt(colonne[0]));
-				tipologia.setTipologia(colonne[1]);
+				tipologia.setNome(colonne[1]);
 				listatipo.add(tipologia);
 			}
 			return listatipo;

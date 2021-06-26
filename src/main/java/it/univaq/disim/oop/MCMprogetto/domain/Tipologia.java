@@ -2,8 +2,8 @@ package it.univaq.disim.oop.MCMprogetto.domain;
 
 public class Tipologia {
 
-	private String nome;
 	private Integer ID;
+	private String nome;
 
 	// GET E SET
 	public String getNome() {

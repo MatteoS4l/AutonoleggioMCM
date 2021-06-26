@@ -44,12 +44,12 @@ public class ViewDispatcher
 	public void loggedIn(Utente utente)		
 	{	try
 		{
-			View<Utente,Object> layoutView = loadView("layout");
-			DataInitializable<Utente,Object> layoutController = layoutView.getController();
+			View<Utente> layoutView = loadView("layout");
+			DataInitializable<Utente> layoutController = layoutView.getController();
 			layoutController.initializeData(utente);
 	
 			layout = (BorderPane) layoutView.getView();
-			renderView("home", utente,null);
+			renderView("home", utente);
 			Scene scene = new Scene(layout);
 			stage.setScene(scene);
 		}
@@ -61,12 +61,12 @@ public class ViewDispatcher
 	
 	
 	// metodo che apre una schermata generica
-	public <T,S> void GetView( String viewName, T data, S data2)
+	public <T> void GetView( String viewName, T data)
 	{	try
-		{	View<T,S> view = loadView(viewName);
+		{	View<T> view = loadView(viewName);
 			Scene scene = new Scene(view.getView());
 			stage.setScene(scene);
-			DataInitializable<T,S> controller = view.getController();
+			DataInitializable<T> controller = view.getController();
 			controller.initializeData(data);
 		}
 		catch (ViewException e)
@@ -88,12 +88,11 @@ public class ViewDispatcher
 
 	
 	// metodo che carica una generica vista
-	public <T,S> void renderView(String viewName, T data, S data2)
+	public <T> void renderView(String viewName, T data)
 	{	try
 		{
-			View<T,S> view = loadView(viewName);
-			DataInitializable<T,S> controller = view.getController();
-			controller.initializeData(data, data2);
+			View<T> view = loadView(viewName);
+			DataInitializable<T> controller = view.getController();
 			controller.initializeData(data);
 			layout.setCenter(view.getView());
 		}
@@ -103,12 +102,12 @@ public class ViewDispatcher
 
 	
 	// prende una vista dalla cartella per caricarla
-	private <T,S> View<T,S> loadView(String viewName) throws ViewException
+	private <T> View<T> loadView(String viewName) throws ViewException
 	{	try
 		{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(VISTE + viewName + FXML));
 			Parent parent = (Parent) loader.load();
-			return new View<T,S>(parent, loader.getController());
+			return new View<T>(parent, loader.getController());
 		}
 		catch (IOException ex)
 		{	throw new ViewException(ex);	}

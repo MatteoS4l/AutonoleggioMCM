@@ -11,7 +11,7 @@ public interface AssistenzaService {
 
 	List<Assistenza> findAllAssistenza() throws BusinessException;
 
-	Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException, BusinessException;
+	Assistenza getAssistenzaByID(Integer id) throws AssistenzaNonTrovataException, BusinessException;
 
 	List<Assistenza> findListaAssistenzaByServita(boolean servita) throws BusinessException;
 

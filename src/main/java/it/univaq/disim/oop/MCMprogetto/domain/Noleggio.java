@@ -1,15 +1,13 @@
 package it.univaq.disim.oop.MCMprogetto.domain;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Noleggio {
 	private Integer ID;
 	private LocalDate dataInizioNoleggio;
 	private LocalDate dataFineNoleggio;
-	private Double prezzo_noleggio;
-	private Integer KmPercorsi;
-	private ArrayList<Assistenza> listaAssistenza;
+	private Double prezzoNoleggio;
+	private Integer kmPercorsi;
 	private Cliente cliente;
 	private Veicolo veicolo;
 	private String dettagli;
@@ -40,27 +38,19 @@ public class Noleggio {
 	}
 
 	public Double getPrezzo_noleggio() {
-		return prezzo_noleggio;
+		return prezzoNoleggio;
 	}
 
 	public void setPrezzo_noleggio(Double prezzo_noleggio) {
-		this.prezzo_noleggio = prezzo_noleggio;
+		this.prezzoNoleggio = prezzo_noleggio;
 	}
 
 	public Integer getKmPercorsi() {
-		return KmPercorsi;
+		return kmPercorsi;
 	}
 
 	public void setKmPercorsi(Integer kM_percorsi) {
-		KmPercorsi = kM_percorsi;
-	}
-
-	public ArrayList<Assistenza> getListaAssistenza() {
-		return listaAssistenza;
-	}
-
-	public void setListaAssistenza(ArrayList<Assistenza> listaAssistenza) {
-		this.listaAssistenza = listaAssistenza;
+		kmPercorsi = kM_percorsi;
 	}
 
 	public Cliente getCliente() {

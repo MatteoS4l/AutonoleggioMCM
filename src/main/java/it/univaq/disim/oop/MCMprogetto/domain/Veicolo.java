@@ -1,8 +1,5 @@
 package it.univaq.disim.oop.MCMprogetto.domain;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 public class Veicolo {
 
 	private String targa;
@@ -13,9 +10,6 @@ public class Veicolo {
 	private Stato stato;
 	private Double tariffaChilometraggio;   // da mettere nel domain model
 	private Double tariffaPeriodo;			// da mettere nel domain model
-	private ArrayList<Feedback> feedback;
-	private Set<Noleggio> listaNoleggi;
-	
 	
 	// GET E SET
 	public String getTarga() {
@@ -65,18 +59,6 @@ public class Veicolo {
 	}
 	public void setTariffaPeriodo(Double tariffaPeriodo) {
 		this.tariffaPeriodo = tariffaPeriodo;
-	}
-	public ArrayList<Feedback> getFeedback() {
-		return feedback;
-	}
-	public void setFeedback(ArrayList<Feedback> feedback) {
-		this.feedback = feedback;
-	}
-	public Set<Noleggio> getListaNoleggi() {
-		return listaNoleggi;
-	}
-	public void setListaNoleggi(Set<Noleggio> listaNoleggi) {
-		this.listaNoleggi = listaNoleggi;
 	}
 	
 	

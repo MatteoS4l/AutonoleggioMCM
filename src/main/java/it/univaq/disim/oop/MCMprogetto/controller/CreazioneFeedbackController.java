@@ -2,9 +2,10 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
-import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
@@ -17,14 +18,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.MouseEvent;
 
 public class CreazioneFeedbackController implements Initializable, DataInitializable<Utente, Noleggio> {
 	private ViewDispatcher dispatcher;
 	private Veicolo veicolo;
 	private Utente utente;
 	private Noleggio noleggio;
-	private NoleggioService noleggioservice;
 	private FeedbackService feedbackservice;
 
 	private int tmp = 0;
@@ -59,7 +59,6 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 	public CreazioneFeedbackController() {
 		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
-		noleggioservice = factory.getNoleggioService();
 		feedbackservice = factory.getFeedbackService();
 	}
 
@@ -84,18 +83,16 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 	void InviaFeedback(ActionEvent event) {
 		try {
 			Feedback feedback = new Feedback();
-			feedback.setFeedback(recensioneTxtfield.getText());
+			feedback.setTesto(recensioneTxtfield.getText());
 			feedback.setStelle(tmp);
-			feedback.setUtente(utente);
 			feedback.setNoleggio(noleggio);
 			feedbackservice.createFeedback(feedback);
 
-			noleggioservice.updateNoleggio(noleggio);
-
 			dispatcher.renderView("rilascio_feedback", utente, null);
-		} catch (Exception e) {
+		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/************************ INIZIO STELLE **********************/

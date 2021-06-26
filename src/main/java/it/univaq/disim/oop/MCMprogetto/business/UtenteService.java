@@ -2,14 +2,14 @@ package it.univaq.disim.oop.MCMprogetto.business;
 
 import java.time.LocalDate;
 import java.util.List;
-import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
+
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 
 public interface UtenteService {
 	/* tutte queste variabili è come se fossero (public static final) */
 	Utente Autenticazione(String username, String password) throws UtenteNonTrovatoException, BusinessException;
 
-	List<Utente> findAllUtenti(Amministratore admin) throws BusinessException;
+	List<Utente> findAllUtenti() throws BusinessException;
 
 	void createUtente(Utente utente) throws BusinessException;
 

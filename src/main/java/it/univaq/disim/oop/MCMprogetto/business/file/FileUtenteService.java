@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
@@ -15,7 +16,8 @@ import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
 import it.univaq.disim.oop.MCMprogetto.domain.Sesso;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 
-public class FileUtenteService implements UtenteService {
+public class FileUtenteService implements UtenteService { // nome, cognome, username, password, sesso, dataNascita, eta
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	@Override // AUTENTICAZIONE
 	public Utente Autenticazione(String username, String password) throws UtenteNonTrovatoException, BusinessException {
@@ -25,7 +27,6 @@ public class FileUtenteService implements UtenteService {
 			admin.setCognome("Pittella");
 			admin.setUsername(username);
 			admin.setPassword(password);
-			admin.setEta(21);
 			admin.setSesso(Sesso.UOMO);
 			return admin;
 		}
@@ -47,16 +48,16 @@ public class FileUtenteService implements UtenteService {
 						break;
 
 					default:
-						break;
+						throw new BusinessException("Tipo di utente non riconosciuto");
 					}
-
 					utente.setID(Integer.parseInt(colonne[0]));
 					utente.setNome(colonne[2]);
 					utente.setCognome(colonne[3]);
 					utente.setUsername(colonne[4]);
 					utente.setPassword(colonne[5]);
-					utente.getSesso().setSesso(colonne[6]);
-					utente.setEta(Integer.parseInt(colonne[7]));
+					utente.setSesso(Sesso.valueOf(colonne[6]));
+					utente.setDataNascita(LocalDate.parse(colonne[7], formatter));
+					utente.setEta(CalcolaEta(utente.getDataNascita()));
 
 					return utente;
 				}
@@ -66,12 +67,12 @@ public class FileUtenteService implements UtenteService {
 
 		catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("Errore in autenticazione");
 		}
 	}
 
 	@Override // GET LISTA UTENTI
-	public List<Utente> findAllUtenti(Amministratore admin) throws BusinessException {
+	public List<Utente> findAllUtenti() throws BusinessException {
 		try {
 			FileData filedata = Utility.readAllRows("utenti"); // elimina anche gli spazi
 			List<Utente> listacompleta = new ArrayList<Utente>();
@@ -98,9 +99,9 @@ public class FileUtenteService implements UtenteService {
 				utente.setCognome(colonne[3]);
 				utente.setUsername(colonne[4]);
 				utente.setPassword(colonne[5]);
-				utente.getSesso().setSesso(colonne[6]);
-				utente.setEta(Integer.parseInt(colonne[7]));
-				utente.setDataNascita(LocalDate.parse(colonne[8]));
+				utente.setSesso(Sesso.valueOf(colonne[6]));
+				utente.setDataNascita(LocalDate.parse(colonne[7], formatter));
+				utente.setEta(CalcolaEta(utente.getDataNascita()));
 
 				listacompleta.add(utente);
 			}
@@ -109,14 +110,12 @@ public class FileUtenteService implements UtenteService {
 
 		catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("Errore in ricerca di tutti gli utenti");
 		}
 	}
 
 	@Override // CREA
-	public void createUtente(Utente utente) throws BusinessException // sarebbe da modificare e inserire in file di
-																		// testo anche data di nascita
-	{
+	public void createUtente(Utente utente) throws BusinessException {
 		try {
 			FileData fileData = Utility.readAllRows("utenti");
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "utenti" + Utility.FORMATO))) {
@@ -150,14 +149,15 @@ public class FileUtenteService implements UtenteService {
 				row.append(Utility.SEPARATORE);
 				row.append(utente.getSesso());
 				row.append(Utility.SEPARATORE);
-				row.append(utente.getEta());
-				row.append(Utility.SEPARATORE);
 				row.append(utente.getDataNascita().toString().replace("T", " "));
+				row.append(Utility.SEPARATORE);
+				row.append(utente.getEta());
+
 				writer.println(row.toString());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("Errore in creazione utente");
 		}
 	}
 
@@ -197,9 +197,10 @@ public class FileUtenteService implements UtenteService {
 						row.append(Utility.SEPARATORE);
 						row.append(utente.getSesso());
 						row.append(Utility.SEPARATORE);
-						row.append(utente.getEta());
-						row.append(Utility.SEPARATORE);
 						row.append(utente.getDataNascita().toString().replace("T", " "));
+						row.append(Utility.SEPARATORE);
+						row.append(utente.getEta());
+
 						writer.println(row.toString());
 					} else {
 						writer.println(String.join(Utility.SEPARATORE, righe));
@@ -208,7 +209,7 @@ public class FileUtenteService implements UtenteService {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("Errore in update utente");
 		}
 	}
 
@@ -220,14 +221,15 @@ public class FileUtenteService implements UtenteService {
 				writer.println(fileData.getCont());
 				for (String[] righe : fileData.getRighe()) {
 					if (Integer.parseInt(righe[0]) == utente.getID()) {
-						/* eliminato */ } else {
+						System.err.println("Utente eliminato");
+					} else {
 						writer.println(String.join(Utility.SEPARATORE, righe));
 					}
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("Errore durannte l'eliminazione dell'utente");
 		}
 	}
 
@@ -254,31 +256,11 @@ public class FileUtenteService implements UtenteService {
 
 	@Override // GET UTENTE BY ID
 	public Utente findUtenteById(int id) throws UtenteNonTrovatoException, BusinessException {
-		/*FileData fileData = Utility.readAllRows("utenti");
-		for (String[] righe : fileData.getRighe()) {
-		if (Integer.parseInt(righe[0]) == id) {
-		Utente utente = new Utente();
-
-		utente.setID(Integer.parseInt(righe[0]));
-		utente.setNome(righe[2]);
-		utente.setCognome(righe[3]);
-		utente.setUsername(righe[4]);
-		utente.setPassword(righe[5]);
-		utente.getSesso().setSesso(righe[6]);
-		utente.setEta(Integer.parseInt(righe[7]));
-		utente.setDataNascita(LocalDate.parse(righe[8]));
-*/
-			try {
-				for (Utente u: findAllUtenti(null)) {
-					if (u.getID()==id) {
-						return u;
-					}
-				}
-					
+		for (Utente tmp : findAllUtenti()) {
+			if (tmp.getID() == id) {
+				return tmp;
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
+		}
+		throw new UtenteNonTrovatoException();
 	}
 }

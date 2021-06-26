@@ -8,13 +8,12 @@ import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Alimentazione;
 import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
-public class FileVeicoloService implements VeicoloService {// id, targa, tipologia, modello, alimentazione,
-															// manutenzione, disponibilita, stato, chilometri, tarifKM,
-															// tarifperiodoalgiorno
-
+public class FileVeicoloService implements VeicoloService { //targa, modello, KM, tipologia, alimentazione,
+															// stato, tariffaKM, tariffaPeriodo
 	@Override // CREA
 	public void createVeicolo(Veicolo veicolo) throws BusinessException {
 		if (!giaEsistente(veicolo.getTarga())) {
@@ -33,31 +32,25 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 					row.append(Utility.SEPARATORE);
 					row.append(veicolo.getTarga());
 					row.append(Utility.SEPARATORE);
-					row.append(veicolo.getTipologia());
-					row.append(Utility.SEPARATORE);
 					row.append(veicolo.getModello());
-					row.append(Utility.SEPARATORE);
-					row.append(veicolo.getAlimentazione());
-					row.append(Utility.SEPARATORE);
-//					row.append(veicolo.isManutenzione());
-//					row.append(Utility.SEPARATORE);
-//					row.append(veicolo.isDisponibilita());
-//					row.append(Utility.SEPARATORE);
-					row.append(veicolo.getStato());
 					row.append(Utility.SEPARATORE);
 					row.append(veicolo.getChilometri());
 					row.append(Utility.SEPARATORE);
-					row.append(veicolo.getTariffa_chilometraggio());
+					row.append(veicolo.getTipologia());
 					row.append(Utility.SEPARATORE);
-					row.append(veicolo.getTariffa_periodo());
+					row.append(veicolo.getAlimentazione());
 					row.append(Utility.SEPARATORE);
-					row.append(0);
+					row.append(veicolo.getStato());
+					row.append(Utility.SEPARATORE);
+					row.append(veicolo.getTariffaChilometraggio());
+					row.append(Utility.SEPARATORE);
+					row.append(veicolo.getTariffaPeriodo());
 
 					writer.println(row.toString());
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				throw new BusinessException(e);
+				throw new BusinessException("Errore durante la creazione di Veicolo");
 			}
 		} else {
 			throw new BusinessException();
@@ -71,32 +64,23 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "veicoli" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
 				for (String[] righe : fileData.getRighe()) {
-					if (Integer.parseInt(righe[0]) == veicolo.getID()) {
+					if ((righe[1]) == veicolo.getTarga()) {
 						StringBuilder row = new StringBuilder();
 
-//						row.append(veicolo.getID());
-//						row.append(Utility.SEPARATORE);
 						row.append(veicolo.getTarga());
-						row.append(Utility.SEPARATORE);
-						row.append(veicolo.getTipologia());
 						row.append(Utility.SEPARATORE);
 						row.append(veicolo.getModello());
 						row.append(Utility.SEPARATORE);
-						row.append(veicolo.getAlimentazione());
-						row.append(Utility.SEPARATORE);
-//						row.append(veicolo.isManutenzione());
-//						row.append(Utility.SEPARATORE);
-//						row.append(veicolo.isDisponibilita());
-//						row.append(Utility.SEPARATORE);
-						row.append(veicolo.getStato());
-						row.append(Utility.SEPARATORE);
 						row.append(veicolo.getChilometri());
 						row.append(Utility.SEPARATORE);
-						row.append(veicolo.getTariffa_chilometraggio());
+						row.append(veicolo.getTipologia());
 						row.append(Utility.SEPARATORE);
-						row.append(veicolo.getTariffa_periodo());
+						row.append(veicolo.getAlimentazione());
 						row.append(Utility.SEPARATORE);
-						row.append(0);
+						row.append(veicolo.getStato());
+						row.append(Utility.SEPARATORE);
+						row.append(veicolo.getTariffaChilometraggio());
+						row.append(Utility.SEPARATORE);
 
 						writer.println(row.toString());
 					} else {
@@ -106,7 +90,7 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("errore durante la modifica di Veicolo");
 		}
 	}
 
@@ -117,7 +101,7 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "veicoli" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
 				for (String[] righe : fileData.getRighe()) {
-					if (Integer.parseInt(righe[0]) == veicolo.getID()
+					if ((righe[0]) == veicolo.getTarga()
 							&& veicolo.getStato().getDesc().equalsIgnoreCase("disponibile")) {
 						return;
 					} else {
@@ -128,7 +112,7 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("Errore durante eliminazione Veicolo");
 		}
 	}
 
@@ -140,17 +124,14 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 
 			for (String[] colonne : filedata.getRighe()) {
 				Veicolo veicolo = new Veicolo();
-				//veicolo.setID(Integer.parseInt(colonne[0]));
-				veicolo.setTarga(colonne[0]);
-				veicolo.getTipologia().setNome(colonne[1]);
+				veicolo.setTarga(colonne[1]);
 				veicolo.setModello(colonne[2]);
-				veicolo.setAlimentazione(colonne[3]);
-//				veicolo.setManutenzione(Boolean.parseBoolean(colonne[4]));
-//				veicolo.setDisponibilita(Boolean.parseBoolean(colonne[5]));
-				veicolo.getStato().setDesc(colonne[6]);
-				veicolo.setChilometri(Integer.parseInt(colonne[7]));
-				veicolo.setTariffa_chilometraggio(Double.parseDouble(colonne[8]));
-				veicolo.setTariffa_periodo(Double.parseDouble(colonne[9]));
+				veicolo.setChilometri(Integer.parseInt(colonne[3]));
+				veicolo.getTipologia().setNome(colonne[4]);
+				veicolo.setAlimentazione(Alimentazione.valueOf(colonne[5]));
+				veicolo.setStato(Stato.valueOf(colonne[6]));
+				veicolo.setTariffaChilometraggio(Double.parseDouble(colonne[7]));
+				veicolo.setTariffaPeriodo(Double.parseDouble(colonne[8]));
 
 				listacompleta.add(veicolo);
 			}
@@ -158,7 +139,7 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 			return listacompleta;
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("Errore in findAllVeicoli");
 		}
 	}
 
@@ -172,7 +153,7 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
 		for (Veicolo tmp : lista) {
-			if (tmp.getStato().getDesc().equals(stato)) {
+			if (tmp.getStato().getDesc().equalsIgnoreCase(stato)) {
 				listacompleta.add(tmp);
 			}
 		}
@@ -180,8 +161,7 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 	}
 
 	@Override // GET LISTA VEICOLI TIPOLOGIA
-	public List<Veicolo> findListaVeicoliByTipologia(String tipologia)
-			throws VeicoloNonTrovatoException, BusinessException {
+	public List<Veicolo> findListaVeicoliByTipologia(String tipologia) throws VeicoloNonTrovatoException, BusinessException {
 		if (tipologia.equalsIgnoreCase("tutte")) {
 			return findAllVeicoli();
 		}
@@ -198,8 +178,7 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 	}
 
 	@Override // GET LISTA BY ALIMENTAZIONE
-	public List<Veicolo> findListaVeicoliByAlimentazione(String alimentazione)
-			throws VeicoloNonTrovatoException, BusinessException {
+	public List<Veicolo> findListaVeicoliByAlimentazione(String alimentazione) throws VeicoloNonTrovatoException, BusinessException {
 		if (alimentazione.equalsIgnoreCase("tutte")) {
 			return findAllVeicoli();
 		}
@@ -216,8 +195,7 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 	}
 
 	@Override // GET LISTA BY MODELLO
-	public List<Veicolo> findListaVeicoliByModello(String modello)
-			throws VeicoloNonTrovatoException, BusinessException {
+	public List<Veicolo> findListaVeicoliByModello(String modello) throws VeicoloNonTrovatoException, BusinessException {
 		List<Veicolo> lista = findAllVeicoli();
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
@@ -230,13 +208,12 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 	}
 
 	@Override // GET LISTA BY TARIFFA_KM
-	public List<Veicolo> findListaVeicoliByTariffaKM(double min, double max)
-			throws VeicoloNonTrovatoException, BusinessException {
+	public List<Veicolo> findListaVeicoliByTariffaKM(double min, double max) throws VeicoloNonTrovatoException, BusinessException {
 		List<Veicolo> lista = findAllVeicoli();
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
 		for (Veicolo tmp : lista) {
-			if (tmp.getTariffa_chilometraggio() >= min && tmp.getTariffa_chilometraggio() <= max) {
+			if (tmp.getTariffaChilometraggio() >= min && tmp.getTariffaChilometraggio() <= max) {
 				listacompleta.add(tmp);
 			}
 		}
@@ -250,25 +227,11 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
 		for (Veicolo tmp : lista) {
-			if (tmp.getTariffa_periodo() >= min && tmp.getTariffa_periodo() <= max) {
+			if (tmp.getTariffaPeriodo() >= min && tmp.getTariffaPeriodo() <= max) {
 				listacompleta.add(tmp);
 			}
 		}
 		return listacompleta;
-	}
-
-	
-
-	@Override // GET STATO VEICOLO
-	public String[] findListStatoVeicolo() {
-		String[] s = { "disponibile", "non disponibile", "in noleggio" };
-		return s;
-	}
-
-	@Override // GET ALIMENTAZIONE VEICOLO
-	public String[] findListAlimentazioneVeicolo() {
-		String[] s = { "benzina", "diesel", "gpl" };
-		return s;
 	}
 
 	// GIA ESISTENTE
@@ -280,6 +243,16 @@ public class FileVeicoloService implements VeicoloService {// id, targa, tipolog
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Veicolo findVeicoloByTarga(String targa) throws VeicoloNonTrovatoException, BusinessException {
+		for(Veicolo tmp : findAllVeicoli()) {
+			if(tmp.getTarga().equalsIgnoreCase(targa)) {
+				return tmp;
+			}
+		}
+		throw new VeicoloNonTrovatoException();
 	}
 
 }
