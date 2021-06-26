@@ -53,7 +53,7 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 				throw new BusinessException("Errore durante la creazione di Veicolo");
 			}
 		} else {
-			throw new BusinessException();
+			throw new BusinessException("ERRORE: Veicolo già esistente");
 		}
 	}
 

@@ -27,7 +27,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
-public class FeedbackController implements Initializable, DataInitializable<Veicolo, Utente> {
+public class FeedbackController implements Initializable, DataInitializable<Veicolo> {
 	private ViewDispatcher dispatcher;
 	private FeedbackService feedbackservice;
 	private Veicolo veicolo;
@@ -53,14 +53,7 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		utenteTabella.setStyle("-fx-alignment: CENTER;");
-	}
-
-	@Override
-	public void initializeData(Veicolo veicolo, Utente utente) {
-		this.veicolo = veicolo;
-		this.utente = utente;
-
-		label_veicolo.setText("Feedback Di: " + veicolo.getModello());
+		this.utente = LayoutController.utenteMemorizzato;
 
 		feedbackTabella.setStyle("-fx-alignment: CENTER;");
 		utenteTabella.setStyle("-fx-alignment: CENTER;");
@@ -70,34 +63,38 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 				new Callback<TableColumn.CellDataFeatures<Feedback, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Feedback, String> tmp) {
-						return new SimpleStringProperty(tmp.getValue().getUtente().getUsername());
+						return new SimpleStringProperty(tmp.getValue().getNoleggio().getCliente().getUsername());
 					}
 				});
 		ratingTabella.setCellValueFactory(new PropertyValueFactory<Feedback, Integer>("stelle"));
+	}
+
+	@Override
+	public void initializeData(Veicolo veicolo) {
+		this.veicolo = veicolo;
+		label_veicolo.setText("Feedback Di: " + veicolo.getModello());
 
 		List<Feedback> listafeedback = null;
 		try {
 			listafeedback = feedbackservice.findAllFeedbackByVeicolo(veicolo);
 		} catch (BusinessException e) {
-			/* nessun feedback per questo veicolo */ }
+			System.err.println(e.getMessage());
+		}
+
 		ObservableList<Feedback> listaFeed = FXCollections.observableList(listafeedback);
 		tabellaFeedback.setItems(listaFeed);
-
 	}
 
 	@FXML // TORNA INDIETRO
 	void TornaIndietro(MouseEvent event) {
 		if (utente instanceof Amministratore) {
-			dispatcher.renderView("scheda_veicolo", veicolo, null);
+			dispatcher.renderView("scheda_veicolo", veicolo);
 		}
-
 		if (utente instanceof Operatore) {
-			dispatcher.renderView("vistaveicoli", utente, null);
+			dispatcher.renderView("vistaveicoli", utente);
 		}
-
 		if (utente instanceof Cliente) {
-			dispatcher.renderView("scheda_noleggio", veicolo, utente);
+			dispatcher.renderView("scheda_noleggio", veicolo);
 		}
 	}
-
 }

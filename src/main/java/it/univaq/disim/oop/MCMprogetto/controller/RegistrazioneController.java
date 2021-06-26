@@ -22,7 +22,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class RegistrazioneController implements Initializable, DataInitializable<Utente, Object> {
+public class RegistrazioneController implements Initializable, DataInitializable<Utente> {
 	private UtenteService utenteservice;
 	private ViewDispatcher dispatcher;
 	private Utente utente;
@@ -72,9 +72,9 @@ public class RegistrazioneController implements Initializable, DataInitializable
 	@Override
 	public void initializeData(Utente utente) {
 		this.utente = utente;
-		
-		sessoRegistrazione.getItems().add(Sesso.UOMO); // bovino 24/6
-		sessoRegistrazione.getItems().add(Sesso.DONNA);	// bovino 24/6
+
+		sessoRegistrazione.getItems().add(Sesso.UOMO);
+		sessoRegistrazione.getItems().add(Sesso.DONNA);
 		sessoRegistrazione.setValue(Sesso.UOMO);
 		tipologiaRegistrazione.getItems().add("Cliente");
 		tipologiaRegistrazione.setValue("Cliente");
@@ -87,30 +87,29 @@ public class RegistrazioneController implements Initializable, DataInitializable
 	@FXML // CONFERMA
 	void ConfermaRegistrazione(ActionEvent event) throws BusinessException {
 		try {
-			Utente utente = null;
+			Utente utente;
 
 			if (tipologiaRegistrazione.getValue().equalsIgnoreCase("operatore")) {
 				utente = new Operatore();
+			} else {
+				utente = new Cliente();
 			}
-			utente = new Cliente();
-
 			utente.setNome(nomeRegistrazione.getText());
 			utente.setCognome(cognomeRegistrazione.getText());
 			utente.setUsername(usernameRegistrazione.getText());
 			utente.setPassword(passwordRegistrazione.getText());
 			utente.setDataNascita(dataDiNascitaRegistrazione.getValue());
-			//utente.setEta(utenteservice.CalcolaEta(dataDiNascitaRegistrazione.getValue()));
-			utente.setSesso(sessoRegistrazione.getValue()); // bovino 24/6
+			utente.setSesso(sessoRegistrazione.getValue());
 
-			if (!passwordRegistrazione.getText().equals(confermaPassRegistrazione.getText())) {
+			if(!passwordRegistrazione.getText().equals(confermaPassRegistrazione.getText())) {
 				labelErrore.setText("Le password non corrispondono!");
 			} else {
 				try {
 					utenteservice.createUtente(utente);
 				} catch (BusinessException e) {
 					e.printStackTrace();
+					labelErrore.setText(e.getMessage());
 				}
-
 				TornaIndietro(null);
 			}
 
@@ -122,10 +121,9 @@ public class RegistrazioneController implements Initializable, DataInitializable
 	@FXML // ANNULLA
 	void TornaIndietro(ActionEvent event) {
 		if (utente instanceof Amministratore) {
-			dispatcher.renderView("vistautenti", utente, null);
+			dispatcher.renderView("vistautenti", utente);
 		} else {
 			dispatcher.logout();
 		}
 	}
-
 }

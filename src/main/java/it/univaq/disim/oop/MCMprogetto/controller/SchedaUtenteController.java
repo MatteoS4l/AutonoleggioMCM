@@ -19,7 +19,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class SchedaUtenteController implements Initializable, DataInitializable<Utente, Object> {
+public class SchedaUtenteController implements Initializable, DataInitializable<Utente> {
 	private UtenteService utenteservice;
 	private ViewDispatcher dispatcher;
 	private Utente utente;
@@ -102,7 +102,7 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 			utente_modificato.setSesso(sesso.getValue());
 
 			utenteservice.updateUtente(utente_modificato);
-			dispatcher.renderView("vistautenti", null, null);
+			dispatcher.renderView("vistautenti", null);
 		} catch (NullPointerException e) {
 			labelErrore.setText("Inserire la data");
 		}
@@ -111,7 +111,7 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 	@FXML // ELIMINA
 	void Elimina(ActionEvent event) throws BusinessException {
 		utenteservice.deleteUtente(utente);
-		dispatcher.renderView("vistautenti", null, null);
+		dispatcher.renderView("vistautenti", null);
 	}
 
 }

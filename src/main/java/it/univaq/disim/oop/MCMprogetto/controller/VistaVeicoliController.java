@@ -8,6 +8,7 @@ import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
 import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
+import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -27,7 +28,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class VistaVeicoliController implements Initializable, DataInitializable<Utente, Object> {
+public class VistaVeicoliController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
 	private Utente utente;
@@ -47,7 +48,7 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 	@FXML
 	private TableColumn<Veicolo, Button> azioniVeicolo;
 	@FXML
-	private ComboBox<String> filtroStatoVeicolo;
+	private ComboBox<Stato> filtroStatoVeicolo;
 	@FXML
 	private Button aggiungiVeicoloButton;
 
@@ -80,21 +81,24 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 							@Override
 							public void handle(ActionEvent event) {
 								if (utente instanceof Amministratore) {
-									dispatcher.renderView("scheda_veicolo", param.getValue(), utente);
+									dispatcher.renderView("scheda_veicolo", param.getValue());
 								}
 								if (utente instanceof Operatore) {
-									dispatcher.renderView("feedback", param.getValue(), utente);
+									dispatcher.renderView("feedback", param.getValue());
 								}
 							}
 						});
 						return new SimpleObjectProperty<Button>(veicoliButton);
 					}
 				});
-		try {
-			filtroStatoVeicolo.getItems().addAll(veicoloservice.findListStatoVeicolo());
-			filtroStatoVeicolo.getItems().add("Tutte");
-		} catch (BusinessException e) {
-			e.printStackTrace();
+		filtroStatoVeicolo.getItems().addAll(Stato.values());
+	}
+
+	@Override
+	public void initializeData(Utente utente) {
+		this.utente = LayoutController.utenteMemorizzato;
+		if (utente instanceof Operatore) {
+			aggiungiVeicoloButton.setVisible(false);
 		}
 
 		List<Veicolo> listaV = null;
@@ -105,26 +109,17 @@ public class VistaVeicoliController implements Initializable, DataInitializable<
 		}
 		ObservableList<Veicolo> listaV1 = FXCollections.observableList(listaV);
 		tabellaVeicoli.setItems(listaV1);
-
-	}
-
-	@Override
-	public void initializeData(Utente utente) {
-		this.utente = utente;
-		if (utente instanceof Operatore) {
-			aggiungiVeicoloButton.setVisible(false);
-		}
 	}
 
 	@FXML // AGGIUNGI
 	void AggiungiVeicolo(ActionEvent event) {
-		dispatcher.renderView("agg_mod_veicolo", utente, null);
+		dispatcher.renderView("agg_mod_veicolo", utente);
 	}
 
 	@FXML // FILTRA VEICOLI
 	void FiltraVeicoli(ActionEvent event) {
 		try {
-			List<Veicolo> listaveicoli = veicoloservice.findListaVeicoliByStato(filtroStatoVeicolo.getValue());
+			List<Veicolo> listaveicoli = veicoloservice.findListaVeicoliByStato(filtroStatoVeicolo.getValue().toString());
 			ObservableList<Veicolo> listaV = FXCollections.observableList(listaveicoli);
 			tabellaVeicoli.setItems(listaV);
 		} catch (BusinessException e) {

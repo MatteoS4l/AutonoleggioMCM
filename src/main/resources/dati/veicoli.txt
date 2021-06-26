@@ -1,7 +1,2 @@
-7
-1,KS411CV,lusso,Ferrari,benzina,false,true,disponibile,1411,200.0,150.0,0
-2,EN634BB,berlina,Fiat Panda,benzina,false,true,disponibile,14598667,122.0,74.0,0
-3,EY644TB,utilitaria,Toyota Rav 4,diesel,false,true,disponibile,74628,185.0,100.0,0
-4,AA111AA,sostitutivo,Lancia Y,benzina,false,false,disponibile,0,20.0,30.0,0
-5,AA222AA,sostitutivo,Grande punto,benzina,false,false,disponibile,0,11.0,12.0,0
-6,AA333AA,sostitutivo,Citroen c3,benzina,false,false,disponibile,0,44.0,66.0,0
+2
+1,FC422FV,Ferrari,1554,utilitaria,BENZINA,DISPONIBILE,220.0,200.0

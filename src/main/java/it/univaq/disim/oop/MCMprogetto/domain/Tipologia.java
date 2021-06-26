@@ -22,4 +22,8 @@ public class Tipologia {
 		ID = iD;
 	}
 
+	@Override
+	public String toString() {
+		return this.nome;
+	}
 }

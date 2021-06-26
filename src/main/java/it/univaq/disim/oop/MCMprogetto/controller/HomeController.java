@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
-public class HomeController implements Initializable, DataInitializable<Utente, Object> {
+public class HomeController implements Initializable, DataInitializable<Utente> {
 	ViewDispatcher dispatcher;
 	NoleggioService noleggioservice;
 
@@ -29,11 +29,11 @@ public class HomeController implements Initializable, DataInitializable<Utente, 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			noleggioservice.checkStatoVeicoli();
-		} catch (BusinessException e) {
-			System.out.println("errore");
-		}
+//		try {
+//			noleggioservice.checkStatoVeicoli();
+//		} catch (BusinessException e) {
+//			System.out.println("errore");
+//		}
 
 	}
 

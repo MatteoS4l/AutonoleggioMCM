@@ -241,16 +241,13 @@ public class FileUtenteService implements UtenteService { // nome, cognome, user
 		} catch (NullPointerException e) {
 			throw new NullPointerException();
 		}
-
 		if (data.getMonthValue() > LocalDate.now().getMonthValue()) {
 			return --eta;
 		}
-
 		if (data.getMonthValue() == LocalDate.now().getMonthValue()
 				&& data.getDayOfMonth() > LocalDate.now().getDayOfMonth()) {
 			return --eta;
 		}
-
 		return eta;
 	}
 

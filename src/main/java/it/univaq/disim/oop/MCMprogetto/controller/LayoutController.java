@@ -18,9 +18,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
-public class LayoutController implements Initializable, DataInitializable<Utente, Object> {
+public class LayoutController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
-	private Utente utente;
+	public static Utente utenteMemorizzato;
 
 	private static final MenuElement MENU_HOME = new MenuElement("Home", "home");
 
@@ -54,7 +54,7 @@ public class LayoutController implements Initializable, DataInitializable<Utente
 
 	@Override
 	public void initializeData(Utente utente) {
-		this.utente = utente;
+		utenteMemorizzato = utente;
 		barraMenu.getChildren().add(createButton(MENU_HOME));
 		barraMenu.getChildren().add(new Separator());
 
@@ -92,7 +92,7 @@ public class LayoutController implements Initializable, DataInitializable<Utente
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				dispatcher.renderView(viewItem.getVista(), utente, null);
+				dispatcher.renderView(viewItem.getVista(), utenteMemorizzato);
 			}
 		});
 		return button;
