@@ -2,16 +2,16 @@ package it.univaq.disim.oop.MCMprogetto.domain;
 
 public class Tipologia {
 
-	private String tipologia;
+	private String nome;
 	private Integer ID;
 
 	// GET E SET
-	public String getTipologia() {
-		return tipologia;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setTipologia(String tipologia) {
-		this.tipologia = tipologia;
+	public void setNome(String tipologia) {
+		this.nome = tipologia;
 	}
 
 	public Integer getID() {

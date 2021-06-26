@@ -8,6 +8,7 @@ import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
 import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
+import it.univaq.disim.oop.MCMprogetto.domain.Sesso;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.event.ActionEvent;
@@ -43,7 +44,7 @@ public class RegistrazioneController implements Initializable, DataInitializable
 	@FXML
 	private Button confermaRegistrazione;
 	@FXML
-	private ChoiceBox<Character> sessoRegistrazione;
+	private ChoiceBox<Sesso> sessoRegistrazione;
 	@FXML
 	private ChoiceBox<String> tipologiaRegistrazione;
 	@FXML
@@ -71,10 +72,10 @@ public class RegistrazioneController implements Initializable, DataInitializable
 	@Override
 	public void initializeData(Utente utente) {
 		this.utente = utente;
-
-		sessoRegistrazione.getItems().add('M');
-		sessoRegistrazione.getItems().add('F');
-		sessoRegistrazione.setValue('M');
+		
+		sessoRegistrazione.getItems().add(Sesso.UOMO); // bovino 24/6
+		sessoRegistrazione.getItems().add(Sesso.DONNA);	// bovino 24/6
+		sessoRegistrazione.setValue(Sesso.UOMO);
 		tipologiaRegistrazione.getItems().add("Cliente");
 		tipologiaRegistrazione.setValue("Cliente");
 		if (utente instanceof Amministratore) {
@@ -98,8 +99,8 @@ public class RegistrazioneController implements Initializable, DataInitializable
 			utente.setUsername(usernameRegistrazione.getText());
 			utente.setPassword(passwordRegistrazione.getText());
 			utente.setDataNascita(dataDiNascitaRegistrazione.getValue());
-			utente.setEta(utenteservice.CalcolaEta(dataDiNascitaRegistrazione.getValue()));
-			utente.setSesso(sessoRegistrazione.getValue());
+			//utente.setEta(utenteservice.CalcolaEta(dataDiNascitaRegistrazione.getValue()));
+			utente.setSesso(sessoRegistrazione.getValue()); // bovino 24/6
 
 			if (!passwordRegistrazione.getText().equals(confermaPassRegistrazione.getText())) {
 				labelErrore.setText("Le password non corrispondono!");

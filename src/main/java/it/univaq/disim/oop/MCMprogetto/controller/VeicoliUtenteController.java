@@ -133,7 +133,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 		listacompleta = veicoloservice.findListaVeicoliByStato("disponibile");
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for (Veicolo tmp : listacompleta) {
-			if (!tmp.getTipologia().equalsIgnoreCase("sostitutivo")) {
+			if (!tmp.getTipologia().getNome().equalsIgnoreCase("sostitutivo")) {
 				listafiltrata.add(tmp);
 			}
 		}
@@ -198,7 +198,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 		List<Veicolo> list = new ArrayList<Veicolo>();
 		for (int i = 0; i < list1.size(); i++) {
 			for (int j = 0; j < list2.size(); j++) {
-				if (list1.get(i).getID() == list2.get(j).getID()) {
+				if (list1.get(i).getTarga().equalsIgnoreCase(list2.get(j).getTarga())) {
 					list.add(list1.get(i));
 				}
 			}

@@ -13,6 +13,8 @@ import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Stato;
+import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -38,9 +40,9 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 	@FXML
 	private TextField tariffaGiorno;
 	@FXML
-	private ChoiceBox<String> stato;
+	private ChoiceBox<Stato> stato;
 	@FXML
-	private ChoiceBox<String> tipologia;
+	private ChoiceBox<Tipologia> tipologia;
 	@FXML
 	private Button modificaButton;
 	@FXML

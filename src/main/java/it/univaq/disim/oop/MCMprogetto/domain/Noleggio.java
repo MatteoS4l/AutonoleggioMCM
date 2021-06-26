@@ -5,13 +5,14 @@ import java.util.ArrayList;
 
 public class Noleggio {
 	private Integer ID;
-	private LocalDate data_inizio_noleggio;
-	private LocalDate data_fine_noleggio;
+	private LocalDate dataInizioNoleggio;
+	private LocalDate dataFineNoleggio;
 	private Double prezzo_noleggio;
-	private Integer KM_percorsi;
+	private Integer KmPercorsi;
 	private ArrayList<Assistenza> listaAssistenza;
 	private Cliente cliente;
 	private Veicolo veicolo;
+	private String dettagli;
 
 	// GET E SET
 	public Integer getID() {
@@ -22,20 +23,20 @@ public class Noleggio {
 		ID = iD;
 	}
 
-	public LocalDate getData_inizio_noleggio() {
-		return data_inizio_noleggio;
+	public LocalDate getDataInizioNoleggio() {
+		return dataInizioNoleggio;
 	}
 
-	public void setData_inizio_noleggio(LocalDate data_inizio_noleggio) {
-		this.data_inizio_noleggio = data_inizio_noleggio;
+	public void setDataInizioNoleggio(LocalDate data_inizio_noleggio) {
+		this.dataInizioNoleggio = data_inizio_noleggio;
 	}
 
-	public LocalDate getData_fine_noleggio() {
-		return data_fine_noleggio;
+	public LocalDate getDataFineNoleggio() {
+		return dataFineNoleggio;
 	}
 
-	public void setData_fine_noleggio(LocalDate data_fine_noleggio) {
-		this.data_fine_noleggio = data_fine_noleggio;
+	public void setDataFineNoleggio(LocalDate data_fine_noleggio) {
+		this.dataFineNoleggio = data_fine_noleggio;
 	}
 
 	public Double getPrezzo_noleggio() {
@@ -46,12 +47,12 @@ public class Noleggio {
 		this.prezzo_noleggio = prezzo_noleggio;
 	}
 
-	public Integer getKM_percorsi() {
-		return KM_percorsi;
+	public Integer getKmPercorsi() {
+		return KmPercorsi;
 	}
 
-	public void setKM_percorsi(Integer kM_percorsi) {
-		KM_percorsi = kM_percorsi;
+	public void setKmPercorsi(Integer kM_percorsi) {
+		KmPercorsi = kM_percorsi;
 	}
 
 	public ArrayList<Assistenza> getListaAssistenza() {
@@ -76,6 +77,14 @@ public class Noleggio {
 
 	public void setVeicolo(Veicolo veicolo) {
 		this.veicolo = veicolo;
+	}
+
+	public String getDettagli() {
+		return dettagli;
+	}
+
+	public void setDettagli(String dettagli) {
+		this.dettagli = dettagli;
 	}
 
 }

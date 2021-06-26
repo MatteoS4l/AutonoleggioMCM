@@ -81,10 +81,10 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 				new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Assistenza, String> tmp) {
-						if (tmp.getValue().getCliente() == null) {
+						if (tmp.getValue().getNoleggio().getCliente() == null) {
 							return new SimpleStringProperty();
 						} else {
-							return new SimpleStringProperty(tmp.getValue().getCliente().getUsername());
+							return new SimpleStringProperty(tmp.getValue().getNoleggio().getCliente().getUsername());
 						}
 					}
 				});
@@ -93,10 +93,10 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 				new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Assistenza, String> tmp) {
-						if (tmp.getValue().getVeicolo() == null) {
+						if (tmp.getValue().getNoleggio().getVeicolo() == null) {
 							return new SimpleStringProperty();
 						} else {
-							return new SimpleStringProperty(tmp.getValue().getVeicolo().getModello());
+							return new SimpleStringProperty(tmp.getValue().getNoleggio().getVeicolo().getModello());
 						}
 					}
 				});
@@ -135,7 +135,6 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 	@FXML // INVIA RISPOSTA
 	void InviaRispostaAssistenza(ActionEvent event) throws BusinessException {
 		assistenza.setRisposta(textRispostaAssistenza.getText());
-		assistenza.setServita(true);
 		assistenzaservice.updateAssistenza(assistenza);
 
 		textRispostaAssistenza.clear();

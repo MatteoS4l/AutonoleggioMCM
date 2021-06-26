@@ -9,6 +9,7 @@ import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
+import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
@@ -18,10 +19,8 @@ import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 
 public class FileFeedbackService implements FeedbackService
-{// ID, feedback, utente, veicolo, (n° stelle feedback)
-	private UtenteService utenteservice = new FileUtenteService();
-	private VeicoloService veicoloservice = new FileVeicoloService();
-
+{// ID, feedback, stelle, id noleggio
+	NoleggioService noleggioservice = new FileNoleggioService();
 	
 	@Override // CREA
 	public void createFeedback(Feedback feedback) throws BusinessException
@@ -41,11 +40,9 @@ public class FileFeedbackService implements FeedbackService
 				row.append(Utility.SEPARATORE);
 				row.append(feedback.getFeedback().toString().replace(",", " "));
 				row.append(Utility.SEPARATORE);
-				row.append(feedback.getUtente().getID());
-				row.append(Utility.SEPARATORE);
-				row.append(feedback.getVeicolo().getID());
-				row.append(Utility.SEPARATORE);
 				row.append(feedback.getStelle());
+				row.append(Utility.SEPARATORE);
+				row.append(feedback.getNoleggio().getID());
 
 				writer.println(row.toString());
 			}
@@ -55,10 +52,39 @@ public class FileFeedbackService implements FeedbackService
 			throw new BusinessException(e);
 		}
 	}
+	
+	
+	@Override	// LISTA DI TUTTI I FEEDBACK
+	public List<Feedback> findAllFeedback() throws BusinessException {
+		try 
+		{
+			FileData filedata = Utility.readAllRows("feedback");
+			List<Feedback> listacompleta = new ArrayList<Feedback>();
+
+			for (String[] colonne : filedata.getRighe()) 
+			{
+				Feedback feedback = new Feedback();
+				
+				feedback.setID(Integer.parseInt(colonne[0]));
+				feedback.setTesto(colonne[1]);
+				feedback.setStelle(Integer.parseInt(colonne[2]));
+				feedback.setNoleggio(noleggioservice.findNoleggioByID(Integer.parseInt(colonne[3])));
+				
+				listacompleta.add(feedback);
+			}
+			
+			return listacompleta;
+			
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	
-	@Override // GET LISTA FEEDBACK
-	public List<Feedback> findAllFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException
+	@Override // GET LISTA FEEDBACK DEL VEICOLO PASSATO
+	public List<Feedback> findAllFeedbackByVeicolo(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException
 	{	try 
 		{
 			FileData filedata = Utility.readAllRows("feedback");
@@ -66,8 +92,8 @@ public class FileFeedbackService implements FeedbackService
 
 			for (String[] colonne : filedata.getRighe()) 
 			{
-				if (Integer.parseInt(colonne[3]) == veicolo.getID()) 
-				{
+				if (colonne[])
+				
 					Feedback feedback = new Feedback();
 
 					feedback.setID(Integer.parseInt(colonne[0]));
@@ -99,6 +125,7 @@ public class FileFeedbackService implements FeedbackService
 			e.printStackTrace();
 			throw new BusinessException(e);
 		}
+		
 	}
 
 }

@@ -88,7 +88,7 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 	void AggiungiTipologia(ActionEvent event) {
 		try {
 			Tipologia t = new Tipologia();
-			t.setTipologia(nuovaTipologia.getText());
+			t.setNome(nuovaTipologia.getText());
 			tipologiaservice.createTipologia(t);
 			labelErrore.setText("");
 		} catch (BusinessException e) {

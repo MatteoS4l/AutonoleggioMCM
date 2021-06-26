@@ -7,6 +7,8 @@ import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 public interface FeedbackService {
 
 	void createFeedback(Feedback feedback) throws BusinessException;
-
-	List<Feedback> findAllFeedback(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException;
+	
+	List<Feedback> findAllFeedback() throws  BusinessException;
+	
+	List<Feedback> findAllFeedbackByVeicolo(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException;
 }

@@ -129,40 +129,44 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 
 	@FXML // INVIA RICHIESTA
 	void InviaRichiesta(ActionEvent event) {
-		if (noleggio.getAssistenza() == null) {
-			try {
-				Assistenza assistenza = new Assistenza();
-
-				assistenza.setDettagli(textDettagliRichiesta.getText());
-				assistenza.setCliente(noleggio.getCliente());
-				assistenza.setVeicolo(noleggio.getVeicolo());
-				assistenza = assistenzaservice.createAssistenza(assistenza);
-
-				noleggio.setAssistenza(assistenza);
-				noleggioservice.updateNoleggio(noleggio);
-
-				labelAvviso.setVisible(true);
-				labelErrore.setVisible(false);
-			} catch (BusinessException e) {
-				System.out.println("errore");
+		int i;
+		for (i=0;i<noleggio.getListaAssistenza().size();i++) {
+			
+			if (noleggio.getListaAssistenza().get(i) == null) {
+				try {
+					Assistenza assistenza = new Assistenza();
+	
+					assistenza.setRichiesta(textDettagliRichiesta.getText());
+					assistenza = assistenzaservice.createAssistenza(assistenza);
+	
+					noleggio.getListaAssistenza().add(assistenza);
+					noleggioservice.updateNoleggio(noleggio);
+	
+					labelAvviso.setVisible(true);
+					labelErrore.setVisible(false);
+				} catch (BusinessException e) {
+					System.out.println("errore");
+				}
+			} else {
+				labelErrore.setVisible(true);
 			}
-		} else {
-			labelErrore.setVisible(true);
 		}
-
-		initialize(null, null);
+			initialize(null, null);
 	}
 
 	// RICHIEDI
 	private void RichiediAssistenza(Noleggio nol) {
 		this.noleggio = nol;
-		if (noleggio.getAssistenza() != null) {
-			labelErrore.setVisible(true);
-		} else {
-			textDettagliRichiesta.setVisible(true);
-			inviaButton.setVisible(true);
-			labelErrore.setVisible(false);
+		int i;
+		for (i=0;i<noleggio.getListaAssistenza().size();i++) {
+		
+			if (noleggio.getListaAssistenza().get(i)!= null) {
+				labelErrore.setVisible(true);
+			} else {
+				textDettagliRichiesta.setVisible(true);
+				inviaButton.setVisible(true);
+				labelErrore.setVisible(false);
+			  }
 		}
 	}
-
 }

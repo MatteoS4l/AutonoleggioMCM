@@ -12,6 +12,7 @@ import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
 import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
+import it.univaq.disim.oop.MCMprogetto.domain.Sesso;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 
 public class FileUtenteService implements UtenteService {
@@ -25,7 +26,7 @@ public class FileUtenteService implements UtenteService {
 			admin.setUsername(username);
 			admin.setPassword(password);
 			admin.setEta(21);
-			admin.setSesso('M');
+			admin.setSesso(Sesso.UOMO);
 			return admin;
 		}
 		try {
@@ -54,7 +55,7 @@ public class FileUtenteService implements UtenteService {
 					utente.setCognome(colonne[3]);
 					utente.setUsername(colonne[4]);
 					utente.setPassword(colonne[5]);
-					utente.setSesso(colonne[6].charAt(0));
+					utente.getSesso().setSesso(colonne[6]);
 					utente.setEta(Integer.parseInt(colonne[7]));
 
 					return utente;
@@ -97,7 +98,7 @@ public class FileUtenteService implements UtenteService {
 				utente.setCognome(colonne[3]);
 				utente.setUsername(colonne[4]);
 				utente.setPassword(colonne[5]);
-				utente.setSesso(colonne[6].charAt(0));
+				utente.getSesso().setSesso(colonne[6]);
 				utente.setEta(Integer.parseInt(colonne[7]));
 				utente.setDataNascita(LocalDate.parse(colonne[8]));
 
@@ -253,29 +254,31 @@ public class FileUtenteService implements UtenteService {
 
 	@Override // GET UTENTE BY ID
 	public Utente findUtenteById(int id) throws UtenteNonTrovatoException, BusinessException {
-		try {
-			FileData fileData = Utility.readAllRows("utenti");
-			for (String[] righe : fileData.getRighe()) {
-				if (Integer.parseInt(righe[0]) == id) {
-					Utente utente = new Utente();
+		/*FileData fileData = Utility.readAllRows("utenti");
+		for (String[] righe : fileData.getRighe()) {
+		if (Integer.parseInt(righe[0]) == id) {
+		Utente utente = new Utente();
 
-					utente.setID(Integer.parseInt(righe[0]));
-					utente.setNome(righe[2]);
-					utente.setCognome(righe[3]);
-					utente.setUsername(righe[4]);
-					utente.setPassword(righe[5]);
-					utente.setSesso(righe[6].charAt(0));
-					utente.setEta(Integer.parseInt(righe[7]));
-					utente.setDataNascita(LocalDate.parse(righe[8]));
-
-					return utente;
+		utente.setID(Integer.parseInt(righe[0]));
+		utente.setNome(righe[2]);
+		utente.setCognome(righe[3]);
+		utente.setUsername(righe[4]);
+		utente.setPassword(righe[5]);
+		utente.getSesso().setSesso(righe[6]);
+		utente.setEta(Integer.parseInt(righe[7]));
+		utente.setDataNascita(LocalDate.parse(righe[8]));
+*/
+			try {
+				for (Utente u: findAllUtenti(null)) {
+					if (u.getID()==id) {
+						return u;
+					}
 				}
+					
+			}
+			catch (Exception e) {
+				e.printStackTrace();
 			}
 			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new BusinessException(e);
-		}
 	}
-
 }

@@ -12,6 +12,10 @@ public enum Stato {
 	public String getDesc() {
 		return stato;
 	}
+	
+	public void setDesc (String s) {
+		this.stato = s;
+	}
 
 }
 

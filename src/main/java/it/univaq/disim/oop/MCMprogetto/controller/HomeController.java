@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
+import it.univaq.disim.oop.MCMprogetto.domain.Sesso;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.fxml.FXML;
@@ -38,11 +39,11 @@ public class HomeController implements Initializable, DataInitializable<Utente, 
 
 	@Override
 	public void initializeData(Utente utente) {
-		if (utente.getSesso() == 'M') {
+		if (utente.getSesso() == Sesso.UOMO) {
 			benvenutoLabel.setText("Benvenuto " + utente.getNome() + " " + utente.getCognome());
 		}
 
-		if (utente.getSesso() == 'F') {
+		if (utente.getSesso() == Sesso.DONNA) {
 			benvenutoLabel.setText("Benvenuta " + utente.getNome() + " " + utente.getCognome());
 		}
 

@@ -4,11 +4,12 @@ import java.time.LocalDate;
 
 public class Operatore extends Utente {
 
-	private int eta;
-	private LocalDate dataNascita;
+	//private int eta;	bovino 25/6
+	//private LocalDate dataNascita;  bovino 24/6
 
 	// GET E SET
-	public int getEta() {
+	
+	/*public int getEta() {
 		return eta;
 	}
 
@@ -22,6 +23,6 @@ public class Operatore extends Utente {
 
 	public void setDataNascita(LocalDate dataNascita) {
 		this.dataNascita = dataNascita;
-	}
+	} */
 
 }

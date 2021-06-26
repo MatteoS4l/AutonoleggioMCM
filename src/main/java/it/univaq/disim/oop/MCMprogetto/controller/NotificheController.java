@@ -78,20 +78,33 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 		}
 
 		try {
-			List<Noleggio> lista_nol = noleggioservice.findNoleggiByAssistenza("si");
+			List<Noleggio> listaNol = noleggioservice.findNoleggiByAssistenza("si");
 			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
-
+			int i;
+			for (i=0;i<listaNol.size();i++) {
+				if (listaNol.get(i).getListaAssistenza().get(i).getRisposta().equalsIgnoreCase("null")) {
+					listacompleta.add(listaNol.get(i));
+				}
+					
+			}
+			
+			
+			/*
 			for (Noleggio tmp : lista_nol) {
-				if (!tmp.getAssistenza().getRisposta().equalsIgnoreCase("null")) {
+				if (!tmp.getListaAssistenza().get.getRisposta().equalsIgnoreCase("null")) {
 					listacompleta.add(tmp);
 				}
-			}
+			}*/
 
 			dettagliAssistenza.setCellValueFactory(
 					new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 						@Override
 						public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
-							return new SimpleStringProperty(tmp.getValue().getAssistenza().getRisposta());
+							int j;
+							for(j=0;j<tmp.getValue().getListaAssistenza().size();j++) {
+								return new SimpleStringProperty(tmp.getValue().getListaAssistenza().get(j).getRisposta());
+							}
+							return null;
 						}
 					});
 			veicoloAssistenza.setCellValueFactory(

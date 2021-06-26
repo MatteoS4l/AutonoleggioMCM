@@ -11,6 +11,7 @@ import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
+import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import javafx.beans.property.SimpleObjectProperty;
@@ -139,9 +140,7 @@ public class SostituzioneController implements Initializable, DataInitializable<
 	void InviaNotificaSostituzione(ActionEvent event) {
 		try {
 			noleggio.setVeicolo(veicolo);
-			noleggio.setServita(false);
 			assistenza.setRisposta(invioRispostaSos.getText());
-			assistenza.setServita(true);
 			noleggioservice.updateNoleggio(noleggio);
 			assistenzaservice.updateAssistenza(assistenza);
 			successoSos.setVisible(true);
@@ -157,7 +156,7 @@ public class SostituzioneController implements Initializable, DataInitializable<
 	// SCEGLI VEICOLO SOSTITUTIVO
 	void creaNoleggioSostituzione(Veicolo veicolo) {
 		this.veicolo = noleggio.getVeicolo();
-		this.veicolo.setStato("non disponibile");
+		this.veicolo.setStato(Stato.NON_DISPONIBILE);
 		try {
 			veicoloservice.updateVeicolo(this.veicolo);
 		} catch (BusinessException e) {

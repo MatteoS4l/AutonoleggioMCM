@@ -87,10 +87,9 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 			feedback.setFeedback(recensioneTxtfield.getText());
 			feedback.setStelle(tmp);
 			feedback.setUtente(utente);
-			feedback.setVeicolo(veicolo);
+			feedback.setNoleggio(noleggio);
 			feedbackservice.createFeedback(feedback);
 
-			noleggio.setFeed_lasciato(true);
 			noleggioservice.updateNoleggio(noleggio);
 
 			dispatcher.renderView("rilascio_feedback", utente, null);

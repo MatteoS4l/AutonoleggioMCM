@@ -2,7 +2,11 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -103,7 +107,8 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				Noleggio noleggio = new Noleggio();
 
 				noleggio.setPrezzo_noleggio(CalcolaPreventivo(null));
-				noleggio.setAssistenza(null);
+				ArrayList<Assistenza> listaAss = null;
+				noleggio.setListaAssistenza(listaAss);
 				noleggio.setCliente(utente);
 				noleggio.setVeicolo(veicolo);
 				noleggio.setData_inizio_noleggio(dataInizioNol.getValue().atStartOfDay());

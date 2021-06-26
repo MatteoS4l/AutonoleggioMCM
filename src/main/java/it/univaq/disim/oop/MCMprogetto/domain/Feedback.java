@@ -2,10 +2,9 @@ package it.univaq.disim.oop.MCMprogetto.domain;
 
 public class Feedback {
 	private Integer ID;
-	private String feedback;
+	private String testo;
 	private int stelle;
 	private Noleggio noleggio;
-	private Utente utente;
 
 	// GET E SET
 	public Integer getID() {
@@ -16,12 +15,12 @@ public class Feedback {
 		ID = iD;
 	}
 
-	public String getFeedback() {
-		return feedback;
+	public String getTesto() {
+		return testo;
 	}
 
-	public void setFeedback(String feedback) {
-		this.feedback = feedback;
+	public void setTesto(String testo) {
+		this.testo = testo;
 	}
 
 	public int getStelle() {
@@ -38,14 +37,6 @@ public class Feedback {
 
 	public void setNoleggio(Noleggio noleggio) {
 		this.noleggio = noleggio;
-	}
-
-	public Utente getUtente() {
-		return utente;
-	}
-
-	public void setUtente(Utente utente) {
-		this.utente = utente;
 	}
 
 }

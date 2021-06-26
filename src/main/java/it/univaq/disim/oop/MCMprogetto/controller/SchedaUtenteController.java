@@ -7,6 +7,7 @@ import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
+import it.univaq.disim.oop.MCMprogetto.domain.Sesso;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.event.ActionEvent;
@@ -38,7 +39,7 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 	@FXML
 	private Button modificaButton;
 	@FXML
-	private ChoiceBox<Character> sesso;
+	private ChoiceBox<Sesso> sesso;
 	@FXML
 	private ChoiceBox<String> tipologia;
 	@FXML
@@ -52,8 +53,8 @@ public class SchedaUtenteController implements Initializable, DataInitializable<
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		sesso.getItems().add('M');
-		sesso.getItems().add('F');
+		sesso.getItems().add(Sesso.UOMO);
+		sesso.getItems().add(Sesso.DONNA);
 		tipologia.getItems().add("cliente");
 		tipologia.getItems().add("operatore");
 

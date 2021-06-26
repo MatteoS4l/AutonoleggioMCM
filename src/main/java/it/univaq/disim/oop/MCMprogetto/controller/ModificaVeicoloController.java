@@ -7,6 +7,8 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Alimentazione;
+import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -18,7 +20,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class AggModVeicoloController implements Initializable, DataInitializable<Utente, Object> {
+public class ModificaVeicoloController implements Initializable, DataInitializable<Utente, Object> {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
 	private TipologiaService tipologiaservice;
@@ -29,7 +31,7 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 	@FXML
 	private ChoiceBox<String> choiceboxTipologia;
 	@FXML
-	private ChoiceBox<String> choiceboxAlimentazione;
+	private ChoiceBox<Alimentazione> choiceboxAlimentazione;
 	@FXML
 	private TextField textfieldModello;
 	@FXML
@@ -47,7 +49,7 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 	@FXML
 	private TextField textfieldKmTot;
 	@FXML
-	private ChoiceBox<String> choiceboxStato;
+	private ChoiceBox<Stato> choiceboxStato;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -61,12 +63,12 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 			choiceboxTipologia.getItems().addAll(tipologiaservice.findAllTipologia());
 			choiceboxTipologia.setValue("berlina");
 			choiceboxAlimentazione.getItems().addAll(veicoloservice.findListAlimentazioneVeicolo());
-			choiceboxAlimentazione.setValue("benzina");
+			choiceboxAlimentazione.setValue(Alimentazione.BENZINA);
 			choiceboxStato.getItems().addAll(veicoloservice.findListStatoVeicolo());
-			choiceboxStato.setValue("disponibile");
+			choiceboxStato.setValue(Stato.DISPONIBILE);
 		} catch (BusinessException e) {
 			e.printStackTrace();
-		}
+		  }
 
 	}
 
@@ -75,7 +77,7 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 		this.utente = utente;
 	}
 
-	public AggModVeicoloController() {
+	public ModificaVeicoloController() {
 		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		veicoloservice = factory.getVeicoloService();
@@ -88,7 +90,7 @@ public class AggModVeicoloController implements Initializable, DataInitializable
 			Veicolo veicolo = new Veicolo();
 
 			veicolo.setTarga(textfieldTarga.getText());
-			veicolo.setTipologia(choiceboxTipologia.getValue());
+			veicolo.getTipologia().setNome(choiceboxTipologia.getValue());
 			veicolo.setModello(textfieldModello.getText());
 			veicolo.setAlimentazione(choiceboxAlimentazione.getValue());
 			veicolo.setStato(choiceboxStato.getValue());
