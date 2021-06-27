@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
@@ -27,18 +28,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox; //Da questa schermata si noleggia nella tabella
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
 public class VeicoliUtenteController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
-	private TipologiaService tipologiaservice;
+	private TipologiaService tipologiaservice; ///////////////////////
 	private NoleggioService noleggioservice;
-	private Utente utente;
 
 	@FXML
 	private DatePicker dataInizio;
@@ -84,13 +84,12 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			boxAlimentazione.getItems().addAll(veicoloservice.findListAlimentazioneVeicolo());
-			boxAlimentazione.getItems().add("Tutte");
+			boxAlimentazione.getItems().addAll(Alimentazione.values());
 			try {
 				boxTipologia.getItems().addAll(tipologiaservice.findAllTipologia());
 			} catch (TipologiaNonTrovataException e1) {
-				/* lista vuota */ }
-			boxTipologia.getItems().add("Tutte");
+				System.err.println(e1.getMessage());
+			}
 
 			colVeicolo.setStyle("-fx-alignment: CENTER;");
 			colAlimentazione.setStyle("-fx-alignment: CENTER;");
@@ -102,8 +101,8 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 			colVeicolo.setCellValueFactory(new PropertyValueFactory<>("modello"));
 			colAlimentazione.setCellValueFactory(new PropertyValueFactory<>("alimentazione"));
 			colTipologia.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
-			colKm.setCellValueFactory(new PropertyValueFactory<>("tariffa_chilometraggio"));
-			colGiorno.setCellValueFactory(new PropertyValueFactory<>("tariffa_periodo"));
+			colKm.setCellValueFactory(new PropertyValueFactory<>("tariffaChilometraggio"));
+			colGiorno.setCellValueFactory(new PropertyValueFactory<>("tariffaPeriodo"));
 			colAzioni.setCellValueFactory(
 					new Callback<TableColumn.CellDataFeatures<Veicolo, Button>, ObservableValue<Button>>() {
 						@Override
@@ -112,7 +111,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 							noleggiaButton.setOnAction(new EventHandler<ActionEvent>() {
 								@Override
 								public void handle(ActionEvent event) {
-									dispatcher.renderView("scheda_noleggio", param.getValue(), utente);
+									dispatcher.renderView("scheda_noleggio", param.getValue());
 								}
 							});
 							return new SimpleObjectProperty<Button>(noleggiaButton);
@@ -126,7 +125,6 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 
 	@Override
 	public void initializeData(Utente utente) {
-		this.utente = utente;
 	}
 
 	@FXML // APPLICA FILTRI
@@ -139,26 +137,21 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 				listafiltrata.add(tmp);
 			}
 		}
-
 		if (boxTipologia.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
-					veicoloservice.findListaVeicoliByTipologia(boxTipologia.getValue()));
+					veicoloservice.findListaVeicoliByTipologia(boxTipologia.getValue().getNome()));
 		}
-
 		if (boxAlimentazione.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
 					veicoloservice.findListaVeicoliByAlimentazione(boxAlimentazione.getValue()));
 		}
-
 		if (!txtModello.getText().isEmpty()) {
 			listafiltrata = Intersezione(listafiltrata, veicoloservice.findListaVeicoliByModello(txtModello.getText()));
 		}
-
 		if (dataInizio.getValue() != null && dataFine.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata, noleggioservice.findVeicoliDisponibiliForDate(
-					dataInizio.getValue().atStartOfDay(), dataFine.getValue().atStartOfDay()));
+					dataInizio.getValue(), dataFine.getValue()));
 		}
-
 		if (!(txtTariffaGiornoMin.getText().isEmpty() && txtTariffaGiornoMax.getText().isEmpty())) {
 			double min, max;
 			if (txtTariffaGiornoMin.getText().isEmpty()) {

@@ -183,15 +183,10 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 	}
 
 	@Override // GET LISTA BY ALIMENTAZIONE
-	public List<Veicolo> findListaVeicoliByAlimentazione(String alimentazione)
-			throws VeicoloNonTrovatoException, BusinessException {
-		if (alimentazione.equalsIgnoreCase("tutte")) {
-			return findAllVeicoli();
-		}
+	public List<Veicolo> findListaVeicoliByAlimentazione(Alimentazione alimentazione) throws VeicoloNonTrovatoException, BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
-
 		for (Veicolo tmp : findAllVeicoli()) {
-			if (tmp.getAlimentazione().getAlim().equalsIgnoreCase(alimentazione)) {
+			if (tmp.getAlimentazione().equals(alimentazione)) {
 				listacompleta.add(tmp);
 			}
 		}
@@ -253,7 +248,7 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 				return tmp;
 			}
 		}
-		throw new VeicoloNonTrovatoException();
+		throw new VeicoloNonTrovatoException("TARGA NON TROVATA");
 	}
 
 }

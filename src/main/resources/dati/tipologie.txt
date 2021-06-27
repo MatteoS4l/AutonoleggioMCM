@@ -1,5 +1,3 @@
-5
-1,berlina
+8
 2,utilitaria
-3,lusso
-4,sostitutivo
+7,Lusso
