@@ -42,7 +42,7 @@ public class FileTipologiaService implements TipologiaService { // ID, nome
 				throw new BusinessException(e);
 			}
 		} else {
-			throw new BusinessException();
+			throw new BusinessException("Errore durante la creazione di una tipologia");
 		}
 	}
 
@@ -55,14 +55,15 @@ public class FileTipologiaService implements TipologiaService { // ID, nome
 					writer.println(fileData.getCont());
 					for (String[] righe : fileData.getRighe()) {
 						if (Integer.parseInt(righe[0]) == tipologia.getID()) {
-							/* eliminato */ } else {
+							System.err.println("TIPOLOGIA ELIMINATA");
+						} else {
 							writer.println(String.join(Utility.SEPARATORE, righe));
 						}
 					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				throw new BusinessException(e);
+				throw new BusinessException("Errore durante eliminazione tipologia");
 			}
 		} else {
 			throw new TipologiaNonTrovataException();
@@ -85,10 +86,11 @@ public class FileTipologiaService implements TipologiaService { // ID, nome
 			return listatipo;
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException(e);
+			throw new BusinessException("Errore findAllTipologia");
 		}
 	}
 
+	// GIA ESISTENTE
 	private boolean GiaEsistente(Tipologia tipologia) throws TipologiaNonTrovataException, BusinessException {
 		for (Tipologia tmp : findAllTipologia()) {
 			if (tmp.getNome().equalsIgnoreCase(tipologia.getNome())) {

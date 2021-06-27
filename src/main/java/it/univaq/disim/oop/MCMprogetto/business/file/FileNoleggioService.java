@@ -254,22 +254,18 @@ public class FileNoleggioService implements NoleggioService {
 				veicolidaeliminare.add(tmp.getVeicolo());
 				continue;
 			}
-
 			if (datafine.isAfter(tmp.getDataInizioNoleggio()) && datafine.isBefore(tmp.getDataFineNoleggio())) {
 				veicolidaeliminare.add(tmp.getVeicolo());
 				continue;
 			}
-
 			if (tmp.getDataInizioNoleggio().isAfter(datainizio) && tmp.getDataInizioNoleggio().isBefore(datafine)) {
 				veicolidaeliminare.add(tmp.getVeicolo());
 				continue;
 			}
-
 			if (tmp.getDataFineNoleggio().isAfter(datainizio) && tmp.getDataFineNoleggio().isBefore(datafine)) {
 				veicolidaeliminare.add(tmp.getVeicolo());
 				continue;
 			}
-
 		}
 
 		for (int i = 0; i < listaveicoli.size(); i++) {

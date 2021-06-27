@@ -28,7 +28,7 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 					for (String[] righe : fileData.getRighe()) {
 						writer.println(String.join(Utility.SEPARATORE, righe));
 					}
-
+					
 					StringBuilder row = new StringBuilder();
 					row.append(fileData.getCont());
 					row.append(Utility.SEPARATORE);

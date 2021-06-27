@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -41,7 +42,7 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 	@FXML
 	private ChoiceBox<Stato> stato;
 	@FXML
-	private ChoiceBox<Tipologia> tipologia;
+	private ComboBox<Tipologia> tipologia;
 	@FXML
 	private Button modificaButton;
 	@FXML
