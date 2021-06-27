@@ -7,6 +7,7 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
+import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,7 +25,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class VistaTipologieController implements Initializable, DataInitializable<Object, Object> {
+public class VistaTipologieController implements Initializable, DataInitializable<Utente> {
 	private TipologiaService tipologiaservice;
 
 	@FXML
@@ -51,7 +52,7 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 		tipologieCol.setStyle("-fx-alignment: CENTER;");
 		azioniCol.setStyle("-fx-alignment: CENTER;");
 
-		tipologieCol.setCellValueFactory(new PropertyValueFactory<>("tipologia"));
+		tipologieCol.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		azioniCol.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Tipologia, Button>, ObservableValue<Button>>() {
 					@Override
@@ -67,20 +68,23 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 								} catch (NumberFormatException | BusinessException e) {
 									labelErrore.setText("veicoli appartenenti a questa tipologia !");
 								}
-								initialize(null, null);
+								initializeData(null);
 							}
 						});
 						return new SimpleObjectProperty<Button>(eliminaButton);
 					}
 				});
+	}
+	
+	@Override
+	public void initializeData(Utente utente) {
 		List<Tipologia> listatipologie = null;
 		try {
-			listatipologie = tipologiaservice.findAllTipologiaT();
+			listatipologie = tipologiaservice.findAllTipologia();
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 		ObservableList<Tipologia> listaT = FXCollections.observableList(listatipologie);
-		tabellaTipologie.setItems(listaT);
 		tabellaTipologie.setItems(listaT);
 	}
 
@@ -96,6 +100,6 @@ public class VistaTipologieController implements Initializable, DataInitializabl
 		}
 
 		nuovaTipologia.clear();
-		initialize(null, null);
+		initializeData(null);
 	}
 }

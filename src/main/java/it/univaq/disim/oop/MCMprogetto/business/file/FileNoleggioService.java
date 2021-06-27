@@ -137,9 +137,8 @@ public class FileNoleggioService implements NoleggioService {
 
 	@Override // TROVA NOLEGGIO BY ID
 	public Noleggio findNoleggioByID(Integer ID) throws BusinessException {
-		List<Noleggio> lista = findAllNoleggi();
 
-		for (Noleggio tmp : lista) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getID() == ID) {
 				return tmp;
 			}
@@ -149,10 +148,9 @@ public class FileNoleggioService implements NoleggioService {
 
 	@Override // LISTA NOLEGGI IN CORSO
 	public List<Noleggio> findNoleggiInCorso() throws BusinessException {
-		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
-		for (Noleggio tmp : lista) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getDataInizioNoleggio().isBefore(LocalDate.now())
 					&& tmp.getDataFineNoleggio().isAfter(LocalDate.now())) {
 				listacompleta.add(tmp);
@@ -163,12 +161,11 @@ public class FileNoleggioService implements NoleggioService {
 
 	@Override // LISTA NOLEGGI UTENTE
 	public List<Noleggio> findNoleggiByUtente(Utente utente) throws BusinessException {
-		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
-		for (Noleggio tmp : lista) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			try {
-				if (utente.getID() == tmp.getCliente().getID()) {
+				if (tmp.getCliente().getID() == utente.getID()) {
 					listacompleta.add(tmp);
 				}
 			} catch (NullPointerException e) {
@@ -180,10 +177,9 @@ public class FileNoleggioService implements NoleggioService {
 
 	@Override // LISTA NOLEGGI DATA FINE
 	public List<Noleggio> findNoleggiByDataFine(LocalDate data_fine) throws BusinessException {
-		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
-		for (Noleggio tmp : lista) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getDataFineNoleggio().isEqual(data_fine)) {
 				listacompleta.add(tmp);
 			}
@@ -193,10 +189,9 @@ public class FileNoleggioService implements NoleggioService {
 
 	@Override // LISTA NOLEGGI NON PAGATI
 	public List<Noleggio> findNoleggiByPagamento() throws BusinessException {
-		List<Noleggio> lista = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
-		for (Noleggio tmp : lista) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getPrezzo_noleggio() == 0 && tmp.getDataFineNoleggio().isBefore(LocalDate.now())) {
 				listacompleta.add(tmp);
 			}
@@ -206,10 +201,9 @@ public class FileNoleggioService implements NoleggioService {
 
 	@Override // NOLEGGI BY DETTAGLI
 	public List<Noleggio> findNoleggiByDettagli() throws BusinessException {
-		List<Noleggio> listanol = findAllNoleggi();
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
-		for (Noleggio tmp : listanol) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getDettagli() == null) {
 				listacompleta.add(tmp);
 			}
@@ -219,8 +213,7 @@ public class FileNoleggioService implements NoleggioService {
 
 	@Override // CHECK STATO VEICOLI
 	public void checkStatoVeicoli() throws BusinessException {
-		List<Noleggio> listanoleggi = findAllNoleggi();
-		for (Noleggio tmp : listanoleggi) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			Veicolo veicolo = new Veicolo();
 
 			veicolo.setTarga(tmp.getVeicolo().getTarga());
@@ -246,10 +239,9 @@ public class FileNoleggioService implements NoleggioService {
 	public List<Veicolo> findVeicoliDisponibiliForDate(LocalDate datainizio, LocalDate datafine)
 			throws BusinessException {
 		List<Veicolo> listaveicoli = veicoloservice.findListaVeicoliByStato("tutte");
-		List<Noleggio> listanoleggi = findAllNoleggi();
 		List<Veicolo> veicolidaeliminare = new ArrayList<Veicolo>();
 
-		for (Noleggio tmp : listanoleggi) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (datainizio.isAfter(tmp.getDataInizioNoleggio()) && datainizio.isBefore(tmp.getDataFineNoleggio())) {
 				veicolidaeliminare.add(tmp.getVeicolo());
 				continue;
@@ -280,9 +272,8 @@ public class FileNoleggioService implements NoleggioService {
 
 	@Override // DISPONIBILITA DATE
 	public boolean disponibilitaDate(LocalDate inizio, LocalDate fine, Veicolo veicolo) throws BusinessException {
-		List<Noleggio> lista = findAllNoleggi();
 
-		for (Noleggio tmp : lista) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getVeicolo().getTarga() == veicolo.getTarga()) {
 				if (inizio.isAfter(tmp.getDataInizioNoleggio()) && inizio.isBefore(tmp.getDataFineNoleggio())) {
 					return false;

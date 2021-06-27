@@ -2,17 +2,18 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
-import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
-import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
-import it.univaq.disim.oop.MCMprogetto.domain.Utente;
-import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
+import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
+import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
+import it.univaq.disim.oop.MCMprogetto.domain.Utente;
+import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
-public class SchedaNoleggioController implements Initializable, DataInitializable<Veicolo, Utente> {
+public class SchedaNoleggioController implements Initializable, DataInitializable<Veicolo> {
 	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
 	private Veicolo veicolo;
@@ -63,9 +64,9 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	}
 
 	@Override
-	public void initializeData(Veicolo veicolo, Utente utente) {
+	public void initializeData(Veicolo veicolo) {
 		this.veicolo = veicolo;
-		this.utente = utente;
+		this.utente = LayoutController.utenteMemorizzato;
 		labelModelloMacchina.setText(veicolo.getModello());
 		labelPreventivo.setVisible(false);
 	}
@@ -84,7 +85,7 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				} else {
 					labelErrore.setVisible(false);
 					long daysBetween = ChronoUnit.DAYS.between(dataInizioNol.getValue(), dataFineNol.getValue());
-					labelPreventivo.setText(String.valueOf(daysBetween * veicolo.getTariffa_periodo()));
+					labelPreventivo.setText(String.valueOf(daysBetween * veicolo.getTariffaPeriodo()));
 					labelPreventivo.setVisible(true);
 					return Double.parseDouble(labelPreventivo.getText());
 				}
@@ -100,23 +101,21 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 
 	@FXML // NOLEGGIA AUTO
 	Noleggio NoleggiaAuto(ActionEvent event) throws BusinessException {
-		if (noleggioservice.disponibilitaDate(dataInizioNol.getValue().atStartOfDay(),
-				dataFineNol.getValue().atStartOfDay(), veicolo)
+		if (noleggioservice.disponibilitaDate(dataInizioNol.getValue(), dataFineNol.getValue(), veicolo)
 				&& dataFineNol.getValue().isAfter(dataInizioNol.getValue())) {
 			try {
 				Noleggio noleggio = new Noleggio();
 
-				noleggio.setPrezzo_noleggio(CalcolaPreventivo(null));
-				ArrayList<Assistenza> listaAss = null;
+				noleggio.setPrezzo_noleggio(CalcolaPreventivo(event));
+				Set<Assistenza> listaAss = new HashSet<Assistenza>();
 				noleggio.setListaAssistenza(listaAss);
-				noleggio.setCliente(utente);
+				noleggio.setCliente((Cliente) utente);
 				noleggio.setVeicolo(veicolo);
-				noleggio.setData_inizio_noleggio(dataInizioNol.getValue().atStartOfDay());
-				noleggio.setData_fine_noleggio(dataFineNol.getValue().atStartOfDay());
-				noleggio.setKM_percorsi(0);
-				noleggio.setServita(false);
+				noleggio.setDataInizioNoleggio(dataInizioNol.getValue());
+				noleggio.setDataFineNoleggio(dataFineNol.getValue());
+				noleggio.setKmPercorsi(0);
 				noleggioservice.createNoleggio(noleggio);
-				dispatcher.renderView("home", utente, null);
+				dispatcher.renderView("home", utente);
 			} catch (BusinessException e) {
 				labelErrore.setText("Seleziona correttamente le date !");
 				labelErrore.setVisible(true);
@@ -135,16 +134,14 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 	void SelezionaPagamento(ActionEvent event) {
 		if (event.getSource().equals(selezioneTariffaKm)) {
 			selezioneTariffaPeriodo.setSelected(false);
-		}
-
-		else {
+		} else {
 			selezioneTariffaKm.setSelected(false);
 		}
 	}
 
 	@FXML // FEEDBACK
 	void VisualizzaFeed(ActionEvent event) {
-		dispatcher.renderView("feedback", veicolo, utente);
+		dispatcher.renderView("feedback", veicolo);
 	}
 
 }
