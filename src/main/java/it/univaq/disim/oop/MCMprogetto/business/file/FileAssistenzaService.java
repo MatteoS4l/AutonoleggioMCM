@@ -10,6 +10,7 @@ import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 
 public class FileAssistenzaService implements AssistenzaService {
 	// id, richiesta, risposta, id noleggio
@@ -133,4 +134,16 @@ public class FileAssistenzaService implements AssistenzaService {
 		}
 		return listacompleta;
 	}
+
+	@Override // FIND ASSISTENZA BY NOLEGGIO
+	public List<Assistenza> findAssistenzaByNoleggio(Noleggio noleggio) throws BusinessException {
+		List<Assistenza> lista = new ArrayList<Assistenza>();
+		for (Assistenza tmp : findAllAssistenza()) {
+			if (tmp.getNoleggio().getID() == noleggio.getID()) {
+				lista.add(tmp);
+			}
+		}
+		return lista;
+	}
+
 }

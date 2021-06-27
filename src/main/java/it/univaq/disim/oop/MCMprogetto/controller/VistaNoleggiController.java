@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
@@ -25,8 +24,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
@@ -62,7 +61,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		boxAssistenza.getItems().addAll("SI","NO","Tutte");
+		boxAssistenza.getItems().addAll("SI", "NO", "Tutte");
 
 		idNoleggio.setStyle("-fx-alignment: CENTER;");
 		dataInizioNoleggio.setStyle("-fx-alignment: CENTER;");
@@ -72,8 +71,8 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 		azioniNoleggio.setStyle("-fx-alignment: CENTER;");
 
 		idNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		dataInizioNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));///
-		dataFineNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataFineNoleggio"));///// occhio al nome delle variabili
+		dataInizioNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));
+		dataFineNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataFineNoleggio"));
 		clienteNoleggio.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
@@ -110,12 +109,16 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 						return new SimpleObjectProperty<Button>(dettagliButton);
 					}
 				});
+	}
 
+	@Override
+	public void initializeData(Utente t) {
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		try {
 			listacompleta = noleggioservice.findAllNoleggi();
 		} catch (BusinessException e) {
 			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listacompleta);
 		tabellaNoleggi.setItems(listaNol);
@@ -128,22 +131,19 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 		if (checkNoleggiIncorso.isSelected()) {
 			listafiltrata = Intersezione(listafiltrata, noleggioservice.findNoleggiInCorso());
 		}
-
-		if (boxAssistenza.getValue() != null) {
-			listafiltrata = Intersezione(listafiltrata,
-					noleggioservice.findNoleggiByAssistenza(boxAssistenza.getValue()));
+		if (boxAssistenza.getValue() != null && !boxAssistenza.getValue().equalsIgnoreCase("tutte")) {
+			listafiltrata = Intersezione(listafiltrata, noleggioservice.findNoleggiByAssistenza(boxAssistenza.getValue().equalsIgnoreCase("SI")));
 		}
-
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
 		tabellaNoleggi.setItems(listaNol);
 	}
 
 	// VEDI DETTAGLI
 	private void VediDettagli(Noleggio noleggio) {
-		if (noleggio.getAssistenza() == null) {
+		if (noleggio.getListaAssistenza().isEmpty()) {
 			textDettagli.setText("Nessuna assistenza ricevuta per questo noleggio");
 		} else {
-			textDettagli.setText(noleggio.getAssistenza().getDettagli());
+			textDettagli.setText("da mettere il testo di tutte le richieste");/////////////////////////
 		}
 	}
 

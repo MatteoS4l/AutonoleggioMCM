@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -29,7 +30,7 @@ public class ModificaVeicoloController implements Initializable, DataInitializab
 	@FXML
 	private Label labelAggiungiVeicolo;
 	@FXML
-	private ChoiceBox<Tipologia> choiceboxTipologia;
+	private ComboBox<Tipologia> choiceboxTipologia;
 	@FXML
 	private ChoiceBox<Alimentazione> choiceboxAlimentazione;
 	@FXML
@@ -60,7 +61,7 @@ public class ModificaVeicoloController implements Initializable, DataInitializab
 						.or(textfieldGiorno.textProperty().isEmpty()).or(choiceboxAlimentazione.valueProperty().isNull()));
 
 		try {
-			choiceboxTipologia.getItems().addAll(tipologiaservice.findAllTipologiaT());
+			choiceboxTipologia.getItems().addAll(tipologiaservice.findAllTipologia());
 			choiceboxAlimentazione.getItems().addAll(Alimentazione.values());
 			choiceboxAlimentazione.setValue(Alimentazione.BENZINA);
 			choiceboxStato.getItems().addAll(Stato.values());

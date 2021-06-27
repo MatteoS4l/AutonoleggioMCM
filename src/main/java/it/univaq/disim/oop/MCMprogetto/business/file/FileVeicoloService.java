@@ -14,11 +14,10 @@ import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
-public class FileVeicoloService implements VeicoloService { //targa, modello, KM, tipologia, alimentazione,
+public class FileVeicoloService implements VeicoloService { // targa, modello, KM, tipologia, alimentazione,
 															// stato, tariffaKM, tariffaPeriodo
-	
 	@Override // CREA
-	public void createVeicolo(Veicolo veicolo) throws BusinessException {
+	public Veicolo createVeicolo(Veicolo veicolo) throws BusinessException {
 		if (!giaEsistente(veicolo.getTarga())) {
 			try {
 				FileData fileData = Utility.readAllRows("veicoli");
@@ -50,6 +49,7 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 					row.append(veicolo.getTariffaPeriodo());
 
 					writer.println(row.toString());
+					return veicolo;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -67,9 +67,11 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "veicoli" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
 				for (String[] righe : fileData.getRighe()) {
-					if ((righe[1]) == veicolo.getTarga()) {
+					if ((righe[1]).equalsIgnoreCase(veicolo.getTarga())) {
 						StringBuilder row = new StringBuilder();
 
+						row.append(fileData.getCont());
+						row.append(Utility.SEPARATORE);
 						row.append(veicolo.getTarga());
 						row.append(Utility.SEPARATORE);
 						row.append(veicolo.getModello());
@@ -84,6 +86,7 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 						row.append(Utility.SEPARATORE);
 						row.append(veicolo.getTariffaChilometraggio());
 						row.append(Utility.SEPARATORE);
+						row.append(veicolo.getTariffaPeriodo());
 
 						writer.println(row.toString());
 					} else {
@@ -104,7 +107,7 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "veicoli" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
 				for (String[] righe : fileData.getRighe()) {
-					if ((righe[0]) == veicolo.getTarga()
+					if ((righe[0]).equalsIgnoreCase(veicolo.getTarga())
 							&& veicolo.getStato().getDesc().equalsIgnoreCase("disponibile")) {
 						return;
 					} else {
@@ -130,7 +133,7 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 				veicolo.setTarga(colonne[1]);
 				veicolo.setModello(colonne[2]);
 				veicolo.setChilometri(Integer.parseInt(colonne[3]));
-				Tipologia t=new Tipologia();
+				Tipologia t = new Tipologia();
 				t.setNome(colonne[4]);
 				veicolo.setTipologia(t);
 				veicolo.setAlimentazione(Alimentazione.valueOf(colonne[5]));
@@ -153,11 +156,9 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 		if (stato.equalsIgnoreCase("tutte")) {
 			return findAllVeicoli();
 		}
-
-		List<Veicolo> lista = findAllVeicoli();
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
-		for (Veicolo tmp : lista) {
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (tmp.getStato().getDesc().equalsIgnoreCase(stato)) {
 				listacompleta.add(tmp);
 			}
@@ -166,15 +167,14 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 	}
 
 	@Override // GET LISTA VEICOLI TIPOLOGIA
-	public List<Veicolo> findListaVeicoliByTipologia(String tipologia) throws VeicoloNonTrovatoException, BusinessException {
+	public List<Veicolo> findListaVeicoliByTipologia(String tipologia)
+			throws VeicoloNonTrovatoException, BusinessException {
 		if (tipologia.equalsIgnoreCase("tutte")) {
 			return findAllVeicoli();
 		}
-
-		List<Veicolo> lista = findAllVeicoli();
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
-		for (Veicolo tmp : lista) {
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (tmp.getTipologia().getNome().equalsIgnoreCase(tipologia)) {
 				listacompleta.add(tmp);
 			}
@@ -183,15 +183,14 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 	}
 
 	@Override // GET LISTA BY ALIMENTAZIONE
-	public List<Veicolo> findListaVeicoliByAlimentazione(String alimentazione) throws VeicoloNonTrovatoException, BusinessException {
+	public List<Veicolo> findListaVeicoliByAlimentazione(String alimentazione)
+			throws VeicoloNonTrovatoException, BusinessException {
 		if (alimentazione.equalsIgnoreCase("tutte")) {
 			return findAllVeicoli();
 		}
-
-		List<Veicolo> lista = findAllVeicoli();
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
-		for (Veicolo tmp : lista) {
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (tmp.getAlimentazione().getAlim().equalsIgnoreCase(alimentazione)) {
 				listacompleta.add(tmp);
 			}
@@ -200,11 +199,11 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 	}
 
 	@Override // GET LISTA BY MODELLO
-	public List<Veicolo> findListaVeicoliByModello(String modello) throws VeicoloNonTrovatoException, BusinessException {
-		List<Veicolo> lista = findAllVeicoli();
+	public List<Veicolo> findListaVeicoliByModello(String modello)
+			throws VeicoloNonTrovatoException, BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
-		for (Veicolo tmp : lista) {
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (tmp.getModello().toLowerCase().contains(modello.toLowerCase())) {
 				listacompleta.add(tmp);
 			}
@@ -213,11 +212,11 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 	}
 
 	@Override // GET LISTA BY TARIFFA_KM
-	public List<Veicolo> findListaVeicoliByTariffaKM(double min, double max) throws VeicoloNonTrovatoException, BusinessException {
-		List<Veicolo> lista = findAllVeicoli();
+	public List<Veicolo> findListaVeicoliByTariffaKM(double min, double max)
+			throws VeicoloNonTrovatoException, BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
-		for (Veicolo tmp : lista) {
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (tmp.getTariffaChilometraggio() >= min && tmp.getTariffaChilometraggio() <= max) {
 				listacompleta.add(tmp);
 			}
@@ -228,10 +227,8 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 	@Override // GET LISTA BY TARIFFA_PERIODO
 	public List<Veicolo> findListaVeicoliByTariffaPeriodo(double min, double max)
 			throws VeicoloNonTrovatoException, BusinessException {
-		List<Veicolo> lista = findAllVeicoli();
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
-
-		for (Veicolo tmp : lista) {
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (tmp.getTariffaPeriodo() >= min && tmp.getTariffaPeriodo() <= max) {
 				listacompleta.add(tmp);
 			}
@@ -241,8 +238,7 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 
 	// GIA ESISTENTE
 	private Boolean giaEsistente(String targa) throws BusinessException {
-		List<Veicolo> lista = findAllVeicoli();
-		for (Veicolo tmp : lista) {
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (targa.equalsIgnoreCase(tmp.getTarga())) {
 				return true;
 			}
@@ -250,10 +246,10 @@ public class FileVeicoloService implements VeicoloService { //targa, modello, KM
 		return false;
 	}
 
-	@Override
+	@Override // FIND VEICOLO BY TARGA
 	public Veicolo findVeicoloByTarga(String targa) throws VeicoloNonTrovatoException, BusinessException {
-		for(Veicolo tmp : findAllVeicoli()) {
-			if(tmp.getTarga().equalsIgnoreCase(targa)) {
+		for (Veicolo tmp : findAllVeicoli()) {
+			if (tmp.getTarga().equalsIgnoreCase(targa)) {
 				return tmp;
 			}
 		}

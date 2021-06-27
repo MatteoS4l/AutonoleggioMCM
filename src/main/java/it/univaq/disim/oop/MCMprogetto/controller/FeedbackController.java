@@ -42,7 +42,7 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 	@FXML
 	private TableColumn<Feedback, Integer> ratingTabella;
 	@FXML
-	private Label label_veicolo;
+	private Label labelVeicolo;
 
 	public FeedbackController() {
 		dispatcher = ViewDispatcher.getInstance();
@@ -72,7 +72,7 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 	@Override
 	public void initializeData(Veicolo veicolo) {
 		this.veicolo = veicolo;
-		label_veicolo.setText("Feedback Di: " + veicolo.getModello());
+		labelVeicolo.setText("Feedback Di: " + veicolo.getModello());
 
 		List<Feedback> listafeedback = null;
 		try {

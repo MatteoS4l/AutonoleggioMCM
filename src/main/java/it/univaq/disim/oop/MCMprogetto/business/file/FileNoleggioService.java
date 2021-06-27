@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
@@ -52,6 +53,8 @@ public class FileNoleggioService implements NoleggioService {
 				row.append(noleggio.getVeicolo().getTarga());
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getDettagli());
+				row.append(Utility.SEPARATORE);
+				row.append("-");
 
 				writer.println(row.toString());
 			}
@@ -87,6 +90,8 @@ public class FileNoleggioService implements NoleggioService {
 						row.append(noleggio.getVeicolo().getTarga());
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.getDettagli());
+						row.append(Utility.SEPARATORE);
+						row.append("-");
 
 						writer.println(row.toString());
 					} else {
@@ -110,7 +115,7 @@ public class FileNoleggioService implements NoleggioService {
 			for (String[] colonne : filedata.getRighe()) {
 				Noleggio noleggio = new Noleggio();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				
+
 				noleggio.setID(Integer.parseInt(colonne[0]));
 				noleggio.setDataInizioNoleggio(LocalDate.parse(colonne[1], formatter));
 				noleggio.setDataFineNoleggio(LocalDate.parse(colonne[2], formatter));
@@ -120,7 +125,7 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[6])));
 				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[7]));
 				noleggio.setDettagli(colonne[8]);
-				
+
 				listanoleggi.add(noleggio);
 			}
 			return listanoleggi;

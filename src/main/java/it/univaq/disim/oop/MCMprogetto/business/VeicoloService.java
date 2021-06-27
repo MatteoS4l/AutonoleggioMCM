@@ -4,7 +4,7 @@ import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public interface VeicoloService {
-	void createVeicolo(Veicolo veicolo) throws BusinessException;
+	Veicolo createVeicolo(Veicolo veicolo) throws BusinessException;
 
 	void updateVeicolo(Veicolo veicolo) throws BusinessException;
 

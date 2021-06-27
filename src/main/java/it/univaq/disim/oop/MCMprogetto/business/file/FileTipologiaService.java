@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
@@ -16,8 +17,8 @@ public class FileTipologiaService implements TipologiaService { // ID, nome
 	private VeicoloService veicoloservice = new FileVeicoloService();
 
 	@Override // CREA
-	public void createTipologia(Tipologia tipologia) throws BusinessException {
-		if (!findAllTipologia().contains(tipologia.getNome())) {
+	public Tipologia createTipologia(Tipologia tipologia) throws BusinessException {
+		if (!GiaEsistente(tipologia)) {
 			try {
 				FileData fileData = Utility.readAllRows("tipologie");
 				try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "tipologie" + Utility.FORMATO))) {
@@ -34,6 +35,7 @@ public class FileTipologiaService implements TipologiaService { // ID, nome
 					row.append(tipologia.getNome());
 
 					writer.println(row.toString());
+					return tipologia;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -65,31 +67,10 @@ public class FileTipologiaService implements TipologiaService { // ID, nome
 		} else {
 			throw new TipologiaNonTrovataException();
 		}
-
 	}
 
 	@Override // GET LISTA TIPOLOGIA
-	public List<String> findAllTipologia() throws TipologiaNonTrovataException, BusinessException {
-		try {
-			List<String> listatipo = new ArrayList<String>();
-			FileData filedata = Utility.readAllRows("tipologie");
-
-			for (String[] colonne : filedata.getRighe()) {
-				Tipologia tipologia = new Tipologia();
-
-				tipologia.setID(Integer.parseInt(colonne[0]));
-				tipologia.setNome(colonne[1]);
-				listatipo.add(tipologia.getNome());
-			}
-			return listatipo;
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new BusinessException(e);
-		}
-	}
-
-	@Override // GET LISTA TIPOLOGIA T
-	public List<Tipologia> findAllTipologiaT() throws TipologiaNonTrovataException, BusinessException {
+	public List<Tipologia> findAllTipologia() throws TipologiaNonTrovataException, BusinessException {
 		try {
 			List<Tipologia> listatipo = new ArrayList<Tipologia>();
 			FileData filedata = Utility.readAllRows("tipologie");
@@ -106,6 +87,15 @@ public class FileTipologiaService implements TipologiaService { // ID, nome
 			e.printStackTrace();
 			throw new BusinessException(e);
 		}
+	}
+
+	private boolean GiaEsistente(Tipologia tipologia) throws TipologiaNonTrovataException, BusinessException {
+		for (Tipologia tmp : findAllTipologia()) {
+			if (tmp.getNome().equalsIgnoreCase(tipologia.getNome())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

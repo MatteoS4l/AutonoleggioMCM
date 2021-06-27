@@ -26,7 +26,7 @@ public interface NoleggioService {
 	List<Veicolo> findVeicoliDisponibiliForDate(LocalDate datainizio, LocalDate datafine) throws BusinessException;
 
 	List<Noleggio> findNoleggiByDettagli() throws BusinessException;
-
+	
 	boolean disponibilitaDate(LocalDate inizio, LocalDate fine, Veicolo veicolo) throws BusinessException;
 
 	void checkStatoVeicoli() throws BusinessException;

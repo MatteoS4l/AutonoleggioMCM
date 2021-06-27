@@ -2,6 +2,7 @@ package it.univaq.disim.oop.MCMprogetto.business;
 
 import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 
 public interface AssistenzaService {
 
@@ -10,9 +11,10 @@ public interface AssistenzaService {
 	void updateAssistenza(Assistenza assistenza) throws BusinessException;
 
 	List<Assistenza> findAllAssistenza() throws BusinessException;
+	
+	List<Assistenza> findAssistenzaByNoleggio(Noleggio noleggio) throws BusinessException;
+	
+	List<Assistenza> findListaAssistenzaByServita(boolean servita) throws BusinessException;///////
 
-	Assistenza getAssistenzaByID(Integer id) throws AssistenzaNonTrovataException, BusinessException;
-
-	List<Assistenza> findListaAssistenzaByServita(boolean servita) throws BusinessException;
-
+	Assistenza getAssistenzaByID(Integer id) throws AssistenzaNonTrovataException, BusinessException;///////
 }

@@ -61,7 +61,7 @@ public class SchedaVeicoloController implements Initializable, DataInitializable
 		labelErrore.setVisible(false);
 		try {
 			stato.getItems().addAll(Stato.values());
-			tipologia.getItems().addAll(tipologiaservice.findAllTipologiaT());//// forse  è sbagliato
+			tipologia.getItems().addAll(tipologiaservice.findAllTipologia());//// forse  è sbagliato
 			alimentazione.getItems().addAll(Alimentazione.values());
 
 			modificaButton.disableProperty()
