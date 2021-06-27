@@ -122,13 +122,12 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setDataInizioNoleggio(LocalDate.parse(colonne[1], formatter));
 				noleggio.setDataFineNoleggio(LocalDate.parse(colonne[2], formatter));
 				noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[3]));
-				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[4]));
-				noleggio.setKmPercorsi(Integer.parseInt(colonne[5]));
-				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[6])));
-				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[7]));
-				noleggio.setDettagli(colonne[8]);
-				if(colonne[9]!="-") {
-					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[9])));
+				noleggio.setKmPercorsi(Integer.parseInt(colonne[4]));
+				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[5])));
+				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[6]));
+				noleggio.setDettagli(colonne[7]);
+				if(colonne[8]!="-") {
+					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[8])));
 				}
 
 				listanoleggi.add(noleggio);

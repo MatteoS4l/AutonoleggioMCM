@@ -248,7 +248,7 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 				return tmp;
 			}
 		}
-		throw new VeicoloNonTrovatoException("TARGA NON TROVATA");
+		throw new VeicoloNonTrovatoException();
 	}
 
 }

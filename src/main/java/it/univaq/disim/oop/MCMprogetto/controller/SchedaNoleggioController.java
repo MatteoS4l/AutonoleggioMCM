@@ -2,7 +2,9 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -107,7 +109,7 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				Noleggio noleggio = new Noleggio();
 
 				noleggio.setPrezzo_noleggio(CalcolaPreventivo(event));
-				Set<Assistenza> listaAss = new HashSet<Assistenza>();
+				List<Assistenza> listaAss = new ArrayList<Assistenza>();
 				noleggio.setListaAssistenza(listaAss);
 				noleggio.setCliente((Cliente) utente);
 				noleggio.setVeicolo(veicolo);
