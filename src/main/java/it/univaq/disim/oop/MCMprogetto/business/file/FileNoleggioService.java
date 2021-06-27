@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
@@ -22,6 +23,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 public class FileNoleggioService implements NoleggioService {
 	private UtenteService utenteservice = new FileUtenteService();
 	private VeicoloService veicoloservice = new FileVeicoloService();
+	private AssistenzaService assistenzaservice = new FileAssistenzaService();
 
 	@Override // CREA
 	public Noleggio createNoleggio(Noleggio noleggio) throws BusinessException {
@@ -125,6 +127,9 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[6])));
 				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[7]));
 				noleggio.setDettagli(colonne[8]);
+				if(colonne[9]!="-") {
+					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[9])));
+				}
 
 				listanoleggi.add(noleggio);
 			}

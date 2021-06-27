@@ -14,7 +14,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 
 public class FileAssistenzaService implements AssistenzaService {
 	// id, richiesta, risposta, id noleggio
-	private NoleggioService noleggioservice = new FileNoleggioService();
+	//private NoleggioService noleggioservice = new FileNoleggioService();
 
 	@Override // CREA
 	public Assistenza createAssistenza(Assistenza assistenza) throws BusinessException {
@@ -34,8 +34,8 @@ public class FileAssistenzaService implements AssistenzaService {
 				row.append(assistenza.getRichiesta().replace(",", " "));
 				row.append(Utility.SEPARATORE);
 				row.append(assistenza.getRisposta().replace(",", " "));
-				row.append(Utility.SEPARATORE);
-				row.append(assistenza.getNoleggio().getID());
+//				row.append(Utility.SEPARATORE);
+//				row.append(assistenza.getNoleggio().getID());
 
 				writer.println(row.toString());
 			}
@@ -62,8 +62,8 @@ public class FileAssistenzaService implements AssistenzaService {
 						row.append(assistenza.getRichiesta().replace(",", " "));
 						row.append(Utility.SEPARATORE);
 						row.append(assistenza.getRisposta().replace(",", " "));
-						row.append(Utility.SEPARATORE);
-						row.append(assistenza.getNoleggio().getID());
+//						row.append(Utility.SEPARATORE);
+//						row.append(assistenza.getNoleggio().getID());
 
 						writer.println(row.toString());
 					}
@@ -87,7 +87,7 @@ public class FileAssistenzaService implements AssistenzaService {
 				assistenza.setID(Integer.parseInt(righe[0]));
 				assistenza.setRichiesta(righe[1]);
 				assistenza.setRisposta(righe[2]);
-				assistenza.setNoleggio(noleggioservice.findNoleggioByID(Integer.parseInt(righe[3])));
+				//assistenza.setNoleggio(noleggioservice.findNoleggioByID(Integer.parseInt(righe[3])));
 
 				lista.add(assistenza);
 			}
@@ -135,7 +135,7 @@ public class FileAssistenzaService implements AssistenzaService {
 		return listacompleta;
 	}
 
-	@Override // FIND ASSISTENZA BY NOLEGGIO
+	/*@Override // FIND ASSISTENZA BY NOLEGGIO
 	public List<Assistenza> findAssistenzaByNoleggio(Noleggio noleggio) throws BusinessException {
 		List<Assistenza> lista = new ArrayList<Assistenza>();
 		for (Assistenza tmp : findAllAssistenza()) {
@@ -144,6 +144,27 @@ public class FileAssistenzaService implements AssistenzaService {
 			}
 		}
 		return lista;
+	}*/
+	
+	@Override
+	public List<Assistenza> findAssistenzeByIds(List<Integer> ids) throws BusinessException {
+		List<Assistenza> res = new ArrayList<>();
+		try{
+			FileData fileData = Utility.readAllRows("assistenza");
+			for(Integer id: ids){
+				for(String[] column : fileData.getRighe()){
+					if(Integer.parseInt(column[0]) == id){
+						Assistenza a = new Assistenza();
+						createAssistenza(a);
+						res.add(a);
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new BusinessException("error in findCandidatesByIds");
+		}
+		return res;
 	}
 
 }

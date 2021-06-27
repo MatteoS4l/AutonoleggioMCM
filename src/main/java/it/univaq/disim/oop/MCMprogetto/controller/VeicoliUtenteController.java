@@ -10,6 +10,8 @@ import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Alimentazione;
+import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -31,7 +33,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class VeicoliUtenteController implements Initializable, DataInitializable<Utente, Object> {
+public class VeicoliUtenteController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
 	private VeicoloService veicoloservice;
 	private TipologiaService tipologiaservice;
@@ -53,9 +55,9 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	@FXML
 	private TextField txtTariffaGiornoMax;
 	@FXML
-	private ComboBox<String> boxAlimentazione;
+	private ComboBox<Alimentazione> boxAlimentazione;
 	@FXML
-	private ComboBox<String> boxTipologia;
+	private ComboBox<Tipologia> boxTipologia;
 	@FXML
 	private TableView<Veicolo> listaFiltrata;
 	@FXML
