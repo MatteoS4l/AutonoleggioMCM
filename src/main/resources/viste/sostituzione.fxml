@@ -7,8 +7,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.SostituzioneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.SostituzioneController">
    <children>
       <TableView fx:id="tabellaSos" layoutY="23.0" prefHeight="258.0" prefWidth="650.0">
         <columns>
@@ -23,9 +26,57 @@
       <DatePicker fx:id="dataInizioSos" layoutX="33.0" layoutY="333.0" />
       <DatePicker fx:id="dataFineSos" layoutX="33.0" layoutY="392.0" />
       <TextField fx:id="invioRispostaSos" layoutX="258.0" layoutY="333.0" prefHeight="25.0" prefWidth="376.0" />
-      <Button fx:id="bottoneSos" layoutX="423.0" layoutY="367.0" mnemonicParsing="false" onAction="#InviaNotificaSostituzione" prefHeight="25.0" prefWidth="61.0" text="Invia" />
+      <Button fx:id="bottoneSos" layoutX="423.0" layoutY="367.0" mnemonicParsing="false" onAction="#InviaNotificaSostituzione" prefHeight="25.0" prefWidth="61.0" text="Invia">
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill></Button>
       <Label fx:id="successoSos" layoutX="367.0" layoutY="404.0" prefHeight="17.0" prefWidth="174.0" text="Sostituzione andata a buon fine!" textFill="#09bc30" />
-      <Label fx:id="labelInizio" layoutX="31.0" layoutY="316.0" text="Inizio noleggio veicolo sostitutivo" />
-      <Label fx:id="labelFine" layoutX="34.0" layoutY="371.0" text="Fine noleggio veicolo sostitutivo" />
+      <Label fx:id="labelInizio" layoutX="31.0" layoutY="316.0" text="Inizio noleggio veicolo sostitutivo">
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill></Label>
+      <Label fx:id="labelFine" layoutX="34.0" layoutY="371.0" text="Fine noleggio veicolo sostitutivo">
+         <textFill>
+            <LinearGradient endX="0.1761904761904762" startX="1.0" startY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill></Label>
    </children>
 </AnchorPane>

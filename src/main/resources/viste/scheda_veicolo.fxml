@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.SchedaVeicoloController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.SchedaVeicoloController">
    <children>
       <ImageView fitHeight="450.0" fitWidth="650.0" opacity="0.29" pickOnBounds="true">
          <image>
@@ -100,7 +100,7 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <Label layoutX="37.0" layoutY="317.0" text="Alimentazione">
+      <Label layoutX="46.0" layoutY="317.0" text="Alimentazione">
          <font>
             <Font name="Britannic Bold" size="21.0" />
          </font>
@@ -194,7 +194,7 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <Label layoutX="277.0" layoutY="317.0" text="Kilometraggio">
+      <Label layoutX="283.0" layoutY="317.0" text="Kilometraggio">
          <font>
             <Font name="Britannic Bold" size="21.0" />
          </font>
