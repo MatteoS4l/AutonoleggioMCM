@@ -5,11 +5,18 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.PrenotazioniOperatoreController">
    <children>
+      <ImageView fitHeight="450.0" fitWidth="650.0" opacity="0.42" pickOnBounds="true">
+         <image>
+            <Image url="@../immagini/sfondo_creazione%20feedback.jpg" />
+         </image>
+      </ImageView>
       <TableView fx:id="tabellaPrenotazioni" layoutX="10.0" layoutY="68.0" prefHeight="250.0" prefWidth="630.0">
         <columns>
           <TableColumn fx:id="clientePren" prefWidth="102.0" text="Cliente" />
@@ -21,7 +28,7 @@
       </TableView>
       <TextField fx:id="textRiposta" layoutX="105.0" layoutY="364.0" prefHeight="32.0" prefWidth="379.0" />
       <Button fx:id="bottoneRisposta" layoutX="484.0" layoutY="364.0" mnemonicParsing="false" onAction="#InviaRisposta" prefHeight="32.0" prefWidth="52.0" text="Invia" />
-      <Label fx:id="labelRisposta" layoutX="204.0" layoutY="406.0" text="Notifica inviata con successo!" textFill="#00b93a">
+      <Label fx:id="labelRisposta" layoutX="235.0" layoutY="406.0" text="Notifica inviata con successo!" textFill="#00b93a">
          <font>
             <Font size="14.0" />
          </font>
