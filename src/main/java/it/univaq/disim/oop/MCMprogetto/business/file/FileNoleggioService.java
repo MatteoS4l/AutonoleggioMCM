@@ -14,6 +14,7 @@ import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Stato;
@@ -77,7 +78,7 @@ public class FileNoleggioService implements NoleggioService {
 					if (Integer.parseInt(righe[0]) == noleggio.getID()) {
 						StringBuilder row = new StringBuilder();
 
-						row.append(fileData.getCont());
+						row.append(noleggio.getID());
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.getDataInizioNoleggio().toString().replace("T", " "));
 						row.append(Utility.SEPARATORE);
@@ -93,8 +94,12 @@ public class FileNoleggioService implements NoleggioService {
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.getDettagli());
 						row.append(Utility.SEPARATORE);
-						row.append("-");
-
+						if(!noleggio.getListaAssistenza().isEmpty()) {
+							for(Assistenza tmp : noleggio.getListaAssistenza()) {
+								row.append("-");
+								row.append(tmp.getID());
+							}
+						}
 						writer.println(row.toString());
 					} else {
 						writer.println(String.join(Utility.SEPARATORE, righe));
@@ -127,6 +132,7 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[6]));
 				noleggio.setDettagli(colonne[7]);
 				if(colonne[8]!="-") {
+					System.out.println(colonne[8]);
 					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[8])));
 				}
 

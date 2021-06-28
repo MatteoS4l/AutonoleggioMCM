@@ -2,7 +2,6 @@ package it.univaq.disim.oop.MCMprogetto.domain;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 public class Noleggio {
 	private Integer ID;
@@ -86,6 +85,10 @@ public class Noleggio {
 
 	public void setListaAssistenza(List<Assistenza> listaAssistenza) {
 		this.listaAssistenza = listaAssistenza;
+	}
+	
+	public void addListaAssistenza(Assistenza assistenza) {
+		this.listaAssistenza.add(assistenza);
 	}
 
 }

@@ -33,6 +33,7 @@ import javafx.util.Callback;
 
 public class NoleggiUtenteController implements Initializable, DataInitializable<Utente> {
 	private Noleggio noleggio;
+	private Utente utente;
 	private AssistenzaService assistenzaservice;
 	private NoleggioService noleggioservice;
 
@@ -116,6 +117,7 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 
 	@Override
 	public void initializeData(Utente utente) {
+		this.utente = utente;
 		List<Noleggio> listaNol = new ArrayList<Noleggio>();
 		try {
 			listaNol = noleggioservice.findNoleggiByUtente(utente);
@@ -130,23 +132,22 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 	void InviaRichiesta(ActionEvent event) {
 		try {
 			Assistenza assistenza = new Assistenza();
-
 			assistenza.setRichiesta(textDettagliRichiesta.getText());
 			assistenza = assistenzaservice.createAssistenza(assistenza);
-
-			noleggio.getListaAssistenza().add(assistenza);/*****************************//////////////
+			
+			noleggio.addListaAssistenza(assistenza);
 			noleggioservice.updateNoleggio(noleggio);
-
 			labelAvviso.setVisible(true);
 			labelErrore.setVisible(false);
 		} catch (BusinessException e) {
 			labelErrore.setText(e.getMessage());
 		}
-		initializeData(null);
+		initializeData(utente);
 	}
 
 	// RICHIEDI
 	private void RichiediAssistenza(Noleggio nol) {
+		this.noleggio = nol;
 		textDettagliRichiesta.setVisible(true);
 		inviaButton.setVisible(true);
 		labelErrore.setVisible(false);

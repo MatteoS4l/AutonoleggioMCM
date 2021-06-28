@@ -4,7 +4,6 @@ public class Assistenza {
 	private Integer ID;
 	private String richiesta;
 	private String risposta;
-	//private Noleggio noleggio;
 
 	// GET E SET
 	public Integer getID() {
@@ -30,13 +29,5 @@ public class Assistenza {
 	public void setRisposta(String risposta) {
 		this.risposta = risposta;
 	}
-
-	/*public Noleggio getNoleggio() {
-		return noleggio;
-	}
-
-	public void setNoleggio(Noleggio noleggio) {
-		this.noleggio = noleggio;
-	}*/
 
 }

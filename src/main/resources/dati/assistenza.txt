@@ -1,1 +1,6 @@
-1
+6
+1,ciao come stai,niente
+2,ciao come stai di nuovo
+3,ciao come
+4,ciao come stai
+5,ciao come stai,,
