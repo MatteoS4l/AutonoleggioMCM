@@ -7,6 +7,9 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.Noleggi_OperatoreController">
    <children>
@@ -19,9 +22,57 @@
             <TableColumn fx:id="clienteNol" prefWidth="151.0" text="Cliente" />
         </columns>
       </TableView>
-      <CheckBox fx:id="spuntaNoleggi" layoutX="376.0" layoutY="40.0" mnemonicParsing="false" text="In corso" />
+      <CheckBox fx:id="spuntaNoleggi" layoutX="376.0" layoutY="40.0" mnemonicParsing="false" text="In corso">
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill></CheckBox>
       <DatePicker fx:id="ricercaPerData" layoutX="82.0" layoutY="36.0" />
-      <Button fx:id="bottoneApplica" layoutX="560.0" layoutY="36.0" mnemonicParsing="false" onAction="#ApplicaFiltri" text="Applica" />
-      <Label layoutX="26.0" layoutY="14.0" text="Visualizza i noleggi in riconsegna in una specifica data" />
+      <Button fx:id="bottoneApplica" layoutX="560.0" layoutY="36.0" mnemonicParsing="false" onAction="#ApplicaFiltri" text="Applica">
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill></Button>
+      <Label layoutX="26.0" layoutY="14.0" text="Visualizza i noleggi in riconsegna in una specifica data">
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill></Label>
    </children>
 </AnchorPane>
