@@ -33,12 +33,15 @@ public class FileAssistenzaService implements AssistenzaService {
 				row.append(Utility.SEPARATORE);
 				row.append(assistenza.getRichiesta().replace(",", " "));
 				row.append(Utility.SEPARATORE);
+				if (assistenza.getRisposta() != null) {
 				row.append(assistenza.getRisposta().replace(",", " "));
+				}
 //				row.append(Utility.SEPARATORE);
 //				row.append(assistenza.getNoleggio().getID());
-
+				
 				writer.println(row.toString());
 			}
+			System.out.println("create: "+assistenza.getID());
 			return assistenza;
 		} catch (IOException e) {
 			e.printStackTrace();

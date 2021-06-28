@@ -106,7 +106,11 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								RichiediAssistenza(param.getValue());
+								try {
+									RichiediAssistenza(param.getValue());
+								} catch (BusinessException e) {
+									e.printStackTrace();
+								}
 							}
 						});
 						return new SimpleObjectProperty<Button>(dettagliButton);
@@ -132,21 +136,21 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 			Assistenza assistenza = new Assistenza();
 
 			assistenza.setRichiesta(textDettagliRichiesta.getText());
-			assistenza = assistenzaservice.createAssistenza(assistenza);
+			 assistenzaservice.createAssistenza(assistenza);
 
-			noleggio.getListaAssistenza().add(assistenza);/*****************************//////////////
+			this.noleggio.getListaAssistenza().add(assistenza);
 			noleggioservice.updateNoleggio(noleggio);
-
+			
 			labelAvviso.setVisible(true);
 			labelErrore.setVisible(false);
 		} catch (BusinessException e) {
 			labelErrore.setText(e.getMessage());
 		}
-		initializeData(null);
 	}
 
 	// RICHIEDI
-	private void RichiediAssistenza(Noleggio nol) {
+	private void RichiediAssistenza(Noleggio nol) throws BusinessException {
+		this.noleggio=nol;
 		textDettagliRichiesta.setVisible(true);
 		inviaButton.setVisible(true);
 		labelErrore.setVisible(false);

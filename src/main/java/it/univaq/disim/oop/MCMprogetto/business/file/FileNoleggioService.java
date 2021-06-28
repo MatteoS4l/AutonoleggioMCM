@@ -94,7 +94,11 @@ public class FileNoleggioService implements NoleggioService {
 						row.append(noleggio.getDettagli());
 						row.append(Utility.SEPARATORE);
 						row.append("-");
-
+						int i;
+						for (i=0;i<noleggio.getListaAssistenza().size();i++) {
+							 row.append(noleggio.getListaAssistenza().get(i).getID());
+							 System.out.println(noleggio.getListaAssistenza().get(i).getID());
+						}
 						writer.println(row.toString());
 					} else {
 						writer.println(String.join(Utility.SEPARATORE, righe));
