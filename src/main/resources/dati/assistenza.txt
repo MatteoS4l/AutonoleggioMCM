@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 6
 1,ciao come stai,niente
 2,ciao come stai di nuovo
 3,ciao come
 4,ciao come stai
 5,ciao come stai,,
+=======
+3
+1,aaaaaaaaaaaaa
+2,aaaaaaaaa,
+>>>>>>> 466df313274d883c4db0765b7b787029b72720bf

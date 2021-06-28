@@ -107,7 +107,11 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								RichiediAssistenza(param.getValue());
+								try {
+									RichiediAssistenza(param.getValue());
+								} catch (BusinessException e) {
+									e.printStackTrace();
+								}
 							}
 						});
 						return new SimpleObjectProperty<Button>(dettagliButton);
@@ -133,21 +137,37 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 		try {
 			Assistenza assistenza = new Assistenza();
 			assistenza.setRichiesta(textDettagliRichiesta.getText());
+<<<<<<< HEAD
 			assistenza = assistenzaservice.createAssistenza(assistenza);
 			
 			noleggio.addListaAssistenza(assistenza);
 			noleggioservice.updateNoleggio(noleggio);
+=======
+			 assistenzaservice.createAssistenza(assistenza);
+
+			this.noleggio.getListaAssistenza().add(assistenza);
+			noleggioservice.updateNoleggio(noleggio);
+			
+>>>>>>> 466df313274d883c4db0765b7b787029b72720bf
 			labelAvviso.setVisible(true);
 			labelErrore.setVisible(false);
 		} catch (BusinessException e) {
 			labelErrore.setText(e.getMessage());
 		}
+<<<<<<< HEAD
 		initializeData(utente);
 	}
 
 	// RICHIEDI
 	private void RichiediAssistenza(Noleggio nol) {
 		this.noleggio = nol;
+=======
+	}
+
+	// RICHIEDI
+	private void RichiediAssistenza(Noleggio nol) throws BusinessException {
+		this.noleggio=nol;
+>>>>>>> 466df313274d883c4db0765b7b787029b72720bf
 		textDettagliRichiesta.setVisible(true);
 		inviaButton.setVisible(true);
 		labelErrore.setVisible(false);

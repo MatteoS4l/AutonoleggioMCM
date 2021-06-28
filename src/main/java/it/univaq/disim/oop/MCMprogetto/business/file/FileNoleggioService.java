@@ -94,11 +94,19 @@ public class FileNoleggioService implements NoleggioService {
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.getDettagli());
 						row.append(Utility.SEPARATORE);
+<<<<<<< HEAD
 						if(!noleggio.getListaAssistenza().isEmpty()) {
 							for(Assistenza tmp : noleggio.getListaAssistenza()) {
 								row.append("-");
 								row.append(tmp.getID());
 							}
+=======
+						row.append("-");
+						int i;
+						for (i=0;i<noleggio.getListaAssistenza().size();i++) {
+							 row.append(noleggio.getListaAssistenza().get(i).getID());
+							 System.out.println(noleggio.getListaAssistenza().get(i).getID());
+>>>>>>> 466df313274d883c4db0765b7b787029b72720bf
 						}
 						writer.println(row.toString());
 					} else {
