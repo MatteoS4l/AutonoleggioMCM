@@ -1,6 +1,7 @@
 package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class RilascioFeedbackController implements Initializable, DataInitializable<Utente, Object> {
+public class RilascioFeedbackController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
 	private NoleggioService noleggioservice;
 
@@ -52,10 +53,6 @@ public class RilascioFeedbackController implements Initializable, DataInitializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-	}
-
-	@Override
-	public void initializeData(Utente utente) {
 		idFeedbackUtente.setStyle("-fx-alignment: CENTER;");
 		veicoloFeedbackUtente.setStyle("-fx-alignment: CENTER;");
 		dataInFeedbackUtente.setStyle("-fx-alignment: CENTER;");
@@ -64,9 +61,9 @@ public class RilascioFeedbackController implements Initializable, DataInitializa
 
 		idFeedbackUtente.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
 		dataInFeedbackUtente
-				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
+				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));
 		dataFiFeedbackUtente
-				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
+				.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataFineNoleggio"));
 		veicoloFeedbackUtente.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override
@@ -82,20 +79,20 @@ public class RilascioFeedbackController implements Initializable, DataInitializa
 						feedButton.setOnAction(new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								dispatcher.renderView("creazione_feedback", utente, param.getValue());
+								dispatcher.renderView("creazione_feedback", param.getValue());
 							}
 						});
 						return new SimpleObjectProperty<Button>(feedButton);
 					}
 				});
+	}
 
+	@Override
+	public void initializeData(Utente utente) {
 		try {
-			List<Noleggio> listaNol2 = new ArrayList<Noleggio>();
-			listaNol2 = noleggioservice.findNoleggiByUtente(utente);
 			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
-
-			for (Noleggio tmp : listaNol2) {
-				if (tmp.getData_fine_noleggio().isBefore(LocalDateTime.now()) && tmp.isFeed_lasciato() == false) {
+			for (Noleggio tmp : noleggioservice.findNoleggiByUtente(utente)) {
+				if (tmp.getDataFineNoleggio().isBefore(LocalDate.now())) {
 					listacompleta.add(tmp);
 				}
 			}

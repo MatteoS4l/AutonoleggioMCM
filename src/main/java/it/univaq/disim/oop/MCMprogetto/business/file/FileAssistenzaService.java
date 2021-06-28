@@ -32,23 +32,12 @@ public class FileAssistenzaService implements AssistenzaService {
 				row.append(assistenza.getRichiesta().replace(",", " "));
 				row.append(Utility.SEPARATORE);
 				if (assistenza.getRisposta() != null) {
-<<<<<<< HEAD
 					row.append(assistenza.getRisposta().replace(",", " "));
 				}
 				row.append(Utility.SEPARATORE);
-
 				assistenza.setID(fileData.getCont());
-
-=======
-				row.append(assistenza.getRisposta().replace(",", " "));
-				}
-//				row.append(Utility.SEPARATORE);
-//				row.append(assistenza.getNoleggio().getID());
-				
->>>>>>> 466df313274d883c4db0765b7b787029b72720bf
 				writer.println(row.toString());
 			}
-			System.out.println("create: "+assistenza.getID());
 			return assistenza;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -165,7 +154,9 @@ public class FileAssistenzaService implements AssistenzaService {
 						Assistenza a = new Assistenza();
 						a.setID(Integer.parseInt(colonne[0]));
 						a.setRichiesta(colonne[1]);
-						a.setRisposta(colonne[2]);
+						if(a.getRisposta() != null) {
+							a.setRisposta(colonne[2]);
+						}
 						res.add(a);
 					}
 				}

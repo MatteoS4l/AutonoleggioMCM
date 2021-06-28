@@ -1,6 +1,7 @@
 package it.univaq.disim.oop.MCMprogetto.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Noleggio {
@@ -12,7 +13,7 @@ public class Noleggio {
 	private Cliente cliente;
 	private Veicolo veicolo;
 	private String dettagli;
-	private List<Assistenza> listaAssistenza;
+	private List<Assistenza> listaAssistenza = new ArrayList<Assistenza>();
 
 	// GET E SET
 	public Integer getID() {

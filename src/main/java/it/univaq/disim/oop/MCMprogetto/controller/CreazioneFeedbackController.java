@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class CreazioneFeedbackController implements Initializable, DataInitializable<Utente, Noleggio> {
+public class CreazioneFeedbackController implements Initializable, DataInitializable<Noleggio> {
 	private ViewDispatcher dispatcher;
 	private Veicolo veicolo;
 	private Utente utente;
@@ -72,8 +72,8 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 	}
 
 	@Override
-	public void initializeData(Utente utente, Noleggio noleggio) {
-		this.utente = utente;
+	public void initializeData(Noleggio noleggio) {
+		this.utente = noleggio.getCliente();
 		this.veicolo = noleggio.getVeicolo();
 		this.noleggio = noleggio;
 		labelNome.setText(veicolo.getModello());
@@ -88,11 +88,10 @@ public class CreazioneFeedbackController implements Initializable, DataInitializ
 			feedback.setNoleggio(noleggio);
 			feedbackservice.createFeedback(feedback);
 
-			dispatcher.renderView("rilascio_feedback", utente, null);
+			dispatcher.renderView("rilascio_feedback", utente);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/************************ INIZIO STELLE **********************/

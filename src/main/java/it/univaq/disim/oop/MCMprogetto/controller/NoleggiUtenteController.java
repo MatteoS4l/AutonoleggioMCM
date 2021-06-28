@@ -137,37 +137,25 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 		try {
 			Assistenza assistenza = new Assistenza();
 			assistenza.setRichiesta(textDettagliRichiesta.getText());
-<<<<<<< HEAD
 			assistenza = assistenzaservice.createAssistenza(assistenza);
-			
+
 			noleggio.addListaAssistenza(assistenza);
 			noleggioservice.updateNoleggio(noleggio);
-=======
-			 assistenzaservice.createAssistenza(assistenza);
-
-			this.noleggio.getListaAssistenza().add(assistenza);
-			noleggioservice.updateNoleggio(noleggio);
-			
->>>>>>> 466df313274d883c4db0765b7b787029b72720bf
-			labelAvviso.setVisible(true);
-			labelErrore.setVisible(false);
+			System.out.println(noleggio.getListaAssistenza().get(noleggio.getListaAssistenza().size()-1).getRichiesta());
 		} catch (BusinessException e) {
 			labelErrore.setText(e.getMessage());
+		} finally {
+			initializeData(utente);
+			labelAvviso.setVisible(true);
+			labelErrore.setVisible(false);
+			textDettagliRichiesta.clear();
 		}
-<<<<<<< HEAD
-		initializeData(utente);
-	}
 
-	// RICHIEDI
-	private void RichiediAssistenza(Noleggio nol) {
-		this.noleggio = nol;
-=======
 	}
 
 	// RICHIEDI
 	private void RichiediAssistenza(Noleggio nol) throws BusinessException {
-		this.noleggio=nol;
->>>>>>> 466df313274d883c4db0765b7b787029b72720bf
+		this.noleggio = nol;
 		textDettagliRichiesta.setVisible(true);
 		inviaButton.setVisible(true);
 		labelErrore.setVisible(false);

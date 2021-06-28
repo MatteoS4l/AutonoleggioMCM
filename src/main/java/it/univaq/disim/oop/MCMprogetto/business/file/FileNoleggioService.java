@@ -72,6 +72,7 @@ public class FileNoleggioService implements NoleggioService {
 	public void updateNoleggio(Noleggio noleggio) throws BusinessException {
 		try {
 			FileData fileData = Utility.readAllRows("noleggi");
+
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "noleggi" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
 				for (String[] righe : fileData.getRighe()) {
@@ -94,31 +95,22 @@ public class FileNoleggioService implements NoleggioService {
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.getDettagli());
 						row.append(Utility.SEPARATORE);
-<<<<<<< HEAD
-						if(!noleggio.getListaAssistenza().isEmpty()) {
-							for(Assistenza tmp : noleggio.getListaAssistenza()) {
-								row.append("-");
-								row.append(tmp.getID());
-							}
-=======
 						row.append("-");
-						int i;
-						for (i=0;i<noleggio.getListaAssistenza().size();i++) {
-							 row.append(noleggio.getListaAssistenza().get(i).getID());
-							 System.out.println(noleggio.getListaAssistenza().get(i).getID());
->>>>>>> 466df313274d883c4db0765b7b787029b72720bf
+
+						if (!noleggio.getListaAssistenza().isEmpty()) {
+							for (Assistenza tmp : noleggio.getListaAssistenza()) {
+								row.append(tmp.getID());
+								row.append("-");
+							}
 						}
 						writer.println(row.toString());
-					} else {
-						writer.println(String.join(Utility.SEPARATORE, righe));
 					}
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new BusinessException("errore durante la modifica del noleggio");
+			throw new BusinessException("noleggio non creato");
 		}
-
 	}
 
 	@Override // ALL NOLEGGI
@@ -139,7 +131,7 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[5])));
 				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[6]));
 				noleggio.setDettagli(colonne[7]);
-				if(colonne[8]!="-") {
+				if (!colonne[8].equalsIgnoreCase("-")) {
 					System.out.println(colonne[8]);
 					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[8])));
 				}
