@@ -32,7 +32,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class SostituzioneController implements Initializable, DataInitializable<Utente, Assistenza> {
+public class SostituzioneController implements Initializable, DataInitializable<Noleggio> {
 	private VeicoloService veicoloservice;
 	private NoleggioService noleggioservice;
 	private AssistenzaService assistenzaservice;
@@ -126,14 +126,8 @@ public class SostituzioneController implements Initializable, DataInitializable<
 	}
 
 	@Override
-	public void initializeData(Utente utente, Assistenza assistenza) {
-		this.assistenza = assistenza;
-
-		try {
-			this.noleggio = noleggioservice.findNoleggioByIdAssistenza(assistenza.getID());
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
+	public void initializeData(Noleggio noleggio) {
+			this.noleggio = noleggio;
 	}
 
 	@FXML // INVIA NOTIFICA
@@ -174,7 +168,7 @@ public class SostituzioneController implements Initializable, DataInitializable<
 
 		dataInizioSos.setValue(LocalDate.now());
 		dataInizioSos.setEditable(false);
-		dataFineSos.setValue(noleggio.getData_fine_noleggio().toLocalDate());
+		dataFineSos.setValue(noleggio.getDataFineNoleggio());
 		dataFineSos.setEditable(false);
 		invioRispostaSos.setText("Il tuo veicolo sostitutivo sarà disponibile dal "
 				+ dataInizioSos.getValue().toString() + " al " + dataFineSos.getValue().toString());

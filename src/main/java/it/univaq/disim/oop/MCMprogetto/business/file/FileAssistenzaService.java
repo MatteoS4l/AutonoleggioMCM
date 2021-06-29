@@ -34,7 +34,6 @@ public class FileAssistenzaService implements AssistenzaService {
 				if (assistenza.getRisposta() != null) {
 					row.append(assistenza.getRisposta().replace(",", " "));
 				}
-				row.append(Utility.SEPARATORE);
 				assistenza.setID(fileData.getCont());
 				writer.println(row.toString());
 			}
@@ -63,8 +62,6 @@ public class FileAssistenzaService implements AssistenzaService {
 						if (assistenza.getRisposta() != null) {
 							row.append(assistenza.getRisposta().replace(",", " "));
 						}
-						row.append(Utility.SEPARATORE);
-
 						writer.println(row.toString());
 					}
 				}
@@ -87,7 +84,6 @@ public class FileAssistenzaService implements AssistenzaService {
 				assistenza.setID(Integer.parseInt(righe[0]));
 				assistenza.setRichiesta(righe[1]);
 				assistenza.setRisposta(righe[2]);
-				// assistenza.setNoleggio(noleggioservice.findNoleggioByID(Integer.parseInt(righe[3])));
 
 				lista.add(assistenza);
 			}
@@ -135,13 +131,7 @@ public class FileAssistenzaService implements AssistenzaService {
 		return listacompleta;
 	}
 
-	/*
-	 * @Override // FIND ASSISTENZA BY NOLEGGIO public List<Assistenza>
-	 * findAssistenzaByNoleggio(Noleggio noleggio) throws BusinessException {
-	 * List<Assistenza> lista = new ArrayList<Assistenza>(); for (Assistenza tmp :
-	 * findAllAssistenza()) { if (tmp.getNoleggio().getID() == noleggio.getID()) {
-	 * lista.add(tmp); } } return lista; }
-	 */
+	
 
 	@Override
 	public List<Assistenza> findAssistenzeByIds(List<Integer> ids) throws BusinessException {

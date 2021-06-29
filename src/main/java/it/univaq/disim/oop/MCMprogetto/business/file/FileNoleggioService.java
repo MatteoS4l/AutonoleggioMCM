@@ -25,6 +25,7 @@ public class FileNoleggioService implements NoleggioService {
 	private UtenteService utenteservice = new FileUtenteService();
 	private VeicoloService veicoloservice = new FileVeicoloService();
 	private AssistenzaService assistenzaservice = new FileAssistenzaService();
+	private Veicolo veicolo;
 
 	@Override // CREA
 	public Noleggio createNoleggio(Noleggio noleggio) throws BusinessException {
@@ -303,5 +304,32 @@ public class FileNoleggioService implements NoleggioService {
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public void aggiornaAssistenza(Assistenza assistenza) throws BusinessException {
+		assistenzaservice.updateAssistenza(assistenza);
+	}
+
+	@Override
+	public List<Noleggio> findNoleggiByAssistenza(String s) throws BusinessException {
+		List<Noleggio> listaNol = new ArrayList<Noleggio>();
+
+		for (Noleggio n : findAllNoleggi()) {
+			for (int i = 0; i < n.getListaAssistenza().size(); i++) {
+				switch (s) {
+				case "SI":
+					if (n.getListaAssistenza().get(i).getRichiesta() != null) {
+						listaNol.add(n);
+					}
+				case "NO":
+					if (n.getListaAssistenza().get(i).getRichiesta() == null) {
+						listaNol.add(n);
+					}
+				}
+			}
+
+		}
+		return listaNol;
 	}
 }

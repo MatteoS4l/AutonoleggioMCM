@@ -28,7 +28,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class PrenotazioniOperatoreController implements Initializable, DataInitializable<Noleggio, Operatore> {
+public class PrenotazioniOperatoreController implements Initializable, DataInitializable<Operatore> {
 	private NoleggioService noleggioservice;
 	private Noleggio noleggio;
 
@@ -59,7 +59,7 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		labelRisposta.setVisible(false);
-		textRisposta.setVisible(false);
+		this.textRisposta.setVisible(false);
 		bottoneRisposta.setVisible(false);
 
 		clientePren.setStyle("-fx-alignment: CENTER;");
@@ -111,7 +111,7 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 		try {
 			listacompleta1 = noleggioservice.findNoleggiByDettagli();
 			for (Noleggio tmp : listacompleta1) {
-				if (tmp.getData_inizio_noleggio().isBefore(LocalDateTime.now())) {
+				if (tmp.getDataInizioNoleggio().isBefore(LocalDateTime.now().toLocalDate())) {
 					listacompleta1.remove(tmp);
 				}
 			}

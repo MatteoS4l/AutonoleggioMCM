@@ -2,6 +2,8 @@ package it.univaq.disim.oop.MCMprogetto.business;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -30,5 +32,9 @@ public interface NoleggioService {
 	boolean disponibilitaDate(LocalDate inizio, LocalDate fine, Veicolo veicolo) throws BusinessException;
 
 	void checkStatoVeicoli() throws BusinessException;
+	
+	void aggiornaAssistenza (Assistenza assistenza) throws BusinessException;
+	
+	List<Noleggio> findNoleggiByAssistenza(String s) throws BusinessException;
 
 }

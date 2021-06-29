@@ -14,6 +14,7 @@ import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
+import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -107,7 +108,8 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				&& dataFineNol.getValue().isAfter(dataInizioNol.getValue())) {
 			try {
 				Noleggio noleggio = new Noleggio();
-
+				
+				
 				noleggio.setPrezzo_noleggio(CalcolaPreventivo(event));
 				List<Assistenza> listaAss = new ArrayList<Assistenza>();
 				noleggio.setListaAssistenza(listaAss);

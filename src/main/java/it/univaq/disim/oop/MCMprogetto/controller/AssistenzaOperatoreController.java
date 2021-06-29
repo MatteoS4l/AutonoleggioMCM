@@ -4,10 +4,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
+
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
+import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
@@ -23,25 +25,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
-public class AssistenzaOperatoreController implements Initializable, DataInitializable<Utente, Assistenza> {
+public class AssistenzaOperatoreController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
-	private AssistenzaService assistenzaservice;
+	private NoleggioService noleggioservice;
 	private Assistenza assistenza;
+	private Noleggio noleggio;
 	private Utente utente;
 
 	@FXML
-	private TableView<Assistenza> tabellaAssistenzaOp;
+	private TableView<Noleggio> tabellaAssistenzaOp;
 	@FXML
-	private TableColumn<Assistenza, String> clienteAssistenzaOp;
+	private TableColumn<Noleggio, String> clienteAssistenzaOp;
 	@FXML
-	private TableColumn<Assistenza, String> veicoloAssistenzaOp;
+	private TableColumn<Noleggio, String> veicoloAssistenzaOp;
 	@FXML
 	private TableColumn<Assistenza, String> dettagliAssistenzaOp;
 	@FXML
@@ -56,11 +58,12 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 	private ComboBox<String> sceltaAssistenza;
 	@FXML
 	private Button bottoneConferma;
+	int i;
 
 	public AssistenzaOperatoreController() {
 		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
-		assistenzaservice = factory.getAssistenzaService();
+		noleggioservice = factory.getNoleggioService();
 	}
 
 	@Override
@@ -77,51 +80,55 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 		dettagliAssistenzaOp.setStyle("-fx-alignment: CENTER;");
 		azioniAssistenzaOp.setStyle("-fx-alignment: CENTER;");
 
-		clienteAssistenzaOp.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<Assistenza, String> tmp) {
-						if (tmp.getValue().getNoleggio().getCliente() == null) {
-							return new SimpleStringProperty();
-						} else {
-							return new SimpleStringProperty(tmp.getValue().getNoleggio().getCliente().getUsername());
-						}
-					}
-				});
+		try {
+			for (Noleggio n : noleggioservice.findAllNoleggi()) {
 
-		veicoloAssistenzaOp.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<Assistenza, String> tmp) {
-						if (tmp.getValue().getNoleggio().getVeicolo() == null) {
-							return new SimpleStringProperty();
-						} else {
-							return new SimpleStringProperty(tmp.getValue().getNoleggio().getVeicolo().getModello());
-						}
-					}
-				});
-
-		dettagliAssistenzaOp.setCellValueFactory(new PropertyValueFactory<Assistenza, String>("dettagli"));
-		azioniAssistenzaOp.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<Assistenza, Button>, ObservableValue<Button>>() {
-					@Override
-					public ObservableValue<Button> call(CellDataFeatures<Assistenza, Button> param) {
-						final Button dettagliButton = new Button("Rispondi");
-						dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
+				System.out.println("listaa   " + n.getListaAssistenza().size());
+				clienteAssistenzaOp.setCellValueFactory(
+						new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 							@Override
-							public void handle(ActionEvent event) {
-								MostraCose(param.getValue());
+							public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
+								return new SimpleStringProperty(tmp.getValue().getCliente().getUsername());
+
 							}
 						});
-						return new SimpleObjectProperty<Button>(dettagliButton);
-					}
-				});
-		try {
-			List<Assistenza> lista_ass = new ArrayList<Assistenza>();
-			lista_ass = assistenzaservice.findListaAssistenzaByServita(false);
-			ObservableList<Assistenza> lista_a = FXCollections.observableList(lista_ass);
-			tabellaAssistenzaOp.setItems(lista_a);
-		} catch (BusinessException e) {
+
+				veicoloAssistenzaOp.setCellValueFactory(
+						new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
+							@Override
+							public ObservableValue<String> call(CellDataFeatures<Noleggio, String> tmp) {
+								return new SimpleStringProperty(tmp.getValue().getVeicolo().getModello());
+
+							}
+						});
+
+				dettagliAssistenzaOp.setCellValueFactory(
+						new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>() {
+							@Override
+							public ObservableValue<String> call(CellDataFeatures<Assistenza, String> tmp) {
+								return new SimpleStringProperty(tmp.getValue().getRichiesta());
+
+							}
+						});
+				azioniAssistenzaOp.setCellValueFactory(
+						new Callback<TableColumn.CellDataFeatures<Assistenza, Button>, ObservableValue<Button>>() {
+							@Override
+							public ObservableValue<Button> call(CellDataFeatures<Assistenza, Button> param) {
+								final Button dettagliButton = new Button("Rispondi");
+								dettagliButton.setOnAction(new EventHandler<ActionEvent>() {
+									@Override
+									public void handle(ActionEvent event) {
+										MostraCose(param.getValue());
+									}
+								});
+								return new SimpleObjectProperty<Button>(dettagliButton);
+							}
+						});
+			}
+
+		} catch (
+
+		BusinessException e) {
 			labelRispostaAssistenza.setTextFill(Color.RED);
 			labelRispostaAssistenza.setText("Errore generico");
 		}
@@ -129,13 +136,34 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 
 	@Override
 	public void initializeData(Utente utente) {
-		this.utente = utente;
+		try {
+			this.utente = utente;
+			List<Noleggio> listaAss = new ArrayList<Noleggio>();
+			for (Noleggio n : noleggioservice.findAllNoleggi()) {
+				if (!n.getListaAssistenza().isEmpty()) {
+					for (Assistenza a : n.getListaAssistenza()) {
+						if (a.getRisposta() == null) {
+							listaAss.add(n);
+							System.out.println(a.getRisposta());
+						}
+
+					}
+				}
+			}
+			ObservableList<Noleggio> listaAssOb = FXCollections.observableList(listaAss);
+			System.out.println(listaAssOb.size());
+			tabellaAssistenzaOp.setItems(listaAssOb);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@FXML // INVIA RISPOSTA
 	void InviaRispostaAssistenza(ActionEvent event) throws BusinessException {
 		assistenza.setRisposta(textRispostaAssistenza.getText());
-		assistenzaservice.updateAssistenza(assistenza);
+		noleggioservice.aggiornaAssistenza(assistenza);
 
 		textRispostaAssistenza.clear();
 		textRispostaAssistenza.setVisible(false);
@@ -158,7 +186,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 				textRispostaAssistenza.setVisible(true);
 				bottoneInvio.setVisible(true);
 			} else {
-				dispatcher.renderView("sostituzione", utente, assistenza);
+				dispatcher.renderView("sostituzione", noleggio);
 			}
 		} catch (NullPointerException e) {
 			System.out.println("errore");

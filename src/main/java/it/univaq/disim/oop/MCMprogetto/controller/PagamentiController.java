@@ -30,7 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
-public class PagamentiController implements Initializable, DataInitializable<Utente, Object> {
+public class PagamentiController implements Initializable, DataInitializable<Utente> {
 	private NoleggioService noleggioservice;
 	private VeicoloService veicoloservice;
 	private Noleggio noleggio;
@@ -147,7 +147,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 	@FXML // VEDI COSTO
 	void VediCosto(ActionEvent event) {
 		try {
-			double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(textSetKm.getText());
+			double i = noleggio.getVeicolo().getTariffaChilometraggio() * Double.parseDouble(textSetKm.getText());
 			i /= 1000;
 			labelCostoTot.setText(Double.toString(i) + "€");
 			labelCostoTot.setVisible(true);
@@ -160,7 +160,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 	@FXML // REGISTRA PAGAMENTO
 	void RegistraPagamento(MouseEvent event) throws BusinessException, InterruptedException {
 		try {
-			double i = noleggio.getVeicolo().getTariffa_chilometraggio() * Double.parseDouble(textSetKm.getText());
+			double i = noleggio.getVeicolo().getTariffaChilometraggio() * Double.parseDouble(textSetKm.getText());
 			noleggio.setPrezzo_noleggio(i / 1000);
 			noleggioservice.updateNoleggio(noleggio);
 			labelSuccesso.setVisible(true);
@@ -180,7 +180,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 		labelTariffaDid.setVisible(true);
 		labelTariffaEuro.setVisible(true);
 		labelKmCliente.setVisible(true);
-		labelTariffaEuro.setText(Double.toString(noleggio.getVeicolo().getTariffa_chilometraggio()) + "€");
+		labelTariffaEuro.setText(Double.toString(noleggio.getVeicolo().getTariffaChilometraggio()) + "€");
 		textSetKm.setVisible(true);
 		bottoneCosto.setVisible(true);
 	}

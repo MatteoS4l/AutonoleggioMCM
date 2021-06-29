@@ -25,7 +25,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class NoleggiOperatoreController implements Initializable, DataInitializable<Noleggio, Object> {
+public class NoleggiOperatoreController implements Initializable, DataInitializable<Noleggio> {
 	private NoleggioService noleggioservice;
 
 	@FXML
@@ -56,8 +56,8 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 		clienteNol.setStyle("-fx-alignment: CENTER;");
 
 		idNoleggio.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		dataInNol.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
-		dataFiNol.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
+		dataInNol.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));
+		dataFiNol.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataFineNoleggio"));
 		clienteNol.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override

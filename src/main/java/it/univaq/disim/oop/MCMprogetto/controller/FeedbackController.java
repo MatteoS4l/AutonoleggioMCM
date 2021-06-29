@@ -58,7 +58,7 @@ public class FeedbackController implements Initializable, DataInitializable<Veic
 		feedbackTabella.setStyle("-fx-alignment: CENTER;");
 		utenteTabella.setStyle("-fx-alignment: CENTER;");
 		ratingTabella.setStyle("-fx-alignment: CENTER;");
-		feedbackTabella.setCellValueFactory(new PropertyValueFactory<Feedback, String>("feedback"));
+		feedbackTabella.setCellValueFactory(new PropertyValueFactory<Feedback, String>("testo"));
 		utenteTabella.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Feedback, String>, ObservableValue<String>>() {
 					@Override
