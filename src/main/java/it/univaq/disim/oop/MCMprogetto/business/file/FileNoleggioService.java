@@ -25,8 +25,7 @@ public class FileNoleggioService implements NoleggioService {
 	private UtenteService utenteservice = new FileUtenteService();
 	private VeicoloService veicoloservice = new FileVeicoloService();
 	private AssistenzaService assistenzaservice = new FileAssistenzaService();
-	private Veicolo veicolo;
-
+	
 	@Override // CREA
 	public Noleggio createNoleggio(Noleggio noleggio) throws BusinessException {
 		// id, dataInizio, dataFine, prezzo, kmPercorsi, idCliente, targaVeicolo,

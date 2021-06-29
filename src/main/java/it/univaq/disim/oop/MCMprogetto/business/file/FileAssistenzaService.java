@@ -12,7 +12,8 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 
 public class FileAssistenzaService implements AssistenzaService {
-	// id, richiesta, risposta
+	// id, richiesta, risposta, idNoleggio
+	
 
 	@Override // CREA
 	public Assistenza createAssistenza(Assistenza assistenza) throws BusinessException {
@@ -22,8 +23,8 @@ public class FileAssistenzaService implements AssistenzaService {
 				int contatore = fileData.getCont();
 				writer.println((contatore + 1));
 
-				for (String[] righe : fileData.getRighe()) {
-					writer.println(String.join(Utility.SEPARATORE, righe));
+				for (String[] colonne : fileData.getRighe()) {
+					writer.println(String.join(Utility.SEPARATORE, colonne));
 				}
 
 				StringBuilder row = new StringBuilder();
