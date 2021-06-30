@@ -25,8 +25,8 @@ public class FileTipologiaService implements TipologiaService { // ID, nome
 					int contatore = fileData.getCont();
 					writer.println((contatore + 1));
 
-					for (String[] righe : fileData.getRighe()) {
-						writer.println(String.join(Utility.SEPARATORE, righe));
+					for (String[] colonne : fileData.getRighe()) {
+						writer.println(String.join(Utility.SEPARATORE, colonne));
 					}
 
 					StringBuilder row = new StringBuilder();

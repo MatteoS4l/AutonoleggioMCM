@@ -132,8 +132,8 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 			listafiltrata = Intersezione(listafiltrata, noleggioservice.findNoleggiInCorso());
 		}
 		if (boxAssistenza.getValue() != null && !boxAssistenza.getValue().equalsIgnoreCase("tutte")) {
-			
-			listafiltrata = Intersezione(listafiltrata, noleggioservice.findNoleggiByAssistenza(boxAssistenza.getValue()));
+			listafiltrata = Intersezione(listafiltrata,
+					noleggioservice.findNoleggiByAssistenza(boxAssistenza.getValue()));
 		}
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
 		tabellaNoleggi.setItems(listaNol);
@@ -145,16 +145,16 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 			textDettagli.setText("Nessuna assistenza ricevuta per questo noleggio");
 		} else {
 			textDettagli.setText("da mettere il testo di tutte le richieste");
-		  }
+		}
 	}
 
 	// INTERSEZIONE FRA LE LISTE
 	public List<Noleggio> Intersezione(List<Noleggio> list1, List<Noleggio> list2) {
 		List<Noleggio> list = new ArrayList<Noleggio>();
-		for (int i = 0; i < list1.size(); i++) {
-			for (int j = 0; j < list2.size(); j++) {
-				if (list1.get(i).getID() == list2.get(j).getID()) {
-					list.add(list1.get(i));
+		for (Noleggio n1 : list1) {
+			for (Noleggio n2 : list2) {
+				if (n1.getID() == n2.getID()) {
+					list.add(n1);
 				}
 			}
 		}

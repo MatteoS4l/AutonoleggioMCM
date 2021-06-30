@@ -47,6 +47,11 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 	@FXML
 	private Button bottoneApplica;
 
+	public NoleggiOperatoreController() {
+		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
+		noleggioservice = factory.getNoleggioService();
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		idNoleggio.setStyle("-fx-alignment: CENTER;");
@@ -85,14 +90,10 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 		try {
 			listacompleta1 = noleggioservice.findAllNoleggi();
 		} catch (BusinessException e) {
-			/* lista vuota */ }
+			System.err.println(e.getMessage());
+		}
 		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
 		tabellaNoleggiOp.setItems(listaNol1);
-	}
-
-	public NoleggiOperatoreController() {
-		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
-		noleggioservice = factory.getNoleggioService();
 	}
 
 	@FXML // APPLICA FILTRI
@@ -102,23 +103,21 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 		if (spuntaNoleggi.isSelected()) {
 			listafiltrata = Intersezione(listafiltrata, noleggioservice.findNoleggiInCorso());
 		}
-
 		if (ricercaPerData.getValue() != null) {
 			listafiltrata = Intersezione(listafiltrata,
 					noleggioservice.findNoleggiByDataFine(ricercaPerData.getValue()));
 		}
-
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
 		tabellaNoleggiOp.setItems(listaNol);
 	}
 
-	// INTERSEZIONE
+	// INTERSEZIONE FRA LE LISTE
 	public List<Noleggio> Intersezione(List<Noleggio> list1, List<Noleggio> list2) {
 		List<Noleggio> list = new ArrayList<Noleggio>();
-		for (int i = 0; i < list1.size(); i++) {
-			for (int j = 0; j < list2.size(); j++) {
-				if (list1.get(i).getID() == list2.get(j).getID()) {
-					list.add(list1.get(i));
+		for (Noleggio n1 : list1) {
+			for (Noleggio n2 : list2) {
+				if (n1.getID() == n2.getID()) {
+					list.add(n1);
 				}
 			}
 		}

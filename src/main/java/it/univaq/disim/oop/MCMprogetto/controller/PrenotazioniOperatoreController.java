@@ -1,7 +1,7 @@
 package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,9 +22,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
@@ -39,9 +39,9 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 	@FXML
 	private TableColumn<Noleggio, String> veicoloPren;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> dataInizioPren;
+	private TableColumn<Noleggio, LocalDate> dataInizioPren;
 	@FXML
-	private TableColumn<Noleggio, LocalDateTime> dataFinePren;
+	private TableColumn<Noleggio, LocalDate> dataFinePren;
 	@FXML
 	private TableColumn<Noleggio, Button> azioniPren;
 	@FXML
@@ -59,7 +59,7 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		labelRisposta.setVisible(false);
-		this.textRisposta.setVisible(false);
+		textRisposta.setVisible(false);
 		bottoneRisposta.setVisible(false);
 
 		clientePren.setStyle("-fx-alignment: CENTER;");
@@ -90,8 +90,8 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 						}
 					}
 				});
-		dataInizioPren.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
-		dataFinePren.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
+		dataInizioPren.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDate>("dataInizioNoleggio"));
+		dataFinePren.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDate>("dataFineNoleggio"));
 		azioniPren.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, Button>, ObservableValue<Button>>() {
 					@Override
@@ -106,22 +106,26 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 						return new SimpleObjectProperty<Button>(dettagliButton);
 					}
 				});
+	}
 
-		List<Noleggio> listacompleta1 = null;
+	@Override
+	public void initializeData(Operatore operatore) {
 		try {
-			listacompleta1 = noleggioservice.findNoleggiByDettagli();
+			List<Noleggio> listacompleta1 = noleggioservice.findNoleggiByDettagli();
 			for (Noleggio tmp : listacompleta1) {
-				if (tmp.getDataInizioNoleggio().isBefore(LocalDateTime.now().toLocalDate())) {
+				if (tmp.getDataInizioNoleggio().isBefore(LocalDate.now())) {
 					listacompleta1.remove(tmp);
 				}
 			}
+			ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
+			tabellaPrenotazioni.setItems(listaNol1);
+
 		} catch (BusinessException e) {
-			/* lista vuota */ } catch (ConcurrentModificationException e) {
+			System.err.println(e.getMessage());
+		} catch (ConcurrentModificationException e) {
 			System.out.println("errore");
 		}
 
-		ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
-		tabellaPrenotazioni.setItems(listaNol1);
 	}
 
 	@FXML
@@ -130,7 +134,9 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 		noleggio.setDettagli(textRisposta.getText());
 		noleggioservice.updateNoleggio(noleggio);
 		labelRisposta.setVisible(true);
-		initialize(null, null);
+		textRisposta.setVisible(false);
+		bottoneRisposta.setVisible(false);
+		initializeData(null);
 
 	}
 

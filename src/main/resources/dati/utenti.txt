@@ -1,4 +1,4 @@
 4
 1,cliente,carmine,pittella,carmine,cliente,UOMO,2000-06-01,0
 2,cliente,a,a,a,a,UOMO,1998-06-02,23
-3,operatore,o,o,o,o,UOMO,2021-06-28,0
+3,operatore,o,o,o,o,UOMO,2003-06-28,18

@@ -1,3 +1,4 @@
-8
-2,utilitaria
+10
 7,Lusso
+8,berlina
+9,utilitaria

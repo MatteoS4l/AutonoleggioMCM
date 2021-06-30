@@ -34,7 +34,10 @@ public class FileAssistenzaService implements AssistenzaService {
 				row.append(Utility.SEPARATORE);
 				if (assistenza.getRisposta() != null) {
 					row.append(assistenza.getRisposta().replace(",", " "));
+				} else {
+					row.append("null");
 				}
+				row.append(Utility.SEPARATORE);
 				assistenza.setID(fileData.getCont());
 				writer.println(row.toString());
 			}
@@ -62,7 +65,10 @@ public class FileAssistenzaService implements AssistenzaService {
 						row.append(Utility.SEPARATORE);
 						if (assistenza.getRisposta() != null) {
 							row.append(assistenza.getRisposta().replace(",", " "));
+						} else {
+							row.append("null");
 						}
+						row.append(Utility.SEPARATORE);
 						writer.println(row.toString());
 					}
 				}

@@ -25,7 +25,7 @@ public class FileNoleggioService implements NoleggioService {
 	private UtenteService utenteservice = new FileUtenteService();
 	private VeicoloService veicoloservice = new FileVeicoloService();
 	private AssistenzaService assistenzaservice = new FileAssistenzaService();
-	
+
 	@Override // CREA
 	public Noleggio createNoleggio(Noleggio noleggio) throws BusinessException {
 		// id, dataInizio, dataFine, prezzo, kmPercorsi, idCliente, targaVeicolo,
@@ -214,7 +214,7 @@ public class FileNoleggioService implements NoleggioService {
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
 		for (Noleggio tmp : findAllNoleggi()) {
-			if (tmp.getDettagli() == null) {
+			if (tmp.getDettagli().equals("null")) {
 				listacompleta.add(tmp);
 			}
 		}
@@ -248,7 +248,7 @@ public class FileNoleggioService implements NoleggioService {
 	@Override // VEICOLI DISPONIBILI PER DATA
 	public List<Veicolo> findVeicoliDisponibiliForDate(LocalDate datainizio, LocalDate datafine)
 			throws BusinessException {
-		List<Veicolo> listaveicoli = veicoloservice.findListaVeicoliByStato("tutte");
+		List<Veicolo> listaveicoli = veicoloservice.findAllVeicoli();
 		List<Veicolo> veicolidaeliminare = new ArrayList<Veicolo>();
 
 		for (Noleggio tmp : findAllNoleggi()) {
@@ -315,19 +315,16 @@ public class FileNoleggioService implements NoleggioService {
 		List<Noleggio> listaNol = new ArrayList<Noleggio>();
 
 		for (Noleggio n : findAllNoleggi()) {
-			for (int i = 0; i < n.getListaAssistenza().size(); i++) {
-				switch (s) {
-				case "SI":
-					if (n.getListaAssistenza().get(i).getRichiesta() != null) {
-						listaNol.add(n);
-					}
-				case "NO":
-					if (n.getListaAssistenza().get(i).getRichiesta() == null) {
-						listaNol.add(n);
-					}
+			if (s.equalsIgnoreCase("si")) {
+				if (!n.getListaAssistenza().isEmpty()) {
+					listaNol.add(n);
 				}
 			}
-
+			if (s.equalsIgnoreCase("no")) {
+				if (n.getListaAssistenza().isEmpty()) {
+					listaNol.add(n);
+				}
+			}
 		}
 		return listaNol;
 	}

@@ -12,6 +12,7 @@ import it.univaq.disim.oop.MCMprogetto.business.TipologiaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Alimentazione;
+import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
@@ -130,7 +131,7 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	@FXML // APPLICA FILTRI
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
-		listacompleta = veicoloservice.findListaVeicoliByStato("disponibile");
+		listacompleta = veicoloservice.findListaVeicoliByStato(Stato.DISPONIBILE);
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for (Veicolo tmp : listacompleta) {
 			if (!tmp.getTipologia().getNome().equalsIgnoreCase("sostitutivo")) {

@@ -152,14 +152,11 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 	}
 
 	@Override // GET LISTA VEICOLI STATO
-	public List<Veicolo> findListaVeicoliByStato(String stato) throws VeicoloNonTrovatoException, BusinessException {
-		if (stato.equalsIgnoreCase("tutte")) {
-			return findAllVeicoli();
-		}
+	public List<Veicolo> findListaVeicoliByStato(Stato stato) throws VeicoloNonTrovatoException, BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
 		for (Veicolo tmp : findAllVeicoli()) {
-			if (tmp.getStato().getDesc().equalsIgnoreCase(stato)) {
+			if (tmp.getStato().equals(stato)) {
 				listacompleta.add(tmp);
 			}
 		}

@@ -3,6 +3,7 @@ package it.univaq.disim.oop.MCMprogetto.business;
 import java.util.List;
 
 import it.univaq.disim.oop.MCMprogetto.domain.Alimentazione;
+import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public interface VeicoloService {
@@ -14,7 +15,7 @@ public interface VeicoloService {
 
 	List<Veicolo> findAllVeicoli() throws BusinessException;
 
-	List<Veicolo> findListaVeicoliByStato(String stato) throws BusinessException;
+	List<Veicolo> findListaVeicoliByStato(Stato stato) throws BusinessException;
 
 	List<Veicolo> findListaVeicoliByTipologia(String tipologia) throws BusinessException;
 
