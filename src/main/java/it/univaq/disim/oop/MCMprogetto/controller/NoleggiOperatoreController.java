@@ -104,8 +104,13 @@ public class NoleggiOperatoreController implements Initializable, DataInitializa
 			listafiltrata = Intersezione(listafiltrata, noleggioservice.findNoleggiInCorso());
 		}
 		if (ricercaPerData.getValue() != null) {
-			listafiltrata = Intersezione(listafiltrata,
-					noleggioservice.findNoleggiByDataFine(ricercaPerData.getValue()));
+			List<Noleggio> listaDataFine = new ArrayList<Noleggio>();
+			for(Noleggio tmp : noleggioservice.findAllNoleggi()) {
+				if (tmp.getDataFineNoleggio().isEqual(ricercaPerData.getValue())) { 
+					listaDataFine.add(tmp);
+				}
+			}
+			listafiltrata = Intersezione(listafiltrata, listaDataFine);
 		}
 		ObservableList<Noleggio> listaNol = FXCollections.observableList(listafiltrata);
 		tabellaNoleggiOp.setItems(listaNol);

@@ -6,8 +6,9 @@ import java.util.ResourceBundle;
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
+import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
+import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
-import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
 import javafx.beans.property.SimpleObjectProperty;
@@ -31,8 +32,8 @@ import javafx.util.Callback;
 public class AssistenzaOperatoreController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
 	private AssistenzaService assistenzaservice;
+	private NoleggioService noleggioservice;
 	private Assistenza assistenza;
-	private Noleggio noleggio;
 
 	@FXML
 	private TableView<Assistenza> tabellaAssistenzaOp;
@@ -60,6 +61,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		assistenzaservice = factory.getAssistenzaService();
+		noleggioservice = factory.getNoleggioService();
 	}
 
 	@Override
@@ -80,6 +82,13 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 				new Callback<TableColumn.CellDataFeatures<Assistenza, String>, ObservableValue<String>>() {
 					@Override
 					public ObservableValue<String> call(CellDataFeatures<Assistenza, String> tmp) {
+						try {
+							tmp.getValue().setNoleggio(noleggioservice.findNoleggioByID(tmp.getValue().getIdNoleggio()));
+						} catch (NoleggioNonTrovatoException e) {
+							e.printStackTrace();
+						} catch (BusinessException e) {
+							e.printStackTrace();
+						}
 						return new SimpleStringProperty(tmp.getValue().getNoleggio().getCliente().getUsername());
 					}
 				});
@@ -149,7 +158,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 				textRispostaAssistenza.setVisible(true);
 				bottoneInvio.setVisible(true);
 			} else {
-				dispatcher.renderView("sostituzione", noleggio);
+				dispatcher.renderView("sostituzione", assistenza);
 			}
 		} catch (NullPointerException e) {
 			System.out.println("errore");

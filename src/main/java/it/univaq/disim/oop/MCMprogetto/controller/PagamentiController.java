@@ -161,7 +161,7 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 	void RegistraPagamento(MouseEvent event) throws BusinessException, InterruptedException {
 		try {
 			double i = noleggio.getVeicolo().getTariffaChilometraggio() * Double.parseDouble(textSetKm.getText());
-			noleggio.setPrezzo_noleggio(i / 1000);
+			noleggio.setPrezzoNoleggio(i / 1000);
 			noleggioservice.updateNoleggio(noleggio);
 			labelSuccesso.setVisible(true);
 			veicolo.setChilometri(veicolo.getChilometri() + Integer.parseInt(textSetKm.getText()));

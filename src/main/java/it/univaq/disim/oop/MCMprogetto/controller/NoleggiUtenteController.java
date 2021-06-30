@@ -137,6 +137,7 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 		try {
 			Assistenza assistenza = new Assistenza();
 			assistenza.setRichiesta(textDettagliRichiesta.getText());
+			assistenza.setNoleggio(noleggio);
 			assistenza = assistenzaservice.createAssistenza(assistenza);
 
 			noleggio.addListaAssistenza(assistenza);

@@ -9,7 +9,7 @@ public class Noleggio {
 	private LocalDate dataInizioNoleggio;
 	private LocalDate dataFineNoleggio;
 	private Double prezzoNoleggio;
-	private Integer kmPercorsi;
+	private int kmPercorsi;
 	private Cliente cliente;
 	private Veicolo veicolo;
 	private String dettagli;
@@ -40,19 +40,19 @@ public class Noleggio {
 		this.dataFineNoleggio = data_fine_noleggio;
 	}
 
-	public Double getPrezzo_noleggio() {
+	public Double getPrezzoNoleggio() {
 		return prezzoNoleggio;
 	}
 
-	public void setPrezzo_noleggio(Double prezzo_noleggio) {
+	public void setPrezzoNoleggio(Double prezzo_noleggio) {
 		this.prezzoNoleggio = prezzo_noleggio;
 	}
 
-	public Integer getKmPercorsi() {
+	public int getKmPercorsi() {
 		return kmPercorsi;
 	}
 
-	public void setKmPercorsi(Integer kM_percorsi) {
+	public void setKmPercorsi(int kM_percorsi) {
 		kmPercorsi = kM_percorsi;
 	}
 

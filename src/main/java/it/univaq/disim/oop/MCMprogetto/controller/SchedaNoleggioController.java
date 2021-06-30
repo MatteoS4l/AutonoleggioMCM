@@ -3,10 +3,8 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 import java.net.URL;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
@@ -14,7 +12,6 @@ import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
-import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
@@ -99,7 +96,6 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 		}
 
 		return 0;
-
 	}
 
 	@FXML // NOLEGGIA AUTO
@@ -110,7 +106,7 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				Noleggio noleggio = new Noleggio();
 				
 				
-				noleggio.setPrezzo_noleggio(CalcolaPreventivo(event));
+				noleggio.setPrezzoNoleggio(CalcolaPreventivo(event));
 				List<Assistenza> listaAss = new ArrayList<Assistenza>();
 				noleggio.setListaAssistenza(listaAss);
 				noleggio.setCliente((Cliente) utente);

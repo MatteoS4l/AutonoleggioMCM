@@ -23,18 +23,13 @@ public interface NoleggioService {
 
 	List<Noleggio> findNoleggiByPagamento() throws BusinessException;
 
-	List<Noleggio> findNoleggiByDataFine(LocalDate data_fine) throws BusinessException;
-
 	List<Veicolo> findVeicoliDisponibiliForDate(LocalDate datainizio, LocalDate datafine) throws BusinessException;
 
 	List<Noleggio> findNoleggiByDettagli() throws BusinessException;
 	
+	void rispostaAssistenzaByNoleggio(Noleggio noleggio, Assistenza assistenza) throws BusinessException;
+	
 	boolean disponibilitaDate(LocalDate inizio, LocalDate fine, Veicolo veicolo) throws BusinessException;
 
 	void checkStatoVeicoli() throws BusinessException;
-	
-	void aggiornaAssistenza (Assistenza assistenza) throws BusinessException;
-	
-	List<Noleggio> findNoleggiByAssistenza(String s) throws BusinessException;
-
 }

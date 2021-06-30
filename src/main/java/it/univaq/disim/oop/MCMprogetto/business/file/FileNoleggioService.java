@@ -47,7 +47,7 @@ public class FileNoleggioService implements NoleggioService {
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getDataFineNoleggio().toString().replace("T", " "));
 				row.append(Utility.SEPARATORE);
-				row.append(noleggio.getPrezzo_noleggio());
+				row.append(noleggio.getPrezzoNoleggio());
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getKmPercorsi());
 				row.append(Utility.SEPARATORE);
@@ -85,7 +85,7 @@ public class FileNoleggioService implements NoleggioService {
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.getDataFineNoleggio().toString().replace("T", " "));
 						row.append(Utility.SEPARATORE);
-						row.append(noleggio.getPrezzo_noleggio());
+						row.append(noleggio.getPrezzoNoleggio());
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.getKmPercorsi());
 						row.append(Utility.SEPARATORE);
@@ -126,13 +126,12 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setID(Integer.parseInt(colonne[0]));
 				noleggio.setDataInizioNoleggio(LocalDate.parse(colonne[1], formatter));
 				noleggio.setDataFineNoleggio(LocalDate.parse(colonne[2], formatter));
-				noleggio.setPrezzo_noleggio(Double.parseDouble(colonne[3]));
+				noleggio.setPrezzoNoleggio(Double.parseDouble(colonne[3]));
 				noleggio.setKmPercorsi(Integer.parseInt(colonne[4]));
 				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[5])));
 				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[6]));
 				noleggio.setDettagli(colonne[7]);
 				if (!colonne[8].equalsIgnoreCase("-")) {
-					System.out.println(colonne[8]);
 					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[8])));
 				}
 
@@ -185,24 +184,12 @@ public class FileNoleggioService implements NoleggioService {
 		return listacompleta;
 	}
 
-	@Override // LISTA NOLEGGI DATA FINE
-	public List<Noleggio> findNoleggiByDataFine(LocalDate data_fine) throws BusinessException {
-		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
-
-		for (Noleggio tmp : findAllNoleggi()) {
-			if (tmp.getDataFineNoleggio().isEqual(data_fine)) {
-				listacompleta.add(tmp);
-			}
-		}
-		return listacompleta;
-	}
-
 	@Override // LISTA NOLEGGI NON PAGATI
 	public List<Noleggio> findNoleggiByPagamento() throws BusinessException {
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
 		for (Noleggio tmp : findAllNoleggi()) {
-			if (tmp.getPrezzo_noleggio() == 0 && tmp.getDataFineNoleggio().isBefore(LocalDate.now())) {
+			if (tmp.getPrezzoNoleggio() == 0 && tmp.getDataFineNoleggio().isBefore(LocalDate.now())) {
 				listacompleta.add(tmp);
 			}
 		}
@@ -288,15 +275,12 @@ public class FileNoleggioService implements NoleggioService {
 				if (inizio.isAfter(tmp.getDataInizioNoleggio()) && inizio.isBefore(tmp.getDataFineNoleggio())) {
 					return false;
 				}
-
 				if (fine.isAfter(tmp.getDataInizioNoleggio()) && fine.isBefore(tmp.getDataFineNoleggio())) {
 					return false;
 				}
-
 				if (tmp.getDataInizioNoleggio().isAfter(inizio) && tmp.getDataInizioNoleggio().isBefore(fine)) {
 					return false;
 				}
-
 				if (tmp.getDataFineNoleggio().isAfter(inizio) && tmp.getDataFineNoleggio().isBefore(inizio)) {
 					return false;
 				}
@@ -305,27 +289,10 @@ public class FileNoleggioService implements NoleggioService {
 		return true;
 	}
 
-	@Override
-	public void aggiornaAssistenza(Assistenza assistenza) throws BusinessException {
+	@Override // RISPOSTA ASSISTENZA
+	public void rispostaAssistenzaByNoleggio(Noleggio noleggio, Assistenza assistenza) throws BusinessException {
 		assistenzaservice.updateAssistenza(assistenza);
-	}
-
-	@Override
-	public List<Noleggio> findNoleggiByAssistenza(String s) throws BusinessException {
-		List<Noleggio> listaNol = new ArrayList<Noleggio>();
-
-		for (Noleggio n : findAllNoleggi()) {
-			if (s.equalsIgnoreCase("si")) {
-				if (!n.getListaAssistenza().isEmpty()) {
-					listaNol.add(n);
-				}
-			}
-			if (s.equalsIgnoreCase("no")) {
-				if (n.getListaAssistenza().isEmpty()) {
-					listaNol.add(n);
-				}
-			}
-		}
-		return listaNol;
+		createNoleggio(noleggio);
+		
 	}
 }

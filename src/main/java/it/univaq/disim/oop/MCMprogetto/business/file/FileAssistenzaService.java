@@ -38,6 +38,7 @@ public class FileAssistenzaService implements AssistenzaService {
 					row.append("null");
 				}
 				row.append(Utility.SEPARATORE);
+				row.append(assistenza.getNoleggio().getID());
 				assistenza.setID(fileData.getCont());
 				writer.println(row.toString());
 			}
@@ -56,9 +57,9 @@ public class FileAssistenzaService implements AssistenzaService {
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "assistenza" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
 				for (String[] righe : fileData.getRighe()) {
-
 					if (Integer.parseInt(righe[0]) == assistenza.getID()) {
 						StringBuilder row = new StringBuilder();
+						
 						row.append(fileData.getCont());
 						row.append(Utility.SEPARATORE);
 						row.append(assistenza.getRichiesta().replace(",", " "));
@@ -69,6 +70,7 @@ public class FileAssistenzaService implements AssistenzaService {
 							row.append("null");
 						}
 						row.append(Utility.SEPARATORE);
+						row.append(assistenza.getNoleggio().getID());
 						writer.println(row.toString());
 					}
 				}
@@ -85,12 +87,13 @@ public class FileAssistenzaService implements AssistenzaService {
 			FileData fileData = Utility.readAllRows("assistenza");
 			List<Assistenza> lista = new ArrayList<Assistenza>();
 
-			for (String[] righe : fileData.getRighe()) {
+			for (String[] colonne : fileData.getRighe()) {
 				Assistenza assistenza = new Assistenza();
 
-				assistenza.setID(Integer.parseInt(righe[0]));
-				assistenza.setRichiesta(righe[1]);
-				assistenza.setRisposta(righe[2]);
+				assistenza.setID(Integer.parseInt(colonne[0]));
+				assistenza.setRichiesta(colonne[1]);
+				assistenza.setRisposta(colonne[2]);
+				assistenza.setIdNoleggio(Integer.parseInt(colonne[3]));
 
 				lista.add(assistenza);
 			}
@@ -123,7 +126,6 @@ public class FileAssistenzaService implements AssistenzaService {
 		List<Assistenza> listacompleta = new ArrayList<Assistenza>();
 
 		for (Assistenza tmp : lista) {
-
 			if (servita == true) {
 				if (tmp.getRisposta() != null) {
 					listacompleta.add(tmp);
@@ -154,6 +156,7 @@ public class FileAssistenzaService implements AssistenzaService {
 						if(a.getRisposta() != null) {
 							a.setRisposta(colonne[2]);
 						}
+						a.setIdNoleggio(Integer.parseInt(colonne[3]));
 						res.add(a);
 					}
 				}
