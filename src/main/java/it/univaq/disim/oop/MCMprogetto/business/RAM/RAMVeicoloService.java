@@ -4,6 +4,8 @@ import java.util.*;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Alimentazione;
+import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class RAMVeicoloService implements VeicoloService {
@@ -12,10 +14,10 @@ public class RAMVeicoloService implements VeicoloService {
 	public static boolean veico = false;
 
 	@Override // CREA
-	public void createVeicolo(Veicolo veicolo) throws BusinessException {
-		veicolo.setID(cont_veicoli++);
+	public Veicolo createVeicolo(Veicolo veicolo) throws BusinessException {
 		if (!giaEsistente(veicolo.getTarga())) {
 			listaveicoli.add(veicolo);
+			return veicolo;
 		} else {
 			throw new BusinessException();
 		}
@@ -37,10 +39,10 @@ public class RAMVeicoloService implements VeicoloService {
 
 	@Override // ELIMINA
 	public void deleteVeicolo(Veicolo veicolo) throws VeicoloNonTrovatoException {
-		if (veicolo.getStato().equalsIgnoreCase("disponibile")) {
+		if (veicolo.getStato().equals(Stato.DISPONIBILE)) {
 			listaveicoli.remove(veicolo);
 		} else {
-			throw new VeicoloNonTrovatoException();
+			throw new VeicoloNonTrovatoException("Impossibile eliminare questo veicolo");
 		}
 	}
 
@@ -50,14 +52,15 @@ public class RAMVeicoloService implements VeicoloService {
 	}
 
 	@Override // GET LISTA VEICOLI STATO
-	public List<Veicolo> findListaVeicoliByStato(String stato) throws VeicoloNonTrovatoException, BusinessException {
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for (Veicolo tmp : listaveicoli) {
-			if (tmp.getStato().equalsIgnoreCase(stato) || stato.equalsIgnoreCase("tutte")) {
-				listafiltrata.add(tmp);
+	public List<Veicolo> findListaVeicoliByStato(Stato stato) throws VeicoloNonTrovatoException, BusinessException {
+		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
+
+		for (Veicolo tmp : findAllVeicoli()) {
+			if (tmp.getStato().equals(stato)) {
+				listacompleta.add(tmp);
 			}
 		}
-		return listafiltrata;
+		return listacompleta;
 	}
 
 	@Override // GET LISTA VEICOLI TIPOLOGIA
@@ -66,95 +69,84 @@ public class RAMVeicoloService implements VeicoloService {
 		if (tipologia.equalsIgnoreCase("tutte")) {
 			return findAllVeicoli();
 		}
+		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for (Veicolo tmp : listaveicoli) {
-			if (tmp.getTipologia().equalsIgnoreCase(tipologia)) {
-				listafiltrata.add(tmp);
+		for (Veicolo tmp : findAllVeicoli()) {
+			if (tmp.getTipologia().getNome().equalsIgnoreCase(tipologia)) {
+				listacompleta.add(tmp);
 			}
 		}
-		return listafiltrata;
+		return listacompleta;
 	}
 
 	@Override // GET LISTA BY ALIMENTAZIONE
-	public List<Veicolo> findListaVeicoliByAlimentazione(String alimentazione)
+	public List<Veicolo> findListaVeicoliByAlimentazione(Alimentazione alimentazione)
 			throws VeicoloNonTrovatoException, BusinessException {
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for (Veicolo tmp : listaveicoli) {
-			if (tmp.getAlimentazione().equalsIgnoreCase(alimentazione) || alimentazione.equalsIgnoreCase("tutte")) {
-				listafiltrata.add(tmp);
+		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
+		for (Veicolo tmp : findAllVeicoli()) {
+			if (tmp.getAlimentazione().equals(alimentazione)) {
+				listacompleta.add(tmp);
 			}
 		}
-		return listafiltrata;
+		return listacompleta;
 	}
 
 	@Override // GET LISTA BY MODELLO
 	public List<Veicolo> findListaVeicoliByModello(String modello)
 			throws VeicoloNonTrovatoException, BusinessException {
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for (Veicolo tmp : listaveicoli) {
+		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
+
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (tmp.getModello().toLowerCase().contains(modello.toLowerCase())) {
-				listafiltrata.add(tmp);
+				listacompleta.add(tmp);
 			}
 		}
-		return listafiltrata;
+		return listacompleta;
 	}
 
 	@Override // GET LISTA BY TARIFFA_KM
 	public List<Veicolo> findListaVeicoliByTariffaKM(double min, double max)
 			throws VeicoloNonTrovatoException, BusinessException {
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for (Veicolo tmp : listaveicoli) {
-			if (tmp.getTariffa_chilometraggio() >= min && tmp.getTariffa_chilometraggio() <= max) {
-				listafiltrata.add(tmp);
+		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
+
+		for (Veicolo tmp : findAllVeicoli()) {
+			if (tmp.getTariffaChilometraggio() >= min && tmp.getTariffaChilometraggio() <= max) {
+				listacompleta.add(tmp);
 			}
 		}
-		return listafiltrata;
+		return listacompleta;
 	}
 
 	@Override // GET LISTA BY TARIFFA_PERIODO
 	public List<Veicolo> findListaVeicoliByTariffaPeriodo(double min, double max)
 			throws VeicoloNonTrovatoException, BusinessException {
-		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
-		for (Veicolo tmp : listaveicoli) {
-			if (tmp.getTariffa_periodo() >= min && tmp.getTariffa_periodo() <= max) {
-				listafiltrata.add(tmp);
+		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
+		for (Veicolo tmp : findAllVeicoli()) {
+			if (tmp.getTariffaPeriodo() >= min && tmp.getTariffaPeriodo() <= max) {
+				listacompleta.add(tmp);
 			}
 		}
-		return listafiltrata;
-	}
-
-	@Override // GET VEICOLO BY ID
-	public Veicolo findVeicoloById(int id) throws VeicoloNonTrovatoException, BusinessException {
-		for (Veicolo tmp : listaveicoli) {
-			if (tmp.getID() == id) {
-				return tmp;
-			}
-		}
-		throw new VeicoloNonTrovatoException();
-	}
-
-	@Override // GET STATO VEICOLO
-	public String[] findListStatoVeicolo() {
-		String[] s = { "disponibile", "non disponibile", "in noleggio" };
-		return s;
-	}
-
-	@Override // GET ALIMENTAZIONE VEICOLO
-	public String[] findListAlimentazioneVeicolo() {
-		String[] s = { "benzina", "diesel", "gpl" };
-		return s;
+		return listacompleta;
 	}
 
 	// GIA ESISTENTE
 	private Boolean giaEsistente(String targa) throws BusinessException {
-		List<Veicolo> lista = findAllVeicoli();
-		for (Veicolo tmp : lista) {
+		for (Veicolo tmp : findAllVeicoli()) {
 			if (targa.equalsIgnoreCase(tmp.getTarga())) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override // FIND VEICOLO BY TARGA
+	public Veicolo findVeicoloByTarga(String targa) throws VeicoloNonTrovatoException, BusinessException {
+		for (Veicolo tmp : findAllVeicoli()) {
+			if (tmp.getTarga().equalsIgnoreCase(targa)) {
+				return tmp;
+			}
+		}
+		throw new VeicoloNonTrovatoException();
 	}
 
 }
