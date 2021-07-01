@@ -143,6 +143,8 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 	void MostraCose(Noleggio noleggio) {
 		this.noleggio = noleggio;
 		textRisposta.setVisible(true);
+		textRisposta.setText("Il suo veicolo sarà pronto per il ritiro il: "+ noleggio.getDataInizioNoleggio().toString());
+		textRisposta.setEditable(false);
 		bottoneRisposta.setVisible(true);
 	}
 

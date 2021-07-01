@@ -125,7 +125,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 	@Override
 	public void initializeData(Utente utente) {
 		try {
-			ObservableList<Assistenza> ListNolOb = FXCollections.observableList(assistenzaservice.findAllAssistenza());
+			ObservableList<Assistenza> ListNolOb = FXCollections.observableList(assistenzaservice.findListaAssistenzaByServita(false));
 			tabellaAssistenzaOp.setItems(ListNolOb);
 		} catch (BusinessException e) {
 			e.printStackTrace();
@@ -135,6 +135,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 	@FXML // INVIA RISPOSTA
 	void InviaRispostaAssistenza(ActionEvent event) throws BusinessException {
 		assistenza.setRisposta(textRispostaAssistenza.getText());
+		assistenzaservice.updateAssistenza(assistenza);
 
 		textRispostaAssistenza.clear();
 		textRispostaAssistenza.setVisible(false);

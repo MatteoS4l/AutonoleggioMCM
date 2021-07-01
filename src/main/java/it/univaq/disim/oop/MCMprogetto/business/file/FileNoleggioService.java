@@ -222,7 +222,8 @@ public class FileNoleggioService implements NoleggioService {
 			veicolo.setTariffaChilometraggio(tmp.getVeicolo().getTariffaChilometraggio());
 			veicolo.setTariffaPeriodo(tmp.getVeicolo().getTariffaPeriodo());
 
-			if (tmp.getDataInizioNoleggio().isBefore(LocalDate.now())
+			if ((tmp.getDataInizioNoleggio().isBefore(LocalDate.now()) ||
+					tmp.getDataInizioNoleggio().isEqual(LocalDate.now()))
 					&& tmp.getDataFineNoleggio().isAfter(LocalDate.now())) {
 				veicolo.setStato(Stato.IN_NOLEGGIO);
 			} else {
@@ -295,4 +296,25 @@ public class FileNoleggioService implements NoleggioService {
 		createNoleggio(noleggio);
 		
 	}
+	
+	public boolean checkNoleggi (Noleggio noleggio) throws BusinessException {
+		if (findAllNoleggi().isEmpty()) {
+			return true;
+		}
+			for (Noleggio n:findAllNoleggi()) {
+				if(n.getVeicolo().getTarga().equalsIgnoreCase(noleggio.getVeicolo().getTarga())) {
+					if(noleggio.getDataInizioNoleggio().isEqual(n.getDataInizioNoleggio()) ||
+					   noleggio.getDataInizioNoleggio().isAfter(n.getDataInizioNoleggio()) ||
+					   noleggio.getDataFineNoleggio().isEqual(n.getDataFineNoleggio())     ||
+					   noleggio.getDataFineNoleggio().isBefore(n.getDataFineNoleggio())) {
+							return false;
+					} 
+						
+				} 
+			}
+			return true;
+	}
 }
+			
+	
+

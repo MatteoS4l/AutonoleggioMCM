@@ -20,8 +20,7 @@ public class FileAssistenzaService implements AssistenzaService {
 		try {
 			FileData fileData = Utility.readAllRows("assistenza");
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "assistenza" + Utility.FORMATO))) {
-				int contatore = fileData.getCont();
-				writer.println((contatore + 1));
+				writer.println((fileData.getCont() + 1));
 
 				for (String[] colonne : fileData.getRighe()) {
 					writer.println(String.join(Utility.SEPARATORE, colonne));
@@ -59,8 +58,14 @@ public class FileAssistenzaService implements AssistenzaService {
 				for (String[] righe : fileData.getRighe()) {
 					if (Integer.parseInt(righe[0]) == assistenza.getID()) {
 						StringBuilder row = new StringBuilder();
+//								assistenza.getID().toString() + Utility.SEPARATORE + 
+//								assistenza.getRichiesta().replace(",", " ") + Utility.SEPARATORE +
+//								assistenza.getRisposta().replace(",", " ") + Utility.SEPARATORE + 
+//								assistenza.getNoleggio().getID();
+								
+								
 						
-						row.append(fileData.getCont());
+						row.append(assistenza.getID());
 						row.append(Utility.SEPARATORE);
 						row.append(assistenza.getRichiesta().replace(",", " "));
 						row.append(Utility.SEPARATORE);
@@ -72,6 +77,8 @@ public class FileAssistenzaService implements AssistenzaService {
 						row.append(Utility.SEPARATORE);
 						row.append(assistenza.getNoleggio().getID());
 						writer.println(row.toString());
+					} else {
+						writer.println(String.join(Utility.SEPARATORE, righe));
 					}
 				}
 			}
@@ -122,17 +129,16 @@ public class FileAssistenzaService implements AssistenzaService {
 
 	@Override // FIND ASSISTENZA SERVITA
 	public List<Assistenza> findListaAssistenzaByServita(boolean servita) throws BusinessException {
-		List<Assistenza> lista = findAllAssistenza();
 		List<Assistenza> listacompleta = new ArrayList<Assistenza>();
 
-		for (Assistenza tmp : lista) {
+		for (Assistenza tmp : findAllAssistenza()) {
 			if (servita == true) {
-				if (tmp.getRisposta() != null) {
+				if (tmp.getRisposta().equalsIgnoreCase("null")) {
 					listacompleta.add(tmp);
 				}
 			}
 			if (servita == false) {
-				if (tmp.getRisposta() == null) {
+				if (tmp.getRisposta().equalsIgnoreCase("null")) {
 					listacompleta.add(tmp);
 				}
 			}

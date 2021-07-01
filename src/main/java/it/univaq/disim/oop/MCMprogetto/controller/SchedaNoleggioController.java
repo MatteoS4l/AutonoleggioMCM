@@ -114,7 +114,14 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				noleggio.setDataInizioNoleggio(dataInizioNol.getValue());
 				noleggio.setDataFineNoleggio(dataFineNol.getValue());
 				noleggio.setKmPercorsi(0);
+				if (noleggioservice.checkNoleggi(noleggio)) {
 				noleggioservice.createNoleggio(noleggio);
+				}
+				else {
+					labelErrore.setText("Veicolo già prenotato per queste date");
+					labelErrore.setVisible(true);
+					
+				}
 				dispatcher.renderView("home", utente);
 			} catch (BusinessException e) {
 				labelErrore.setText("Seleziona correttamente le date !");

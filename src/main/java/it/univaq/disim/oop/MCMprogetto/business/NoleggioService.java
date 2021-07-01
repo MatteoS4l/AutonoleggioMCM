@@ -32,4 +32,6 @@ public interface NoleggioService {
 	boolean disponibilitaDate(LocalDate inizio, LocalDate fine, Veicolo veicolo) throws BusinessException;
 
 	void checkStatoVeicoli() throws BusinessException;
+	
+	public boolean checkNoleggi (Noleggio noleggio) throws BusinessException;
 }
