@@ -104,8 +104,6 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				&& dataFineNol.getValue().isAfter(dataInizioNol.getValue())) {
 			try {
 				Noleggio noleggio = new Noleggio();
-				
-				
 				noleggio.setPrezzoNoleggio(CalcolaPreventivo(event));
 				List<Assistenza> listaAss = new ArrayList<Assistenza>();
 				noleggio.setListaAssistenza(listaAss);
@@ -120,7 +118,6 @@ public class SchedaNoleggioController implements Initializable, DataInitializabl
 				else {
 					labelErrore.setText("Veicolo già prenotato per queste date");
 					labelErrore.setVisible(true);
-					
 				}
 				dispatcher.renderView("home", utente);
 			} catch (BusinessException e) {

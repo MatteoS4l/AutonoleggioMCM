@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
@@ -222,8 +223,8 @@ public class FileNoleggioService implements NoleggioService {
 			veicolo.setTariffaChilometraggio(tmp.getVeicolo().getTariffaChilometraggio());
 			veicolo.setTariffaPeriodo(tmp.getVeicolo().getTariffaPeriodo());
 
-			if ((tmp.getDataInizioNoleggio().isBefore(LocalDate.now()) ||
-					tmp.getDataInizioNoleggio().isEqual(LocalDate.now()))
+			if ((tmp.getDataInizioNoleggio().isBefore(LocalDate.now())
+					|| tmp.getDataInizioNoleggio().isEqual(LocalDate.now()))
 					&& tmp.getDataFineNoleggio().isAfter(LocalDate.now())) {
 				veicolo.setStato(Stato.IN_NOLEGGIO);
 			} else {
@@ -257,13 +258,16 @@ public class FileNoleggioService implements NoleggioService {
 				continue;
 			}
 		}
-
-		for (int i = 0; i < listaveicoli.size(); i++) {
-			for (int j = 0; j < veicolidaeliminare.size(); j++) {
-				if (veicolidaeliminare.get(j).getTarga() == listaveicoli.get(i).getTarga()) {
-					listaveicoli.remove(i);
+		try {
+			for (Veicolo v1 : listaveicoli) {
+				for (Veicolo v2 : veicolidaeliminare) {
+					if (v1.getTarga().equalsIgnoreCase(v2.getTarga())) {
+						listaveicoli.remove(v1);
+					}
 				}
 			}
+		} catch (ConcurrentModificationException e) {
+			/* errore checked */
 		}
 		return listaveicoli;
 	}
@@ -272,7 +276,7 @@ public class FileNoleggioService implements NoleggioService {
 	public boolean disponibilitaDate(LocalDate inizio, LocalDate fine, Veicolo veicolo) throws BusinessException {
 
 		for (Noleggio tmp : findAllNoleggi()) {
-			if (tmp.getVeicolo().getTarga() == veicolo.getTarga()) {
+			if (tmp.getVeicolo().getTarga().equalsIgnoreCase(veicolo.getTarga())) {
 				if (inizio.isAfter(tmp.getDataInizioNoleggio()) && inizio.isBefore(tmp.getDataFineNoleggio())) {
 					return false;
 				}
@@ -282,7 +286,7 @@ public class FileNoleggioService implements NoleggioService {
 				if (tmp.getDataInizioNoleggio().isAfter(inizio) && tmp.getDataInizioNoleggio().isBefore(fine)) {
 					return false;
 				}
-				if (tmp.getDataFineNoleggio().isAfter(inizio) && tmp.getDataFineNoleggio().isBefore(inizio)) {
+				if (tmp.getDataFineNoleggio().isAfter(inizio) && tmp.getDataFineNoleggio().isBefore(fine)) {
 					return false;
 				}
 			}
@@ -294,27 +298,24 @@ public class FileNoleggioService implements NoleggioService {
 	public void rispostaAssistenzaByNoleggio(Noleggio noleggio, Assistenza assistenza) throws BusinessException {
 		assistenzaservice.updateAssistenza(assistenza);
 		createNoleggio(noleggio);
-		
+
 	}
-	
-	public boolean checkNoleggi (Noleggio noleggio) throws BusinessException {
+
+	public boolean checkNoleggi(Noleggio noleggio) throws BusinessException {
 		if (findAllNoleggi().isEmpty()) {
 			return true;
 		}
-			for (Noleggio n:findAllNoleggi()) {
-				if(n.getVeicolo().getTarga().equalsIgnoreCase(noleggio.getVeicolo().getTarga())) {
-					if(noleggio.getDataInizioNoleggio().isEqual(n.getDataInizioNoleggio()) ||
-					   noleggio.getDataInizioNoleggio().isAfter(n.getDataInizioNoleggio()) ||
-					   noleggio.getDataFineNoleggio().isEqual(n.getDataFineNoleggio())     ||
-					   noleggio.getDataFineNoleggio().isBefore(n.getDataFineNoleggio())) {
-							return false;
-					} 
-						
-				} 
+		for (Noleggio n : findAllNoleggi()) {
+			if (n.getVeicolo().getTarga().equalsIgnoreCase(noleggio.getVeicolo().getTarga())) {
+				if (noleggio.getDataInizioNoleggio().isEqual(n.getDataInizioNoleggio())
+						|| noleggio.getDataInizioNoleggio().isAfter(n.getDataInizioNoleggio())
+						|| noleggio.getDataFineNoleggio().isEqual(n.getDataFineNoleggio())
+						|| noleggio.getDataFineNoleggio().isBefore(n.getDataFineNoleggio())) {
+					return false;
+				}
+
 			}
-			return true;
+		}
+		return true;
 	}
 }
-			
-	
-
