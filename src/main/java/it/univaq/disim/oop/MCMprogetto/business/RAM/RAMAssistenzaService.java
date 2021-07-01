@@ -41,8 +41,14 @@ public class RAMAssistenzaService implements AssistenzaService {
 	}
 
 	@Override // GET ASSISTENZA ID
-	public Assistenza getAssistenzaByID(int id) throws AssistenzaNonTrovataException {
-		for (Assistenza tmp : listassistenza) {
+	public Assistenza getAssistenzaByID(Integer id) throws BusinessException,AssistenzaNonTrovataException {
+		if (id == null) {
+			throw new AssistenzaNonTrovataException();
+		}
+
+		List<Assistenza> lista = findAllAssistenza();
+
+		for (Assistenza tmp : lista) {
 			if (tmp.getID() == id) {
 				return tmp;
 			}
@@ -52,13 +58,37 @@ public class RAMAssistenzaService implements AssistenzaService {
 
 	@Override // GET ASSISTENZA SERVITA
 	public List<Assistenza> findListaAssistenzaByServita(boolean servita) throws BusinessException {
-		List<Assistenza> lista = new ArrayList<Assistenza>();
-		for (Assistenza tmp : listassistenza) {
-			if (tmp.isServita() == servita) {
-				lista.add(tmp);
+		List<Assistenza> listacompleta = new ArrayList<Assistenza>();
+
+		for (Assistenza tmp : findAllAssistenza()) {
+			if (servita == true) {
+				if (tmp.getRisposta().equalsIgnoreCase("null")) {
+					listacompleta.add(tmp);
+				}
+			}
+			if (servita == false) {
+				if (tmp.getRisposta().equalsIgnoreCase("null")) {
+					listacompleta.add(tmp);
+				}
 			}
 		}
-		return lista;
+		return listacompleta;
+	}
+
+	@Override
+	public void deleteAssistenza(Assistenza assistenza) throws BusinessException {
+		for (Assistenza a:findAllAssistenza()) {
+			if (a.getID()==assistenza.getID()) {
+				findAllAssistenza().remove(a);
+			}
+		}
+	}
+
+
+	@Override
+	public List<Assistenza> findAssistenzeByIds(List<Integer> ids) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

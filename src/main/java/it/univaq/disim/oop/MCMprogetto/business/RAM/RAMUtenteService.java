@@ -9,6 +9,7 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
+import it.univaq.disim.oop.MCMprogetto.domain.Sesso;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 
 public class RAMUtenteService implements UtenteService {
@@ -24,7 +25,7 @@ public class RAMUtenteService implements UtenteService {
 			admin.setUsername(username);
 			admin.setPassword(password);
 			admin.setEta(21);
-			admin.setSesso('M');
+			admin.setSesso(Sesso.UOMO);
 			return admin;
 		}
 
@@ -38,7 +39,7 @@ public class RAMUtenteService implements UtenteService {
 	}
 
 	@Override // GET LISTA UTENTI
-	public List<Utente> findAllUtenti(Amministratore admin) throws BusinessException {
+	public List<Utente> findAllUtenti() throws BusinessException {
 		return listautenti;
 	}
 

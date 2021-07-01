@@ -10,24 +10,25 @@ import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 
 public class RAMTipologiaService implements TipologiaService {
-	List<Tipologia> listatipologie = new ArrayList<Tipologia>();
+	List<Tipologia> listaTipologie = new ArrayList<Tipologia>();
 	VeicoloService veicoloservice = null;
 	boolean tipo = false; // da togliere
 
 	@Override // CREA
-	public void createTipologia(Tipologia tipologia) throws BusinessException {
-		for (Tipologia tmp : listatipologie) {
-			if (tmp.getTipologia().equalsIgnoreCase(tipologia.getTipologia())) {
-				throw new BusinessException();
-			}
+	public Tipologia createTipologia(Tipologia tipologia) throws BusinessException {
+		if (!GiaEsistente(tipologia)) {
+			listaTipologie.add(tipologia);
+			return tipologia;
 		}
-		listatipologie.add(tipologia);
+		else {
+			throw new BusinessException("Errore durante la creazione di una tipologia");
+		}
 	}
 
 	@Override // ELIMINA
 	public void deleteTipologia(Tipologia tipologia) throws BusinessException {
-		if (veicoloservice.findListaVeicoliByTipologia(tipologia.getTipologia()).isEmpty()) {
-			listatipologie.remove(tipologia);
+		if (veicoloservice.findListaVeicoliByTipologia(tipologia.getNome()).isEmpty()) {
+			listaTipologie.remove(tipologia);
 		}
 
 		else {
@@ -36,18 +37,18 @@ public class RAMTipologiaService implements TipologiaService {
 	}
 
 	@Override // GET LISTA TIPOLOGIA
-	public List<String> findAllTipologia() throws TipologiaNonTrovataException {
-		List<String> listaT = new ArrayList<String>();
-		for (Tipologia tmp : listatipologie) {
-			listaT.add(tmp.getTipologia());
+	public List<Tipologia> findAllTipologia() throws TipologiaNonTrovataException {
+		return listaTipologie;
+	}
+
+	// GIA ESISTENTE
+		private boolean GiaEsistente(Tipologia tipologia) throws TipologiaNonTrovataException, BusinessException {
+			for (Tipologia tmp : findAllTipologia()) {
+				if (tmp.getNome().equalsIgnoreCase(tipologia.getNome())) {
+					return true;
+				}
+			}
+			return false;
 		}
-
-		return listaT;
-	}
-
-	@Override // GET LISTA TIPOLOGIA T
-	public List<Tipologia> findAllTipologiaT() throws TipologiaNonTrovataException, BusinessException {
-		return listatipologie;
-	}
 
 }
