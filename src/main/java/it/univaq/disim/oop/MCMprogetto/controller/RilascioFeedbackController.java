@@ -92,7 +92,7 @@ public class RilascioFeedbackController implements Initializable, DataInitializa
 		try {
 			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 			for (Noleggio tmp : noleggioservice.findNoleggiByUtente(utente)) {
-				if (tmp.getDataFineNoleggio().isBefore(LocalDate.now())) {
+				if (tmp.getDataFineNoleggio().isBefore(LocalDate.now()) && !tmp.isFeedLasciato()) {
 					listacompleta.add(tmp);
 				}
 			}

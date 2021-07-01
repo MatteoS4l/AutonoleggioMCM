@@ -2,6 +2,7 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -111,13 +112,13 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 	@Override
 	public void initializeData(Operatore operatore) {
 		try {
-			List<Noleggio> listacompleta1 = noleggioservice.findNoleggiByDettagli();
-			for (Noleggio tmp : listacompleta1) {
-				if (tmp.getDataInizioNoleggio().isBefore(LocalDate.now())) {
-					listacompleta1.remove(tmp);
+			List<Noleggio> lista = new ArrayList<Noleggio>();
+			for (Noleggio tmp : noleggioservice.findNoleggiByDettagli()) {
+				if (tmp.getDataInizioNoleggio().isAfter(LocalDate.now())) {
+					lista.add(tmp);
 				}
 			}
-			ObservableList<Noleggio> listaNol1 = FXCollections.observableList(listacompleta1);
+			ObservableList<Noleggio> listaNol1 = FXCollections.observableList(lista);
 			tabellaPrenotazioni.setItems(listaNol1);
 
 		} catch (BusinessException e) {
@@ -130,7 +131,6 @@ public class PrenotazioniOperatoreController implements Initializable, DataIniti
 
 	@FXML
 	void InviaRisposta(ActionEvent event) throws BusinessException {
-
 		noleggio.setDettagli(textRisposta.getText());
 		noleggioservice.updateNoleggio(noleggio);
 		labelRisposta.setVisible(true);

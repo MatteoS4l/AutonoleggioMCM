@@ -30,7 +30,7 @@ public class FileNoleggioService implements NoleggioService {
 	@Override // CREA
 	public Noleggio createNoleggio(Noleggio noleggio) throws BusinessException {
 		// id, dataInizio, dataFine, prezzo, kmPercorsi, idCliente, targaVeicolo,
-		// dettagli
+		// dettagli, feedLasciato, idsAssistenze
 		try {
 			FileData fileData = Utility.readAllRows("noleggi");
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "noleggi" + Utility.FORMATO))) {
@@ -58,6 +58,8 @@ public class FileNoleggioService implements NoleggioService {
 				row.append(Utility.SEPARATORE);
 				row.append(noleggio.getDettagli());
 				row.append(Utility.SEPARATORE);
+				row.append(noleggio.isFeedLasciato());
+				row.append(Utility.SEPARATORE);
 				row.append("-");
 
 				writer.println(row.toString());
@@ -76,8 +78,8 @@ public class FileNoleggioService implements NoleggioService {
 
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "noleggi" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
-				for (String[] righe : fileData.getRighe()) {
-					if (Integer.parseInt(righe[0]) == noleggio.getID()) {
+				for (String[] colonne : fileData.getRighe()) {
+					if (Integer.parseInt(colonne[0]) == noleggio.getID()) {
 						StringBuilder row = new StringBuilder();
 
 						row.append(noleggio.getID());
@@ -96,6 +98,8 @@ public class FileNoleggioService implements NoleggioService {
 						row.append(Utility.SEPARATORE);
 						row.append(noleggio.getDettagli());
 						row.append(Utility.SEPARATORE);
+						row.append(noleggio.isFeedLasciato());
+						row.append(Utility.SEPARATORE);
 						row.append("-");
 
 						if (!noleggio.getListaAssistenza().isEmpty()) {
@@ -105,6 +109,8 @@ public class FileNoleggioService implements NoleggioService {
 							}
 						}
 						writer.println(row.toString());
+					} else {
+						writer.println(String.join(Utility.SEPARATORE, colonne));
 					}
 				}
 			}
@@ -132,8 +138,9 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[5])));
 				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[6]));
 				noleggio.setDettagli(colonne[7]);
-				if (!colonne[8].equalsIgnoreCase("-")) {
-					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[8])));
+				noleggio.setFeedLasciato(Boolean.parseBoolean(colonne[8]));
+				if (!colonne[9].equalsIgnoreCase("-")) {
+					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[9])));
 				}
 
 				listanoleggi.add(noleggio);
@@ -295,27 +302,18 @@ public class FileNoleggioService implements NoleggioService {
 	}
 
 	@Override // RISPOSTA ASSISTENZA
-	public void rispostaAssistenzaByNoleggio(Noleggio noleggio, Assistenza assistenza) throws BusinessException {
+	public void rispostaAssistenzaByNoleggio(Noleggio nuovoNoleggio, Assistenza assistenza) throws BusinessException {
+		Noleggio vecchioNoleggio = assistenza.getNoleggio();
+		Veicolo veicoloRotto = vecchioNoleggio.getVeicolo();
+		for(Assistenza a : vecchioNoleggio.getListaAssistenza()) {
+			assistenzaservice.deleteAssistenza(a);
+		}
 		assistenzaservice.updateAssistenza(assistenza);
-		createNoleggio(noleggio);
+		vecchioNoleggio.getListaAssistenza().removeAll(vecchioNoleggio.getListaAssistenza());
+		veicoloRotto.setStato(Stato.NON_DISPONIBILE);
+		veicoloservice.updateVeicolo(veicoloRotto);
+		updateNoleggio(vecchioNoleggio);
+		createNoleggio(nuovoNoleggio);
 
-	}
-
-	public boolean checkNoleggi(Noleggio noleggio) throws BusinessException {
-		if (findAllNoleggi().isEmpty()) {
-			return true;
-		}
-		for (Noleggio n : findAllNoleggi()) {
-			if (n.getVeicolo().getTarga().equalsIgnoreCase(noleggio.getVeicolo().getTarga())) {
-				if (noleggio.getDataInizioNoleggio().isEqual(n.getDataInizioNoleggio())
-						|| noleggio.getDataInizioNoleggio().isAfter(n.getDataInizioNoleggio())
-						|| noleggio.getDataFineNoleggio().isEqual(n.getDataFineNoleggio())
-						|| noleggio.getDataFineNoleggio().isBefore(n.getDataFineNoleggio())) {
-					return false;
-				}
-
-			}
-		}
-		return true;
 	}
 }

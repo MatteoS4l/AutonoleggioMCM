@@ -85,7 +85,7 @@ public class SostituzioneController implements Initializable, DataInitializable<
 		labelInizio.setVisible(false);
 		labelFine.setVisible(false);
 		bottoneSos.setVisible(false);
-		
+
 		modelloVeicoloSos.setStyle("-fx-alignment: CENTER;");
 		tipologiaVeicoloSos.setStyle("-fx-alignment: CENTER;");
 		tariffaKmSos.setStyle("-fx-alignment: CENTER;");
@@ -138,7 +138,6 @@ public class SostituzioneController implements Initializable, DataInitializable<
 		nuovoNoleggio.setDataFineNoleggio(noleggio.getDataFineNoleggio());
 		nuovoNoleggio.setPrezzoNoleggio(noleggio.getPrezzoNoleggio());
 		nuovoNoleggio.setDettagli("Il veicolo sarà pronto per il ritiro il: " + LocalDate.now().plusDays(1).toString());
-
 		try {
 			noleggioservice.rispostaAssistenzaByNoleggio(nuovoNoleggio, assistenza);
 		} catch (BusinessException e) {
@@ -154,6 +153,8 @@ public class SostituzioneController implements Initializable, DataInitializable<
 	// SCEGLI VEICOLO SOSTITUTIVO
 	void creaNoleggioSostituzione(Veicolo veicolo) {
 		this.veicolo = veicolo;
+		invioRispostaSos.setText("Il veicolo sarà pronto per il ritiro il: " + LocalDate.now().plusDays(1).toString());
+		invioRispostaSos.setEditable(false);
 		labelInizio.setVisible(true);
 		labelFine.setVisible(true);
 		bottoneSos.setVisible(true);

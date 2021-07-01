@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
@@ -16,7 +17,7 @@ public class FileFeedbackService implements FeedbackService {// ID, feedback, st
 	NoleggioService noleggioservice = new FileNoleggioService();
 
 	@Override // CREA
-	public void createFeedback(Feedback feedback) throws BusinessException {
+	public Feedback createFeedback(Feedback feedback) throws BusinessException {
 		try {
 			FileData fileData = Utility.readAllRows("feedback");
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "feedback" + Utility.FORMATO))) {
@@ -37,11 +38,19 @@ public class FileFeedbackService implements FeedbackService {// ID, feedback, st
 				row.append(feedback.getNoleggio().getID());
 
 				writer.println(row.toString());
+				return feedback;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new BusinessException(e);
 		}
+	}
+	
+	@Override
+	public void rilasciaFeedback(Feedback feedback) throws BusinessException {
+		createFeedback(feedback);
+		feedback.getNoleggio().setFeedLasciato(true);
+		noleggioservice.updateNoleggio(feedback.getNoleggio());
 	}
 
 	@Override // LISTA DI TUTTI I FEEDBACK
@@ -85,5 +94,7 @@ public class FileFeedbackService implements FeedbackService {// ID, feedback, st
 		}
 		return null;
 	}
+
+	
 
 }

@@ -30,8 +30,6 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 					}
 					
 					StringBuilder row = new StringBuilder();
-					row.append(fileData.getCont());
-					row.append(Utility.SEPARATORE);
 					row.append(veicolo.getTarga());
 					row.append(Utility.SEPARATORE);
 					row.append(veicolo.getModello());
@@ -67,11 +65,8 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "veicoli" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
 				for (String[] righe : fileData.getRighe()) {
-					if ((righe[1]).equalsIgnoreCase(veicolo.getTarga())) {
+					if ((righe[0]).equalsIgnoreCase(veicolo.getTarga())) {
 						StringBuilder row = new StringBuilder();
-
-						row.append(fileData.getCont());
-						row.append(Utility.SEPARATORE);
 						row.append(veicolo.getTarga());
 						row.append(Utility.SEPARATORE);
 						row.append(veicolo.getModello());
@@ -106,12 +101,12 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 			FileData fileData = Utility.readAllRows("veicoli");
 			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "veicoli" + Utility.FORMATO))) {
 				writer.println(fileData.getCont());
-				for (String[] righe : fileData.getRighe()) {
-					if ((righe[0]).equalsIgnoreCase(veicolo.getTarga())
+				for (String[] colonne : fileData.getRighe()) {
+					if ((colonne[0]).equalsIgnoreCase(veicolo.getTarga())
 							&& veicolo.getStato().getDesc().equalsIgnoreCase("disponibile")) {
 						return;
 					} else {
-						writer.println(String.join(Utility.SEPARATORE, righe));
+						writer.println(String.join(Utility.SEPARATORE, colonne));
 					}
 				}
 				throw new VeicoloNonTrovatoException();
@@ -130,16 +125,16 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 
 			for (String[] colonne : filedata.getRighe()) {
 				Veicolo veicolo = new Veicolo();
-				veicolo.setTarga(colonne[1]);
-				veicolo.setModello(colonne[2]);
-				veicolo.setChilometri(Integer.parseInt(colonne[3]));
+				veicolo.setTarga(colonne[0]);
+				veicolo.setModello(colonne[1]);
+				veicolo.setChilometri(Integer.parseInt(colonne[2]));
 				Tipologia t = new Tipologia();
-				t.setNome(colonne[4]);
+				t.setNome(colonne[3]);
 				veicolo.setTipologia(t);
-				veicolo.setAlimentazione(Alimentazione.valueOf(colonne[5]));
-				veicolo.setStato(Stato.valueOf(colonne[6]));
-				veicolo.setTariffaChilometraggio(Double.parseDouble(colonne[7]));
-				veicolo.setTariffaPeriodo(Double.parseDouble(colonne[8]));
+				veicolo.setAlimentazione(Alimentazione.valueOf(colonne[4]));
+				veicolo.setStato(Stato.valueOf(colonne[5]));
+				veicolo.setTariffaChilometraggio(Double.parseDouble(colonne[6]));
+				veicolo.setTariffaPeriodo(Double.parseDouble(colonne[7]));
 
 				listacompleta.add(veicolo);
 			}

@@ -31,6 +31,7 @@ import javafx.util.Callback;
 
 public class AssistenzaOperatoreController implements Initializable, DataInitializable<Utente> {
 	private ViewDispatcher dispatcher;
+	private Utente utente;
 	private AssistenzaService assistenzaservice;
 	private NoleggioService noleggioservice;
 	private Assistenza assistenza;
@@ -124,6 +125,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 
 	@Override
 	public void initializeData(Utente utente) {
+		this.utente = utente;
 		try {
 			ObservableList<Assistenza> ListNolOb = FXCollections.observableList(assistenzaservice.findListaAssistenzaByServita(false));
 			tabellaAssistenzaOp.setItems(ListNolOb);
@@ -142,7 +144,7 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 		labelRispostaAssistenza.setVisible(true);
 		bottoneInvio.setVisible(false);
 
-		initialize(null, null);
+		initializeData(utente);
 	}
 
 	// MOSTRA COSE

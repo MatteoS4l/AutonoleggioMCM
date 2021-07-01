@@ -2,6 +2,7 @@ package it.univaq.disim.oop.MCMprogetto.controller;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -131,7 +132,17 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	@FXML // APPLICA FILTRI
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
-		listacompleta = veicoloservice.findListaVeicoliByStato(Stato.DISPONIBILE);
+		listacompleta = veicoloservice.findAllVeicoli();
+		try {
+			for (Veicolo v : listacompleta) {
+				if (v.getStato().equals(Stato.NON_DISPONIBILE)) {
+					listacompleta.remove(v);
+				}
+			}
+		} catch (ConcurrentModificationException e) {
+			/* errore checked */
+		}
+
 		List<Veicolo> listafiltrata = new ArrayList<Veicolo>();
 		for (Veicolo tmp : listacompleta) {
 			if (!tmp.getTipologia().getNome().equalsIgnoreCase("sostitutivo")) {
@@ -150,8 +161,8 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 			listafiltrata = Intersezione(listafiltrata, veicoloservice.findListaVeicoliByModello(txtModello.getText()));
 		}
 		if (dataInizio.getValue() != null && dataFine.getValue() != null) {
-			listafiltrata = Intersezione(listafiltrata, noleggioservice.findVeicoliDisponibiliForDate(
-					dataInizio.getValue(), dataFine.getValue()));
+			listafiltrata = Intersezione(listafiltrata,
+					noleggioservice.findVeicoliDisponibiliForDate(dataInizio.getValue(), dataFine.getValue()));
 		}
 		if (!(txtTariffaGiornoMin.getText().isEmpty() && txtTariffaGiornoMax.getText().isEmpty())) {
 			double min, max;

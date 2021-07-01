@@ -142,7 +142,6 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 
 			noleggio.addListaAssistenza(assistenza);
 			noleggioservice.updateNoleggio(noleggio);
-			System.out.println(noleggio.getListaAssistenza().get(noleggio.getListaAssistenza().size()-1).getRichiesta());
 		} catch (BusinessException e) {
 			labelErrore.setText(e.getMessage());
 		} finally {
@@ -157,8 +156,17 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 	// RICHIEDI
 	private void RichiediAssistenza(Noleggio nol) throws BusinessException {
 		this.noleggio = nol;
-		textDettagliRichiesta.setVisible(true);
-		inviaButton.setVisible(true);
-		labelErrore.setVisible(false);
+		if (nol.inCorso()) {
+			textDettagliRichiesta.setVisible(true);
+			inviaButton.setVisible(true);
+			labelErrore.setVisible(false);
+		} else {
+			labelErrore.setText("Impossibile richiedere assistenza ora!");
+			labelErrore.setVisible(true);
+			labelAvviso.setVisible(false);
+			textDettagliRichiesta.setVisible(false);
+			inviaButton.setVisible(false);
+		}
+
 	}
 }

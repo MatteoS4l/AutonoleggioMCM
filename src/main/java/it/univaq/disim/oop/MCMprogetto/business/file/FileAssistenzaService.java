@@ -13,7 +13,6 @@ import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 
 public class FileAssistenzaService implements AssistenzaService {
 	// id, richiesta, risposta, idNoleggio
-	
 
 	@Override // CREA
 	public Assistenza createAssistenza(Assistenza assistenza) throws BusinessException {
@@ -58,13 +57,7 @@ public class FileAssistenzaService implements AssistenzaService {
 				for (String[] righe : fileData.getRighe()) {
 					if (Integer.parseInt(righe[0]) == assistenza.getID()) {
 						StringBuilder row = new StringBuilder();
-//								assistenza.getID().toString() + Utility.SEPARATORE + 
-//								assistenza.getRichiesta().replace(",", " ") + Utility.SEPARATORE +
-//								assistenza.getRisposta().replace(",", " ") + Utility.SEPARATORE + 
-//								assistenza.getNoleggio().getID();
-								
-								
-						
+
 						row.append(assistenza.getID());
 						row.append(Utility.SEPARATORE);
 						row.append(assistenza.getRichiesta().replace(",", " "));
@@ -85,6 +78,26 @@ public class FileAssistenzaService implements AssistenzaService {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new BusinessException("Errore durante update Assistenza");
+		}
+	}
+
+	@Override // ELIMINA
+	public void deleteAssistenza(Assistenza assistenza) throws BusinessException {
+		try {
+			FileData fileData = Utility.readAllRows("assistenza");
+			try (PrintWriter writer = new PrintWriter(new File(Utility.PERCORSO + "assistenza" + Utility.FORMATO))) {
+				writer.println(fileData.getCont());
+				for (String[] colonne : fileData.getRighe()) {
+					if (Integer.parseInt(colonne[0]) == assistenza.getID()) {
+						System.err.println("Assistenza eliminato");
+					} else {
+						writer.println(String.join(Utility.SEPARATORE, colonne));
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new BusinessException("Errore durannte l'eliminazione dell'assistenza");
 		}
 	}
 
@@ -146,8 +159,6 @@ public class FileAssistenzaService implements AssistenzaService {
 		return listacompleta;
 	}
 
-	
-
 	@Override
 	public List<Assistenza> findAssistenzeByIds(List<Integer> ids) throws BusinessException {
 		List<Assistenza> res = new ArrayList<>();
@@ -159,7 +170,7 @@ public class FileAssistenzaService implements AssistenzaService {
 						Assistenza a = new Assistenza();
 						a.setID(Integer.parseInt(colonne[0]));
 						a.setRichiesta(colonne[1]);
-						if(a.getRisposta() != null) {
+						if (a.getRisposta() != null) {
 							a.setRisposta(colonne[2]);
 						}
 						a.setIdNoleggio(Integer.parseInt(colonne[3]));

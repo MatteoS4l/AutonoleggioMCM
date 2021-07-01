@@ -13,6 +13,7 @@ public class Noleggio {
 	private Cliente cliente;
 	private Veicolo veicolo;
 	private String dettagli;
+	private boolean feedLasciato;
 	private List<Assistenza> listaAssistenza = new ArrayList<Assistenza>();
 
 	// GET E SET
@@ -90,6 +91,22 @@ public class Noleggio {
 	
 	public void addListaAssistenza(Assistenza assistenza) {
 		this.listaAssistenza.add(assistenza);
+	}
+	
+	public boolean inCorso() {
+		if (this.getDataInizioNoleggio().isBefore(LocalDate.now())
+				&& this.getDataFineNoleggio().isAfter(LocalDate.now())) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isFeedLasciato() {
+		return feedLasciato;
+	}
+
+	public void setFeedLasciato(boolean feedLasciato) {
+		this.feedLasciato = feedLasciato;
 	}
 
 }
