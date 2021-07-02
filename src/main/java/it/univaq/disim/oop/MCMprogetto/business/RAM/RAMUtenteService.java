@@ -9,6 +9,8 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.domain.Amministratore;
+import it.univaq.disim.oop.MCMprogetto.domain.Cliente;
+import it.univaq.disim.oop.MCMprogetto.domain.Operatore;
 import it.univaq.disim.oop.MCMprogetto.domain.Sesso;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 
@@ -93,6 +95,32 @@ public class RAMUtenteService implements UtenteService {
 			}
 		}
 		throw new UtenteNonTrovatoException();
+	}
+
+	@Override
+	public void prima() throws BusinessException {
+		Utente u = new Cliente();
+		u.setNome("a");
+		u.setCognome("a");
+		u.setEta(0);
+		u.setDataNascita(LocalDate.now());
+		u.setSesso(Sesso.UOMO);
+		u.setUsername("a");
+		u.setPassword("a");
+		u.setID(1);
+		
+		Utente o = new Operatore();
+		o.setNome("o");
+		o.setCognome("o");
+		o.setEta(0);
+		o.setDataNascita(LocalDate.now());
+		o.setSesso(Sesso.UOMO);
+		o.setUsername("o");
+		o.setPassword("o");
+		o.setID(2);
+		
+		createUtente(u);
+		createUtente(o);
 	}
 
 }

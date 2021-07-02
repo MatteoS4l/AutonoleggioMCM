@@ -50,4 +50,22 @@ public class RAMTipologiaService implements TipologiaService {
 		return false;
 	}
 
+	@Override
+	public void prima() throws BusinessException {
+			Tipologia t1 = new Tipologia();
+			t1.setID(0);
+			t1.setNome("lusso");
+			Tipologia t2 = new Tipologia();
+			t2.setID(1);
+			t2.setNome("berlina");
+			Tipologia t3 = new Tipologia();
+			t3.setID(2);
+			t3.setNome("sostitutivo");
+			
+			listaTipologie.add(t1);
+			listaTipologie.add(t2);
+			listaTipologie.add(t3);
+			System.out.println(listaTipologie.size());
+	}
+
 }
