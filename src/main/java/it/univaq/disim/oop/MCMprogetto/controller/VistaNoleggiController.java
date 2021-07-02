@@ -11,6 +11,8 @@ import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
+import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
+import it.univaq.disim.oop.MCMprogetto.view.ViewException;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -28,10 +30,12 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class VistaNoleggiController implements Initializable, DataInitializable<Utente> {
 	private NoleggioService noleggioservice;
+	private ViewDispatcher dispatcher;
 
 	@FXML
 	private TableView<Noleggio> tabellaNoleggi;
@@ -55,6 +59,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 	private Text textDettagli;
 
 	public VistaNoleggiController() {
+		dispatcher = ViewDispatcher.getInstance();
 		MCMProgettoFactory factory = MCMProgettoFactory.getInstance();
 		noleggioservice = factory.getNoleggioService();
 	}
@@ -112,7 +117,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 	}
 
 	@Override
-	public void initializeData(Utente t) {
+	public void initializeData(Utente utente) {
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 		try {
 			listacompleta = noleggioservice.findAllNoleggi();
@@ -141,10 +146,10 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 
 	// VEDI DETTAGLI
 	private void VediDettagli(Noleggio noleggio) {
-		if (noleggio.getListaAssistenza().isEmpty()) {
-			textDettagli.setText("Nessuna assistenza ricevuta per questo noleggio");
-		} else {
-			textDettagli.setText("da mettere il testo di tutte le richieste");//////////////////////////////////////////////
+		try {
+			dispatcher.popUp(new Stage(), "DettagliAssistenzeAdmin");
+		} catch (ViewException e) {
+			e.printStackTrace();
 		}
 	}
 

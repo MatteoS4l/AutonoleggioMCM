@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univaq.disim.oop.MCMprogetto.controller.DettagliAssistenzeAdminController">
+   <children>
+      <TableView fx:id="tabellaAssistenzeNoleggio" prefHeight="200.0" prefWidth="460.0">
+        <columns>
+          <TableColumn fx:id="richiesteAssistenze" prefWidth="229.0" text="Richiesta" />
+          <TableColumn fx:id="risposteAssistenze" prefWidth="229.0" text="Risposta" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
