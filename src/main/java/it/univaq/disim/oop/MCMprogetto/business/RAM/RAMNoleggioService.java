@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioNonTrovatoException;
 import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
@@ -17,15 +16,18 @@ import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class RAMNoleggioService implements NoleggioService {
-	List<Noleggio> listaNoleggi = new ArrayList<Noleggio>();
-	private VeicoloService veicoloservice = new RAMVeicoloService();
-	private AssistenzaService assistenzaservice = new RAMAssistenzaService();
+	private final List<Noleggio> listaNoleggi;
+	private final VeicoloService veicoloservice;
+	int contNoleggi = 1;
 
-	int cont_noleggi;
+	public RAMNoleggioService(List<Noleggio> listaNoleggi, VeicoloService veicoloservice) {
+		this.listaNoleggi = listaNoleggi;
+		this.veicoloservice = veicoloservice;
+	}
 
 	@Override // CREA
 	public Noleggio createNoleggio(Noleggio noleggio) throws BusinessException {
-		noleggio.setID(cont_noleggi++);
+		noleggio.setID(contNoleggi++);
 		listaNoleggi.add(noleggio);
 		return noleggio;
 	}
@@ -41,7 +43,6 @@ public class RAMNoleggioService implements NoleggioService {
 			}
 		} catch (ConcurrentModificationException e) {
 			/* errore checked */ }
-
 	}
 
 	@Override // ALL NOLEGGI
@@ -116,25 +117,14 @@ public class RAMNoleggioService implements NoleggioService {
 	@Override // CHECK STATO VEICOLI
 	public void checkStatoVeicoli() throws BusinessException {
 		for (Noleggio tmp : findAllNoleggi()) {
-			Veicolo veicolo = new Veicolo();
-
-			veicolo.setTarga(tmp.getVeicolo().getTarga());
-			veicolo.setModello(tmp.getVeicolo().getModello());
-			veicolo.setChilometri(tmp.getVeicolo().getChilometri());
-			veicolo.setTipologia(tmp.getVeicolo().getTipologia());
-			veicolo.setAlimentazione(tmp.getVeicolo().getAlimentazione());
-			veicolo.setStato(tmp.getVeicolo().getStato());
-			veicolo.setTariffaChilometraggio(tmp.getVeicolo().getTariffaChilometraggio());
-			veicolo.setTariffaPeriodo(tmp.getVeicolo().getTariffaPeriodo());
 
 			if ((tmp.getDataInizioNoleggio().isBefore(LocalDate.now())
 					|| tmp.getDataInizioNoleggio().isEqual(LocalDate.now()))
 					&& tmp.getDataFineNoleggio().isAfter(LocalDate.now())) {
-				veicolo.setStato(Stato.IN_NOLEGGIO);
+				tmp.getVeicolo().setStato(Stato.IN_NOLEGGIO);
 			} else {
-				veicolo.setStato(Stato.DISPONIBILE);
+				tmp.getVeicolo().setStato(Stato.DISPONIBILE);
 			}
-			veicoloservice.updateVeicolo(veicolo);
 		}
 	}
 
@@ -203,12 +193,9 @@ public class RAMNoleggioService implements NoleggioService {
 		Noleggio vecchioNoleggio = assistenza.getNoleggio();
 		Veicolo veicoloRotto = vecchioNoleggio.getVeicolo();
 		for (Assistenza a : vecchioNoleggio.getListaAssistenza()) {
-			assistenzaservice.deleteAssistenza(a);
+			vecchioNoleggio.getListaAssistenza().remove(a);
 		}
-		assistenzaservice.updateAssistenza(assistenza);
-		vecchioNoleggio.getListaAssistenza().removeAll(vecchioNoleggio.getListaAssistenza());
 		veicoloRotto.setStato(Stato.NON_DISPONIBILE);
-		veicoloservice.updateVeicolo(veicoloRotto);
 		updateNoleggio(vecchioNoleggio);
 		createNoleggio(nuovoNoleggio);
 

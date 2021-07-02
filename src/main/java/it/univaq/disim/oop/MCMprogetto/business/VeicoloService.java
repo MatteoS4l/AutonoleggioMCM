@@ -18,7 +18,7 @@ public interface VeicoloService {
 	List<Veicolo> findListaVeicoliByStato(Stato stato) throws BusinessException;
 
 	List<Veicolo> findListaVeicoliByTipologia(String tipologia) throws BusinessException;
-
+	
 	List<Veicolo> findListaVeicoliByAlimentazione(Alimentazione alimentazione) throws BusinessException;
 
 	List<Veicolo> findListaVeicoliByModello(String modello) throws BusinessException;
@@ -29,6 +29,6 @@ public interface VeicoloService {
 
 	Veicolo findVeicoloByTarga(String targa) throws VeicoloNonTrovatoException, BusinessException;
 	
-	void prima() throws BusinessException;
-
+	default void prima() throws BusinessException {
+	}
 }

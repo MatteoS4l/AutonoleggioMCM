@@ -28,7 +28,7 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 					for (String[] righe : fileData.getRighe()) {
 						writer.println(String.join(Utility.SEPARATORE, righe));
 					}
-					
+
 					StringBuilder row = new StringBuilder();
 					row.append(veicolo.getTarga());
 					row.append(Utility.SEPARATORE);
@@ -175,7 +175,8 @@ public class FileVeicoloService implements VeicoloService { // targa, modello, K
 	}
 
 	@Override // GET LISTA BY ALIMENTAZIONE
-	public List<Veicolo> findListaVeicoliByAlimentazione(Alimentazione alimentazione) throws VeicoloNonTrovatoException, BusinessException {
+	public List<Veicolo> findListaVeicoliByAlimentazione(Alimentazione alimentazione)
+			throws VeicoloNonTrovatoException, BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
 		for (Veicolo tmp : findAllVeicoli()) {
 			if (tmp.getAlimentazione().equals(alimentazione)) {

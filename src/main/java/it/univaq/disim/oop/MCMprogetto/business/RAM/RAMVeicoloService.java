@@ -10,9 +10,12 @@ import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class RAMVeicoloService implements VeicoloService {
-	List<Veicolo> listaVeicoli = new ArrayList<Veicolo>();
-	int cont_veicoli = 1;
-	public static boolean veico = false;
+	private final List<Veicolo> listaVeicoli;
+	int contVeicoli = 1;
+	
+	public RAMVeicoloService(List<Veicolo> listaVeicoli) {
+		this.listaVeicoli = listaVeicoli;
+	}
 
 	@Override // CREA
 	public Veicolo createVeicolo(Veicolo veicolo) throws BusinessException {
@@ -150,13 +153,12 @@ public class RAMVeicoloService implements VeicoloService {
 		throw new VeicoloNonTrovatoException();
 	}
 
-	@Override
 	public void prima() throws BusinessException {
-		Veicolo v1=new Veicolo();
+		Veicolo v1 = new Veicolo();
 		v1.setTarga("AA000AA");
 		v1.setModello("ferrari");
 		v1.setChilometri(0);
-		Tipologia t= new Tipologia();
+		Tipologia t = new Tipologia();
 		t.setNome("lusso");
 		t.setID(4);
 		v1.setTipologia(t);
@@ -164,12 +166,12 @@ public class RAMVeicoloService implements VeicoloService {
 		v1.setStato(Stato.DISPONIBILE);
 		v1.setTariffaChilometraggio(100.0);
 		v1.setTariffaPeriodo(150.0);
-		
-		Veicolo v2=new Veicolo();
+
+		Veicolo v2 = new Veicolo();
 		v2.setTarga("AA001AA");
 		v2.setModello("panda");
 		v2.setChilometri(0);
-		Tipologia t1= new Tipologia();
+		Tipologia t1 = new Tipologia();
 		t1.setNome("sostitutivo");
 		t1.setID(5);
 		v2.setTipologia(t1);
@@ -177,11 +179,10 @@ public class RAMVeicoloService implements VeicoloService {
 		v2.setStato(Stato.DISPONIBILE);
 		v2.setTariffaChilometraggio(50.0);
 		v2.setTariffaPeriodo(40.0);
-		
+
 		createVeicolo(v1);
 		createVeicolo(v2);
-		
-		
+
 	}
 
 }

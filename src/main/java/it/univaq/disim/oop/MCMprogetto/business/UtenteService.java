@@ -21,6 +21,6 @@ public interface UtenteService {
 
 	Utente findUtenteById(int id) throws UtenteNonTrovatoException, BusinessException;
 	
-	void prima() throws BusinessException;
-
+	default void prima() throws BusinessException {
+	}
 }

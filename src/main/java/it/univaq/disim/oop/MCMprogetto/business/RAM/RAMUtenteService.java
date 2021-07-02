@@ -1,7 +1,6 @@
 package it.univaq.disim.oop.MCMprogetto.business.RAM;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
@@ -16,7 +15,11 @@ import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 
 public class RAMUtenteService implements UtenteService {
 	private static int cont = 1;
-	List<Utente> listaUtenti = new ArrayList<Utente>(); // vorse si deve mettere set
+	private final List<Utente> listaUtenti;
+	
+	public RAMUtenteService(List<Utente> listaUtenti) {
+		this.listaUtenti = listaUtenti;
+	}
 
 	@Override // metodo invocato al momento di login
 	public Utente Autenticazione(String username, String password) throws BusinessException {
@@ -38,7 +41,7 @@ public class RAMUtenteService implements UtenteService {
 		}
 		throw new UtenteNonTrovatoException("Username o password errati!");
 	}
-	
+
 	@Override // CREA
 	public void createUtente(Utente utente) throws BusinessException {
 		utente.setID(cont++);
@@ -68,14 +71,14 @@ public class RAMUtenteService implements UtenteService {
 		return listaUtenti;
 	}
 
-
 	@Override // CALCOLA ETA
 	public int CalcolaEta(LocalDate data) throws BusinessException {
 		int eta = 0;
 		try {
 			eta = LocalDate.now().getYear() - data.getYear();
 		} catch (NullPointerException e) {
-			System.err.println("Inserire la data"); }
+			System.err.println("Inserire la data");
+		}
 
 		if (data.getMonthValue() > LocalDate.now().getMonthValue()) {
 			return --eta;
@@ -97,7 +100,6 @@ public class RAMUtenteService implements UtenteService {
 		throw new UtenteNonTrovatoException();
 	}
 
-	@Override
 	public void prima() throws BusinessException {
 		Utente u = new Cliente();
 		u.setNome("a");
@@ -108,7 +110,7 @@ public class RAMUtenteService implements UtenteService {
 		u.setUsername("a");
 		u.setPassword("a");
 		u.setID(1);
-		
+
 		Utente o = new Operatore();
 		o.setNome("o");
 		o.setCognome("o");
@@ -118,7 +120,7 @@ public class RAMUtenteService implements UtenteService {
 		o.setUsername("o");
 		o.setPassword("o");
 		o.setID(2);
-		
+
 		createUtente(u);
 		createUtente(o);
 	}

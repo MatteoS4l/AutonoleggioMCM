@@ -23,9 +23,9 @@ public interface NoleggioService {
 
 	List<Noleggio> findNoleggiByPagamento() throws BusinessException;
 
-	List<Veicolo> findVeicoliDisponibiliForDate(LocalDate datainizio, LocalDate datafine) throws BusinessException;
-
 	List<Noleggio> findNoleggiByDettagli() throws BusinessException;
+	
+	List<Veicolo> findVeicoliDisponibiliForDate(LocalDate datainizio, LocalDate datafine) throws BusinessException;
 	
 	void rispostaAssistenzaByNoleggio(Noleggio noleggio, Assistenza assistenza) throws BusinessException;
 	

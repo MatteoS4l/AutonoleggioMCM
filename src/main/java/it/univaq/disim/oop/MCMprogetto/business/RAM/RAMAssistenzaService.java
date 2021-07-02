@@ -14,8 +14,12 @@ import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 
 public class RAMAssistenzaService implements AssistenzaService {
 
-	List<Assistenza> listAssistenza = new ArrayList<Assistenza>();
+	private final List<Assistenza> listAssistenza;
 	int contAssistenza = 1;
+
+	public RAMAssistenzaService(List<Assistenza> listAssistenza) {
+		this.listAssistenza = listAssistenza;
+	}
 
 	@Override // CREA
 	public Assistenza createAssistenza(Assistenza assistenza) throws BusinessException {

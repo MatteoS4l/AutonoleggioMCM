@@ -1,6 +1,5 @@
 package it.univaq.disim.oop.MCMprogetto.business.RAM;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
@@ -10,9 +9,13 @@ import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
 import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 
 public class RAMTipologiaService implements TipologiaService {
-	List<Tipologia> listaTipologie = new ArrayList<Tipologia>();
-	VeicoloService veicoloservice = new RAMVeicoloService();
-	boolean tipo = false; // da togliere
+	private final List<Tipologia> listaTipologie;
+	private final VeicoloService veicoloservice;
+
+	public RAMTipologiaService(List<Tipologia> listaTipologie, VeicoloService veicoloservice) {
+		this.listaTipologie = listaTipologie;
+		this.veicoloservice = veicoloservice;
+	}
 
 	@Override // CREA
 	public Tipologia createTipologia(Tipologia tipologia) throws BusinessException {
@@ -26,11 +29,9 @@ public class RAMTipologiaService implements TipologiaService {
 
 	@Override // ELIMINA
 	public void deleteTipologia(Tipologia tipologia) throws BusinessException {
-		System.out.println(veicoloservice.findListaVeicoliByTipologia(tipologia.getNome()));
 		if (veicoloservice.findListaVeicoliByTipologia(tipologia.getNome()).isEmpty()) {
 			listaTipologie.remove(tipologia);
-		}
-		else {
+		} else {
 			throw new TipologiaNonTrovataException();
 		}
 	}
@@ -50,22 +51,20 @@ public class RAMTipologiaService implements TipologiaService {
 		return false;
 	}
 
-	@Override
 	public void prima() throws BusinessException {
-			Tipologia t1 = new Tipologia();
-			t1.setID(0);
-			t1.setNome("lusso");
-			Tipologia t2 = new Tipologia();
-			t2.setID(1);
-			t2.setNome("berlina");
-			Tipologia t3 = new Tipologia();
-			t3.setID(2);
-			t3.setNome("sostitutivo");
-			
-			listaTipologie.add(t1);
-			listaTipologie.add(t2);
-			listaTipologie.add(t3);
-			System.out.println(listaTipologie.size());
+		Tipologia t1 = new Tipologia();
+		t1.setID(0);
+		t1.setNome("lusso");
+		Tipologia t2 = new Tipologia();
+		t2.setID(1);
+		t2.setNome("berlina");
+		Tipologia t3 = new Tipologia();
+		t3.setID(2);
+		t3.setNome("sostitutivo");
+
+		listaTipologie.add(t1);
+		listaTipologie.add(t2);
+		listaTipologie.add(t3);
 	}
 
 }

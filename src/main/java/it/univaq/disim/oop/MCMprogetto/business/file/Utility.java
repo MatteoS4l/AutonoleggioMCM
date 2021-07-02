@@ -49,7 +49,6 @@ public class Utility {
 		for (int i = 1; i < separatedList.length; i++) {
 			res.add(Integer.parseInt(separatedList[i]));
 		}
-
 		return res;
 	}
 

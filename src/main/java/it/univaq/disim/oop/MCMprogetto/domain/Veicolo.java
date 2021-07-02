@@ -13,6 +13,7 @@ public class Veicolo {
 	private Double tariffaChilometraggio; // da mettere nel domain model
 	private Double tariffaPeriodo; // da mettere nel domain model
 	private List<Feedback> listaFeedback;
+	private List<Noleggio> listaNoleggi;
 
 	// GET E SET
 	public String getTarga() {
@@ -89,6 +90,18 @@ public class Veicolo {
 	
 	public void addFeedbackToLista(Feedback feedback) {
 		this.listaFeedback.add(feedback);
+	}
+
+	public List<Noleggio> getListaNoleggi() {
+		return listaNoleggi;
+	}
+
+	public void setListaNoleggi(List<Noleggio> listaNoleggi) {
+		this.listaNoleggi = listaNoleggi;
+	}
+	
+	public void addNoleggioLista(Noleggio noleggio) {
+		this.listaNoleggi.add(noleggio);
 	}
 
 }

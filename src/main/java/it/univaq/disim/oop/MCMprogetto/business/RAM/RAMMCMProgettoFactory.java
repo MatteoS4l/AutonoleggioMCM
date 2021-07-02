@@ -1,5 +1,8 @@
 package it.univaq.disim.oop.MCMprogetto.business.RAM;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.FeedbackService;
 import it.univaq.disim.oop.MCMprogetto.business.MCMProgettoFactory;
@@ -7,22 +10,35 @@ import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.business.TipologiaService;
 import it.univaq.disim.oop.MCMprogetto.business.UtenteService;
 import it.univaq.disim.oop.MCMprogetto.business.VeicoloService;
+import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
+import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
+import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
+import it.univaq.disim.oop.MCMprogetto.domain.Utente;
+import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class RAMMCMProgettoFactory extends MCMProgettoFactory {
-	private UtenteService utenteservice;
-	private TipologiaService tipologiaservice;
-	private NoleggioService noleggioservice;
-	private VeicoloService veicoloservice;
-	private FeedbackService feedbackservice;
-	private AssistenzaService assistenzaservice;
+	private final UtenteService utenteservice;
+	private final TipologiaService tipologiaservice;
+	private final NoleggioService noleggioservice;
+	private final VeicoloService veicoloservice;
+	private final FeedbackService feedbackservice;
+	private final AssistenzaService assistenzaservice;
+	
+	private static final List<Noleggio> listaNoleggi = new ArrayList<Noleggio>();
+	private static final List<Veicolo> listaVeicoli = new ArrayList<Veicolo>();
+	private static final List<Utente> listaUtenti = new ArrayList<Utente>();
+	private static final List<Tipologia> listaTipologie = new ArrayList<Tipologia>();
+	private static final List<Feedback> listaFeedback = new ArrayList<Feedback>();
+	private static final List<Assistenza> listaAssistenza = new ArrayList<Assistenza>();
 
 	public RAMMCMProgettoFactory() {
-		utenteservice = new RAMUtenteService();
-		tipologiaservice = new RAMTipologiaService();
-		veicoloservice = new RAMVeicoloService();
-		noleggioservice = new RAMNoleggioService();
-		feedbackservice = new RAMFeedbackService();
-		assistenzaservice = new RAMAssistenzaService();
+		utenteservice = new RAMUtenteService(listaUtenti);
+		veicoloservice = new RAMVeicoloService(listaVeicoli);
+		noleggioservice = new RAMNoleggioService(listaNoleggi, veicoloservice);
+		feedbackservice = new RAMFeedbackService(listaFeedback);
+		assistenzaservice = new RAMAssistenzaService(listaAssistenza);
+		tipologiaservice = new RAMTipologiaService(listaTipologie, veicoloservice);
 	}
 
 	@Override
