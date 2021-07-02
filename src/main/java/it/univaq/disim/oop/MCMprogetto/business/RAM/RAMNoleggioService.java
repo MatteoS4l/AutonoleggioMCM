@@ -17,26 +17,26 @@ import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class RAMNoleggioService implements NoleggioService {
-	List<Noleggio> listanoleggi = new ArrayList<Noleggio>();
+	List<Noleggio> listaNoleggi = new ArrayList<Noleggio>();
 	private VeicoloService veicoloservice = new RAMVeicoloService();
 	private AssistenzaService assistenzaservice = new RAMAssistenzaService();
-	
+
 	int cont_noleggi;
 
 	@Override // CREA
 	public Noleggio createNoleggio(Noleggio noleggio) throws BusinessException {
 		noleggio.setID(cont_noleggi++);
-		listanoleggi.add(noleggio);
+		listaNoleggi.add(noleggio);
 		return noleggio;
 	}
 
 	@Override // MODIFICA
 	public void updateNoleggio(Noleggio noleggio) throws BusinessException {
 		try {
-			for (Noleggio tmp : listanoleggi) {
+			for (Noleggio tmp : listaNoleggi) {
 				if (tmp.getID() == noleggio.getID()) {
-					listanoleggi.remove(tmp);
-					listanoleggi.add(noleggio);
+					listaNoleggi.remove(tmp);
+					listaNoleggi.add(noleggio);
 				}
 			}
 		} catch (ConcurrentModificationException e) {
@@ -46,15 +46,14 @@ public class RAMNoleggioService implements NoleggioService {
 
 	@Override // ALL NOLEGGI
 	public List<Noleggio> findAllNoleggi() throws BusinessException {
-		return listanoleggi;
+		return listaNoleggi;
 	}
 
-	@Override	// TROVA NOLEGGIO BY ID
-	public Noleggio findNoleggioByID(Integer ID) throws BusinessException
-	{
-		for(Noleggio tmp : listanoleggi)
-		{
-			if(tmp.getID() == ID){
+	@Override // TROVA NOLEGGIO BY ID
+	public Noleggio findNoleggioByID(Integer ID) throws BusinessException {
+
+		for (Noleggio tmp : findAllNoleggi()) {
+			if (tmp.getID() == ID) {
 				return tmp;
 			}
 		}
@@ -63,32 +62,38 @@ public class RAMNoleggioService implements NoleggioService {
 
 	@Override // LISTA NOLEGGI IN CORSO
 	public List<Noleggio> findNoleggiInCorso() throws BusinessException {
-		List<Noleggio> lista = new ArrayList<Noleggio>();
-		for (Noleggio tmp : listanoleggi) {
+		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
+
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getDataInizioNoleggio().isBefore(LocalDate.now())
 					&& tmp.getDataFineNoleggio().isAfter(LocalDate.now())) {
-				lista.add(tmp);
+				listacompleta.add(tmp);
 			}
 		}
-		return lista;
+		return listacompleta;
 	}
 
 	@Override // LISTA NOLEGGI UTENTE
 	public List<Noleggio> findNoleggiByUtente(Utente utente) throws BusinessException {
-		List<Noleggio> lista = new ArrayList<Noleggio>();
-		for (Noleggio tmp : listanoleggi) {
-			if (tmp.getCliente().getID() == utente.getID()) {
-				lista.add(tmp);
+		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
+
+		for (Noleggio tmp : findAllNoleggi()) {
+			try {
+				if (tmp.getCliente().getID() == utente.getID()) {
+					listacompleta.add(tmp);
+				}
+			} catch (NullPointerException e) {
+				continue;
 			}
 		}
-		return lista;
+		return listacompleta;
 	}
 
 	@Override // LISTA NOLEGGI NON PAGATI
 	public List<Noleggio> findNoleggiByPagamento() throws BusinessException {
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
-		for (Noleggio tmp : listanoleggi) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getPrezzoNoleggio() == 0 && tmp.getDataFineNoleggio().isBefore(LocalDate.now())) {
 				listacompleta.add(tmp);
 			}
@@ -100,11 +105,10 @@ public class RAMNoleggioService implements NoleggioService {
 	public List<Noleggio> findNoleggiByDettagli() throws BusinessException {
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
-		for (Noleggio tmp : listanoleggi) {
+		for (Noleggio tmp : findAllNoleggi()) {
 			if (tmp.getDettagli() == null) {
 				listacompleta.add(tmp);
 			}
-
 		}
 		return listacompleta;
 	}
@@ -133,7 +137,6 @@ public class RAMNoleggioService implements NoleggioService {
 			veicoloservice.updateVeicolo(veicolo);
 		}
 	}
-
 
 	@Override // VEICOLI DISPONIBILI PER DATA
 	public List<Veicolo> findVeicoliDisponibiliForDate(LocalDate datainizio, LocalDate datafine)
@@ -199,7 +202,7 @@ public class RAMNoleggioService implements NoleggioService {
 	public void rispostaAssistenzaByNoleggio(Noleggio nuovoNoleggio, Assistenza assistenza) throws BusinessException {
 		Noleggio vecchioNoleggio = assistenza.getNoleggio();
 		Veicolo veicoloRotto = vecchioNoleggio.getVeicolo();
-		for(Assistenza a : vecchioNoleggio.getListaAssistenza()) {
+		for (Assistenza a : vecchioNoleggio.getListaAssistenza()) {
 			assistenzaservice.deleteAssistenza(a);
 		}
 		assistenzaservice.updateAssistenza(assistenza);

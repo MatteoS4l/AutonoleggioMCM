@@ -144,7 +144,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 		if (noleggio.getListaAssistenza().isEmpty()) {
 			textDettagli.setText("Nessuna assistenza ricevuta per questo noleggio");
 		} else {
-			textDettagli.setText("da mettere il testo di tutte le richieste");
+			textDettagli.setText("da mettere il testo di tutte le richieste");//////////////////////////////////////////////
 		}
 	}
 

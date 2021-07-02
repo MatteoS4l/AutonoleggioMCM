@@ -71,49 +71,6 @@ public class FileUtenteService implements UtenteService { // nome, cognome, user
 		}
 	}
 
-	@Override // GET LISTA UTENTI
-	public List<Utente> findAllUtenti() throws BusinessException {
-		try {
-			FileData filedata = Utility.readAllRows("utenti"); // elimina anche gli spazi
-			List<Utente> listacompleta = new ArrayList<Utente>();
-
-			for (String[] colonne : filedata.getRighe()) {
-				Utente utente = null;
-				switch (colonne[1]) {
-				case "cliente": {
-					utente = new Cliente();
-				}
-					break;
-
-				case "operatore": {
-					utente = new Operatore();
-				}
-					break;
-
-				default:
-					break;
-				}
-
-				utente.setID(Integer.parseInt(colonne[0]));
-				utente.setNome(colonne[2]);
-				utente.setCognome(colonne[3]);
-				utente.setUsername(colonne[4]);
-				utente.setPassword(colonne[5]);
-				utente.setSesso(Sesso.valueOf(colonne[6]));
-				utente.setDataNascita(LocalDate.parse(colonne[7], formatter));
-				utente.setEta(CalcolaEta(utente.getDataNascita()));
-
-				listacompleta.add(utente);
-			}
-			return listacompleta;
-		}
-
-		catch (IOException e) {
-			e.printStackTrace();
-			throw new BusinessException("Errore in ricerca di tutti gli utenti");
-		}
-	}
-
 	@Override // CREA
 	public void createUtente(Utente utente) throws BusinessException {
 		try {
@@ -138,7 +95,6 @@ public class FileUtenteService implements UtenteService { // nome, cognome, user
 					row.append("operatore");
 					row.append(Utility.SEPARATORE);
 				}
-
 				row.append(utente.getNome());
 				row.append(Utility.SEPARATORE);
 				row.append(utente.getCognome());
@@ -186,7 +142,6 @@ public class FileUtenteService implements UtenteService { // nome, cognome, user
 							row.append("amministratore");
 							row.append(Utility.SEPARATORE);
 						}
-
 						row.append(utente.getNome());
 						row.append(Utility.SEPARATORE);
 						row.append(utente.getCognome());
@@ -230,6 +185,46 @@ public class FileUtenteService implements UtenteService { // nome, cognome, user
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new BusinessException("Errore durannte l'eliminazione dell'utente");
+		}
+	}
+
+	@Override // GET LISTA UTENTI
+	public List<Utente> findAllUtenti() throws BusinessException {
+		try {
+			FileData filedata = Utility.readAllRows("utenti"); // elimina anche gli spazi
+			List<Utente> listacompleta = new ArrayList<Utente>();
+
+			for (String[] colonne : filedata.getRighe()) {
+				Utente utente = null;
+				switch (colonne[1]) {
+				case "cliente": {
+					utente = new Cliente();
+				}
+					break;
+				case "operatore": {
+					utente = new Operatore();
+				}
+					break;
+				default:
+					break;
+				}
+				utente.setID(Integer.parseInt(colonne[0]));
+				utente.setNome(colonne[2]);
+				utente.setCognome(colonne[3]);
+				utente.setUsername(colonne[4]);
+				utente.setPassword(colonne[5]);
+				utente.setSesso(Sesso.valueOf(colonne[6]));
+				utente.setDataNascita(LocalDate.parse(colonne[7], formatter));
+				utente.setEta(CalcolaEta(utente.getDataNascita()));
+
+				listacompleta.add(utente);
+			}
+			return listacompleta;
+		}
+
+		catch (IOException e) {
+			e.printStackTrace();
+			throw new BusinessException("Errore in ricerca di tutti gli utenti");
 		}
 	}
 

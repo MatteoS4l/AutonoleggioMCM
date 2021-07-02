@@ -112,7 +112,11 @@ public class FileAssistenzaService implements AssistenzaService {
 
 				assistenza.setID(Integer.parseInt(colonne[0]));
 				assistenza.setRichiesta(colonne[1]);
-				assistenza.setRisposta(colonne[2]);
+				if (colonne[2].equalsIgnoreCase("null")) {
+					assistenza.setRisposta(null);
+				} else {
+					assistenza.setRisposta(colonne[2]);
+				}
 				assistenza.setIdNoleggio(Integer.parseInt(colonne[3]));
 
 				lista.add(assistenza);
@@ -146,12 +150,12 @@ public class FileAssistenzaService implements AssistenzaService {
 
 		for (Assistenza tmp : findAllAssistenza()) {
 			if (servita == true) {
-				if (tmp.getRisposta().equalsIgnoreCase("null")) {
+				if (tmp.getRisposta() == null) {
 					listacompleta.add(tmp);
 				}
 			}
 			if (servita == false) {
-				if (tmp.getRisposta().equalsIgnoreCase("null")) {
+				if (tmp.getRisposta() == null) {
 					listacompleta.add(tmp);
 				}
 			}

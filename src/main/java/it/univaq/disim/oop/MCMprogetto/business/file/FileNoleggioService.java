@@ -137,7 +137,11 @@ public class FileNoleggioService implements NoleggioService {
 				noleggio.setKmPercorsi(Integer.parseInt(colonne[4]));
 				noleggio.setCliente((Cliente) utenteservice.findUtenteById(Integer.parseInt(colonne[5])));
 				noleggio.setVeicolo(veicoloservice.findVeicoloByTarga(colonne[6]));
-				noleggio.setDettagli(colonne[7]);
+				if (colonne[7].equalsIgnoreCase("null")) {
+					noleggio.setDettagli(null);
+				} else {
+					noleggio.setDettagli(colonne[7]);
+				}
 				noleggio.setFeedLasciato(Boolean.parseBoolean(colonne[8]));
 				if (!colonne[9].equalsIgnoreCase("-")) {
 					noleggio.setListaAssistenza(assistenzaservice.findAssistenzeByIds(Utility.readList(colonne[9])));
@@ -209,7 +213,7 @@ public class FileNoleggioService implements NoleggioService {
 		List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 
 		for (Noleggio tmp : findAllNoleggi()) {
-			if (tmp.getDettagli().equals("null")) {
+			if (tmp.getDettagli() == null) {
 				listacompleta.add(tmp);
 			}
 		}
@@ -305,7 +309,7 @@ public class FileNoleggioService implements NoleggioService {
 	public void rispostaAssistenzaByNoleggio(Noleggio nuovoNoleggio, Assistenza assistenza) throws BusinessException {
 		Noleggio vecchioNoleggio = assistenza.getNoleggio();
 		Veicolo veicoloRotto = vecchioNoleggio.getVeicolo();
-		for(Assistenza a : vecchioNoleggio.getListaAssistenza()) {
+		for (Assistenza a : vecchioNoleggio.getListaAssistenza()) {
 			assistenzaservice.deleteAssistenza(a);
 		}
 		assistenzaservice.updateAssistenza(assistenza);

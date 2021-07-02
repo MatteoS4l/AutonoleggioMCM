@@ -9,28 +9,28 @@ import it.univaq.disim.oop.MCMprogetto.domain.Stato;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class RAMVeicoloService implements VeicoloService {
-	List<Veicolo> listaveicoli = new ArrayList<Veicolo>();
+	List<Veicolo> listaVeicoli = new ArrayList<Veicolo>();
 	int cont_veicoli = 1;
 	public static boolean veico = false;
 
 	@Override // CREA
 	public Veicolo createVeicolo(Veicolo veicolo) throws BusinessException {
 		if (!giaEsistente(veicolo.getTarga())) {
-			listaveicoli.add(veicolo);
+			listaVeicoli.add(veicolo);
 			return veicolo;
 		} else {
-			throw new BusinessException();
+			throw new BusinessException("Veicolo già esistente");
 		}
 	}
 
 	@Override // MODIFICA
 	public void updateVeicolo(Veicolo veicolo) throws VeicoloNonTrovatoException {
 		try {
-			for (Veicolo tmp : listaveicoli) {
+			for (Veicolo tmp : listaVeicoli) {
 
 				if (tmp.getTarga().equalsIgnoreCase(veicolo.getTarga())) {
-					listaveicoli.add(veicolo);
-					listaveicoli.remove(tmp);
+					listaVeicoli.add(veicolo);
+					listaVeicoli.remove(tmp);
 				}
 			}
 		} catch (ConcurrentModificationException e) {
@@ -40,7 +40,7 @@ public class RAMVeicoloService implements VeicoloService {
 	@Override // ELIMINA
 	public void deleteVeicolo(Veicolo veicolo) throws VeicoloNonTrovatoException {
 		if (veicolo.getStato().equals(Stato.DISPONIBILE)) {
-			listaveicoli.remove(veicolo);
+			listaVeicoli.remove(veicolo);
 		} else {
 			throw new VeicoloNonTrovatoException("Impossibile eliminare questo veicolo");
 		}
@@ -48,7 +48,7 @@ public class RAMVeicoloService implements VeicoloService {
 
 	@Override // ALL VEICOLI
 	public List<Veicolo> findAllVeicoli() throws BusinessException {
-		return listaveicoli;
+		return listaVeicoli;
 	}
 
 	@Override // GET LISTA VEICOLI STATO

@@ -9,37 +9,48 @@ import it.univaq.disim.oop.MCMprogetto.business.NoleggioService;
 import it.univaq.disim.oop.MCMprogetto.domain.Feedback;
 import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
-public class RAMFeedbackService implements FeedbackService
-{
-	NoleggioService noleggioservice = new RAMNoleggioService();
-	List<Feedback> listafeedback = new ArrayList<Feedback>();
+public class RAMFeedbackService implements FeedbackService {
+	List<Feedback> listaFeedback = new ArrayList<Feedback>();
 	int cont_feedback = 1;
 
-	
-	@Override	// CREA
-	public Feedback createFeedback(Feedback feedback) throws BusinessException 
-	{
+	@Override // CREA
+	public Feedback createFeedback(Feedback feedback) throws BusinessException {
 		feedback.setID(cont_feedback++);
-		listafeedback.add(feedback);
+		listaFeedback.add(feedback);
 		return feedback;
-		
+	}
+	
+	@Override // FIND ALL FEEDBACK
+	public List<Feedback> findAllFeedback() throws BusinessException {
+		return listaFeedback;
 	}
 
-	@Override	// FIND ALL FEEDBACK
-	public List<Feedback> findAllFeedbackByVeicolo(Veicolo veicolo) throws FeedbackNonTrovatoException, BusinessException
-	{	return listafeedback;	}
+	@Override // GET LISTA FEEDBACK DEL VEICOLO PASSATO
+	public List<Feedback> findAllFeedbackByVeicolo(Veicolo veicolo)
+			throws FeedbackNonTrovatoException, BusinessException {
+		try {
+			List<Feedback> listacompleta = new ArrayList<Feedback>();
 
+			for (Feedback f : findAllFeedback()) {
+				if (f.getNoleggio().getVeicolo().getTarga().equalsIgnoreCase(veicolo.getTarga())) {
+					listacompleta.add(f);
+				}
+			}
 
-	@Override
+			return listacompleta;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override // RILASCIA FEEDBACK
 	public void rilasciaFeedback(Feedback feedback) throws BusinessException {
 		createFeedback(feedback);
 		feedback.getNoleggio().setFeedLasciato(true);
-		noleggioservice.updateNoleggio(feedback.getNoleggio());
+		updateNoleggio(feedback.getNoleggio());
 	}
 
-	@Override
-	public List<Feedback> findAllFeedback() throws BusinessException {
-		return listafeedback;
-	}
+	
 
 }

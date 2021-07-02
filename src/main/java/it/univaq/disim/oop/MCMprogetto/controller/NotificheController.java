@@ -77,7 +77,7 @@ public class NotificheController implements Initializable, DataInitializable<Ute
 		try {
 			List<Noleggio> listacompleta = new ArrayList<Noleggio>();
 			for (Noleggio tmp : noleggioservice.findNoleggiByUtente(utente)) {
-				if (!tmp.getDettagli().equalsIgnoreCase("null")) {
+				if (tmp.getDettagli() != null) {
 					listacompleta.add(tmp);
 				}
 			}

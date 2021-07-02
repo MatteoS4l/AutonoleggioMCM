@@ -1,5 +1,6 @@
 package it.univaq.disim.oop.MCMprogetto.business.RAM;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -7,41 +8,55 @@ import java.util.List;
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
+import it.univaq.disim.oop.MCMprogetto.business.file.FileData;
+import it.univaq.disim.oop.MCMprogetto.business.file.Utility;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
 
 public class RAMAssistenzaService implements AssistenzaService {
-	
-	List<Assistenza> listassistenza = new ArrayList<Assistenza>();
-	int cont_assistenza = 1;
+
+	List<Assistenza> listAssistenza = new ArrayList<Assistenza>();
+	int contAssistenza = 1;
 
 	@Override // CREA
 	public Assistenza createAssistenza(Assistenza assistenza) throws BusinessException {
-		assistenza.setID(cont_assistenza++);
-		listassistenza.add(assistenza);
+		assistenza.setID(contAssistenza++);
+		listAssistenza.add(assistenza);
 		return assistenza;
 	}
 
 	@Override // MODIFICA
 	public void updateAssistenza(Assistenza assistenza) throws BusinessException {
 		try {
-			for (Assistenza tmp : listassistenza) {
+			for (Assistenza tmp : listAssistenza) {
 				if (tmp.getID() == assistenza.getID()) {
-					listassistenza.remove(tmp);
-					listassistenza.add(assistenza);
+					listAssistenza.add(assistenza);
+					listAssistenza.remove(tmp);
 				}
 			}
 		} catch (ConcurrentModificationException e) {
 			/* errore checked */ }
+	}
 
+	@Override // ELIMINA
+	public void deleteAssistenza(Assistenza assistenza) throws BusinessException {
+		try {
+			for (Assistenza tmp : listAssistenza) {
+				if (tmp.getID() == assistenza.getID()) {
+					listAssistenza.remove(tmp);
+				}
+			}
+		} catch (ConcurrentModificationException e) {
+			/* errore checked */
+		}
 	}
 
 	@Override // FIND ALL ASSISTENZA
 	public List<Assistenza> findAllAssistenza() throws BusinessException {
-		return listassistenza;
+		return listAssistenza;
 	}
 
 	@Override // GET ASSISTENZA ID
-	public Assistenza getAssistenzaByID(Integer id) throws BusinessException,AssistenzaNonTrovataException {
+	public Assistenza getAssistenzaByID(Integer id) throws AssistenzaNonTrovataException, BusinessException {
 		if (id == null) {
 			throw new AssistenzaNonTrovataException();
 		}
@@ -56,18 +71,18 @@ public class RAMAssistenzaService implements AssistenzaService {
 		throw new AssistenzaNonTrovataException();
 	}
 
-	@Override // GET ASSISTENZA SERVITA
+	@Override // FIND ASSISTENZA SERVITA
 	public List<Assistenza> findListaAssistenzaByServita(boolean servita) throws BusinessException {
 		List<Assistenza> listacompleta = new ArrayList<Assistenza>();
 
 		for (Assistenza tmp : findAllAssistenza()) {
 			if (servita == true) {
-				if (tmp.getRisposta().equalsIgnoreCase("null")) {
+				if (tmp.getRisposta() == null) {
 					listacompleta.add(tmp);
 				}
 			}
 			if (servita == false) {
-				if (tmp.getRisposta().equalsIgnoreCase("null")) {
+				if (tmp.getRisposta() == null) {
 					listacompleta.add(tmp);
 				}
 			}
@@ -76,19 +91,29 @@ public class RAMAssistenzaService implements AssistenzaService {
 	}
 
 	@Override
-	public void deleteAssistenza(Assistenza assistenza) throws BusinessException {
-		for (Assistenza a:findAllAssistenza()) {
-			if (a.getID()==assistenza.getID()) {
-				findAllAssistenza().remove(a);
-			}
-		}
-	}
-
-
-	@Override
 	public List<Assistenza> findAssistenzeByIds(List<Integer> ids) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Assistenza> res = new ArrayList<>();
+		try {
+			FileData fileData = Utility.readAllRows("assistenza");
+			for (Integer id : ids) {
+				for (String[] colonne : fileData.getRighe()) {
+					if (Integer.parseInt(colonne[0]) == id) {
+						Assistenza a = new Assistenza();
+						a.setID(Integer.parseInt(colonne[0]));
+						a.setRichiesta(colonne[1]);
+						if (a.getRisposta() != null) {
+							a.setRisposta(colonne[2]);
+						}
+						a.setIdNoleggio(Integer.parseInt(colonne[3]));
+						res.add(a);
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new BusinessException("Errore in findAssistenzeByIds");
+		}
+		return res;
 	}
 
 }

@@ -45,13 +45,6 @@ public class FileFeedbackService implements FeedbackService {// ID, feedback, st
 			throw new BusinessException(e);
 		}
 	}
-	
-	@Override
-	public void rilasciaFeedback(Feedback feedback) throws BusinessException {
-		createFeedback(feedback);
-		feedback.getNoleggio().setFeedLasciato(true);
-		noleggioservice.updateNoleggio(feedback.getNoleggio());
-	}
 
 	@Override // LISTA DI TUTTI I FEEDBACK
 	public List<Feedback> findAllFeedback() throws BusinessException {
@@ -95,6 +88,11 @@ public class FileFeedbackService implements FeedbackService {// ID, feedback, st
 		return null;
 	}
 
-	
+	@Override // RILASCIA FEEDBACK
+	public void rilasciaFeedback(Feedback feedback) throws BusinessException {
+		createFeedback(feedback);
+		feedback.getNoleggio().setFeedLasciato(true);
+		noleggioservice.updateNoleggio(feedback.getNoleggio());
+	}
 
 }

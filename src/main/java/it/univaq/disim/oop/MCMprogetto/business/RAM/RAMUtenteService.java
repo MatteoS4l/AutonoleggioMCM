@@ -14,7 +14,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 
 public class RAMUtenteService implements UtenteService {
 	private static int cont = 1;
-	List<Utente> listautenti = new ArrayList<Utente>(); // vorse si deve mettere set
+	List<Utente> listaUtenti = new ArrayList<Utente>(); // vorse si deve mettere set
 
 	@Override // metodo invocato al momento di login
 	public Utente Autenticazione(String username, String password) throws BusinessException {
@@ -29,44 +29,43 @@ public class RAMUtenteService implements UtenteService {
 			return admin;
 		}
 
-		for (Utente utente : listautenti) {
+		for (Utente utente : listaUtenti) {
 			if (username.equalsIgnoreCase(utente.getUsername()) && password.equals(utente.getPassword())) {
 				return utente;
 			}
 		}
-
-		throw new UtenteNonTrovatoException();
+		throw new UtenteNonTrovatoException("Username o password errati!");
 	}
-
-	@Override // GET LISTA UTENTI
-	public List<Utente> findAllUtenti() throws BusinessException {
-		return listautenti;
-	}
-
+	
 	@Override // CREA
 	public void createUtente(Utente utente) throws BusinessException {
 		utente.setID(cont++);
-		listautenti.add(utente);
+		listaUtenti.add(utente);
 	}
 
 	@Override // UPDATE
 	public void updateUtente(Utente utente) throws BusinessException {
 		try {
-			for (Utente tmp : listautenti) {
+			for (Utente tmp : listaUtenti) {
 				if (tmp.getID() == utente.getID()) {
-					listautenti.remove(tmp);
-					listautenti.add(utente);
+					listaUtenti.remove(tmp);
+					listaUtenti.add(utente);
 				}
 			}
 		} catch (ConcurrentModificationException e) {
 			/* errore checked */ }
-
 	}
 
 	@Override // ELIMINA
 	public void deleteUtente(Utente utente) throws UtenteNonTrovatoException {
-		listautenti.remove(utente);
+		listaUtenti.remove(utente);
 	}
+
+	@Override // GET LISTA UTENTI
+	public List<Utente> findAllUtenti() throws BusinessException {
+		return listaUtenti;
+	}
+
 
 	@Override // CALCOLA ETA
 	public int CalcolaEta(LocalDate data) throws BusinessException {
@@ -74,23 +73,21 @@ public class RAMUtenteService implements UtenteService {
 		try {
 			eta = LocalDate.now().getYear() - data.getYear();
 		} catch (NullPointerException e) {
-			/* da inserire la data */ }
+			System.err.println("Inserire la data"); }
 
 		if (data.getMonthValue() > LocalDate.now().getMonthValue()) {
 			return --eta;
 		}
-
 		if (data.getMonthValue() == LocalDate.now().getMonthValue()
 				&& data.getDayOfMonth() > LocalDate.now().getDayOfMonth()) {
 			return --eta;
 		}
-
 		return eta;
 	}
 
 	@Override // GET UTENTE BY ID
 	public Utente findUtenteById(int id) throws UtenteNonTrovatoException, BusinessException {
-		for (Utente tmp : listautenti) {
+		for (Utente tmp : listaUtenti) {
 			if (tmp.getID() == id) {
 				return tmp;
 			}

@@ -11,7 +11,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Tipologia;
 
 public class RAMTipologiaService implements TipologiaService {
 	List<Tipologia> listaTipologie = new ArrayList<Tipologia>();
-	VeicoloService veicoloservice = null;
+	VeicoloService veicoloservice = new RAMVeicoloService();
 	boolean tipo = false; // da togliere
 
 	@Override // CREA
@@ -19,18 +19,17 @@ public class RAMTipologiaService implements TipologiaService {
 		if (!GiaEsistente(tipologia)) {
 			listaTipologie.add(tipologia);
 			return tipologia;
-		}
-		else {
+		} else {
 			throw new BusinessException("Errore durante la creazione di una tipologia");
 		}
 	}
 
 	@Override // ELIMINA
 	public void deleteTipologia(Tipologia tipologia) throws BusinessException {
+		System.out.println(veicoloservice.findListaVeicoliByTipologia(tipologia.getNome()));
 		if (veicoloservice.findListaVeicoliByTipologia(tipologia.getNome()).isEmpty()) {
 			listaTipologie.remove(tipologia);
 		}
-
 		else {
 			throw new TipologiaNonTrovataException();
 		}
@@ -42,13 +41,13 @@ public class RAMTipologiaService implements TipologiaService {
 	}
 
 	// GIA ESISTENTE
-		private boolean GiaEsistente(Tipologia tipologia) throws TipologiaNonTrovataException, BusinessException {
-			for (Tipologia tmp : findAllTipologia()) {
-				if (tmp.getNome().equalsIgnoreCase(tipologia.getNome())) {
-					return true;
-				}
+	private boolean GiaEsistente(Tipologia tipologia) throws TipologiaNonTrovataException, BusinessException {
+		for (Tipologia tmp : findAllTipologia()) {
+			if (tmp.getNome().equalsIgnoreCase(tipologia.getNome())) {
+				return true;
 			}
-			return false;
 		}
+		return false;
+	}
 
 }
