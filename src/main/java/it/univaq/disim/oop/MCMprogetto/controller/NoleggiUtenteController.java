@@ -135,11 +135,7 @@ public class NoleggiUtenteController implements Initializable, DataInitializable
 	@FXML // INVIA RICHIESTA
 	void InviaRichiesta(ActionEvent event) {
 		try {
-			Assistenza assistenza = new Assistenza();
-			assistenza.setRichiesta(textDettagliRichiesta.getText());
-			assistenza.setNoleggio(noleggio);
-			assistenza = assistenzaservice.createAssistenza(assistenza);
-
+			Assistenza assistenza = assistenzaservice.richiediAssistenza(textDettagliRichiesta.getText(), noleggio);
 			noleggio.addListaAssistenza(assistenza);
 			noleggioservice.updateNoleggio(noleggio);
 		} catch (BusinessException e) {

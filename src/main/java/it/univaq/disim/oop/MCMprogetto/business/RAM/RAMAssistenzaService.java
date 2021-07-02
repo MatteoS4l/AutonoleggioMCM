@@ -11,6 +11,7 @@ import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.business.file.FileData;
 import it.univaq.disim.oop.MCMprogetto.business.file.Utility;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 
 public class RAMAssistenzaService implements AssistenzaService {
 
@@ -118,6 +119,17 @@ public class RAMAssistenzaService implements AssistenzaService {
 			throw new BusinessException("Errore in findAssistenzeByIds");
 		}
 		return res;
+	}
+	
+	@Override // RICHIEDI ASSISTENZA
+	public Assistenza richiediAssistenza(String richiesta, Noleggio noleggio) throws BusinessException {
+		Assistenza assistenza = new Assistenza();
+		assistenza.setRichiesta(richiesta);
+		assistenza.setNoleggio(noleggio);
+		assistenza.setIdNoleggio(noleggio.getID());
+		assistenza = createAssistenza(assistenza);
+
+		return assistenza;
 	}
 
 }

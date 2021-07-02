@@ -132,11 +132,10 @@ public class VeicoliUtenteController implements Initializable, DataInitializable
 	@FXML // APPLICA FILTRI
 	void ApplicaFiltri(ActionEvent event) throws BusinessException {
 		List<Veicolo> listacompleta = new ArrayList<Veicolo>();
-		listacompleta = veicoloservice.findAllVeicoli();
 		try {
-			for (Veicolo v : listacompleta) {
-				if (v.getStato().equals(Stato.NON_DISPONIBILE)) {
-					listacompleta.remove(v);
+			for (Veicolo v : veicoloservice.findAllVeicoli()) {
+				if (!v.getStato().equals(Stato.NON_DISPONIBILE)) {
+					listacompleta.add(v);
 				}
 			}
 		} catch (ConcurrentModificationException e) {

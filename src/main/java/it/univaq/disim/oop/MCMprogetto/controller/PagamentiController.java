@@ -95,8 +95,8 @@ public class PagamentiController implements Initializable, DataInitializable<Ute
 		azioniPagamento.setStyle("-fx-alignment: CENTER;");
 
 		idPagamento.setCellValueFactory(new PropertyValueFactory<Noleggio, Integer>("ID"));
-		dataInPagamento.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_inizio_noleggio"));
-		dataFiPagamento.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("data_fine_noleggio"));
+		dataInPagamento.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataInizioNoleggio"));
+		dataFiPagamento.setCellValueFactory(new PropertyValueFactory<Noleggio, LocalDateTime>("dataFineNoleggio"));
 		clientePagamento.setCellValueFactory(
 				new Callback<TableColumn.CellDataFeatures<Noleggio, String>, ObservableValue<String>>() {
 					@Override

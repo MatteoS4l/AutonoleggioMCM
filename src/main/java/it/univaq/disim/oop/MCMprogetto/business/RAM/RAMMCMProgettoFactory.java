@@ -35,9 +35,9 @@ public class RAMMCMProgettoFactory extends MCMProgettoFactory {
 	public RAMMCMProgettoFactory() {
 		utenteservice = new RAMUtenteService(listaUtenti);
 		veicoloservice = new RAMVeicoloService(listaVeicoli);
-		noleggioservice = new RAMNoleggioService(listaNoleggi, veicoloservice);
 		feedbackservice = new RAMFeedbackService(listaFeedback);
 		assistenzaservice = new RAMAssistenzaService(listaAssistenza);
+		noleggioservice = new RAMNoleggioService(listaNoleggi, veicoloservice, assistenzaservice);
 		tipologiaservice = new RAMTipologiaService(listaTipologie, veicoloservice);
 	}
 

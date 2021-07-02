@@ -147,7 +147,6 @@ public class SostituzioneController implements Initializable, DataInitializable<
 			successoSos.setText("Sostituzione andata a buon fine!");
 		}
 		dispatcher.renderView("assistenza_operatore", LayoutController.utenteMemorizzato);
-
 	}
 
 	// SCEGLI VEICOLO SOSTITUTIVO

@@ -166,7 +166,6 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 		} catch (NullPointerException e) {
 			System.out.println("errore");
 		}
-
 	}
 
 }

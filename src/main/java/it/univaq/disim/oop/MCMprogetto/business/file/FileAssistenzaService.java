@@ -10,6 +10,7 @@ import it.univaq.disim.oop.MCMprogetto.business.AssistenzaNonTrovataException;
 import it.univaq.disim.oop.MCMprogetto.business.AssistenzaService;
 import it.univaq.disim.oop.MCMprogetto.business.BusinessException;
 import it.univaq.disim.oop.MCMprogetto.domain.Assistenza;
+import it.univaq.disim.oop.MCMprogetto.domain.Noleggio;
 
 public class FileAssistenzaService implements AssistenzaService {
 	// id, richiesta, risposta, idNoleggio
@@ -187,6 +188,17 @@ public class FileAssistenzaService implements AssistenzaService {
 			throw new BusinessException("Errore in findAssistenzeByIds");
 		}
 		return res;
+	}
+
+	@Override // RICHIEDI ASSISTENZA
+	public Assistenza richiediAssistenza(String richiesta, Noleggio noleggio) throws BusinessException {
+		Assistenza assistenza = new Assistenza();
+		assistenza.setRichiesta(richiesta);
+		assistenza.setNoleggio(noleggio);
+		assistenza.setIdNoleggio(noleggio.getID());
+		assistenza = createAssistenza(assistenza);
+
+		return assistenza;
 	}
 
 }
