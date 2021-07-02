@@ -11,6 +11,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Veicolo;
 
 public class RAMFeedbackService implements FeedbackService {
 	List<Feedback> listaFeedback = new ArrayList<Feedback>();
+	NoleggioService noleggioService = new RAMNoleggioService();
 	int cont_feedback = 1;
 
 	@Override // CREA
@@ -48,6 +49,10 @@ public class RAMFeedbackService implements FeedbackService {
 	public void rilasciaFeedback(Feedback feedback) throws BusinessException {
 		createFeedback(feedback);
 		feedback.getNoleggio().setFeedLasciato(true);
+<<<<<<< HEAD
+=======
+		noleggioService.updateNoleggio(feedback.getNoleggio());
+>>>>>>> ea71329356f9a6a773f24453fec55050ceb8aa5a
 	}
 
 	

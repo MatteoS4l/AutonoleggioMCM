@@ -28,5 +28,7 @@ public interface VeicoloService {
 	List<Veicolo> findListaVeicoliByTariffaPeriodo(double min, double max) throws BusinessException;
 
 	Veicolo findVeicoloByTarga(String targa) throws VeicoloNonTrovatoException, BusinessException;
+	
+	void prima() throws BusinessException;
 
 }

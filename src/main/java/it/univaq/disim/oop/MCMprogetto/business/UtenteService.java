@@ -20,5 +20,7 @@ public interface UtenteService {
 	void deleteUtente(Utente utente) throws BusinessException;
 
 	Utente findUtenteById(int id) throws UtenteNonTrovatoException, BusinessException;
+	
+	void prima() throws BusinessException;
 
 }
