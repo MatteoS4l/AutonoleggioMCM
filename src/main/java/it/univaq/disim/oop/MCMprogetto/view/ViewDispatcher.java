@@ -7,6 +7,7 @@ import it.univaq.disim.oop.MCMprogetto.domain.Utente;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -32,6 +33,7 @@ public class ViewDispatcher {
 		stage.setScene(scene);
 		stage.show();
 		stage.setResizable(false);
+		stage.getIcons().add(new Image(ViewDispatcher.class.getResourceAsStream("/immagini/logo.png")));
 	}
 
 	// apre finestra di popup
