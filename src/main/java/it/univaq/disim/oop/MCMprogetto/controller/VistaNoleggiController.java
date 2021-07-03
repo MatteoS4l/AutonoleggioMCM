@@ -147,7 +147,7 @@ public class VistaNoleggiController implements Initializable, DataInitializable<
 	// VEDI DETTAGLI
 	private void VediDettagli(Noleggio noleggio) {
 		try {
-			dispatcher.popUp(new Stage(), "DettagliAssistenzeAdmin");
+			dispatcher.popUp(new Stage(), "DettagliAssistenzeAdmin", noleggio);
 		} catch (ViewException e) {
 			e.printStackTrace();
 		}

@@ -10,8 +10,8 @@ public class Veicolo {
 	private Tipologia tipologia;
 	private Alimentazione alimentazione;
 	private Stato stato;
-	private Double tariffaChilometraggio; // da mettere nel domain model
-	private Double tariffaPeriodo; // da mettere nel domain model
+	private Double tariffaChilometraggio;
+	private Double tariffaPeriodo;
 	private List<Feedback> listaFeedback;
 	private List<Noleggio> listaNoleggi;
 

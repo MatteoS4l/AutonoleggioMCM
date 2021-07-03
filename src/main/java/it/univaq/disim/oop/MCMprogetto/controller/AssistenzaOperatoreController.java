@@ -87,8 +87,10 @@ public class AssistenzaOperatoreController implements Initializable, DataInitial
 							tmp.getValue().setNoleggio(noleggioservice.findNoleggioByID(tmp.getValue().getIdNoleggio()));
 						} catch (NoleggioNonTrovatoException e) {
 							e.printStackTrace();
+							labelRispostaAssistenza.setText(e.getMessage());
 						} catch (BusinessException e) {
 							e.printStackTrace();
+							labelRispostaAssistenza.setText(e.getMessage());
 						}
 						return new SimpleStringProperty(tmp.getValue().getNoleggio().getCliente().getUsername());
 					}

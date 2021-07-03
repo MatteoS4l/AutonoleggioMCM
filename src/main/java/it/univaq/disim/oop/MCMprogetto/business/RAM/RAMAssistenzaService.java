@@ -61,7 +61,7 @@ public class RAMAssistenzaService implements AssistenzaService {
 	}
 
 	@Override // GET ASSISTENZA ID
-	public Assistenza getAssistenzaByID(Integer id) throws AssistenzaNonTrovataException, BusinessException {
+	public Assistenza findAssistenzaByID(Integer id) throws AssistenzaNonTrovataException, BusinessException {
 		if (id == null) {
 			throw new AssistenzaNonTrovataException();
 		}

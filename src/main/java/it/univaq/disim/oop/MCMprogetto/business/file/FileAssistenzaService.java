@@ -130,7 +130,7 @@ public class FileAssistenzaService implements AssistenzaService {
 	}
 
 	@Override // GET ASSISTENZA ID
-	public Assistenza getAssistenzaByID(Integer id) throws AssistenzaNonTrovataException, BusinessException {
+	public Assistenza findAssistenzaByID(Integer id) throws AssistenzaNonTrovataException, BusinessException {
 		if (id == null) {
 			throw new AssistenzaNonTrovataException();
 		}
@@ -175,7 +175,9 @@ public class FileAssistenzaService implements AssistenzaService {
 						Assistenza a = new Assistenza();
 						a.setID(Integer.parseInt(colonne[0]));
 						a.setRichiesta(colonne[1]);
-						if (a.getRisposta() != null) {
+						if (colonne[2].equalsIgnoreCase("null")) {
+							a.setRisposta(null);
+						} else {
 							a.setRisposta(colonne[2]);
 						}
 						a.setIdNoleggio(Integer.parseInt(colonne[3]));

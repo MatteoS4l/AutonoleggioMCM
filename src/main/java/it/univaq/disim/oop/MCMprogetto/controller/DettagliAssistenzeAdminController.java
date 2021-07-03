@@ -23,16 +23,20 @@ public class DettagliAssistenzeAdminController implements Initializable, DataIni
 	private TableColumn<Assistenza, String> richiesteAssistenze;
 	@FXML
 	private TableColumn<Assistenza, String> risposteAssistenze;
+	
+	public DettagliAssistenzeAdminController() {
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		richiesteAssistenze.setStyle("-fx-alignment: CENTER;");
+		risposteAssistenze.setStyle("-fx-alignment: CENTER;");
 		richiesteAssistenze.setCellValueFactory(new PropertyValueFactory<>("richiesta"));
 		risposteAssistenze.setCellValueFactory(new PropertyValueFactory<>("risposta"));
 	}
 
 	@Override
 	public void initializeData(Noleggio noleggio) {
-		System.out.println(noleggio.getListaAssistenza().size());
 		List<Assistenza> lista = new ArrayList<Assistenza>();
 		for (Assistenza tmp : noleggio.getListaAssistenza()) {
 			lista.add(tmp);

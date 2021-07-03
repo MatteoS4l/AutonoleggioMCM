@@ -1,10 +1,9 @@
 package it.univaq.disim.oop.MCMprogetto.view;
 
 import java.io.IOException;
+
 import it.univaq.disim.oop.MCMprogetto.controller.DataInitializable;
 import it.univaq.disim.oop.MCMprogetto.domain.Utente;
-import it.univaq.disim.oop.MCMprogetto.view.ViewDispatcher;
-import it.univaq.disim.oop.MCMprogetto.view.ViewException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,12 +31,15 @@ public class ViewDispatcher {
 		Scene scene = new Scene(loginView);
 		stage.setScene(scene);
 		stage.show();
+		stage.setResizable(false);
 	}
 
 	// apre finestra di popup
-	public <T> void popUp(Stage stage, String schermata) throws ViewException {
-		Parent popup = loadView(schermata).getView();
-		Scene scene = new Scene(popup);
+	public <T> void popUp(Stage stage, String schermata, T data) throws ViewException {
+		View<T> popup = loadView(schermata);
+		Scene scene = new Scene(popup.getView());
+		DataInitializable<T> controller = popup.getController();
+		controller.initializeData(data);
 		stage.setScene(scene);
 		stage.show();
 	}
